@@ -102,17 +102,26 @@ class PUC(CommonInfo):
     )
 
     kind = models.CharField(
-        max_length=2, blank=True, default="UN", choices=KIND_CHOICES
+        max_length=2, blank=True, default="UN", choices=KIND_CHOICES, help_text="kind"
     )
-    gen_cat = models.CharField(max_length=50, blank=False)
-    prod_fam = models.CharField(max_length=50, blank=True, default="")
-    prod_type = models.CharField(max_length=100, blank=True, default="")
-    description = models.TextField(null=False, blank=False)
-    last_edited_by = models.ForeignKey("auth.User", on_delete=models.CASCADE, default=1)
-    products = models.ManyToManyField("Product", through="ProductToPUC")
+    gen_cat = models.CharField(max_length=50, blank=False, help_text="general category")
+    prod_fam = models.CharField(
+        max_length=50, blank=True, default="", help_text="product family"
+    )
+    prod_type = models.CharField(
+        max_length=100, blank=True, default="", help_text="product type"
+    )
+    description = models.TextField(null=False, blank=False, help_text="PUC description")
+    last_edited_by = models.ForeignKey(
+        "auth.User", on_delete=models.CASCADE, default=1, help_text="last edited by"
+    )
+    products = models.ManyToManyField(
+        "Product", through="ProductToPUC", help_text="products assigned to this PUC"
+    )
     extracted_habits_and_practices = models.ManyToManyField(
         "dashboard.ExtractedHabitsAndPractices",
         through="dashboard.ExtractedHabitsAndPracticesToPUC",
+        help_text=("extracted Habits and Practices " "records assigned to this PUC"),
     )
     tags = TaggableManager(
         through="dashboard.PUCToTag",
@@ -128,7 +137,7 @@ class PUC(CommonInfo):
 
     def __str__(self):
         cats = [self.gen_cat, self.prod_fam, self.prod_type]
-        return " - ".join(cat for cat in cats if cat is not None)
+        return " - ".join(cat for cat in cats if cat)
 
     def natural_key(self):
         return self.gen_cat
