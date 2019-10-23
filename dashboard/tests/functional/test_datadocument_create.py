@@ -1,4 +1,3 @@
-import os
 import io
 
 from django.urls import resolve
@@ -7,11 +6,11 @@ from django.core.exceptions import ValidationError
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
-from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUploadedFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import DataGroup, DataDocument, GroupType, DocumentType
+from dashboard.models import DataGroup, DataDocument, DocumentType
 
 
 class DDTestModel(TestCase):

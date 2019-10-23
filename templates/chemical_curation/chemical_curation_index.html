@@ -3,19 +3,6 @@
 {% load humanize %}
 {% block title %}Chemical Curation{% endblock %}
 
-{% block errors %}
-    {% if records_processed %}
-        <div class="alert alert-success" role="alert">
-            {{ records_processed }} records processed.
-        </div>
-    {% endif %}
-    {% if error_message %}
-        <div class="alert alert-danger" role="alert">
-            {{ error_message }}
-        </div>
-    {% endif %}
-{% endblock %}
-
 {% block content %}
     <h1 class="mb-5"><span class="fas fa-flask" title="factotum" aria-hidden="true"></span> Chemical Curation</h1>
 
@@ -45,7 +32,7 @@
                 <div class="input-group">
                     <label class="input-group-btn">
                         <span class="btn btn-primary">
-                            Choose File &hellip; <input type="file" style="display: none;" name="csv_file" id="csv_file" required>
+                            Choose File &hellip; <input type="file" style="display: none;" name="curate-bulkformsetfileupload" id="csv_file" required>
                         </span>
                     </label>
                     <input type="text" class="form-control" readonly><br>

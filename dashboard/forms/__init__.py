@@ -26,6 +26,6 @@ from .forms import (
 )
 from dashboard.forms.list_presence_tag_form import ExtractedListPresenceTagForm
 from dashboard.forms.product_tag_form import ProductTagForm
-from dashboard.forms.chemical_curation import DataGroupSelector
+from dashboard.forms.chemical_curation import DataGroupSelector, ChemicalCurationFormSet
 from dashboard.forms.puc_forms import ProductPUCForm, HabitsPUCForm, BulkPUCForm
 from dashboard.forms.bulk_document_forms import *

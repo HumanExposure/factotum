@@ -106,7 +106,11 @@ def qa_extraction_script_summary(
         .first()
     )
     qa_group = script.get_or_create_qa_group()
-    qa_notes = QANotes.objects.filter(extracted_text__in=script.extractedtext_set.all())
+    qa_notes = (
+        QANotes.objects.filter(extracted_text__in=script.extractedtext_set.all())
+        .exclude(qa_notes__isnull=True)
+        .exclude(qa_notes="")
+    )
     return render(
         request,
         template_name,
@@ -168,9 +172,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
-    referer = (
-        "data_document" if "datadocument" in request.path else "qa_extraction_script"
-    )
+    if "datadocument" in request.path:
+        referer = "data_document"
+    else:
+        referer = "qa_extraction_script"
 
     # Create the formset factory for the extracted records
     # The model used for the formset depends on whether the
@@ -275,7 +280,6 @@ def save_qa_notes(request, pk):
         response_data = {}
 
         et = ExtractedText.objects.get(pk=pk)
-
         qa, created = QANotes.objects.get_or_create(extracted_text=et)
         qa.qa_notes = qa_note_text
         qa.save()

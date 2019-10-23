@@ -175,7 +175,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         2. Edit one of the child records
         3. Attempt to approve the document without a QA note
         4. Add a note
-
         5. Approve
         """
         # Start off by testing the "Percent QA Checked" stat shown in the table
@@ -201,9 +200,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             qa_url = self.live_server_url + f"/qa/extractedtext/{doc_id}/"
             self.browser.get(qa_url)
             # Activate the edit mode
-            self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
-                "\n"
+            edit_button = self.browser.find_element_by_xpath(
+                '//*[@id="btn-toggle-edit"]'
             )
+            edit_button.send_keys("\n")
 
             # Wait for the field to be editable
             wait = WebDriverWait(self.browser, 10)
@@ -261,7 +261,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="qa-notes-textarea"]'
             )
             # Add the mandatory QA note
-            qa_notes_field.send_keys("Some QA Notes")
+            qa_notes_field.send_keys(f"Some QA Notes for document {doc_id}")
             # Save the notes
             btn_save_notes = self.browser.find_element_by_xpath(
                 '//*[@id="btn-save-notes"]'
@@ -271,6 +271,20 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//*[@id="approve"]').click()
             et.refresh_from_db()
             self.assertTrue(et.qa_checked, "The qa_checked attribute should be True")
+
+            # Go to the extraction script's summary page
+            scr_id = et.extraction_script_id
+            qa_summary_url = (
+                self.live_server_url + f"/qa/extractionscript/{scr_id}/summary"
+            )
+            self.browser.get(qa_summary_url)
+            # print(self.browser.page_source)
+            qa_notes_dd = self.browser.find_element_by_xpath(f'//*[@id="dd_{doc_id}"]')
+            self.assertEqual(
+                qa_notes_dd.text,
+                et.data_document.title,
+                "The QA Notes dt element should contain the title of the ExtractedText object's DataDocument",
+            )
 
         # Return to the index page and confirm that the "Percent QA Checked"
         # stat has gone up

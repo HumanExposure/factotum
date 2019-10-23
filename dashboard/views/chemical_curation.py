@@ -1,88 +1,35 @@
 import csv
 import datetime
+
+from django.contrib import messages
 from django.db.models import Value, IntegerField
 from django.shortcuts import render, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import StreamingHttpResponse
 
 from dashboard.models import RawChem, DSSToxLookup, DataGroup, DataDocument
-from dashboard.forms import DataGroupSelector
-from dashboard.utils import get_extracted_models
+from dashboard.forms import DataGroupSelector, ChemicalCurationFormSet
+from dashboard.utils import get_extracted_models, gather_errors
 
 
 @login_required()
-def chemical_curation_index(
-    request, template_name="chemical_curation/chemical_curation_index.html"
-):
-    uncurated_chemical_count = RawChem.objects.filter(dsstox_id=None).count()
-    records_processed = 0
-
-    dg_picker_form = DataGroupSelector()
-
-    data = {
-        "dg_picker_form": dg_picker_form,
-        "uncurated_chemical_count": uncurated_chemical_count,
-        "records_processed": records_processed,
-    }
-
+def chemical_curation_index(request):
+    template_name = "chemical_curation/chemical_curation_index.html"
     if "POST" == request.method:
-        try:
-            csv_file = request.FILES["csv_file"]
-            info = [x.decode("ascii", "ignore") for x in csv_file.readlines()]
-            records_processed = len(info) - 1
-            table = csv.DictReader(info)
-
-            missing = list(
-                set(["external_id", "rid", "sid", "true_chemical_name", "true_cas"])
-                - set(table.fieldnames)
-            )
-            if missing:
-                data.update(
-                    {
-                        "error_message": "File must be a CSV file with the following rows:"
-                        " external_id, rid, sid, true_chemical_name, true_cas"
-                    }
-                )
-                return render(request, template_name, data)
-
-            # if file is too large, return
-            if csv_file.multiple_chunks():
-                error = "Uploaded file is too big (%.2f MB)." % (
-                    csv_file.size / (1000 * 1000)
-                )
-                data.update({"error_message": error})
-                return render(request, template_name, data)
-
-            for i, row in enumerate(table):
-                try:
-                    if DSSToxLookup.objects.filter(sid=row["sid"]).exists():
-                        DSSToxLookup.objects.filter(sid=row["sid"]).update(
-                            true_cas=row["true_cas"],
-                            true_chemname=row["true_chemical_name"],
-                        )
-                    else:
-                        chem = DSSToxLookup.objects.create(
-                            true_cas=row["true_cas"],
-                            true_chemname=row["true_chemical_name"],
-                            sid=row["sid"],
-                        )
-                        chem.save()
-                    sid = DSSToxLookup.objects.filter(sid=row["sid"]).first()
-                    RawChem.objects.filter(id=row["external_id"]).update(
-                        rid=row["rid"], dsstox_id=sid.id
-                    )
-                except Exception as e:
-                    print(e)
-                    pass
-
-        except Exception as e:
-            # This is the catchall - MySQL database has went away, etc....
-            error = "Something is seriously wrong with this csv - %s" % repr(e)
-            data.update({"error_messasage": error})
-            return render(request, template_name, data)
-    if records_processed > 0:
-        data.update({"records_processed": records_processed})
-    return render(request, template_name, data)
+        form_data = {
+            "curate-TOTAL_FORMS": 0,
+            "curate-INITIAL_FORMS": 0,
+            "curate-MAX_NUM_FORMS": "",
+        }
+        formset = ChemicalCurationFormSet(form_data, request.FILES)
+        if formset.is_valid():
+            ups = formset.save()
+            messages.success(request, f"{ups} records have been successfully uploaded.")
+        else:
+            errors = gather_errors(formset)
+            for e in errors:
+                messages.error(request, e)
+    return render(request, template_name, {"dg_picker_form": DataGroupSelector()})
 
 
 #

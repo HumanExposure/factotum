@@ -3,7 +3,7 @@ from django.urls import resolve
 
 from dashboard.tests.loader import fixtures_standard
 from dashboard.models import RawChem, DSSToxLookup, DataDocument, ExtractedChemical
-from dashboard.forms import ExtractedFunctionalUseForm
+from dashboard.forms import ExtractedFunctionalUseForm, ChemicalCurationFormSet
 from ...views import ChemCreateView, ChemUpdateView
 
 
@@ -63,7 +63,9 @@ class ChemicalCurationTests(TestCase):
             "No matching true_chemname should exist",
         )
         with open("./sample_files/chemical_curation_upload.csv") as csv_file:
-            response = self.client.post("/chemical_curation/", {"csv_file": csv_file})
+            response = self.client.post(
+                "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
+            )
         self.assertEqual(
             1,
             DSSToxLookup.objects.filter(true_chemname=true_chemname).count(),
@@ -94,3 +96,47 @@ class ChemicalCurationTests(TestCase):
         response = self.client.post(f"/chemical/{chem.pk}/edit/", data)
         qs = doc.extractedtext.rawchem.filter(raw_chem_name="New Name")
         self.assertTrue(qs.count() == 2)
+
+    def test_chemical_curation_formset(self):
+
+        with open("./sample_files/chemical_curation_header.csv") as csv_file:
+            response = self.client.post(
+                "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
+            )
+        self.assertContains(
+            response,
+            "CSV column titles should be "
+            "[&#39;external_id&#39;, &#39;rid&#39;, &#39;sid&#39;, "
+            "&#39;true_chemical_name&#39;, &#39;true_cas&#39;]",
+        )
+
+        with open("./sample_files/chemical_curation_no_rawchem.csv") as csv_file:
+            response = self.client.post(
+                "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
+            )
+        self.assertContains(
+            response,
+            "external_id: Select a valid choice. "
+            "That choice is not one of the available choices. (row 1)",
+        )
+
+        with open("./sample_files/chemical_curation_bad_sid.csv") as csv_file:
+            response = self.client.post(
+                "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
+            )
+        self.assertContains(
+            response,
+            "sid: DDXSID0029501 does not begin with &quot;DTXSID&quot; (row 1)",
+        )
+        self.assertContains(
+            response, "sid: DTXSID204 4769 cannot have a blank character (row 12)"
+        )
+
+        with open("./sample_files/chemical_curation_bad_cas.csv") as csv_file:
+            response = self.client.post(
+                "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
+            )
+        self.assertContains(
+            response,
+            "true_cas: Ensure this value has at most 50 characters (it has 111)",
+        )

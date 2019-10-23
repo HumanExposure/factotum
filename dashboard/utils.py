@@ -313,6 +313,7 @@ def gather_errors(form_instance, values=False):
     errors = err_rep("Form", "Entry")
     errors = err_rep("forms", "entries")
     errors = err_rep("form", "entry")
+    errors = filter(lambda e: not "%(value)" in e, errors)
     return errors
 
 

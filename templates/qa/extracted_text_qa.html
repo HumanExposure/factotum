@@ -142,7 +142,11 @@
                     {% endif %}
                 {% endif %}
                 <br>
+                {% if referer != 'data_document'%}
+                <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.extractedtext.extraction_script_id %}" role="button">Exit</a>
+                {% else %}
                 <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
+                {% endif %}
             </div>
         </form>
 

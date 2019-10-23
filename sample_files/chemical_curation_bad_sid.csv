@@ -1,5 +1,5 @@
 external_id,rid,sid,true_chemical_name,true_cas
-16,DTXRID008032217,DTXSID0029501,"Terpenes and Terpenoids, mixed sour and sweet Orange-oil",68917-57-7
+16,DTXRID008032217,DDXSID0029501,"Terpenes and Terpenoids, mixed sour and sweet Orange-oil",68917-57-7
 17,DTXRID708032218,DTXSID1020778,D-Limonene,5989-27-5
 18,DTXRID408032219,DTXSID7027209,"Octadecanoic acid, zinc salt",557-05-1
 19,DTXRID708032220,DTXSID0026838,Isopropyl tetradecanoate,110-27-0
@@ -10,4 +10,4 @@ external_id,rid,sid,true_chemical_name,true_cas
 32,DTXRID208032225,DTXSID4026684,2-(Phenylmethylene)octanal,101-86-0
 33,DTXRID908032226,DTXSID9027441,Octabenzone,1843-05-6
 34,DTXRID608032227,DTXSID9034781,Oil of eucalyptus,8000-48-4
-35,DTXRID308032228,DTXSID2044769,Cyclamen aldehyde,103-95-7
+35,DTXRID308032228,DTXSID204 4769,Cyclamen aldehyde,103-95-7

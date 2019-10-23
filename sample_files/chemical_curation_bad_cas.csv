@@ -1,5 +1,5 @@
 external_id,rid,sid,true_chemical_name,true_cas
-16,DTXRID008032217,DTXSID0029501,"Terpenes and Terpenoids, mixed sour and sweet Orange-oil",68917-57-7
+16,DTXRID008032217,DTXSID0029501,"Terpenes and Terpenoids, mixed sour and sweet Orange-oil",this is a CAS that will be significantly longer than fifty chracters to get this field to fail in the form test
 17,DTXRID708032218,DTXSID1020778,D-Limonene,5989-27-5
 18,DTXRID408032219,DTXSID7027209,"Octadecanoic acid, zinc salt",557-05-1
 19,DTXRID708032220,DTXSID0026838,Isopropyl tetradecanoate,110-27-0

@@ -27,9 +27,7 @@
 {%  if qa_notes %}
     <dl class="row" id="qa_notes">
     {%  for qa_note in qa_notes %}
-        <dt class="col-3">Product</dt>
-        <dd class="col-9">{{ qa_note.extracted_text.prod_name }}</dd>
-        <dt class="col-3">QA Note</dt>
+        <dt class="col-3" id=dd_{{ qa_note.extracted_text_id }}><a href="{% url 'data_document' qa_note.extracted_text_id %}" >{{ qa_note.extracted_text.data_document }}</a></dt>
         <dd class="col-9">{{ qa_note.qa_notes }}</dd>
         <dt class="col-12 border-bottom"></dt>
     {%  endfor %}

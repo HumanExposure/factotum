@@ -1,15 +1,36 @@
 from django.db import models
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from .common_info import CommonInfo
 from .product_document import ProductDocument
 from .PUC import PUC
 
 
+def validate_prefix(value):
+    if value[:6] != "DTXSID":
+        raise ValidationError(
+            _('%(value)s does not begin with "DTXSID"'), params={"value": value}
+        )
+
+
+def validate_blank_char(value):
+    if " " in value:
+        raise ValidationError(
+            _("%(value)s cannot have a blank character"), params={"value": value}
+        )
+
+
 class DSSToxLookup(CommonInfo):
 
     sid = models.CharField(
-        "DTXSID", max_length=50, null=False, blank=False, unique=True
+        "DTXSID",
+        max_length=50,
+        null=False,
+        blank=False,
+        unique=True,
+        validators=[validate_prefix, validate_blank_char],
     )
     true_cas = models.CharField("True CAS", max_length=50, null=True, blank=True)
     true_chemname = models.CharField(
@@ -21,10 +42,6 @@ class DSSToxLookup(CommonInfo):
 
     def get_absolute_url(self):
         return reverse("dsstox_lookup", kwargs={"sid": self.sid})
-
-    def save(self, *args, **kwargs):
-        self.sid = self.sid.replace(" ", "")  # ensure no spaces for url
-        super(DSSToxLookup, self).save(*args, **kwargs)
 
     @property
     def puc_count(self):
