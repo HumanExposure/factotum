@@ -94,7 +94,7 @@ services:
   logstash:
     build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-dev}
     image: factotum-logstash
-    restart: "no"
+    restart: unless-stopped
     environment:
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_PORT: 9200
@@ -103,6 +103,8 @@ services:
       SQL_PASSWORD: "${SECRET_KEY}"
       SQL_HOST: mysql
       SQL_PORT: 3306
+      DELETE_INDEX_SCHEDULE: "${DELETE_INDEX_SCHEDULE:-25 1 * * * America/New_York}"
+      REINDEX_SCHEDULE: "${REINDEX_SCHEDULE:-30 1 * * * America/New_York}"
       XPACK_MONITORING_ENABLED: "false"
       LS_JAVA_OPTS: "-Xms${LS_MEMORY_LIMIT:-1g} -Xmx${LS_MEMORY_LIMIT:-1g}"
     volumes:

@@ -1,5 +1,3 @@
-import sys
-import csv
 import uuid
 import zipfile
 from pathlib import Path
@@ -16,13 +14,19 @@ from django.db.models.functions import Cast, Concat
 from bulkformsets import BaseBulkFormSet, CSVReader
 from dashboard.models import (
     DataDocument,
-    Ingredient,
     Product,
     ProductDocument,
     Script,
     DocumentType,
+    ExtractedChemical,
 )
-from dashboard.utils import clean_dict, get_extracted_models, get_form_for_models
+
+from dashboard.utils import (
+    clean_dict,
+    get_extracted_models,
+    get_form_for_models,
+    get_invalid_ids,
+)
 
 
 class DGFormSet(BaseBulkFormSet):
@@ -174,7 +178,7 @@ class ExtractFileFormSet(DGFormSet):
                     except Parent.DoesNotExist:
                         obj = Parent(**params)
                         obj.save()
-                    parent_collected_ids.add(params["data_document_id"])
+                    parent_collected_ids.add(obj)
             # Child create
             for f in self.forms:
                 params = clean_dict(f.cleaned_data, Child)
@@ -189,6 +193,47 @@ class ExtractFileFormSet(DGFormSet):
         return len(self.forms)
 
 
+class CleanCompForm(forms.ModelForm):
+
+    ExtractedChemical_id = forms.IntegerField(required=True)
+
+    class Meta:
+        model = ExtractedChemical
+        fields = [
+            "lower_wf_analysis",
+            "central_wf_analysis",
+            "upper_wf_analysis",
+            "script",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(CleanCompForm, self).__init__(*args, **kwargs)
+        self.fields["script"].queryset = Script.objects.filter(script_type="DC")
+        self.fields["script"].required = True
+
+    def clean(self):
+        super().clean()
+        central_wf_analysis = self.cleaned_data.get("central_wf_analysis")
+        lower_wf_analysis = self.cleaned_data.get("lower_wf_analysis")
+        upper_wf_analysis = self.cleaned_data.get("upper_wf_analysis")
+        if central_wf_analysis and (lower_wf_analysis or upper_wf_analysis):
+            self.add_error(
+                None,
+                (
+                    "If central_wf_analysis is populated, neither lower_wf_analysis"
+                    " nor upper_wf_analysis may be populated."
+                ),
+            )
+        if not central_wf_analysis and (not lower_wf_analysis or not upper_wf_analysis):
+            self.add_error(
+                None,
+                (
+                    "If central_wf_analysis is blank, both lower_wf_analysis and"
+                    " upper_wf_analysis must be populated."
+                ),
+            )
+
+
 class CleanCompFormSet(DGFormSet):
     prefix = "cleancomp"
     header_fields = ["script"]
@@ -196,52 +241,45 @@ class CleanCompFormSet(DGFormSet):
 
     def __init__(self, dg, *args, **kwargs):
         self.dg = dg
-        fields = dg.get_clean_comp_data_fieldnames() + self.header_fields
-        self.form = get_form_for_models(
-            Ingredient,
-            fields=fields,
-            translations={"id": "rawchem_ptr"},
-            required=fields,
-            formfieldkwargs={
-                "script": {"queryset": Script.objects.filter(script_type="DC")}
-            },
-        )
+        self.form = CleanCompForm
         super().__init__(*args, **kwargs)
 
-    def save(self):
-        rawchem_ptr_map = {
-            f.cleaned_data["id"].pk: clean_dict(
-                f.cleaned_data, Ingredient, translations={"id": "rawchem_ptr"}
-            )
+    def clean(self):
+        self.cleaned_ids = [
+            f.cleaned_data["ExtractedChemical_id"]
             for f in self.forms
-        }
-        # The upd_fieldnames are the fields we are upating, so we'll
-        # remove the id
-        upd_fieldnames = set(self.dg.get_clean_comp_data_fieldnames())
-        upd_fieldnames.remove("id")
+            if "ExtractedChemical_id" in f.cleaned_data
+        ]
+        bad_ids = get_invalid_ids(ExtractedChemical, self.cleaned_ids)
+        bad_ids_str = ", ".join(str(i) for i in bad_ids)
+        if bad_ids:
+            raise forms.ValidationError(
+                f"The following IDs do not exist in ExtractedChemicals: {bad_ids_str}"
+            )
+
+    def save(self):
         with transaction.atomic():
-            # Updates
-            ing_upd = [
-                obj
-                for obj in Ingredient.objects.select_for_update().filter(
-                    rawchem_ptr_id__in=rawchem_ptr_map.keys()
-                )
-            ]
-            for obj in ing_upd:
-                params = rawchem_ptr_map[obj.pk]
-                for key, value in params.items():
-                    if key in upd_fieldnames:
-                        setattr(obj, key, value)
-            Ingredient.objects.bulk_update(ing_upd, list(upd_fieldnames))
-            # Creates
-            upd_rawchem_ptr = set(i.rawchem_ptr for i in ing_upd)
-            ing_new = []
-            for f in self.forms:
-                rawchem_ptr = f.cleaned_data["id"].pk
-                if rawchem_ptr not in upd_rawchem_ptr:
-                    obj = Ingredient(**rawchem_ptr_map[rawchem_ptr])
-                    ing_new.append(obj)
-            Ingredient.objects.bulk_create(ing_new)
+            database_chemicals = ExtractedChemical.objects.select_for_update().in_bulk(
+                self.cleaned_ids
+            )
+            chems = []
+            for form in self.forms:
+                pk = form.cleaned_data["ExtractedChemical_id"]
+                chem = database_chemicals[pk]
+                chem.upper_wf_analysis = form.cleaned_data.get("upper_wf_analysis")
+                chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
+                chem.lower_wf_analysis = form.cleaned_data.get("lower_wf_analysis")
+                chem.script = form.cleaned_data["script"]
+                chems.append(chem)
+            ExtractedChemical.objects.bulk_update(
+                chems,
+                [
+                    "upper_wf_analysis",
+                    "central_wf_analysis",
+                    "lower_wf_analysis",
+                    "script",
+                ],
+            )
         return len(self.forms)
 
 

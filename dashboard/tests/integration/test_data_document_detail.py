@@ -6,6 +6,7 @@ from dashboard.models import DataDocument, ExtractedText
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import NoSuchElementException
 
 
 def log_karyn_in(object):
@@ -144,3 +145,53 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 et.prod_name,
                 "The prod_name of the new object should match what was entered",
             )
+
+    def test_sd_group_type(self):
+        """A Composition data group should display links to 
+        both the data document detail page and the pdf file.
+        A Supplemental data group should only display links
+        to the stored pdf files in the /media/ folder """
+
+        # First check 'CO' link first to see if one exists
+        dg_pk = 30
+        list_url = self.live_server_url + f"/datagroup/{dg_pk}/"
+        self.browser.get(list_url)
+
+        # The link to the pdf should exist
+        try:
+            pdf_link = WebDriverWait(self.browser, 5).until(
+                ec.visibility_of_element_located(
+                    (By.XPATH, '//*[@id="docs"]/tbody/tr/td[1]/a')
+                )
+            )
+        except NoSuchElementException:
+            self.fail("PDF icon should exist, but does not.")
+
+        # The title of the data document detail page
+        # should have a hyperlink
+        try:
+            self.browser.find_element_by_xpath('//a[@href="/datadocument/179486/"]')
+        except NoSuchElementException:
+            self.fail("Hyperlink for CO title does not exist.")
+
+        # Now check 'SU' link first to see if one exists
+        dg_pk = 53
+        list_url = self.live_server_url + f"/datagroup/{dg_pk}/"
+        self.browser.get(list_url)
+
+        # The link to the pdf should exist
+        try:
+            pdf_link = WebDriverWait(self.browser, 5).until(
+                ec.visibility_of_element_located(
+                    (By.XPATH, '//*[@id="docs"]/tbody/tr/td[1]/a')
+                )
+            )
+        except NoSuchElementException:
+            self.fail("PDF icon should exist, but does not.")
+
+        # The title of the data document detail page
+        # should not have a hyperlink
+        try:
+            self.browser.find_element_by_xpath('//td[text()="Supplemental Memo"]')
+        except NoSuchElementException:
+            self.fail("Label for SU title does not exist.")

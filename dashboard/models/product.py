@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 
 from .common_info import CommonInfo
+from .extracted_text import ExtractedText
 from .data_source import DataSource
 from .source_category import SourceCategory
 
@@ -131,7 +132,10 @@ class Product(CommonInfo):
             Product.objecs.prefetch_related("datadocument_set__extractedtext__rawchem")
         """
         for doc in self.datadocument_set.all():
-            yield from doc.extractedtext.rawchem.all()
+            try:
+                yield from doc.extractedtext.rawchem.all()
+            except ExtractedText.DoesNotExist:
+                pass
 
     class Meta:
         ordering = ["-created_at"]

@@ -87,7 +87,7 @@ class CSVReaderTest(SimpleTestCase):
             tuple(str(uuid.uuid4()) for i in range(self.num_cols))
             for j in range(self.num_rows)
         )
-        self.csv_str = "\n".join(",".join(c for c in r) for r in self.data)
+        self.csv_str = "\n".join(",".join(c for c in r) for r in self.data) + "\n\n"
 
     def _mk_file(self):
         return InMemoryUploadedFile(

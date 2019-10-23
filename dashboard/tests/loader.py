@@ -14,7 +14,6 @@ from dashboard.models import (
     GroupType,
     DataDocument,
     DocumentType,
-    Ingredient,
     PUCTag,
     Product,
     PUC,
@@ -43,7 +42,7 @@ fixtures_standard = [
     "13_puc_tag",
     "14_list_presence_tag",
     "15_list_presence_to_tag",
-    "16_ingredient",
+    "17_taxonomy",
 ]
 
 datadocument_models = {
@@ -137,15 +136,12 @@ def load_model_objects():
         weight_fraction_type=wft,
         raw_chem_name="Test Chem Name",
         raw_cas="test_cas",
-    )
-    rc = ec.rawchem_ptr
-    ing = Ingredient.objects.create(
         lower_wf_analysis=0.123456789012345,
         central_wf_analysis=0.2,
         upper_wf_analysis=1,
         script=script,
-        rawchem_ptr=rc,
     )
+    rc = ec.rawchem_ptr
 
     pt = PUCTag.objects.create(
         name="Test PUC Attribute", definition="I'd really like to be defined."
@@ -175,7 +171,6 @@ def load_model_objects():
             "ec": ec,
             "pt": pt,
             "pd": pd,
-            "ing": ing,
             "dt": dt,
             "gt": gt,
             "ehp": ehp,

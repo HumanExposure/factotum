@@ -34,15 +34,12 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             2, ExtractedText.objects.filter(extraction_script=extraction_script).count()
         )
 
-        qa_url = self.live_server_url + f"/qa/extractionscript/"
+        qa_url = self.live_server_url + f"/extractionscripts/delete"
         self.browser.get(qa_url)
 
-        self.browser.find_element_by_id("script-5")
         self.assertEqual(
             2, ExtractedText.objects.filter(extraction_script=extraction_script).count()
         )
-        self.assertEqual(False, extraction_script.qa_begun)
-
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_class_name("popover")
 
@@ -58,7 +55,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         confirm_button.send_keys("\n")
 
         with self.assertRaises(NoSuchElementException):
-            self.browser.find_element_by_id("script-5")
+            self.browser.find_element_by_id("et-delete-button-5")
 
         extraction_script.refresh_from_db()
         self.assertEqual(

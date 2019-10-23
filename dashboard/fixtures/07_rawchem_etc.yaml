@@ -16276,6 +16276,10 @@
     weight_fraction_type: 1
     ingredient_rank: null
     raw_central_comp: ''
+    lower_wf_analysis: '0.004700000000000'
+    central_wf_analysis: null
+    upper_wf_analysis: '0.007400000000000'
+    script: 16
 - model: dashboard.extractedchemical
   pk: 3
   fields:

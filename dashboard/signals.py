@@ -2,6 +2,8 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, pre_save, pre_delete
+from django.db.backends.signals import connection_created
+from crum import get_current_user
 import shutil
 
 from dashboard.models import (
@@ -83,3 +85,11 @@ def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     Product.objects.exclude(
         id__in=ProductDocument.objects.all().values("product_id")
     ).delete()
+
+
+@receiver(connection_created)
+def new_connection(sender, connection, **kwargs):
+    user = get_current_user()
+    # set current user for the session
+    if user:
+        connection.cursor().execute("SET @current_user = %s", [user.id])

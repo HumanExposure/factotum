@@ -25,9 +25,6 @@ class ExtractedListPresence(CommonInfo, RawChem):
     def detail_fields(cls):
         return ["raw_cas", "raw_chem_name", "report_funcuse"]
 
-    def __str__(self):
-        return str(self.raw_chem_name) if self.raw_chem_name else ""
-
     def get_datadocument_url(self):
         return self.extracted_text.data_document.get_absolute_url()
 

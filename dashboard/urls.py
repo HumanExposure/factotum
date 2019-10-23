@@ -104,6 +104,11 @@ urlpatterns = [
         name="qa_extraction_script_summary",
     ),
     path(
+        "extractionscripts/delete",
+        dashboard.views.extraction_script_delete_list,
+        name="extraction_script_delete_list",
+    ),
+    path(
         "qa/extractedtext/<int:pk>/",
         dashboard.views.qa.extracted_text_qa,
         name="extracted_text_qa",

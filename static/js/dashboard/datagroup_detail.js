@@ -10,7 +10,7 @@ var ICON_MAP = new Map([
     [".jpg", "fa-file-image"],
     [".tiff", "fa-file-image"],
 ]);
-function renderDataTable(boolComp, boolHab, fsid) {
+function renderDataTable(boolComp, boolHab, boolSD, fsid) {
     function renderTitle(data, type, row, meta) {
         var icon = ICON_MAP.has(row.fileext) ? ICON_MAP.get(row.fileext) : "fa-file";
         if (row.matched) {
@@ -28,6 +28,23 @@ function renderDataTable(boolComp, boolHab, fsid) {
                 ">",
                 row.title,
                 "</a>"
+            ].join("");
+        } else {
+            return row.title;
+        }
+    }
+    function renderTitleSD(data, type, row, meta) {
+        var icon = ICON_MAP.has(row.fileext) ? ICON_MAP.get(row.fileext) : "fa-file";
+        if (row.matched) {
+            return [
+                "<a ",
+                "href='/media/" + fsid + "/pdf/document_" + row.id + row.fileext + "' ",
+                "title='Link to document_" + row.id + row.fileext + "' ",
+                "target='_blank'",
+                ">",
+                "<span class='fa " + icon + " mr-2'></span>",
+                "</a>",
+                row.title,
             ].join("");
         } else {
             return row.title;
@@ -87,6 +104,11 @@ function renderDataTable(boolComp, boolHab, fsid) {
             { "data": "matched", "render": renderMatched },
             { "data": "edit", "render": renderHab },
         ];
+    } else if (boolSD) {
+        var columns = [
+            { "data": "title", "render": renderTitleSD },
+            { "data": "matched", "render": renderMatched },
+        ];
     } else {
         var columns = [
             { "data": "title", "render": renderTitle },
@@ -138,7 +160,9 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     })
     var tableData = JSON.parse(document.getElementById('tabledata').textContent);
-    renderDataTable(tableData.boolComp, tableData.boolHab, tableData.fsid);
+    renderDataTable(tableData.boolComp, tableData.boolHab, tableData.boolSD, tableData.fsid);
     renderDonut("matcheddonut", tableData.nummatched, tableData.numregistered);
-    renderDonut("extracteddonut", tableData.numextracted, tableData.numregistered);
+    if(!tableData.boolSD){
+        renderDonut("extracteddonut", tableData.numextracted, tableData.numregistered);
+    }
 });

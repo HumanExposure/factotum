@@ -4,6 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models import F
 
+from .script import Script
 from .raw_chem import RawChem
 from .unit_type import UnitType
 from .common_info import CommonInfo
@@ -17,10 +18,29 @@ def validate_ingredient_rank(value):
         )
 
 
+def validate_wf_analysis(value):
+    if value < 0 or value > 1:
+        raise ValidationError(
+            (f"Quantity {value} must be between 0 and 1"), params={"value": value}
+        )
+
+
 class ExtractedChemical(CommonInfo, RawChem):
 
-    raw_min_comp = models.CharField("Minimum", max_length=100, null=True, blank=True)
-    raw_max_comp = models.CharField("Maximum", max_length=100, null=True, blank=True)
+    raw_min_comp = models.CharField(
+        "Minimum",
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="minimum composition",
+    )
+    raw_max_comp = models.CharField(
+        "Maximum",
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="maximum composition",
+    )
     unit_type = models.ForeignKey(
         UnitType,
         on_delete=models.PROTECT,
@@ -29,7 +49,11 @@ class ExtractedChemical(CommonInfo, RawChem):
         verbose_name="Unit type",
     )
     report_funcuse = models.CharField(
-        "Reported functional use", max_length=255, null=True, blank=True
+        "Reported functional use",
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="functional use",
     )
     weight_fraction_type = models.ForeignKey(
         WeightFractionType,
@@ -39,18 +63,59 @@ class ExtractedChemical(CommonInfo, RawChem):
         verbose_name="Weight fraction type",
     )
     ingredient_rank = models.PositiveIntegerField(
-        "Ingredient rank", null=True, blank=True, validators=[validate_ingredient_rank]
+        "Ingredient rank",
+        null=True,
+        blank=True,
+        validators=[validate_ingredient_rank],
+        help_text="ingredient rank",
     )
     raw_central_comp = models.CharField(
-        "Central", max_length=100, null=True, blank=True
+        "Central",
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="central composition",
     )
-    component = models.CharField("Component", max_length=200, null=True, blank=True)
+    lower_wf_analysis = models.DecimalField(
+        "Lower weight fraction analysis",
+        max_digits=16,
+        decimal_places=15,
+        null=True,
+        blank=True,
+        validators=[validate_wf_analysis],
+        help_text="minimum weight fraction",
+    )
+    central_wf_analysis = models.DecimalField(
+        "Central weight fraction analysis",
+        max_digits=16,
+        decimal_places=15,
+        null=True,
+        blank=True,
+        validators=[validate_wf_analysis],
+        help_text="central weight fraction",
+    )
+    upper_wf_analysis = models.DecimalField(
+        "Upper weight fraction analysis",
+        max_digits=16,
+        decimal_places=15,
+        null=True,
+        blank=True,
+        validators=[validate_wf_analysis],
+        help_text="maximum weight fraction",
+    )
+    script = models.ForeignKey(
+        to=Script, on_delete=models.CASCADE, null=True, blank=True
+    )
+    component = models.CharField(
+        "Component",
+        max_length=200,
+        null=True,
+        blank=True,
+        help_text="product component",
+    )
 
     class Meta:
         ordering = (F("ingredient_rank").asc(nulls_last=True),)
-
-    def __str__(self):
-        return str(self.raw_chem_name) if self.raw_chem_name else ""
 
     def clean(self):
         # Don't allow the unit_type to be empty if there are raw_min_comp,

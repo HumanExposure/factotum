@@ -5,7 +5,6 @@ from .data_group import DataGroup
 from .document_type import DocumentType
 from .document_type_group_type_compatibility import DocumentTypeGroupTypeCompatibilty
 from .data_document import DataDocument
-from .ingredient import Ingredient
 from .product import Product
 from .source_category import SourceCategory
 from .product_document import ProductDocument
@@ -35,3 +34,4 @@ from .raw_chem import RawChem
 from .taxonomy import Taxonomy
 from .taxonomy_source import TaxonomySource
 from .taxonomy_to_PUC import TaxonomyToPUC
+from .audit_log import AuditLog

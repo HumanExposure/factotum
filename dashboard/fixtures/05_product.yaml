@@ -39365,3 +39365,24 @@
     thumb_image: null
     medium_image: null
     large_image: null
+- model: dashboard.product
+  pk: 1873
+  fields:
+    created_at: 2019-06-07 19:47:35.141961
+    updated_at: 2019-06-07 19:47:35.141961
+    source_category: null
+    title: Unmatched product
+    manufacturer: ''
+    upc: stub_1873
+    url: null
+    brand_name: ''
+    size: ''
+    model_number: null
+    color: ''
+    item_id: null
+    parent_item_id: null
+    short_description: null
+    long_description: null
+    thumb_image: null
+    medium_image: null
+    large_image: null

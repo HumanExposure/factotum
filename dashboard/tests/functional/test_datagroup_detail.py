@@ -35,7 +35,7 @@ class DataGroupDetailTest(TestCase):
             ("UploadForm should be included in the page!"),
         )
         self.assertFalse(
-            response.context["extfile_form"],
+            response.context["extfile_formset"],
             ("ExtractForm should not be included in the page!"),
         )
         self.objects.doc.matched = True
@@ -48,7 +48,7 @@ class DataGroupDetailTest(TestCase):
             ("UploadForm should not be included in the page!"),
         )
         self.assertIsInstance(
-            response.context["extfile_form"],
+            response.context["extfile_formset"],
             ExtractFileFormSet,
             ("ExtractForm should be included in the page!"),
         )
@@ -58,7 +58,7 @@ class DataGroupDetailTest(TestCase):
         self.assertTrue(self.objects.dg.all_extracted())
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertFalse(
-            response.context["extfile_form"],
+            response.context["extfile_formset"],
             "ExtractForm should NOT be included in the page!",
         )
 
@@ -123,7 +123,7 @@ class DataGroupDetailTest(TestCase):
         self.objects.extext.delete()
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertIsInstance(
-            response.context["extfile_form"],
+            response.context["extfile_formset"],
             ExtractFileFormSet,
             ("ExtractForm should be included in the page!"),
         )
@@ -131,8 +131,8 @@ class DataGroupDetailTest(TestCase):
         self.objects.gt.save()
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertFalse(
-            response.context["extfile_form"],
-            ("ExtractForm should not be included in the page!"),
+            response.context["extfile_formset"],
+            ("ExtractFormset should not be included in the page!"),
         )
 
     def test_bulk_create_products_form(self):

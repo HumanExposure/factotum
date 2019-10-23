@@ -8,8 +8,18 @@ python manage.py loaddata 00_superuser
 """
 
 from django.contrib.auth.models import User
-from dashboard.models import *
-from django.db.models import Count, Max, Min
+from dashboard.models import (
+    DataGroup,
+    ExtractedText,
+    ProductToPUC,
+    Taxonomy,
+    TaxonomySource,
+    PUC,
+    DataDocument,
+    ExtractedChemical,
+    ProductDocument,
+)
+from django.db.models import Count
 from random import sample
 
 

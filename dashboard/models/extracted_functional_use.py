@@ -12,9 +12,6 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
         "Reported functional use", max_length=255, null=True, blank=True
     )
 
-    def __str__(self):
-        return self.raw_chem_name
-
     @classmethod
     def detail_fields(cls):
         return ["extracted_text", "raw_chem_name", "raw_cas", "report_funcuse"]

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.defaultfilters import pluralize
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -47,6 +48,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
         "fsid": dg.fs_id,
         "boolComp": dg.is_composition,
         "boolHab": dg.is_habits_and_practices,
+        "boolSD": dg.is_supplemental_doc,
         "numregistered": dg.registered_docs(),
         "nummatched": dg.matched_docs(),
         "numextracted": dg.extracted_docs(),
@@ -61,8 +63,8 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             ]
         ),
         "uploaddocs_form": None,
-        "extfile_form": None,
-        "cleancomp_form": None,
+        "extfile_formset": None,
+        "cleancomp_formset": None,
         "bulkassignprod_form": None,
     }
     # TODO: Lots of boilerplate code here.
@@ -72,12 +74,11 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
             context["uploaddocs_form"] = UploadDocsForm(dg, request.POST, request.FILES)
             if form.is_valid():
                 num_saved = form.save()
-                if num_saved > 1:
-                    o_str = "documents"
-                else:
-                    o_str = "document"
-                msg = "%d %s uploaded successfully." % (num_saved, o_str)
-                messages.success(request, msg)
+                messages.success(
+                    request,
+                    "%d document%s uploaded successfully."
+                    % (num_saved, pluralize(num_saved)),
+                )
             else:
                 errors = gather_errors(form)
                 for e in errors:
@@ -87,53 +88,50 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
 
     if dg.include_extract_form():
         if "extfile-submit" in request.POST:
-            form = ExtractFileFormSet(dg, request.POST, request.FILES)
-            context["extfile_form"] = ExtractFileFormSet(dg, request.POST)
-            if form.is_valid():
-                num_saved = form.save()
-                if num_saved > 1:
-                    o_str = "extracted records"
-                else:
-                    o_str = "extracted record"
-                msg = "%d %s uploaded successfully." % (num_saved, o_str)
-                messages.success(request, msg)
+            formset = ExtractFileFormSet(dg, request.POST, request.FILES)
+            context["extfile_formset"] = ExtractFileFormSet(dg, request.POST)
+            if formset.is_valid():
+                num_saved = formset.save()
+                messages.success(
+                    request,
+                    "%d extracted record%s uploaded successfully."
+                    % (num_saved, pluralize(num_saved)),
+                )
             else:
-                errors = gather_errors(form)
+                errors = gather_errors(formset)
                 for e in errors:
                     messages.error(request, e)
         else:
-            context["extfile_form"] = ExtractFileFormSet(dg)
+            context["extfile_formset"] = ExtractFileFormSet(dg)
 
     if dg.include_clean_comp_data_form():
         if "cleancomp-submit" in request.POST:
-            form = CleanCompFormSet(dg, request.POST, request.FILES)
-            context["cleancomp_form"] = CleanCompFormSet(dg, request.POST)
-            if form.is_valid():
-                num_saved = form.save()
-                if num_saved > 1:
-                    o_str = "clean composition data records"
-                else:
-                    o_str = "clean composition data record"
-                msg = "%d %s uploaded successfully." % (num_saved, o_str)
-                messages.success(request, msg)
+            formset = CleanCompFormSet(dg, request.POST, request.FILES)
+            context["cleancomp_formset"] = CleanCompFormSet(dg, request.POST)
+            if formset.is_valid():
+                num_saved = formset.save()
+                messages.success(
+                    request,
+                    "%d clean composition data record%s uploaded successfully."
+                    % (num_saved, pluralize(num_saved)),
+                )
             else:
-                errors = gather_errors(form)
+                errors = gather_errors(formset)
                 for e in errors:
                     messages.error(request, e)
         else:
-            context["cleancomp_form"] = CleanCompFormSet(dg)
+            context["cleancomp_formset"] = CleanCompFormSet(dg)
 
     if dg.include_bulk_assign_form():
         if "bulkassignprod-submit" in request.POST:
             form = BulkAssignProdForm(dg, request.POST, request.FILES)
             if form.is_valid():
                 num_saved = form.save()
-                if num_saved > 1:
-                    o_str = "products"
-                else:
-                    o_str = "product"
-                msg = "%d %s created successfully." % (num_saved, o_str)
-                messages.success(request, msg)
+                messages.success(
+                    request,
+                    "%d product%s created successfully."
+                    % (num_saved, pluralize(num_saved)),
+                )
             else:
                 errors = gather_errors(form)
                 for e in errors:
@@ -170,6 +168,8 @@ def data_group_documents_table(request, pk):
             "product_id",
             "product_title",
         )
+    elif dg.is_supplemental_doc:
+        doc_vals = docs.values("id", "title", "matched", "fileext")
     else:
         doc_vals = docs.values("id", "title", "matched", "fileext", "extracted")
     return JsonResponse({"data": list(doc_vals)})
@@ -265,7 +265,6 @@ def habitsandpractices(request, pk, template_name="data_group/habitsandpractices
     if created:
         extext.doc_date = "please add..."
     ExtractedTextForm, HPFormSet = create_detail_formset(doc)
-    # print(f'running habitsandpractices() on %s inside views/data_group.py' % doc)
     ext_form = ExtractedTextForm(request.POST or None, instance=extext)
     hp_formset = HPFormSet(request.POST or None, instance=extext, prefix="habits")
     context = {"doc": doc, "ext_form": ext_form, "hp_formset": hp_formset}

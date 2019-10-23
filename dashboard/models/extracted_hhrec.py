@@ -30,9 +30,6 @@ class ExtractedHHRec(CommonInfo, RawChem):
             "analytical_method",
         ]
 
-    def __str__(self):
-        return self.raw_chem_name
-
     def get_datadocument_url(self):
         return self.extractedtext_ptr.data_document.get_absolute_url()
 

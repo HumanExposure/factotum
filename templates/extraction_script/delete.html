@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+<h1 class="col-sm-12">
+Delete Extracted Text</h1>
+
+<div class="row">
+
+
+
+{%  if object_list %}
+<table class="table table-striped table-bordered dataTable no-footer" id='extraction_script_table'>
+        <thead class="table-primary">
+            <th>Extraction Script</th>
+            <th>Extracted Text</th>
+        </thead>
+        <tbody>
+    {% for extraction_script in object_list %}
+    <tr>
+        <td id="et-delete-dt-{{extraction_script.id}}">{{ extraction_script}}</td>
+        <td>
+                {% if extraction_script.num_ex > 0 %}
+                <a class="btn btn-warning btn-md"
+                   role="button"
+                   id="et-delete-button-{{extraction_script.id}}"
+                   data-toggle="confirmation"
+                   data-title="This action will delete {{ extraction_script.num_ex }} extracted text records."
+                   href='{% url "delete_extracted_text" extraction_script.id %}'>
+                   Delete {{ extraction_script.num_ex }} extracted text record(s)
+                   <span class="fa fa-fs fa-trash"></span></a>
+           {% endif %}
+        </td>
+</tr>
+    {%  endfor %}
+</tbody>
+</table>
+{%  else %}
+    No extraction scripts were found
+{%  endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/dashboard/confirmation.js' %}"></script>
+{% endblock %}
+

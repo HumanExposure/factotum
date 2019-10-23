@@ -58,6 +58,10 @@ class DataGroup(CommonInfo):
         return self.type == "CO"
 
     @property
+    def is_supplemental_doc(self):
+        return self.type == "SD"
+
+    @property
     def is_habits_and_practices(self):
         return self.type == "HP"
 

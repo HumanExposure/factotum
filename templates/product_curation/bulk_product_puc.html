@@ -64,7 +64,7 @@
     {% elif q > '' and full_p_count > 0 %}
         <br><br>
         <br><br>
-        <p>The {{ full_p_count }} products matching &ldquo;{{ q }}&rdquo; are already associated with a PUC.</p>
+        <p id="puc_result">The {{ full_p_count }} products matching "{{ q }}" are already associated with a PUC.</p>
     {% else %}
         <br><br>
         <br><br>
@@ -74,105 +74,11 @@
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript">
-    $(document).ready(function () {
-        let product_table = $('#products').DataTable({
-            "bPaginate":false,
-            "bFilter": false,
-            columnDefs: [
-                {
-                orderable: false,
-                className: 'select-checkbox',
-                targets: 0,
-                width: '3%'
-            },
-                { width: '60%', targets: 1 },
-                { width: '35%', targets: 2 },
-                {className: 'hide_column', targets:3}
-            ],
-            select: {
-                style: 'multi',
-                selector: 'td:first-child'
-            },
-            order: [
-                [1, 'asc']
-            ],
-            "initComplete": function(settings, json) {
-                $("div#products_info").insertAfter('div#products_wrapper');
-            }
-        });
-        product_table.on("click", "th.select-checkbox", function() {
-            if ($("th.select-checkbox").hasClass("selected")) {
-                product_table.rows().deselect();
-                $(product_table).removeClass("selected");
-            } else {
-                product_table.rows().select();
-                $("th.select-checkbox").addClass("selected");
-            }
-        }).on("select deselect", function() {
-            if (product_table.rows({
-                selected: true
-            }).count() !== product_table.rows().count()) {
-                $("th.select-checkbox").removeClass("selected");
-            } else {
-                $("th.select-checkbox").addClass("selected");
-            }
-        });
-        $('#btn-assign-puc').click( function (e) {
-            pk_data = product_table.rows( {selected:true} );
-            pk = '';
-            for (i=0; i < pk_data.count(); i++) {
-                pk += pk_data.data()[i][3] + ',';
-            }
-            pk = pk.replace(/,$/g,'');
-            $('input[name="id_pks"]').val(pk);
-            return true;
-        });
-  });
-  </script>
-{{ form.media }}
+    <script src="{% static 'js/dashboard/bulk_product_puc.js' %}"></script>
+    {{ form.media }}
 {% endblock %}
 
 {% block css %}
-    <style type="text/css">
-        table.dataTable thead tr th.select-checkbox::before, table.dataTable thead tr th.select-checkbox::after {
-            display: block;
-            position: absolute;
-            top: 1.2em;
-            width: 12px;
-            height: 12px;
-            box-sizing: border-box;
-        }
-        table.dataTable thead tr th.select-checkbox::before {
-            content: ' ';
-            margin-bottom: 6px;
-            margin-left: 6px;
-            border: 1px solid black;
-            border-radius: 3px;
-        }
-        table.dataTable thead tr th.select-checkbox.selected::after {
-            content: "✔";
-            margin-top: -8px;
-            margin-left: 6px;
-            text-align: center;
-            text-shadow: rgb(176, 190, 217) 1px 1px, rgb(176, 190, 217) -1px -1px, rgb(176, 190, 217) 1px -1px, rgb(176, 190, 217) -1px 1px;
-        }
-        div#products_wrapper {
-            /* height:300px; */
-            /* overflow-y: scroll; */
-            /* overflow-x: hidden; */
-            border: solid 1px #e9ecef;
-        }
-        span.select-info {
-            margin-left: 15px;
-        }
-        .hide_column {
-            display : none;
-        }
-        .error {
-            border: 1px solid red;
-            padding-top: 6px;
-            padding-bottom: 6px;
-        }
-    </style>
+    <link href="{% static 'css/dashboard/bulk_product_puc.css' %}" type="text/css"
+          media="all" rel="stylesheet" />
 {% endblock %}

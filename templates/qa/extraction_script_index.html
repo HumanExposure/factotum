@@ -14,7 +14,6 @@ QA Extraction Scripts</h1>
         <th>Percent QA Checked</th>
         <th>QA Summary</th>
         <th>QA Status</th>
-        <th>Delete Extracted Text</th>
     </thead>
     <tbody>
     {% for extraction_script in extraction_scripts %}
@@ -48,16 +47,6 @@ QA Extraction Scripts</h1>
               <a class="btn btn-light btn-sm col-12" disabled role="button">
                 {{ extraction_script.qa_button_text }}</a>
             {% endif %}
-         {% endif %}
-        </td>
-        <td id="et-{{extraction_script.id}}">
-         {% if extraction_script.extractedtext_count > 0 %}
-              <a class="btn btn-primary btn-sm"
-                 role="button"
-                 id="et-delete-button-{{extraction_script.id}}"
-                 data-toggle="confirmation"
-                 data-title="This action will delete {{ extraction_script.extractedtext_count }} extracted text records."
-                 href='{% url "delete_extracted_text" extraction_script.id %}'><span class="fa fa-fs fa-trash"></span></a>
          {% endif %}
         </td>
       </tr>

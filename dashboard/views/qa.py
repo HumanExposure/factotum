@@ -302,6 +302,7 @@ def delete_extracted_text(request, pk):
             the linkage to the dsstoxsubstance table must be removed and the rid must be deleted
         c. reset the QA status of the extraction script to 'QA not begun'
         d. delete the QA group associated with the extraction script
+        e. redirect the browser to the page from which the delete was called
 
     """
     extraction_script = get_object_or_404(Script, pk=pk)
@@ -309,7 +310,13 @@ def delete_extracted_text(request, pk):
     QAGroup.objects.filter(extraction_script=extraction_script).delete()
     extraction_script.qa_begun = False
     extraction_script.save()
-    return HttpResponseRedirect(reverse("qa_extractionscript_index"))
+    previous_url = request.META.get("HTTP_REFERER")
+    if previous_url.endswith("extractionscripts/delete"):
+        redirect_to = "extraction_script_delete_list"
+    else:
+        redirect_to = "qa_extractionscript_index"
+
+    return HttpResponseRedirect(reverse(redirect_to))
 
 
 @login_required()

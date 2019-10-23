@@ -263,7 +263,10 @@ def gather_errors(form_instance, values=False):
                 for e in error:
                     all_msgs = [e.message] + e.messages
                     for all_e in all_msgs:
-                        error_mesage = "%s: %s" % (field, all_e)
+                        if field == "__all__":
+                            error_mesage = all_e
+                        else:
+                            error_mesage = "%s: %s" % (field, all_e)
                         if error_mesage in tmp_errors:
                             tmp_errors[error_mesage].append(i)
                         else:
@@ -327,3 +330,17 @@ def accumulate_pucs(qs):
             ).distinct()
             all_pucs = all_pucs | general | family
     return all_pucs
+
+
+def get_invalid_ids(Model, ids):
+    """Evaluate which IDs do not exist in the database
+
+    Args:
+        Model: the model class to check IDs against
+        ids: a sequence of integers represent the IDs to look up
+    Returns:
+        A list of IDs not in the database
+    """
+    ids_set = set(ids)
+    dbids_set = set(Model.objects.filter(pk__in=ids_set).values_list("id", flat=True))
+    return list(ids_set - dbids_set)

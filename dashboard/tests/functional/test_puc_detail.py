@@ -51,7 +51,7 @@ class TestPUCDetail(TestCase):
         response_html = html.fromstring(response)
         taxonomy_div = response_html.xpath('//*[@id="taxonomies"]/dl/dd/button/text()')
         for taxonomy in puc_taxonomies:
-            self.assertInHTML(taxonomy.title, taxonomy_div)
+            self.assertIn(taxonomy.title, taxonomy_div)
 
     def test_curated_chemical_count(self):
         from dashboard.models import ExtractedChemical, DSSToxLookup, ProductDocument

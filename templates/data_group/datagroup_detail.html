@@ -104,18 +104,18 @@
             <li class="nav-item">
               <div class="nav-link font-weight-bold" style="border-color: transparent"><span class="fa fa-upload mr-2"></span>Upload</div>
             </li>
-            {% if cleancomp_form %}
+            {% if cleancomp_formset %}
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#cleancomp_form" role="tab" href="#cleancomp_form">Clean composition</a>
+              <a class="nav-link" data-toggle="tab" href="#cleancomp_formset" role="tab" href="#cleancomp_formset">Clean composition</a>
             </li>
             {% elif datagroup.type == 'CO' %}
             <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="No extracted text found">
               <a class="nav-link disabled">Clean composition</a>
             </li>
             {% endif %}
-            {% if extfile_form %}
+            {% if extfile_formset %}
             <li class="nav-item">
-              <a class="nav-link" data-toggle="tab" href="#extfile_form" role="tab" href="#extfile_form">Extracted text</a>
+              <a class="nav-link" data-toggle="tab" href="#extfile_formset" role="tab" href="#extfile_formset">Extracted text</a>
             </li>
             {% elif datagroup.type == 'FU' or datagroup.type == 'CO' or datagroup.type == 'CP' %}
             {% if not datagroup.all_matched %}
@@ -143,22 +143,22 @@
           <div class="tab-content">
             <div class="tab-pane show active">
               <div class="text-center text-secondary">
-                {% if cleancomp_form or extfile_form or uploaddocs_form %}
+                {% if cleancomp_formset or extfile_formset or uploaddocs_form %}
                 Select an upload action.
                 {% else %}
                 No upload actions available.
                 {% endif %}
               </div>
             </div>
-            <div class="tab-pane fade" id="cleancomp_form">
+            <div class="tab-pane fade" id="cleancomp_formset">
               <h5 class="card-title">Upload clean composition data</h5>
               <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ cleancomp_form.management_form }}
+                {{ cleancomp_formset.management_form }}
                 <div class="form-group row pl-3 pr-3">
                   <select class="custom-select" name="cleancomp-script" required>
                     <option value="" selected>Choose a script...</option>
-                    {% for v, n in cleancomp_form.header_form.fields.script.choices %}
+                    {% for v, n in cleancomp_formset.header_form.fields.script.choices %}
                     {% if v %}
                     <option value="{{ v }}">{{ n }}</option>
                     {% endif %}
@@ -182,16 +182,16 @@
                   <span class="text-monospace">{{ clean_comp_data_fieldnames }}</span>
               </div>
             </div>
-            <div class="tab-pane fade" id="extfile_form">
+            <div class="tab-pane fade" id="extfile_formset">
               <h5 class="card-title">Upload extracted text data</h5>
               <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ extfile_form.management_form }}
-                {% if extfile_form.header_form.extraction_script %}
+                {{ extfile_formset.management_form }}
+                {% if extfile_formset.header_form.extraction_script %}
                 <div class="form-group row pl-3 pr-3">
                   <select class="custom-select" name="extfile-extraction_script" required>
                     <option selected>Choose an extraction script...</option>
-                    {% for v, n in extfile_form.header_form.fields.extraction_script.choices %}
+                    {% for v, n in extfile_formset.header_form.fields.extraction_script.choices %}
                     {% if v %}
                     <option value="{{ v }}">{{ n }}</option>
                     {% endif %}
@@ -199,11 +199,11 @@
                   </select>
                 </div>
                 {% endif %}
-                {% if extfile_form.header_form.weight_fraction_type %}
+                {% if extfile_formset.header_form.weight_fraction_type %}
                 <div class="form-group row pl-3 pr-3">
                   <select class="custom-select" name="extfile-weight_fraction_type" required>
                     <option selected>Choose a weight fraction type...</option>
-                    {% for v, n in extfile_form.header_form.fields.weight_fraction_type.choices %}
+                    {% for v, n in extfile_formset.header_form.fields.weight_fraction_type.choices %}
                     {% if v %}
                     <option value="{{ v }}">{{ n }}</option>
                     {% endif %}
@@ -317,12 +317,14 @@
   <div class="col-md-4 mt-1">
     <p class="lead"><span class="font-weight-normal">{{ tabledata.nummatched }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> matched documents</p>
   </div>
+  {% if not datagroup.is_supplemental_doc %}
   <div class="col-md-2 text-right">
     <svg width="50" height="50" id="extracteddonut"></svg>
   </div>
   <div class="col-md-4 mt-1">
     <p class="lead"><span class="font-weight-normal">{{ tabledata.numextracted }}</span><span class="text-black-50">/{{ tabledata.numregistered }}</span> extracted documents</p>
   </div>
+  {% endif %}
 </div>
 <form method="POST" id="bulkassignprod_form">
   {% csrf_token %}
@@ -330,10 +332,12 @@
 <div class="row">
   <div class="col-md-12">
     <table class="table" id="docs">
-      {% if bulkassignprod_form %}
-        <button class="btn btn-sm btn-outline-primary float-md-right" name="bulkassignprod-submit" form="bulkassignprod_form" type="submit">
-          Bulk Create {{ bulkassignprod_form.count }} Products
-        </button>
+      {% if not datagroup.is_supplemental_doc %}
+        {% if bulkassignprod_form %}
+          <button class="btn btn-sm btn-outline-primary float-md-right" name="bulkassignprod-submit" form="bulkassignprod_form" type="submit">
+            Bulk Create {{ bulkassignprod_form.count }} Products
+          </button>
+        {% endif %}
       {% endif %}
       <thead>
         <tr>
@@ -342,7 +346,9 @@
           {% if datagroup.is_habits_and_practices %}
           <th class="text-center">Edit</th>
           {% else %}
-          <th class="text-center">Extracted</th>
+            {% if not datagroup.is_supplemental_doc %}
+            <th class="text-center">Extracted</th>
+            {% endif %}
           {% endif %}
           {% if datagroup.is_composition %}
           <th class="text-center">Product</th>

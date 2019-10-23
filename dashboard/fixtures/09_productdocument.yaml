@@ -334,3 +334,10 @@
     updated_at: 2019-06-07 19:47:35.149866
     product: 1872
     document: 172462
+- model: dashboard.productdocument
+  pk: 1993
+  fields:
+    created_at: 2019-06-07 19:47:35.149866
+    updated_at: 2019-06-07 19:47:35.149866
+    product: 1873
+    document: 354788

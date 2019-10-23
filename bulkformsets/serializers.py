@@ -29,7 +29,11 @@ class CSVReader:
             skip += 1
             self.fieldnames = next(self.reader)
         # If the length is greater than max_num, stop eval and set length to max_num + 1
-        self.length = sum(1 for row in zip(self.reader, it.repeat(None, max_num + 1)))
+        self.length = sum(
+            1
+            for row in zip(self.reader, it.repeat(None, max_num + 1))
+            if row != (([], None))
+        )
         self.skip = skip
         # optimize sequential __getitem__ calls
         self.last_get_line = None
@@ -37,7 +41,7 @@ class CSVReader:
 
     def __iter__(self):
         self.seek_to_top()
-        yield from map(self.pack_dict, it.islice(self.reader, self.skip, None))
+        yield from map(self.pack_dict, it.islice(self.reader, self.skip, self.length))
 
     def __getitem__(self, i):
         if i < self.length:

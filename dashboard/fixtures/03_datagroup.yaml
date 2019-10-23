@@ -157,3 +157,11 @@
     data_source: 28, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842, csv: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/register_records_matching.csv,
     zip_file: media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f842.zip,
     group_type: 6, url: 'http://www.chemicals_in_captivity.com'}
+- model: dashboard.datagroup
+  pk: 53
+  fields: {created_at: ! '2019-10-07 22:49:26.938843', updated_at: ! '2019-10-07 22:49:26.938843',
+    name: Airgas Supplemental Documents, description: Example supplemental docs for the Airgas data group,
+    downloaded_by: 1, downloaded_at: ! '2018-01-11 00:00:00', download_script: ,
+    data_source: 25, fs_id: 1ea5b64d-4cf0-4edd-8bfe-fb21ca65f843, csv: ,
+    zip_file:  media/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f843/1ea5b64d-4cf0-4edd-8bfe-fb21ca65f843.zip,
+    group_type: 5, url: ""}

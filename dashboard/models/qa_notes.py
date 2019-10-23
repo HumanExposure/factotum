@@ -17,7 +17,6 @@ class QANotes(CommonInfo):
         if (
             self.extracted_text.qa_edited and self.extracted_text.qa_checked
         ) and not bool(self.qa_notes):
-            print("About to raise a validation error")
             raise ValidationError(
                 _(
                     "Before approving, please add a note explaining your edits to the extracted data"
