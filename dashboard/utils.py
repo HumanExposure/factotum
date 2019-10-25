@@ -167,9 +167,6 @@ class SimpleTree(MutableMapping):
             d["children"] = [child.asdict() for child in self.children]
         return d
 
-    def n_children(self):
- 	      return sum(1 for p in self.iter() if p.value) - 1
-
     
 def get_extracted_models(t):
     """Returns the parent model function and the associated child model

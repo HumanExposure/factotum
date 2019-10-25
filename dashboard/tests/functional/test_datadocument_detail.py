@@ -203,17 +203,6 @@ class DataDocumentDetailTest(TestCase):
     def test_subtitle_ellipsis(self):
         id = 354783
         doc = DataDocument.objects.get(id=id)
-        subtitle = doc.subtitle 
-        subtitle45 = subtitle[:45]
-        response = self.client.get("/datadocument/%i/" % id)
-        # Confirm that the displayed subtitle is truncated and ... is appended
-        self.assertContains(response, "This subtitle is more than 90 c…")
-
-
-
-    def test_subtitle_ellipsis(self):
-        id = 354783
-        doc = DataDocument.objects.get(id=id)
         subtitle = doc.subtitle
         subtitle45 = subtitle[:45]
         response = self.client.get("/datadocument/%i/" % id)
