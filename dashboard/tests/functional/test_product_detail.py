@@ -12,6 +12,25 @@ class TestProductDetail(TestCase):
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
 
+    def test_anonymous_read(self):
+        self.client.logout()
+        response = self.client.get("/product/11/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "<title>Product 11: 3M(TM) Rubber &amp; Vinyl 80 Spray Adhesive</title>",
+        )
+
+    def test_anonymous_edit_not_allowed(self):
+        self.client.logout()
+        response = self.client.post("/product/edit/1/", {"title": "not allowed"})
+        self.assertEqual(response.status_code, 302)
+
+    def test_anonymous_delete_not_allowed(self):
+        self.client.logout()
+        response = self.client.post("/product/delete/1/")
+        self.assertEqual(response.status_code, 302)
+
     def test_product_delete(self):
         self.assertTrue(Product.objects.get(pk=11), "Product 11 should exist")
         self.client.get(f"/product/delete/11/")

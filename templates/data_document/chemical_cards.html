@@ -38,8 +38,9 @@
                     data-placement="bottom">
                     {{ chemical.raw_chem_name|truncatechars:45 }}
                 </h3>
-                {% if doc.detail_page_editable %}
-                <div class="btn-group btn-group-sm float-right">
+                {% if doc.detail_page_editable and request.user.is_authenticated%}
+                <div class="btn-group btn-group-sm float-right"
+                     id="chemical_edit_buttons">
                     <button class="btn btn-outline-secondary hover-success"
 
                             title="edit"
@@ -188,7 +189,9 @@
     {% endfor %}
     {% if doc.is_extracted and doc.detail_page_editable %}
     <!-- add chemical -->
-    <div class="card m-4 p-0">
+    {% if request.user.is_authenticated %}
+    <div class="card m-4 p-0"
+         id="add_chemical">
         <button class="btn m-0 p-0 btn-outline-secondary hover-success"
                 href="{% url 'chem-create' doc.pk %}"
                 data-toggle="modal"
@@ -200,6 +203,7 @@
             </div>
         </button>
     </div>
+    {% endif %}
     <div class="modal" id="chemical-add-modal" data-backdrop="static"></div>
     <div class="modal" id="chemical-update-modal" data-backdrop="static"></div>
     {% endif %}

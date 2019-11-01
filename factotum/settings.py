@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "elastic.apps.ElasticConfig",
     "bulkformsets.apps.BulkFormSetsConfig",
+    "docs",
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,5 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
+
+DOCS_ROOT = os.path.join(BASE_DIR, "./docs/_build/html")

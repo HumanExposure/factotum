@@ -46,8 +46,10 @@
             </a>
             {% endwith %}
             {% endif %}
+            {% if request.user.is_authenticated %}
             <a class="btn btn-outline-secondary btn-sm hover-success"
                title="edit"
+               id="edit_document"
                data-toggle="tooltip"
                href="{% url 'data_document_edit' doc.id %}">
                 <span class="fa fa-fs fa-edit"></span>
@@ -55,11 +57,12 @@
             <a class="btn btn-outline-secondary btn-sm hover-danger"
                role="button"
                title="delete"
+               id="delete_document"
                data-toggle="tooltip"
                href="{% url 'data_document_delete' doc.id %}">
                 <span class="fa fa-fs fa-trash"></span>
             </a>
-
+            {% endif %}
         </div>
     </div>
 </div>
@@ -67,15 +70,28 @@
     <!-- meta panel -->
     <div class="col-lg-3 bg-light pt-2 scroll-div border-bottom"
          id="meta">
-        <a href="{% url 'data_source_detail' doc.data_group.data_source.id %}">
+        <a id="datasource_link"
+           title="DataSource"
+           data-toggle="tooltip"
+        {% if request.user.is_authenticated %}
+           href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
+        {% endif %}
+        >
             <h5>{{ doc.data_group.data_source }}</h5>
         </a>
-        <a href="{% url 'data_group_detail' doc.data_group.id %}">
+        <a id="datagroup_link"
+           title="DataGroup"
+           data-toggle="tooltip"
+           {% if request.user.is_authenticated %}
+           href="{% url 'data_group_detail' doc.data_group.id %}"
+           {% endif %}
+        >
             <h5>{{ doc.data_group }}</h5>
         </a>
 
         <div class="d-table-cell">
-            <h5 title="group type : document type">
+            <h5 title="group type : document type"
+                data-toggle="tooltip">
                 {{ doc.data_group.group_type }}
                 {% if doc.document_type %}
                 :
@@ -85,11 +101,13 @@
         </div>
         {% if doc.data_group.download_script %}
         <h5 class="d-inline"
-            title="Download Script">
+            title="Download Script"
+            data-toggle="tooltip">
             {{ doc.data_group.download_script }}
         </h5>
         <a class="btn btn-outline-secondary btn-sm float-right"
-           title="Download Script"
+           title="Link to Download Script"
+           data-toggle="tooltip"
            href={{ doc.data_group.download_script.url }}
            name="secondary">
             <i class="fab fa-github"></i>
@@ -114,7 +132,7 @@
             {% endif %}
             {% endif %}
         </div>
-        {% if list_presence_tag_form %}
+        {% if list_presence_tag_form and request.user.is_authenticated %}
         <hr>
         <div class="">
             <form class="form-inline p-0"
@@ -158,15 +176,18 @@
             <!-- Products -->
             <h5 id="product-title">
                 <b>Linked Products</b>
+                {% if request.user.is_authenticated %}
                 <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover-success"
                    href="{% url 'link_product_form' doc.pk %}"
                    title="create"
+                   id="add_product_button"
                    role="button"
                    data-toggle="tooltip">
 
                     <small>ADD PRODUCT&nbsp</small>
                     <i class="fas fa-plus"></i>
                 </a>
+                {% endif %}
             </h5>
             {% if doc.products.count %}
             <div id="trim">
@@ -202,27 +223,30 @@
                 <h5 class="d-inline mr-2"
                     id="extracted-text-title">
                     <b>Extracted Text</b>
-                </h5>
-                {% if doc.is_extracted %}
-                {% if not extracted_text.qa_checked %}
-                <div class="d-inline">
-                    <a class="btn btn-sm btn-outline-secondary"
-                       title="Go to QA"
-                       href={% url "extracted_text_qa" doc.pk %}
-                       data-toggle="tooltip">
-                        <small class="m-0"><b>QA'd</b></small>
-                        <i class="far fa-square"></i></a>
-                </div>
-                {% else %}
-                <div class="d-inline border rounded border btn btn-sm"
-                     title="QA completed"
-                     data-toggle="tooltip">
-                    <small><b>QA'd</b></small>
-                    <i class="far fa-check-square"></i>
-                </div>
-                {% endif %}
-                {% endif %}
+                </h5>                
                 <div class="btn-group btn-group-sm shadow float-right">
+                    {% if doc.is_extracted %}
+                        {% if not extracted_text.qa_checked %}
+                            <a class="btn btn-sm border-secondary"
+                                id="qa_icon_unchecked"
+                                {% if request.user.is_authenticated %}
+                                title="Go to QA"
+                                href={% url "extracted_text_qa" doc.pk %}
+                                {% else %}
+                                title="Not checked in QA"
+                                {% endif %}
+                                data-toggle="tooltip">
+                                <i class="far fa-square"></i>
+                            </a>
+                        {% else %}
+                            <a class="btn btn-sm btn-secondary"
+                                title="QA Complete"
+                                id="qa_icon_checked"
+                                data-toggle="tooltip">
+                                <i class="far fa-check-square"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
                     {% if extracted_text.extraction_script.url %}
                     <a class="btn btn-outline-secondary"
                        role="button"
@@ -232,6 +256,7 @@
                         <i class="fab fa-github"></i>
                     </a>
                     {% endif %}
+                    {% if request.user.is_authenticated %}
                     <button class="btn btn-outline-secondary hover-success"
                             title="edit"
                             id="btn-add-or-edit-extracted-text"
@@ -243,6 +268,7 @@
                         <span class="fa fa-fs fa-plus"></span>
                         {% endif %}
                     </button>
+                    {% endif %}
                 </div>
             </div>
             {% if doc.is_extracted %}

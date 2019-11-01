@@ -39,7 +39,7 @@ class DataSourceTestWithFixtures(TestCase):
         )
 
     def test_registered_extracted_detail_counts(self):
-        response = self.client.get("/datasource/25").content.decode("utf8")
+        response = self.client.get("/datasource/25/").content.decode("utf8")
         response_html = html.fromstring(response)
         reg_table_count = int(
             response_html.xpath(

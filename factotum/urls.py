@@ -29,6 +29,7 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls, name="admin"),
     url(r"", include("dashboard.urls")),
     url(r"", include("api.urls")),
+    url(r"^docs/", include("docs.urls")),
 ]
 
 if settings.DEBUG:

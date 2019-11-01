@@ -122,7 +122,7 @@ class ExtractedChemical(CommonInfo, RawChem):
         # raw_central_comp, or raw_max_comp values.
         if (
             self.raw_min_comp or self.raw_central_comp or self.raw_max_comp
-        ) and not self.unit_type:
+        ) and not self.unit_type_id:
             raise ValidationError(
                 {
                     "unit_type": [

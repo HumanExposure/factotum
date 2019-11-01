@@ -18,7 +18,9 @@ class DGChoiceField(forms.ModelChoiceField):
 class DataGroupSelector(forms.ModelForm):
     data_group = DGChoiceField(
         queryset=DataGroup.objects.filter(
-            pk__in=[dg.pk for dg in DataGroup.objects.all() if dg.uncurated]
+            pk__in=RawChem.objects.filter(dsstox__isnull=True).values(
+                "extracted_text__data_document__data_group_id"
+            )
         ),
         label="Download Uncurated Chemicals by Data Group",
         required=False,

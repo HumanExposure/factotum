@@ -13,7 +13,11 @@ from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from dashboard.models import DataDocument
 
-import tempfile, csv, os, io, shutil
+import tempfile
+import csv
+import os
+import io
+import shutil
 from pathlib import Path
 
 

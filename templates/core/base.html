@@ -116,6 +116,10 @@
                             href="{% url 'bulk_documents' %}">
                             Bulk Document Processing
                         </a>
+                        <a  class="dropdown-item"
+                            href="{% url 'extraction_script_delete_list' %}">
+                            Delete Extracted Text
+                        </a>
                     </div>
                 </li>
                 {% to_list 'qa_extractionscript_index' 'qa_chemicalpresence_index' as qa_list %}

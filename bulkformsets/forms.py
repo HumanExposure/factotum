@@ -141,34 +141,30 @@ def basebulkformset_factory(typename, basefactory, *args, **kwargs):
 
 def bulkformset_factory(*args, **kwargs):
     """Create a BulkFormSet.
-    
-    Refer to `django.forms.formset_factory` for an explanation on how to use. This
-    provides some additional keyword arguments noted below.
-    
-    The serializer function is responsible for rendering the bulk file in a Python
-    friendly way. It is invoked internally by 
-    `bulk = serializer(f, *serializer_args, **serializer_kwargs)`. Here, `f` is the
-    Django `UploadedFile`. `bulk` must be represented as a list of dictionaries where
-    each dictionary has keys corresponding to the field names of the `form` provided.
 
-    It may be advantageous to return a more memory efficient immutable object from
-    `serializer` as opposed to a list of dictionaries. An example of such an object
-    can be seen with `bulkformsets.utils.CSVReader`.
+    Refer to `django.forms.formset_factory` for an explanation on how to use. This provides some additional keyword arguments noted below.
+
+    The serializer function is responsible for rendering the bulk file in a Python friendly way. It is invoked internally by `bulk = serializer(f, *serializer_args, **serializer_kwargs)`. Here, `f` is the Django `UploadedFile`. `bulk` must be represented as a list of dictionaries where each dictionary has keys corresponding to the field names of the `form` provided.
+
+    It may be advantageous to return a more memory efficient immutable object from `serializer` as opposed to a list of dictionaries. An example of such an object can be seen with `bulkformsets.utils.CSVReader`.
 
     Required args:
-        *args, **kwargs: identical to the Django equivalent
-        serializer: afunction that returns a list of dicts
+        `*args`, `**kwargs`: identical to the Django equivalent
+        serializer: a function that returns a list of dicts
+
     Optional args:
         header_fields: fields that are in the form, but not the bulk file
         serializer_args: additional positional arguments to pass to `serializer`
         serializer_kwargs: additional keyword arguments to pass to `serializer`
         filefield_kwargs: kwargs to pass to the internal FileField
+
     Class Properties:
         header_form: retrun the ManagementForm and the header fields as a form
         header_data: a dictionary view of cleaned data containing the header data
+
     Returns:
         BulkFormSet: a FormSet that works like a Django FormSet
-    
+
     Notes:
         The `serializer_kwargs` will always be populated with `max_num`.
     """
@@ -177,16 +173,15 @@ def bulkformset_factory(*args, **kwargs):
 
 def csvformset_factory(*args, **kwargs):
     """Create a CSVFormSet.
-    
+
     Like `bulkformset_factory`, but there is no need to pass in a serializer.
-    
+
     Serializer specific arguments:
         skip (int): [kwarg] number of initial lines to skip
         fieldnames (list of str): [kwarg] use these fieldnames instead of CSV header
-        *args, **kwargs: all other arguments will be passed to `csv.reader`
+        `*args`, `**kwargs`: all other arguments will be passed to `csv.reader`
 
-    It may be useful to set skip = 1 and fieldnames to what your form field names are
-    if the CSV header differs.
+    It may be useful to set skip = 1 and fieldnames to what your form field names are if the CSV header differs.
     """
     kwargs["serializer"] = CSVReader
     return basebulkformset_factory("CSVFormSet", formset_factory, *args, **kwargs)
@@ -194,7 +189,7 @@ def csvformset_factory(*args, **kwargs):
 
 def bulkmodelformset_factory(*args, **kwargs):
     """Create a BulkModelFormSet.
-    
+
     Refer to `django.forms.model.modelformset_factory` for an explanation on how to use.
     This takes the same extra arguments as `bulkformset_factory`.
     """
@@ -205,7 +200,7 @@ def bulkmodelformset_factory(*args, **kwargs):
 
 def csvmodelformset_factory(*args, **kwargs):
     """Create a BulkModelFormSet.
-    
+
     Like `bulkmodelformset_factory`, but for CSVs. This takes the same extra arguments
     as `csvformset_factory`.
     """

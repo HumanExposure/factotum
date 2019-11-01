@@ -10,6 +10,12 @@ from .common_info import CommonInfo
 
 
 class ExtractedListPresence(CommonInfo, RawChem):
+    """ 
+    A record of a chemical's presence in a CPCat list
+
+    :param qa_flag: whether a record has been QA approved
+    :param report_funcuse: the reported functional use of a list record
+    """
 
     qa_flag = models.BooleanField(default=False)
     report_funcuse = models.CharField(
@@ -23,9 +29,19 @@ class ExtractedListPresence(CommonInfo, RawChem):
 
     @classmethod
     def detail_fields(cls):
+        """Lists the fields to be displayed on a detail form
+        
+        Returns:
+            list -- a list of field names
+        """
         return ["raw_cas", "raw_chem_name", "report_funcuse"]
 
     def get_datadocument_url(self):
+        """Traverses the relationship to the DataDocument model
+        
+        Returns:
+            URL
+        """
         return self.extracted_text.data_document.get_absolute_url()
 
     def get_extractedtext(self):
@@ -44,6 +60,16 @@ class ExtractedListPresence(CommonInfo, RawChem):
 
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
+    """Many-to-many relationship between ExtractedListPresence and Tag
+    
+    Arguments:
+        TaggedItemBase {[type]} -- [description]
+        CommonInfo {[type]} -- [description]
+    
+    Returns:
+        [type] -- [description]
+    """
+
     content_object = models.ForeignKey(ExtractedListPresence, on_delete=models.CASCADE)
     tag = models.ForeignKey(
         "ExtractedListPresenceTag",

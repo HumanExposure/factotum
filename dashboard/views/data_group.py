@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
+from bulkformsets.serializers import CSVReader
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -15,6 +16,7 @@ from dashboard.forms.data_group import (
     ExtractFileFormSet,
     UploadDocsForm,
     RegisterRecordsFormSet,
+    ProductBulkCSVFormSet,
 )
 from dashboard.models import (
     ExtractedText,
@@ -62,10 +64,17 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                 for x in dg.get_clean_comp_data_fieldnames()
             ]
         ),
+        "product_data_fieldnames": ", ".join(
+            [
+                "ExtractedChemical_id" if x == "id" else x
+                for x in dg.get_product_template_fieldnames()
+            ]
+        ),
         "uploaddocs_form": None,
         "extfile_formset": None,
         "cleancomp_formset": None,
         "bulkassignprod_form": None,
+        "product_formset": None,
     }
     # TODO: Lots of boilerplate code here.
     if dg.include_upload_docs_form():
@@ -139,6 +148,22 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
         else:
             context["bulkassignprod_form"] = BulkAssignProdForm(dg)
 
+    if dg.include_product_upload_form():
+        if "products-submit" in request.POST:
+            product_formset = ProductBulkCSVFormSet(request.POST, request.FILES)
+            if product_formset.is_valid():
+                num_saved, reports = product_formset.save()
+                messages.success(
+                    request, f"{num_saved} records have been successfully uploaded."
+                )
+                messages.warning(request, reports)
+            else:
+                errors = gather_errors(product_formset)
+                for e in errors:
+                    messages.error(request, e)
+        else:
+            context["product_formset"] = ProductBulkCSVFormSet()
+
     return render(request, template_name, context)
 
 
@@ -203,7 +228,8 @@ def data_group_create(request, pk, template_name="data_group/datagroup_form.html
                 "register-INITIAL_FORMS": 0,
                 "register-MAX_NUM_FORMS": "",
             }
-            csv_file = request.FILES["csv"].open()  # gets closed when saved above
+            # gets closed when saved above
+            csv_file = request.FILES["csv"].open()
             csv_dict = {"register-bulkformsetfileupload": csv_file}
             rf = RegisterRecordsFormSet(datagroup, form_data, csv_dict)
             if rf.is_valid():
@@ -365,3 +391,37 @@ def download_registered_datadocuments(request, pk):
         return render_to_csv_response(
             qs, filename="registered_documents.csv", use_verbose_names=False
         )
+
+
+@login_required
+def get_product_csv_template(request, pk):
+    dg = DataGroup.objects.get(pk=pk)
+    response = HttpResponse(content_type="text/csv")
+    response[
+        "Content-Disposition"
+    ] = f'attachment; filename="product_csv_template_{pk}.csv"'
+    writer = csv.writer(response)
+    writer.writerow(
+        [
+            "data_document_id",
+            "data_document_filename",
+            "title",
+            "upc",
+            "url",
+            "brand_name",
+            "size",
+            "color",
+            "item_id",
+            "parent_item_id",
+            "short_description",
+            "long_description",
+            "thumb_image",
+            "medium_image",
+            "large_image",
+            "model_number",
+            "manufacturer",
+        ]
+    )
+    for doc in DataDocument.objects.filter(data_group=dg):
+        writer.writerow([doc.id, doc.filename])
+    return response

@@ -28,7 +28,6 @@ from dashboard.models import (
 )
 
 
-@login_required()
 def data_document_detail(request, pk):
     template_name = "data_document/data_document_detail.html"
     doc = get_object_or_404(DataDocument, pk=pk)

@@ -31,7 +31,7 @@ class BulkDocuments(View):
         valid_docs = lambda: (
             f.cleaned_data["id"] for f in formset.forms if f.cleaned_data
         )
-        errors = gather_errors(formset, values=True)
+        errors = tuple(gather_errors(formset, values=True))
         if any(valid_docs()):
             # This will fail with a 500 if the file doesn't exist. We're not catching
             # that because if we got this far, we know the file SHOULD exist: we are

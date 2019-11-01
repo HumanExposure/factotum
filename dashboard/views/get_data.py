@@ -34,18 +34,17 @@ def get_data(request, template_name="get_data/get_data.html"):
 
 def stats_by_dtxsids(dtxs):
     """
-    PUCS.n
-    The number of unique PUCs (product categories) the chemical is associated with
-    datadocs.n
-    "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
-    the chemical is appears in"
-    datadocs_w_wf.n
-    "The number of data documents with associated weight fraction data
-    that the chemical appears in (weight fraction data may be reported or predicted data,
-     i.e., predicted from an ingredient list)"
-    products.n
-    "The number of products the chemical appears in, where a product is defined as a
-    product entry in Factotum."
+
+    Summary stats for a DTXSID
+
+    :pucs_n: The number of unique PUCs (product categories) the chemical is associated with
+    :datadocs.n: The number of data documents (e.g.  MSDS, SDS, ingredient list, product label) the chemical appears in
+    :datadocs_w_wf.n: The number of data documents with associated weight fraction data that the chemical appears in (weight fraction data may be reported or predicted data, i.e., predicted from an ingredient list)
+    :products.n: The number of products the chemical appears in, where a product is defined as a product entry in Factotum.
+    :param dtxs: [description]
+    :type dtxs: [type]
+    :return: [description]
+    :rtype: [type]
     """
 
     # The number of unique PUCs (product categories) the chemical is associated with
@@ -61,8 +60,6 @@ def stats_by_dtxsids(dtxs):
         .order_by()
     )
 
-    # "The number of data documents (e.g.  MSDS, SDS, ingredient list, product label)
-    # the chemical appears in
     dds_n = (
         RawChem.objects.filter(dsstox__sid__in=dtxs)
         .values("dsstox__sid")
@@ -71,10 +68,6 @@ def stats_by_dtxsids(dtxs):
         .order_by()
     )
 
-    # The number of data documents with associated weight fraction data
-    # that the chemical appears in (weight fraction data may be reported or predicted data,
-    # i.e., predicted from an ingredient list)
-    # This query only applies to ExtractedChemical objects, so the RawChem model can be bypassed
     wf_ecs = ExtractedChemical.objects.filter(dsstox__sid__in=dtxs).filter(
         Q(raw_max_comp__isnull=False)
         | Q(raw_min_comp__isnull=False)
@@ -88,8 +81,6 @@ def stats_by_dtxsids(dtxs):
         .values("sid", "dds_wf_n")
     )
 
-    # The number of products the chemical appears in, where a product is defined as a
-    # product entry in Factotum.
     products_n = (
         RawChem.objects.filter(dsstox__sid__in=dtxs)
         .values("dsstox__sid")
@@ -119,6 +110,13 @@ def stats_by_dtxsids(dtxs):
 
 
 def download_chem_stats(stats):
+    """[summary]
+
+    :param stats: [description]
+    :type stats: [type]
+    :return: [description]
+    :rtype: [type]
+    """
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = (
         'attachment; filename="chem_summary_metrics_%s.csv"'

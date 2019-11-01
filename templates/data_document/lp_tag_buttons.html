@@ -9,6 +9,7 @@
                 disabled>
                 {{ tag }}
             </button>
+            {% if request.user.is_authenticated %}
             <button type="button"
                 title="delete keyword"
                 data-toggle="modal"
@@ -17,6 +18,7 @@
                 name="danger">
                 <span class="fa fa-fs fa-trash"></span>
             </button>
+            {% endif %}
         </div>
         <div class="modal fade"
             id="tag-delete-{{ chemical.pk }}-{{ tag.pk }}"

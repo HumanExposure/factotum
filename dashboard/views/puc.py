@@ -18,6 +18,7 @@ def puc_detail(request, pk, template_name="puc/puc_detail.html"):
     data = {}
     data["puc"] = puc
     data["linked_taxonomies"] = puc.get_linked_taxonomies()
+    data["products"] = {}
     data["referer"] = (
         request.META["HTTP_REFERER"] if "HTTP_REFERER" in request.META else None
     )

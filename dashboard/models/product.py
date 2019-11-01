@@ -2,11 +2,17 @@ from taggit.managers import TaggableManager
 
 from django.db import models
 from django.urls import reverse
+from django.db.models import Max
 
 from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 from .data_source import DataSource
 from .source_category import SourceCategory
+
+
+class ProductManager(models.Manager):
+    def next_upc(self):
+        return "stub_" + str(Product.objects.all().aggregate(Max("id"))["id__max"] + 1)
 
 
 class Product(CommonInfo):
@@ -77,6 +83,7 @@ class Product(CommonInfo):
     large_image = models.CharField(
         max_length=500, null=True, blank=True, help_text="large image"
     )
+    objects = ProductManager()
 
     def __str__(self):
         return self.title
@@ -127,7 +134,7 @@ class Product(CommonInfo):
     @property
     def rawchems(self):
         """A generator of all RawChem objects in this product
-        
+
         It's recommended to first "prefetch_related" the RawChem objects:
             Product.objecs.prefetch_related("datadocument_set__extractedtext__rawchem")
         """

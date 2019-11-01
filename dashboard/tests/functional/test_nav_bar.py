@@ -61,3 +61,8 @@ class NavBarTest(TestCase):
             ),
             "The Data Curation dropdown should appear in the navbar.",
         )
+
+    def test_delete_extractedtext_link(self):
+        self.client.login(username="Karyn", password="specialP@55word")
+        response = self.client.get("/")
+        self.assertContains(response, 'href="/extractionscripts/delete/"')

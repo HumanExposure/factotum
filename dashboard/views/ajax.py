@@ -1,37 +1,44 @@
-from django.http import HttpResponse, JsonResponse
-from django.core import serializers
-from dashboard.models import DataGroup, Product
-import json
+from django.http import JsonResponse
+from dashboard.models import Product
+from django.db.models import Q
 
 
 def product_ajax(request):
+    """ Returns a JSON response of products with the following optional arguments.
 
-    draw = request.GET["draw"]
-    start = int(request.GET["start"])
-    length = int(request.GET["length"])
-    length = 10
-    order_column = int(request.GET["order[0][column]"])
-    order_direction = "" if request.GET["order[0][dir]"] == "desc" else "-"
-    column = [
-        i.name for n, i in enumerate(Product._meta.get_fields()) if n == order_column
-    ][0]
-    global_search = request.GET["search[value]"]
-    all_objects = Product.objects.all()
+    Arguments:
+        ``puc``
+            limits return set to products matching this puc
+        ``global_search``
+            limits return set to products with titles matching search string
+    """
+    columns = ["title", "brand_name", "id"]
+    start = int(request.GET.get("start", 0))
+    length = int(request.GET.get("length", 10))
+    order_column = int(request.GET.get("order[0][column]", 0))
+    order_direction = "-" if request.GET.get("order[0][dir]", "asc") == "desc" else ""
+    order_column_name = columns[order_column]
+    global_search = request.GET.get("search[value]", "")
+    puc = request.GET.get("puc", "")
+    if puc:
+        all_objects = Product.objects.filter(Q(puc=puc))
+    else:
+        all_objects = Product.objects.all()
+    total_count = all_objects.count()
 
-    columns = [
-        "title",
-        "brand_name",
-        "prod_cat_id",
-    ]  # TODO: change prod_cat_id to natural key
+    if global_search:
+        all_objects = all_objects.filter(
+            Q(title__icontains=global_search) | Q(brand_name__icontains=global_search)
+        )
+    filtered_count = all_objects.count()
+
     objects = []
-    for i in all_objects.order_by(order_direction + column)[
+    for i in all_objects.order_by(order_direction + order_column_name)[
         start : start + length
     ].values():
         ret = [i[j] for j in columns]
         objects.append(ret)
 
-    filtered_count = all_objects.count()
-    total_count = Product.objects.count()
     return JsonResponse(
         {
             "recordsTotal": total_count,

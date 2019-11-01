@@ -15,6 +15,8 @@ def validate_nonzero(value):
 
 
 class DataSource(CommonInfo):
+    """A parent container for DataGroup objects"""
+
     STATE_CHOICES = (
         ("AT", "Awaiting Triage"),
         ("IP", "In Progress"),

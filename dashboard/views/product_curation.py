@@ -290,7 +290,6 @@ def product_assign_puc_to_product(
     return render(request, template_name, {"product": p, "form": form})
 
 
-@login_required()
 def product_detail(request, pk):
     template_name = "product_curation/product_detail.html"
     p = get_object_or_404(Product, pk=pk)
@@ -333,10 +332,8 @@ def product_delete(request, pk):
     return redirect("product_curation")
 
 
-@login_required()
 def product_list(request):
     template_name = "product_curation/products.html"
-    products = Product.objects.all()
     data = {}
-    data["products"] = products
+    data["products"] = {}
     return render(request, template_name, data)

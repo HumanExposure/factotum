@@ -13,7 +13,9 @@ from dashboard.models import (
 )
 from django import forms
 from django.core.exceptions import FieldDoesNotExist
+from django.db import connection, transaction
 from django.db.models import Aggregate
+from django.db.models.sql.subqueries import InsertQuery
 from django.forms.models import apply_limit_choices_to_to_formfield
 
 
@@ -167,7 +169,7 @@ class SimpleTree(MutableMapping):
             d["children"] = [child.asdict() for child in self.children]
         return d
 
-    
+
 def get_extracted_models(t):
     """Returns the parent model function and the associated child model
     based on datagroup type"""
@@ -185,17 +187,18 @@ def get_extracted_models(t):
         return (None, None)
 
 
-def clean_dict(odict, model, translations={}):
+def clean_dict(odict, model, translations={}, keep_nones=False):
     """Cleans out key:value pairs that aren't in the model fields
     """
     cleaned = {}
     for k, v in odict.items():
-        translated_k = translations.get(k, k)
-        try:
-            model._meta.get_field(translated_k)
-            cleaned[translated_k] = v
-        except FieldDoesNotExist:
-            continue
+        if v is not None or keep_nones:
+            translated_k = translations.get(k, k)
+            try:
+                model._meta.get_field(translated_k)
+                cleaned[translated_k] = v
+            except FieldDoesNotExist:
+                continue
     return cleaned
 
 
@@ -260,14 +263,15 @@ def gather_errors(form_instance, values=False):
                 for e in error:
                     all_msgs = [e.message] + e.messages
                     for all_e in all_msgs:
-                        if field == "__all__":
-                            error_mesage = all_e
-                        else:
-                            error_mesage = "%s: %s" % (field, all_e)
-                        if error_mesage in tmp_errors:
-                            tmp_errors[error_mesage].append(i)
-                        else:
-                            tmp_errors[error_mesage] = [i]
+                        if len(all_e) > 0:
+                            if field == "__all__":
+                                error_mesage = all_e
+                            else:
+                                error_mesage = "%s: %s" % (field, all_e)
+                            if error_mesage in tmp_errors:
+                                tmp_errors[error_mesage].append(i)
+                            else:
+                                tmp_errors[error_mesage] = [i]
         for error, i in tmp_errors.items():
             if values:
                 field = error.split(":")[0]
@@ -330,7 +334,7 @@ def accumulate_pucs(qs):
     return all_pucs
 
 
-def get_invalid_ids(Model, ids):
+def get_missing_ids(Model, ids):
     """Evaluate which IDs do not exist in the database
 
     Args:
@@ -342,3 +346,62 @@ def get_invalid_ids(Model, ids):
     ids_set = set(ids)
     dbids_set = set(Model.objects.filter(pk__in=ids_set).values_list("id", flat=True))
     return list(ids_set - dbids_set)
+
+
+@transaction.atomic
+def inheritance_bulk_create(models):
+    """A workaround for https://code.djangoproject.com/ticket/28821
+    
+    Args:
+        models: a list of models to insert
+
+    Note that this handles less edge cases than the official
+    bulk_create. For relatively simple models this will work well though.
+    """
+
+    model_class = models[0]._meta.model
+    # The "chain" is a list of models leading up to and including the provided model
+    chain = model_class._meta.get_parent_list() + [model_class]
+    # Determine if we are setting primary keys from an auto ID or not
+    top_pk_attname = chain[0]._meta.pk.attname
+    if all(getattr(m, top_pk_attname) is None for m in models):
+        pk_given_in_model = False
+    elif all(getattr(m, top_pk_attname) is not None for m in models):
+        pk_given_in_model = True
+    else:
+        raise ValueError("You can set all PKs or no PKs")
+    parent_done = False
+    last_id = 0
+    for model in chain:
+        meta = model._meta
+        if parent_done:
+            # Assign inherited primary keys
+            pk_attname = meta.pk.attname
+            for i, m in enumerate(models):
+                top_pk = getattr(m, top_pk_attname)
+                if pk_given_in_model:
+                    setattr(m, pk_attname, top_pk)
+                else:
+                    setattr(m, pk_attname, last_id + i)
+        if pk_given_in_model or last_id:
+            fields = [f for f in meta.local_concrete_fields]
+        else:
+            fields = [f for f in meta.local_concrete_fields if not f.primary_key]
+        query_gen = InsertQuery(model)
+        query_gen.insert_values(fields, models)
+        compiler = query_gen.get_compiler(connection=connection)
+        sql_statements = query_gen.as_sql(compiler, connection)
+        assert (
+            len(sql_statements) == 1 and len(sql_statements[0]) == 2
+        ), "We don't know how to deal with multiple queries here."
+        sql_str = sql_statements[0][0]
+        sql_values = sql_statements[0][1]
+        with connection.cursor() as cursor:
+            cursor.execute(sql_str, sql_values)
+            last_id = cursor.lastrowid
+        if not pk_given_in_model:
+            for i, m in enumerate(models):
+                m.pk = last_id + i
+        if not parent_done:
+            parent_done = True
+    return models

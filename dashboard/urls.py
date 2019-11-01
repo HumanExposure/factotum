@@ -9,7 +9,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("datasources/", views.data_source_list, name="data_source_list"),
-    path("datasource/<int:pk>", views.data_source_detail, name="data_source_detail"),
+    path("datasource/<int:pk>/", views.data_source_detail, name="data_source_detail"),
     path("datasource/new/", views.data_source_create, name="data_source_new"),
     path(
         "datasource/edit/<int:pk>/", views.data_source_update, name="data_source_edit"
@@ -104,7 +104,7 @@ urlpatterns = [
         name="qa_extraction_script_summary",
     ),
     path(
-        "extractionscripts/delete",
+        "extractionscripts/delete/",
         dashboard.views.extraction_script_delete_list,
         name="extraction_script_delete_list",
     ),
@@ -205,6 +205,11 @@ urlpatterns = [
         "get_data/get_dsstox_csv_template/",
         views.get_data_dsstox_csv_template,
         name="get_data_dsstox_csv_template",
+    ),
+    path(
+        "product_csv_template/<int:pk>/",
+        views.get_product_csv_template,
+        name="get_product_csv_template",
     ),
     path(
         "datagroup/diagnostics/<int:pk>/",

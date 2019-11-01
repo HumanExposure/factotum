@@ -52,7 +52,7 @@ class TestIntegration(StaticLiveServerTestCase):
             self.browser.current_url,
             "User should always return to detail page after submit",
         )
-        detail_url = self.live_server_url + f"/datasource/{ds.pk}"
+        detail_url = self.live_server_url + f"/datasource/{ds.pk}/"
         self.browser.get(detail_url)
         # go to edit page from datasource detail
         self.browser.find_element_by_xpath('//*[@title="edit"]').click()
@@ -81,7 +81,7 @@ class TestIntegration(StaticLiveServerTestCase):
         )
 
         dg = DataGroup.objects.first()
-        ds_detail_url = f"{self.live_server_url}/datasource/{dg.data_source.pk}"
+        ds_detail_url = f"{self.live_server_url}/datasource/{dg.data_source.pk}/"
         self.browser.get(ds_detail_url)
         self.browser.find_elements_by_xpath('//*[@title="edit"]')[1].send_keys("\n")
         btn = self.browser.find_element_by_name("cancel")

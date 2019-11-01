@@ -6,11 +6,10 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-2">
-    </div>
-    <div class="col-8">
+    <div class="col-12">
         <h1>
             <span name="title">{{ product.title }}</span>
+            {% if user.is_authenticated %}
             <div class="btn-group float-lg-right" role="group" aria-label="Manage Product">
                 <a class="btn btn-light btn-sm" role="button" title="edit"
                     href="{% url 'product_edit' pk=product.pk %}">
@@ -19,13 +18,14 @@
                     href="{% url "product_delete" pk=product.pk %}">
                     <span class="fa fa-fs fa-trash"></span> </a>
             </div>
+            {% endif %}
         </h1>
         <h2>
             <span name="title">{{ product.upc }}</span>
         </h2>
         <br>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-3">
                 <h4>
                     <span>PUC</span>
                     <div class="btn-group float-lg-right" role="group" aria-label="Manage PUC">
@@ -35,26 +35,30 @@
                             href="{% url 'puc_detail' pk=puc.id %}">
                             <span class="fa fa-fs fa-sitemap"></span> </a>
 
+                        {% if user.is_authenticated %}
                         <a class="btn btn-light btn-sm" role="button" title="Edit PUC Relationship"
                             href="{% url 'product_puc' pk=product.pk %}">
                             <span class="fa fa-fs fa-edit"></span> </a>
                         <a class="btn btn-light btn-sm" role="button" title="Delete PUC Relationship"
                             href="{% url 'product_puc_delete' pk=product.pk %}">
                             <span class="fa fa-fs fa-trash"></span> </a>
+                        {% endif %}
                         {% else %}
-                        <a class="btn btn-success btn-sm" role="button" title="edit" id="button_assign_puc"
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-sm btn-outline-primary" role="button" title="edit" id="button_assign_puc"
                             href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </h4>
-                <div class="form-group border bg-light">
+                <div class="form-group border p-2">
                     <dl>
                         <dt>General Category:</dt>
-                        <dd class="text-center">{{ puc.gen_cat|default:"PUC not yet assigned" }}</dd>
+                        <dd class="pl-4">{{ puc.gen_cat|default:"PUC not yet assigned" }}</dd>
                         <dt>Product Family:</dt>
-                        <dd class="text-center">{{ puc.prod_fam|default:"not specified" }}</dd>
+                        <dd class="pl-4">{{ puc.prod_fam|default:"not specified" }}</dd>
                         <dt>Product Type:</dt>
-                        <dd class="text-center">{{ puc.prod_type|default:"not specified" }}</dd>
+                        <dd class="pl-4">{{ puc.prod_type|default:"not specified" }}</dd>
                     </dl>
                 </div>
 
@@ -79,13 +83,23 @@
                         <h5 class="d-flex">
                             <span name="PUCTags" class="disabled">Product Attributes</span>
                             {% if product.get_puc_tag_list|length > 1 %}
+                            {% if user.is_authenticated %}
                             <button type="submit" id="tag_submit" class="btn btn-sm btn-success rounded-0 ml-auto">
                                 <small>
                                     Submit
                                 </small>
                             </button>
+                            {% endif %}
                         </h5>
-                        {{ tagform }}
+                        {% if user.is_authenticated %}
+                            {{ tagform }}
+                        {% else %}
+                            <ul class="taggit-labels taggit-list" id="id_tags">
+                            {% for tag in product.get_puc_tags %}
+                                <li class="taggit-tag">{{ tag.name }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
                     </form>
                     {%  else %}
                     </h5>
@@ -103,29 +117,33 @@
                     <i>{{ product.long_description|default:"" }} </i>
                 </div>
             </div>
-            <div class="col-4 border">
+            <div class="col-4">
                 {% if product.medium_image %}
                 <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
                 <br>
+                {% else %}
+                    <div class="p-6">&nbsp;</div>
                 {% endif %}
+                <div class="form-group border p-2">
                 <dl>
                     <dt>Brand Name</dt>
-                    <dd>{{ product.brand_name|default:"" }}</dd>
+                    <dd class="pl-4">{{ product.brand_name|default:"" }}</dd>
                     <dt>Manufacturer</dt>
-                    <dd>{{ product.manufacturer|default:"" }}</dd>
+                    <dd class="pl-4">{{ product.manufacturer|default:"" }}</dd>
                     <dt>Model Number</dt>
-                    <dd>{{ product.model_number|default:"" }}</dd>
+                    <dd class="pl-4">{{ product.model_number|default:"" }}</dd>
                     <dt>Size</dt>
-                    <dd>{{ product.size|default:"" }}</dd>
+                    <dd class="pl-4">{{ product.size|default:"" }}</dd>
                     <dt>Color</dt>
-                    <dd>{{ product.color|default:"" }}</dd>
+                    <dd class="pl-4">{{ product.color|default:"" }}</dd>
                 </dl>
                 {{ product.short_description|default:"" }}
+                </div>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <table class="table table-striped table-bordered dataTable no-footer table-sm" align="center">
                     <thead class="table-primary">
                         <!-- data document title, the document type,
@@ -146,10 +164,12 @@
                                 <span class="fa fa-check-circle" style="color:green;"></span>
                                 <p style="display:none;">{{ doc.is_extracted }}</p>
                                 {% else %}
+                                {% if user.is_authenticated %}
                                 <a class="btn btn-danger btn-sm" role="button" title="delete"
                                     href="{% url "data_document_delete" doc.id %}">
                                     <span class="fa fa-trash"></span>
                                 </a>
+                                {% endif %}
                                 <p style="display:none;">{{ doc.is_extracted }}</p>
                                 {% endif %}
                             </td>

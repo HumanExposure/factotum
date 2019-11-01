@@ -31,6 +31,9 @@ def csv_upload_path(instance, filename):
 
 
 class DataGroup(CommonInfo):
+    """A container for registered and extracted documents, all of which
+    share a common extraction script. Inherits from `CommonInfo`
+    """
 
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
@@ -215,6 +218,29 @@ class DataGroup(CommonInfo):
 
     def get_clean_comp_data_fieldnames(self):
         return ["id", "lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
+
+    def get_product_template_fieldnames(self):
+        product_fields = [
+            "title",
+            "upc",
+            "url",
+            "brand_name",
+            "size",
+            "color",
+            "item_id",
+            "parent_item_id",
+            "short_description",
+            "long_description",
+            "thumb_image",
+            "medium_image",
+            "large_image",
+            "model_number",
+            "manufacturer",
+        ]
+        return product_fields
+
+    def include_product_upload_form(self):
+        return True
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)

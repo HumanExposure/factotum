@@ -152,27 +152,26 @@ def run_query(
     """Run an Elasticsearch query.
 
     Arguments:
-        q (str): the string the search
+        q (str): the string to search
         model (str): one of 'chem', 'puc', 'product', or 'datadocument'
         size (int): the number of objects to return
+        offset (optional int): the value to start at [default=0]
+        page (optional int): the Django paginator page to return [default=None]
+        facets (optional dict): a key, value pair to filter on. value can be a str or a list of strings 
 
-    Optional arguments:
-    offset (int): the value to start at [default=0]
-    page (int): the Django paginator page to return [default=None]
-    facets (dict): a key, value pair to filter on. value can be a str
-                       or a list of strings [default={}]
-                       e.g. {'datadocument_grouptype': 'CO'} or
-                            {'datadocument_grouptype': ['CO', 'FU']}
-        fuzzy (bool): enable fuzzy search [default=False]
-        connection (str): which Elasticsearch instance to use [default="default"]
+            [default={}] e.g. {'datadocument_grouptype': 'CO'} or 
+            {'datadocument_grouptype': ['CO', 'FU']}
+        fuzzy (optional bool): enable fuzzy search [default=False]
+        connection (optional str): which Elasticsearch instance to use [default="default"]
 
     Returns:
         {
-            'hits': a list of results,
-            'facets': a dictionary of facets,
-            'took': time in seconds of search,
-            'total': total results found
+        'hits': a list of results,
+        'facets': a dictionary of facets,
+        'took': time in seconds of search,
+        'total': total results found
         }
+
     """
     # make sure the model is valid
     valid_models = set([id_field[:-3] for id_field in FIELD_DICT] + ["chemical"])

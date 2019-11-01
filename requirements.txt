@@ -26,5 +26,8 @@ selenium>=3.14.0
 wincertstore==0.2
 zipstream==1.1.4
 django-crum==0.7.3
+Sphinx==2.2.1
+sphinx-rtd-theme==0.4.3
+django-docs==0.3.1
 
 -e git+https://github.com/bennylope/django-taggit-labels.git@7afef34125653e958dc5dba0280904a0714aa808#egg=django_taggit_labels
