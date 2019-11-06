@@ -118,18 +118,43 @@ class ExtractedChemical(CommonInfo, RawChem):
         ordering = (F("ingredient_rank").asc(nulls_last=True),)
 
     def clean(self):
+        error_dict = {}
+        ut = bool(self.unit_type_id)
+        minc = bool(self.raw_min_comp)
+        cenc = bool(self.raw_central_comp)
+        maxc = bool(self.raw_max_comp)
+        minwf = bool(self.lower_wf_analysis)
+        cenwf = bool(self.central_wf_analysis)
+        maxwf = bool(self.upper_wf_analysis)
         # Don't allow the unit_type to be empty if there are raw_min_comp,
         # raw_central_comp, or raw_max_comp values.
-        if (
-            self.raw_min_comp or self.raw_central_comp or self.raw_max_comp
-        ) and not self.unit_type_id:
-            raise ValidationError(
-                {
-                    "unit_type": [
-                        "There must be a unit type if a composition value is provided."
-                    ]
-                }
-            )
+        if ~ut & (minc | cenc | maxc):
+            err_msg = "There must be a unit type if a composition value is provided."
+            error_dict["unit_type"] = [err_msg]
+        # Only accept central XOR (min and max), if any
+        err_msg = (
+            "Central %s value cannot be defined with "
+            "minimum value and maximum value."
+        )
+        if (cenc & minc) | (cenc & maxc):
+            error_dict["raw_central_comp"] = [err_msg % "composition"]
+        if (cenwf & minwf) | (cenwf & maxwf):
+            error_dict["central_wf_analysis"] = [err_msg % "weight fraction"]
+        # Ensure both max and min are filled, if either
+        err_msg = "Both minimum and maximimum %s values must be provided, not just one."
+        if (minc | maxc) & ~(minc & maxc):
+            if minc:
+                error_dict["raw_max_comp"] = [err_msg % "composition"]
+            else:
+                error_dict["raw_min_comp"] = [err_msg % "composition"]
+        if (minwf | maxwf) & ~(minwf & maxwf):
+            if minwf:
+                error_dict["upper_wf_analysis"] = [err_msg % "weight fraction"]
+            else:
+                error_dict["lower_wf_analysis"] = [err_msg % "weight fraction"]
+        # Raise validation errors
+        if error_dict:
+            raise ValidationError(error_dict)
 
     @classmethod
     def detail_fields(cls):

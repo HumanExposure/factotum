@@ -7,18 +7,18 @@
 {% block content %}
 
 <h1>
-    <span class='pr-1' data-toggle="tooltip" data-placement="right" title="Chemical Name">{{ substance|title }}
+    <span class='pr-1' data-toggle="tooltip" data-placement="right" title="Chemical Name">{{ chemical|title }}
     </span>
 </h1>
 <h4>
     <span class='pr-1' data-toggle="tooltip" data-placement="right" title="View in COMPTOX">
-        <a target="_blank" href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ substance.sid }}">
-            {{ substance.sid }}
+        <a target="_blank" href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.sid }}">
+            {{ chemical.sid }}
         </a>
     </span>
 </h4>
 <h4>
-    <span class='pr-1' data-toggle="tooltip" data-placement="right" title="CAS">{{ substance.true_cas|title }}
+    <span class='pr-1' data-toggle="tooltip" data-placement="right" title="CAS">{{ chemical.true_cas|title }}
     </span>
 </h4>
 <div class="container">
@@ -170,6 +170,6 @@
 <script src="{% static 'js/dashboard/dsstox_detail.js' %}"></script>
 <script src="{% static 'js/bubble_chart.js' %}"></script>
 <script>
-    nestedBubbleChart(500, 500, "{% url 'bubble_PUCs' %}?dtxsid={{ substance.sid }}")
+    nestedBubbleChart(500, 500, "{% url 'bubble_PUCs' %}?dtxsid={{ chemical.sid }}")
 </script>
 {% endblock %}

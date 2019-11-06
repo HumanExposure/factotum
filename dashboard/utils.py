@@ -26,13 +26,16 @@ class GroupConcat(Aggregate):
         separator (str): the delimiter to use (default=',')
 
     Example:
-        Pizza.objects.annotate(
-            topping_str=GroupConcat(
-                'toppings',
-                separator=', ',
-                distinct=True,
+        .. code-block:: python
+
+            Pizza.objects.annotate(
+                topping_str=GroupConcat(
+                    'toppings',
+                    separator=', ',
+                    distinct=True,
+                )
             )
-        )
+
     """
 
     function = "GROUP_CONCAT"
@@ -52,14 +55,14 @@ class SimpleTree(MutableMapping):
     >>> pizza["pepperoni"] = 5
     >>> pizza["cheese", "no_pickles"] = 3
     >>> pizza["cheese", "no_mayo"] = 10
-    >>> [food for food in t.items()]
+    >>> [food for food in pizza.items()]
            [(('pepperoni',), 5), (('cheese', 'no_pickles'), 3), ...]
 
     Values are returned by default. You can return the SimpleTree object by
     performing lookups on the "objects" interface. The "parent" attribute
     will refer to the original parent of the object.
 
-    >>> child = t.objects["pizza", "cheese"]
+    >>> child = pizza.objects["pizza", "cheese"]
     >>> [food for food in child.items()]
            [(('cheese', 'no_pickles'), 5), ...]
     >>> [food for food in child.parent.items()]
@@ -305,9 +308,16 @@ def gather_errors(form_instance, values=False):
     if hasattr(form_instance, "non_form_errors"):
         for error in form_instance.non_form_errors().as_data():
             errors.append(error.message)
-    err_search = lambda s: any(s in e for e in errors)
-    err_filter = lambda s: list(e for e in errors if s not in e)
-    err_rep = lambda s, r: list(e.replace(s, r) for e in errors)
+
+    def err_search(s):
+        return any(s in e for e in errors)
+
+    def err_filter(s):
+        return list(e for e in errors if s not in e)
+
+    def err_rep(s, r):
+        return list(e.replace(s, r) for e in errors)
+
     if err_search("This field is required") and err_search("Please submit 1 or more"):
         errors = err_filter("Please submit 1 or more")
     errors = err_rep("Forms", "Entries")
@@ -338,20 +348,28 @@ def get_missing_ids(Model, ids):
     """Evaluate which IDs do not exist in the database
 
     Args:
-        Model: the model class to check IDs against
+        Model: the model class or queryset to check IDs against
         ids: a sequence of integers represent the IDs to look up
+
+    Optional args:
+        filter: 
+
     Returns:
         A list of IDs not in the database
     """
     ids_set = set(ids)
-    dbids_set = set(Model.objects.filter(pk__in=ids_set).values_list("id", flat=True))
+    try:
+        qs = Model.objects.all()
+    except AttributeError:
+        qs = Model
+    dbids_set = set(qs.filter(pk__in=ids_set).values_list("id", flat=True))
     return list(ids_set - dbids_set)
 
 
 @transaction.atomic
 def inheritance_bulk_create(models):
     """A workaround for https://code.djangoproject.com/ticket/28821
-    
+
     Args:
         models: a list of models to insert
 

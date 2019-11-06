@@ -1,6 +1,6 @@
 {% load i18n widget_tweaks %}
 <div class="modal-dialog" role="document">
-    <form action="{% url 'chem-update' form.instance.pk %}" method="post" id="news-create" class="form">
+    <form action="{% url 'chemical_update' form.instance.pk %}" method="post" id="chem-update" class="form">
         {% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
@@ -25,5 +25,5 @@
         target: '#chemical-update-modal',
         success: function (response) {}
     };
-    $('#news-create').ajaxForm(form_options);
+    $('#chem-update').ajaxForm(form_options);
 </script>

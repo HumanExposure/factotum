@@ -31,41 +31,41 @@
 
 </head>
 <body>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-xl navbar-custom fixed-top py-0">
-        <a  class="navbar-brand" 
-            href="{% url 'index' %}"
-            title="an employee who does all kinds of work">
-            factotum
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarCollapse"
-                aria-controls="navbarCollapse"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav justify-content-lg-between">
-                <li class="nav-item 
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-xl navbar-custom fixed-top py-0">
+    <a class="navbar-brand"
+       href="{% url 'index' %}"
+       title="an employee who does all kinds of work">
+        factotum
+    </a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarCollapse"
+            aria-controls="navbarCollapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav justify-content-lg-between">
+            <li class="nav-item
                             {% if '/get_data/' in request.path %}
                                 active
                             {% endif %}">
-                    <a  class="nav-link" 
-                        href="{% url 'get_data' %}" 
-                        title="Get Data">
-                        Get Data
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
+                <a class="nav-link"
+                   href="{% url 'get_data' %}"
+                   title="Get Data">
+                    Get Data
+                </a>
+            </li>
+            {% if user.is_authenticated %}
                 <li class="nav-item
                             {% if '/datasources/' in request.path %}
                                 active
                             {% endif %}">
-                    <a  class="nav-link" 
-                        href="{% url 'data_source_list' %}">
+                    <a class="nav-link"
+                       href="{% url 'data_source_list' %}">
                         Data Sources
                     </a>
                 </li>
@@ -77,47 +77,47 @@
                     {% if request.resolver_match.url_name in curation_list %}
                         active
                     {% endif %}">
-                    <a  class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarDataCurationDropdownMenuLink"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDataCurationDropdownMenuLink"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
                         Data Curation
                     </a>
-                    <div class="dropdown-menu" 
-                        aria-labelledby="navbarDropdownMenuLink">
-                        <a  class="dropdown-item"
-                            href="{% url 'chemical_curation' %}">
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item"
+                           href="{% url 'chemical_curation' %}">
                             Chemical Curation
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'product_curation' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'product_curation' %}">
                             Product Curation
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'list_presence_tag_curation' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'list_presence_tag_curation' %}">
                             List Presence Keywords
                         </a>
-                        <a  class="dropdown-item"
+                        <a class="dropdown-item"
 
-                            href="{% url 'puc_list' %}">
+                           href="{% url 'puc_list' %}">
                             PUCs
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'bulk_product_puc' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'bulk_product_puc' %}">
                             Bulk Assign Products to PUCs
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'bulk_product_tag' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'bulk_product_tag' %}">
                             Bulk Assign Products to Attributes
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'bulk_documents' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'bulk_documents' %}">
                             Bulk Document Processing
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'extraction_script_delete_list' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'extraction_script_delete_list' %}">
                             Delete Extracted Text
                         </a>
                     </div>
@@ -127,113 +127,114 @@
                     {% if request.resolver_match.url_name in qa_list %}
                         active
                     {% endif %}">
-                    <a  class="nav-link dropdown-toggle"
-                        id="navbarQADropdownMenuLink"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"
+                       id="navbarQADropdownMenuLink"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
                         QA
                     </a>
-                    <div class="dropdown-menu" 
-                        aria-labelledby="navbarDropdownMenuLink">
-                        <a  class="dropdown-item"
-                            href="{% url 'qa_extractionscript_index' %}">
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item"
+                           href="{% url 'qa_extractionscript_index' %}">
                             Extraction Scripts
                         </a>
-                        <a  class="dropdown-item"
-                            href="{% url 'qa_chemicalpresence_index' %}">
+                        <a class="dropdown-item"
+                           href="{% url 'qa_chemicalpresence_index' %}">
                             Chemical Presence
                         </a>
                     </div>
                 </li>
                 {% block nav %}{% endblock %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right ml-auto">
-                <li class="nav-item ml-5
+                </ul>
+            {% endif %} <!--user.is_authenticated-->
+        <ul class="nav navbar-nav navbar-right ml-auto">
+            <li class="nav-item ml-5
                     {% if 'search' in request.resolver_match.url_name %}
                         active
                     {% endif %}">
-                    <!-- TODO: the input form should contain the search query string -->
-                    <form class="search-form-container" id="factotum-search-form" action="javascript:void(0);">
-                        <div class="icon-addon addon-lg">
-                            <input type="text"
-                            {% if decoded_q %}
-                                value="{{ decoded_q }}"
-                            {% else %}
-                                placeholder="Search"
-                            {% endif %}
-                            class="form-control"
-                            name="q"
-                            id="q"
-                            autocomplete="off">
-                        </div>
-                    </form>
-                </li>
+                <!-- TODO: the input form should contain the search query string -->
+                <form class="search-form-container" id="factotum-search-form" action="javascript:void(0);">
+                    <div class="icon-addon addon-lg">
+                        <input type="text"
+                                {% if decoded_q %}
+                               value="{{ decoded_q }}"
+                                {% else %}
+                               placeholder="Search"
+                                {% endif %}
+                               class="form-control"
+                               name="q"
+                               id="q"
+                               autocomplete="off">
+                    </div>
+                </form>
+            </li>
+            {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
-                    href="#"
-                    id="navbarDropdownMenuLink"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                        <span class="fa fa-user" title="factotum" aria-hidden="true"></span> 
+                       href="#"
+                       id="navbarDropdownMenuLink"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="fa fa-user" title="factotum" aria-hidden="true"></span>
                         {{ user.first_name }}
                     </a>
                     <div class="dropdown-menu"
-                        aria-labelledby="navbarDropdownMenuLink">
+                         aria-labelledby="navbarDropdownMenuLink">
                         {% if user.is_superuser %}
-                        <a class="dropdown-item" 
-                            href="{% url 'admin:index' %}">
-                            <span class="fa fa-cog" 
-                                title="Admin settings"
-                                aria-hidden="true">
+                            <a class="dropdown-item"
+                               href="{% url 'admin:index' %}">
+                            <span class="fa fa-cog"
+                                  title="Admin settings"
+                                  aria-hidden="true">
                             </span>
-                            Admin
-                        </a>
+                                Admin
+                            </a>
                         {% endif %}
                         <a class="dropdown-item"
-                        href="{% url 'logout' %}">
+                           href="{% url 'logout' %}">
                         <span class="fa fa-sign-out-alt"
-                                title="factotum"
-                                aria-hidden="true">
+                              title="factotum"
+                              aria-hidden="true">
                             </span>
                             Logout
                         </a>
                     </div>
                 </li>
-
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Begin page content -->
-    <div class="container">
-        {% include 'core/messages.html' %}
-        {% block errors %}{% endblock %}
-        {% block content %}Main content goes here!{% endblock %}
+            {% endif %}
+        </ul>
     </div>
-    <!-- End page content -->
+</nav>
 
-    <!-- Fixed Footer -->
-    <footer class="footer">
-        <div class="container">
+<!-- Begin page content -->
+<div class="container">
+    {% include 'core/messages.html' %}
+    {% block errors %}{% endblock %}
+    {% block content %}Main content goes here!{% endblock %}
+</div>
+<!-- End page content -->
+
+<!-- Fixed Footer -->
+<footer class="footer">
+    <div class="container">
             <span class="text-muted">
                 {% block footer %}{% endblock %}
             </span>
-        </div>
-    </footer>
+    </div>
+</footer>
 
-    {#<!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-     <script src="{% static 'DataTables/datatables.min.js' %}"></script>
-    <script src="{% static 'fontawesome/js/all.js' %}"></script>
-    <script src="{% static 'bootstrap-confirmation/bootstrap-confirmation.min.js' %}"></script>
-    <script src="{% static 'js/dashboard/search.js' %}"></script>
-    {% block js %}{% endblock %}
-    {% block css %}{% endblock %}
+{#<!-- jQuery first, then Popper.js, then Bootstrap JS -->#}
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'DataTables/datatables.min.js' %}"></script>
+<script src="{% static 'fontawesome/js/all.js' %}"></script>
+<script src="{% static 'bootstrap-confirmation/bootstrap-confirmation.min.js' %}"></script>
+<script src="{% static 'js/dashboard/search.js' %}"></script>
+{% block js %}{% endblock %}
+{% block css %}{% endblock %}
 
 </body>
 </html>

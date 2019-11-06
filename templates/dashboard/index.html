@@ -2,35 +2,9 @@
 {% load staticfiles %}
 {% load humanize %}
 
-<style>
-    .node {
-      cursor: pointer;
-    }
-    .node:hover {
-      stroke: #000;
-      stroke-width: 1.5px;
-    }
-    .node--leaf {
-      fill: white;
-    }
-    .label {
-      font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-      text-anchor: middle;
-      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-    }
-    .label,
-    .node--root,
-    .node--leaf {
-      pointer-events: none;
-    }
-</style>
-
 {% block content %}
-
     <h1 class="col-sm-12 p-2"><span class="fa fa-wrench" title="factotum" aria-hidden="true"></span>
-
         Welcome to Factotum
-
     </h1>
 
     <div class="card-deck">
@@ -87,96 +61,19 @@
         </div>
     </div>
 
-    <p></p>
-    <h4>Documents Uploaded By Date</h4>
-    <div id="datadocument_count_by_date_lineChart">
-        <svg style="height:350px;width:100%;overflow:visible"></svg>
+    <div class="row mt-5 mb-5">
+        <h4>Products Linked to PUCs</h4>
+        <svg id="nestedcircles" width="100%" height="500"></svg>
     </div>
-
-    <p></p>
-    <h4>Documents Uploaded By Month</h4>
-    <div id="datadocument_count_by_month_barchart">
-        <svg style="height:350px;width:100%;overflow:visible"></svg>
-    </div>
-
-    <p></p>
-    <h4>Products Linked to PUC By Month</h4>
-    <div id="product_with_puc_count_by_month_barchart">
-        <svg style="height:350px;width:100%;overflow:visible"></svg>
-    </div>
-
-        <div class="row mt-5 mb-5">
-            <h4>Products Linked to PUCs</h4>
-            <svg id="nestedcircles" width="100%" height="500"></svg>
-        </div>
-        </div>
-
-
-
 {% endblock %}
 
 {% block css %}
-    <!-- NVD3 CSS -->
-    <link rel="stylesheet" href="{% static "css/nv.d3.css" %}">
+    <link href="{% static 'css/dashboard/index.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'js/d3.v5.min.js' %}"></script>
-    <script src="{% static 'js/d3_rick.min.js' %}"></script>
-    <script src="{% static 'js/d3.js' %}"></script>
-    <script src="{% static 'js/nv.d3.js' %}"></script>
-    <script src="{% static 'js/dashboard/index.js' %}"></script>
     <script src="{% static 'js/d3-selection.v1.min.js' %}"></script>
     <script src="{% static 'js/bubble_chart.js' %}"></script>
-    <script>
-        product_with_puc_count_by_month = [
-            {
-                key: "Products Linked to PUC",
-                values: [
-                    {% for item in product_with_puc_count_by_month %}
-                        {
-                            "label": '{{ item.puc_assigned_month | date:"M Y" }}',
-                            "value": {{ item.product_count }}
-                        },
-                    {% endfor %}
-                ]
-            }
-        ];
-
-        datadocument_count_by_month = [
-            {
-                key: "Documents Uploaded",
-                values: [
-                    {% for item in datadocument_count_by_month %}
-                        {
-                            "label": '{{ item.upload_month | date:"M Y" }}',
-                            "value": {{ item.document_count }}
-                        },
-                    {% endfor %}
-                ]
-            }
-        ];
-
-
-        datadocument_count_by_date = [
-            {
-                'color': 'blue',
-                'values': [
-                    {% for item in datadocument_count_by_date.all %}
-                        {
-                            'y': {{ item.document_count }},
-                            'x': '{{ item.upload_date }}'
-                        },
-                    {% endfor %}
-                ],
-                'key': 'All',
-                'yAxis': '0'
-            }
-        ];
-
-
-        nestedBubbleChart(500, 500, "{% url 'bubble_PUCs' %}");
-
-
-    </script>
+    <script src="{% static 'js/dashboard/index.js' %}"></script>
 {% endblock %}

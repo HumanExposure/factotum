@@ -124,11 +124,11 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
 function renderDonut(id, part, total) {
     // http://bl.ocks.org/mbostock/5100636
     var tau = 2 * Math.PI;
-    var arc = d3.arc()
+    var arc = d3v5.arc()
         .innerRadius(15)
         .outerRadius(20)
         .startAngle(0);
-    var svg = d3.select("#" + id),
+    var svg = d3v5.select("#" + id),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
         g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -140,14 +140,14 @@ function renderDonut(id, part, total) {
         .datum({ endAngle: 0.0 * tau })
         .style("fill", "#3B3B3B")
         .attr("d", arc);
-    d3.timeout(function () {
+    d3v5.timeout(function () {
         foreground.transition()
             .duration(1000)
             .attrTween("d", arcTween((part / total) * tau));
     }, 500);
     function arcTween(newAngle) {
         return function (d) {
-            var interpolate = d3.interpolate(d.endAngle, newAngle);
+            var interpolate = d3v5.interpolate(d.endAngle, newAngle);
             return function (t) {
                 d.endAngle = interpolate(t);
                 return arc(d);

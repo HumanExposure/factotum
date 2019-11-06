@@ -8,9 +8,10 @@ ChemExpoDB
 
    modules/dashboard/models
    modules/dashboard/views
-   
+   modules/dashboard/utils
    modules/bulkformsets
    modules/elastic
+
 
 Indices and tables
 ==================

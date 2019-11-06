@@ -10,9 +10,6 @@ from dashboard.tests.loader import fixtures_standard
 class TestPUCDetail(TestCase):
     fixtures = fixtures_standard
 
-    def setUp(self):
-        self.client.login(username="Karyn", password="specialP@55word")
-
     def test_puc_not_specified(self):
         response = self.client.get("/puc/20/").content.decode("utf8")
         response_html = html.fromstring(response)

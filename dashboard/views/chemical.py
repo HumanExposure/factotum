@@ -6,10 +6,9 @@ from django.shortcuts import render, get_object_or_404
 from dashboard.models import DSSToxLookup, PUC, ExtractedListPresence
 
 
-@login_required()
-def dsstox_lookup_detail(request, sid):
-    s = get_object_or_404(DSSToxLookup, sid=sid)
-    qs = ExtractedListPresence.objects.filter(dsstox=s)
+def chemical_detail(request, sid):
+    chemical = get_object_or_404(DSSToxLookup, sid=sid)
+    qs = ExtractedListPresence.objects.filter(dsstox=chemical)
     tagDict = dict(Counter([tuple(x.tags.all()) for x in qs if x.tags.exists()]))
     pucs = PUC.objects.dtxsid_filter(sid).with_num_products().astree()
     # get parent PUCs too
@@ -26,5 +25,5 @@ def dsstox_lookup_detail(request, sid):
             for needle in leaflet.children:
                 if not needle.value:
                     needle.value = parent_pucs[(leaf.name, leaflet.name, needle.name)]
-    context = {"substance": s, "tagDict": tagDict, "pucs": pucs}
-    return render(request, "chemicals/dsstox_substance_detail.html", context)
+    context = {"chemical": chemical, "tagDict": tagDict, "pucs": pucs}
+    return render(request, "chemicals/chemical_detail.html", context)

@@ -41,7 +41,7 @@ class DSSToxLookup(CommonInfo):
         return self.true_chemname
 
     def get_absolute_url(self):
-        return reverse("dsstox_lookup", kwargs={"sid": self.sid})
+        return reverse("chemical", kwargs={"sid": self.sid})
 
     @property
     def puc_count(self):

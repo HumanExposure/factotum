@@ -224,14 +224,33 @@ class BaseExtractFileForm(forms.Form):
     raw_cas = field_for_model(RawChem, "raw_cas")
     raw_chem_name = field_for_model(RawChem, "raw_chem_name")
 
+    def clean(self):
+        super().clean()
+        data = self.cleaned_data
+        # Rename fields
+        data["extraction_script_id"] = data.pop("extraction_script")
+        data["extracted_text_id"] = data.get("data_document_id")
+        # Validate model
+        params = clean_dict(self.cleaned_data, ExtractedText)
+        ExtractedText(**params).clean()
+
 
 class FunctionalUseExtractFileForm(BaseExtractFileForm):
     prod_name = field_for_model(ExtractedText, "prod_name")
     rev_num = field_for_model(ExtractedText, "rev_num")
     report_funcuse = field_for_model(ExtractedFunctionalUse, "report_funcuse")
 
+    def clean(self):
+        super().clean()
+        params = clean_dict(self.cleaned_data, ExtractedFunctionalUse)
+        obj = ExtractedFunctionalUse(**params)
+        obj.clean()
+        obj.validate_unique()
 
-class CompositionExtractFileForm(FunctionalUseExtractFileForm):
+
+class CompositionExtractFileForm(BaseExtractFileForm):
+    prod_name = field_for_model(ExtractedText, "prod_name")
+    rev_num = field_for_model(ExtractedText, "rev_num")
     weight_fraction_type = forms.IntegerField(required=False)
     raw_min_comp = field_for_model(ExtractedChemical, "raw_min_comp")
     raw_max_comp = field_for_model(ExtractedChemical, "raw_max_comp")
@@ -241,6 +260,18 @@ class CompositionExtractFileForm(FunctionalUseExtractFileForm):
     component = field_for_model(ExtractedChemical, "component")
     report_funcuse = field_for_model(ExtractedChemical, "report_funcuse")
 
+    def clean(self):
+        super().clean()
+        data = self.cleaned_data
+        # Rename fields
+        data["weight_fraction_type_id"] = data.pop("weight_fraction_type")
+        data["unit_type_id"] = data.pop("unit_type")
+        # Validate model
+        params = clean_dict(self.cleaned_data, ExtractedChemical)
+        obj = ExtractedChemical(**params)
+        obj.clean()
+        obj.validate_unique()
+
 
 class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cat_code = field_for_model(ExtractedCPCat, "cat_code")
@@ -248,6 +279,18 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
     report_funcuse = field_for_model(ExtractedListPresence, "report_funcuse")
+
+    def clean(self):
+        super().clean()
+        data = self.cleaned_data
+        params = clean_dict(data, ExtractedCPCat)
+        obj = ExtractedCPCat(**params)
+        obj.clean()
+        obj.validate_unique()
+        params = clean_dict(data, ExtractedListPresence)
+        obj = ExtractedListPresence(**params)
+        obj.clean()
+        obj.validate_unique()
 
 
 class ExtractFileFormSet(DGFormSet):
@@ -277,33 +320,53 @@ class ExtractFileFormSet(DGFormSet):
         super().__init__(*args, **kwargs)
 
     def clean(self):
+        validation_errors = []
         # We're now CPU bound on this call, not SQL bound. Make for a more fun problem.
         Parent, Child = get_extracted_models(self.dg.type)
         unique_parent_ids = set(f.cleaned_data["data_document_id"] for f in self.forms)
         # Check that extraction_script is valid
-        extraction_script_id = self.forms[0].cleaned_data["extraction_script"]
+        extraction_script_id = self.forms[0].cleaned_data["extraction_script_id"]
         if not Script.objects.filter(
             script_type="EX", pk=extraction_script_id
         ).exists():
-            raise forms.ValidationError("Invalid extraction script selection.")
+            err = forms.ValidationError("Invalid extraction script selection.")
+            validation_errors.append(err)
         # Check that unit_type is valid
         unit_type_ids = (
-            f.cleaned_data["unit_type"]
+            f.cleaned_data["unit_type_id"]
             for f in self.forms
-            if f.cleaned_data.get("unit_type") is not None
+            if f.cleaned_data.get("unit_type_id") is not None
         )
         bad_ids = get_missing_ids(UnitType, unit_type_ids)
         if bad_ids:
             err_str = 'The following "unit_type"s were not found: '
             err_str += ", ".join("%d" % i for i in bad_ids)
-            raise forms.ValidationError(err_str)
+            err = forms.ValidationError(err_str)
+            validation_errors.append(err)
+        # Check that weight_fraction_type is valid
+        weight_fraction_type_ids = (
+            f.cleaned_data["weight_fraction_type_id"]
+            for f in self.forms
+            if f.cleaned_data.get("weight_fraction_type_id") is not None
+        )
+        bad_ids = get_missing_ids(WeightFractionType, weight_fraction_type_ids)
+        if bad_ids:
+            err_str = 'The following "weight_fraction_type"s were not found: '
+            err_str += ", ".join("%d" % i for i in bad_ids)
+            err = forms.ValidationError(err_str)
+            validation_errors.append(err)
         # Check that the data_document_id are all valid
-        datadocument_dict = DataDocument.objects.in_bulk(unique_parent_ids)
+        datadocument_dict = DataDocument.objects.filter(data_group=self.dg).in_bulk(
+            unique_parent_ids
+        )
         if len(datadocument_dict) != len(unique_parent_ids):
             bad_ids = unique_parent_ids - datadocument_dict.keys()
-            err_str = 'The following "data_document_id"s were not found: '
+            err_str = (
+                'The following "data_document_id"s were not found for this data group: '
+            )
             err_str += ", ".join("%d" % i for i in bad_ids)
-            raise forms.ValidationError(err_str)
+            err = forms.ValidationError(err_str)
+            validation_errors.append(err)
         # Check that parent fields do not conflict (OneToOne check)
         if hasattr(Parent, "cat_code"):
             oto_field = "cat_code"
@@ -329,16 +392,10 @@ class ExtractFileFormSet(DGFormSet):
                     % oto_field
                 )
                 err_str += ", ".join("%d" % i for i in bad_ids)
-                raise forms.ValidationError(err_str)
-        # Clean the data
-        for form in self.forms:
-            data = form.cleaned_data
-            data["extracted_text_id"] = data["data_document_id"]
-            data["extraction_script_id"] = data.pop("extraction_script")
-            if "weight_fraction_type" in data:
-                data["weight_fraction_type_id"] = data.pop("weight_fraction_type")
-            if "unit_type" in data:
-                data["unit_type_id"] = data.pop("unit_type")
+                err = forms.ValidationError(err_str)
+                validation_errors.append(err)
+        if validation_errors:
+            raise forms.ValidationError(validation_errors)
         # Make the DataDocument, Parent, and Child objects and validate them
         parent_dict = Parent.objects.in_bulk(unique_parent_ids)
         unseen_parents = set(unique_parent_ids)
@@ -368,7 +425,6 @@ class ExtractFileFormSet(DGFormSet):
                 parent_params = clean_dict(data, Parent)
                 if pk not in parent_dict:
                     parent = Parent(**parent_params)
-                    parent.clean()
                     parent._meta.created_fields = parent_params
                     parent._meta.updated_fields = {}
                 # Parent updates
@@ -394,7 +450,6 @@ class ExtractFileFormSet(DGFormSet):
             # Only include children if relevant data is attached
             if child_params.keys() - {"extracted_text_id", "weight_fraction_type_id"}:
                 child = Child(**child_params)
-                child.clean()
                 child._meta.created_fields = child_params
                 child._meta.updated_fields = {}
             else:
@@ -445,43 +500,28 @@ class ExtractFileFormSet(DGFormSet):
 class CleanCompForm(forms.ModelForm):
 
     ExtractedChemical_id = forms.IntegerField(required=True)
-    script = forms.IntegerField(required=True)
+    script_id = forms.IntegerField(required=True)
 
     class Meta:
         model = ExtractedChemical
         fields = ["lower_wf_analysis", "central_wf_analysis", "upper_wf_analysis"]
 
-    def __init__(self, *args, **kwargs):
-        super(CleanCompForm, self).__init__(*args, **kwargs)
-        self.fields["script"].queryset = Script.objects.filter(script_type="DC")
-        self.fields["script"].required = True
-
     def clean(self):
         super().clean()
+        params = clean_dict(self.cleaned_data, ExtractedChemical)
+        obj = ExtractedChemical(**params)
+        obj.clean()
+        # Ensure data is provided.
         central_wf_analysis = self.cleaned_data.get("central_wf_analysis")
         lower_wf_analysis = self.cleaned_data.get("lower_wf_analysis")
         upper_wf_analysis = self.cleaned_data.get("upper_wf_analysis")
-        if central_wf_analysis and (lower_wf_analysis or upper_wf_analysis):
-            self.add_error(
-                None,
-                (
-                    "If central_wf_analysis is populated, neither lower_wf_analysis"
-                    " nor upper_wf_analysis may be populated."
-                ),
-            )
-        if not central_wf_analysis and (not lower_wf_analysis or not upper_wf_analysis):
-            self.add_error(
-                None,
-                (
-                    "If central_wf_analysis is blank, both lower_wf_analysis and"
-                    " upper_wf_analysis must be populated."
-                ),
-            )
+        if not (central_wf_analysis or lower_wf_analysis or upper_wf_analysis):
+            raise forms.ValidationError("No weight fraction data provided.")
 
 
 class CleanCompFormSet(DGFormSet):
     prefix = "cleancomp"
-    header_fields = ["script"]
+    header_fields = ["script_id"]
     serializer = CSVReader
     form = CleanCompForm
 
@@ -499,14 +539,19 @@ class CleanCompFormSet(DGFormSet):
             for f in self.forms
             if "ExtractedChemical_id" in f.cleaned_data
         ]
-        bad_ids = get_missing_ids(ExtractedChemical, self.cleaned_ids)
-        bad_ids_str = ", ".join(str(i) for i in bad_ids)
+        bad_ids = get_missing_ids(
+            ExtractedChemical.objects.filter(
+                extracted_text__data_document__data_group=self.dg
+            ),
+            self.cleaned_ids,
+        )
         if bad_ids:
+            bad_ids_str = ", ".join(str(i) for i in bad_ids)
             raise forms.ValidationError(
-                f"The following IDs do not exist in ExtractedChemicals: {bad_ids_str}"
+                f"The following IDs do not exist in ExtractedChemicals for this data group: {bad_ids_str}"
             )
         # Ensure script ID is valid
-        script_id = self.forms[0].cleaned_data.get("script")
+        script_id = self.forms[0].cleaned_data.get("script_id")
         if (
             script_id
             and not Script.objects.filter(script_type="DC", pk=script_id).exists()
@@ -526,7 +571,7 @@ class CleanCompFormSet(DGFormSet):
                 chem.upper_wf_analysis = form.cleaned_data.get("upper_wf_analysis")
                 chem.central_wf_analysis = form.cleaned_data.get("central_wf_analysis")
                 chem.lower_wf_analysis = form.cleaned_data.get("lower_wf_analysis")
-                chem.script_id = form.cleaned_data["script"]
+                chem.script_id = form.cleaned_data["script_id"]
                 chem.updated_at = now
                 chems.append(chem)
             ExtractedChemical.objects.bulk_update(

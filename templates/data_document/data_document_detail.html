@@ -412,7 +412,7 @@
     $('#chemical-add-modal').on('show.bs.modal', function (event) {
         var modal = $(this)
         $.ajax({
-            url: "{% url 'chem-create' doc.pk %}",
+            url: "{% url 'chemical_create' doc.pk %}",
             context: document.body
         }).done(function (response) {
             modal.html(response);
@@ -423,7 +423,7 @@
         var modal = $(this)
         var chem_pk = event.relatedTarget.value
         $.ajax({
-            url: "{% url 'chem-update' pk=47 %}".replace(/47/, chem_pk.toString()),
+            url: "{% url 'chemical_update' pk=47 %}".replace(/47/, chem_pk.toString()),
             context: document.body
         }).done(function (response) {
             modal.html(response);

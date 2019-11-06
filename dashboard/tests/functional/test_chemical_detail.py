@@ -6,14 +6,14 @@ from dashboard.models import DSSToxLookup, ProductDocument, PUC, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 
 
-class DSSToxDetail(TestCase):
+class ChemicalDetail(TestCase):
 
     fixtures = fixtures_standard
 
     def setUp(self):
         self.client.login(username="Karyn", password="specialP@55word")
 
-    def test_dsstox_detail(self):
+    def test_chemical_detail(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
         response = self.client.get(dss.get_absolute_url())
         self.assertEqual(
@@ -77,3 +77,9 @@ class DSSToxDetail(TestCase):
             0,
             f"DSSTox pk={dss.pk} should return CP keyword sets in the context",
         )
+
+    def test_anonymous_read(self):
+        self.client.logout()
+        response = self.client.get("/chemical/DTXSID6026296/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Water")

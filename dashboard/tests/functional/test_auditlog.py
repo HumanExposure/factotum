@@ -151,11 +151,39 @@ class AuditLogTest(TestCase):
 
         logs = AuditLog.objects.all()
         self.assertEquals(27, len(logs), "Should have log entries")
+        self.assertEquals(3, sum(log.field_name == "raw_min_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "unit_type_id" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "report_funcuse" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "ingredient_rank" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "upper_wf_analysis" for log in logs))
+        self.assertEquals(
+            3, sum(log.field_name == "central_wf_analysis" for log in logs)
+        )
+        self.assertEquals(3, sum(log.field_name == "lower_wf_analysis" for log in logs))
 
         for log in logs:
             self.assertEquals(log.model_name, "extractedchemical")
+            self.assertIsNotNone(log.object_key)
             self.assertIsNotNone(log.field_name)
             self.assertIsNotNone(log.new_value)
+            self.assertIsNotNone(log.date_created)
+            self.assertIsNotNone(log.user_id)
+            self.assertEquals("U", log.action, "Should be Update action")
+        logs.delete()
+
+        # change rid
+        for chem in chems:
+            chem.rid = "test rid"
+            chem.save()
+        logs = AuditLog.objects.all()
+        self.assertEquals(3, len(logs), "Should have log entries")
+        for log in logs:
+            self.assertEquals(log.model_name, "rawchem")
+            self.assertEquals("rid", log.field_name)
+            self.assertIsNone(log.old_value)
+            self.assertEquals("test rid", log.new_value)
             self.assertIsNotNone(log.date_created)
             self.assertIsNotNone(log.user_id)
             self.assertEquals("U", log.action, "Should be Update action")
@@ -166,9 +194,23 @@ class AuditLogTest(TestCase):
             chemical.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(33, len(logs), "Should have log entries")
-
+        self.assertEquals(36, len(logs), "Should have log entries")
+        self.assertEquals(3, sum(log.field_name == "raw_min_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "unit_type_id" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "report_funcuse" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "ingredient_rank" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "upper_wf_analysis" for log in logs))
+        self.assertEquals(
+            3, sum(log.field_name == "central_wf_analysis" for log in logs)
+        )
+        self.assertEquals(3, sum(log.field_name == "lower_wf_analysis" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_cas" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "raw_chem_name" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "rid" for log in logs))
         for log in logs:
+            self.assertIsNotNone(log.object_key)
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)
             self.assertIsNone(log.new_value)

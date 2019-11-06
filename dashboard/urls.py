@@ -186,7 +186,7 @@ urlpatterns = [
         views.download_raw_chems_dg,
         name="download_raw_chems_dg",
     ),
-    path("chemical/<str:sid>/", views.dsstox_lookup_detail, name="dsstox_lookup"),
+    path("chemical/<str:sid>/", views.chemical_detail, name="chemical"),
     path(
         "habitsandpractices/<int:pk>/",
         views.habitsandpractices,
@@ -248,9 +248,11 @@ urlpatterns = [
         name="chemical_delete",
     ),
     path(
-        "chemical/<int:doc>/create/", views.ChemCreateView.as_view(), name="chem-create"
+        "chemical/<int:doc>/create/",
+        views.ChemCreateView.as_view(),
+        name="chemical_create",
     ),
-    path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chem-update"),
+    path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chemical_update"),
     path(
         "list_presence_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",
         views.list_presence_tag_delete,

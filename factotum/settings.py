@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import sys
 import os
+
+QUERY_LOG_DATABASE = "default"
+
 from .settings_secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -135,3 +138,5 @@ MESSAGE_TAGS = {
 }
 
 DOCS_ROOT = os.path.join(BASE_DIR, "./docs/_build/html")
+
+DATABASE_ROUTERS = ["factotum.routers.QueryLogRouter"]

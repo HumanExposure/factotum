@@ -16,7 +16,7 @@
             <div class="col-6 text-center">
                 <small class="text-muted">
                     <a title="go to substance"
-                       href={% url 'dsstox_lookup' chemical.dsstox.sid %}>
+                       href={% url 'chemical' chemical.dsstox.sid %}>
                         True Name: {{ chemical.dsstox.true_chemname|truncatechars:45 }}
                     </a>
                 </small>
@@ -44,7 +44,7 @@
                     <button class="btn btn-outline-secondary hover-success"
 
                             title="edit"
-                            href="{% url 'chem-update' chemical.pk %}"
+                            href="{% url 'chemical_update' chemical.pk %}"
                             data-toggle="modal"
                             data-target="#chemical-update-modal"
                             value={{ chemical.pk }}>
@@ -193,7 +193,7 @@
     <div class="card m-4 p-0"
          id="add_chemical">
         <button class="btn m-0 p-0 btn-outline-secondary hover-success"
-                href="{% url 'chem-create' doc.pk %}"
+                href="{% url 'chemical_create' doc.pk %}"
                 data-toggle="modal"
                 data-target="#chemical-add-modal">
             <div class="card-body shadow rounded p-0 m-0 text-center"

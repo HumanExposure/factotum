@@ -12,7 +12,6 @@ def puc_list(request, template_name="puc/puc_list.html"):
     return render(request, template_name, data)
 
 
-@login_required()
 def puc_detail(request, pk, template_name="puc/puc_detail.html"):
     puc = get_object_or_404(PUC, pk=pk)
     data = {}
