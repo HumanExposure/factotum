@@ -1,4 +1,5 @@
 from django.utils import safestring
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import Count, Q, Max
 from django.shortcuts import render, get_object_or_404
@@ -328,8 +329,10 @@ def product_update(
 @login_required()
 def product_delete(request, pk):
     p = Product.objects.get(pk=pk)
+    messages.success(request, f"Product: {p} successfully deleted.")
+    doc = p.datadocument_set.first()
     p.delete()
-    return redirect("product_curation")
+    return redirect("data_document", pk=doc.pk) if doc else redirect("index")
 
 
 def product_list(request):

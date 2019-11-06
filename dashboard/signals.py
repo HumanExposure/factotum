@@ -83,7 +83,7 @@ def auto_delete_orphaned_products_on_delete(sender, instance, **kwargs):
     Deletes orphaned products on ProductDocument delete
     """
     Product.objects.exclude(
-        id__in=ProductDocument.objects.all().values("product_id")
+        id__in=ProductDocument.objects.values("product_id")
     ).delete()
 
 

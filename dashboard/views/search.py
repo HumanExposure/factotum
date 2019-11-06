@@ -28,8 +28,7 @@ def search_model(request, model, template_name="search/base.html"):
             facet_strs = []
             for s in request.GET[f].split(","):
                 try:
-                    facet_strs.append(base64.b64decode(
-                        s).decode("unicode_escape"))
+                    facet_strs.append(base64.b64decode(s).decode("unicode_escape"))
                 except:
                     pass
             if facet_strs:

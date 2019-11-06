@@ -77,29 +77,25 @@ class TestSearch(TestCase):
         qs = self._get_query_str("water")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "7 products"  # This includes "eau" synonym records
         self.assertIn(expected_total, total_took)
         # documents
         response = self.client.get("/search/datadocument/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "42 datadocuments"  # includes "eau" and "H2O" synonyms
         self.assertIn(expected_total, total_took)
         # pucs
         response = self.client.get("/search/puc/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "12 pucs"  # includes synonyms
         self.assertIn(expected_total, total_took)
         # chemicals
         response = self.client.get("/search/chemical/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "1 chemicals"
         self.assertIn(expected_total, total_took)
 
@@ -107,8 +103,7 @@ class TestSearch(TestCase):
         qs = self._get_query_str("water", {"product_brandname": ["3M"]})
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "1 products returned"
         self.assertIn(expected_total, total_took)
 
@@ -117,8 +112,7 @@ class TestSearch(TestCase):
         qs = self._get_query_str("Rubber & Vinyl 80 Spray Adhesive")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "3 products returned"
         self.assertIn(expected_total, total_took)
 
@@ -126,8 +120,7 @@ class TestSearch(TestCase):
         qs = self._get_query_str("2,6-Di-tert-butyl-p-cresol")
         response = self.client.get("/search/product/" + qs)
         response_html = html.fromstring(response.content.decode("utf8"))
-        total_took = response_html.xpath(
-            'normalize-space(//*[@id="total-took"])')
+        total_took = response_html.xpath('normalize-space(//*[@id="total-took"])')
         expected_total = "1 products returned in"
         self.assertIn(expected_total, total_took)
 
@@ -168,8 +161,7 @@ class TestSearch(TestCase):
         user = User.objects.get(username="Karyn")
         application = QueryLog.FACTOTUM
         querylog = QueryLog.objects.filter(query=query).first()
-        self.assertEqual(querylog.query, query,
-                         "The query was not correctly logged.")
+        self.assertEqual(querylog.query, query, "The query was not correctly logged.")
         self.assertEqual(
             querylog.user_id, user.pk, "The user was not correctly logged."
         )

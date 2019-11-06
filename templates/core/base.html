@@ -72,7 +72,7 @@
                 <!-- <li class="nav-item {% if 'product_list' in request.resolver_match.url_name %}active{% endif %}">
                     <a class="nav-link" href="{% url 'product_list' %}">Products</a>
                 </li> -->
-                {% to_list 'product_curation' 'puc_list' 'bulk_product_puc' 'bulk_product_tag' 'chemical_curation' as curation_list %}
+                {% to_list 'puc_list' 'bulk_product_puc' 'bulk_product_tag' 'chemical_curation' as curation_list %}
                 <li class="nav-item dropdown
                     {% if request.resolver_match.url_name in curation_list %}
                         active
@@ -90,10 +90,6 @@
                         <a class="dropdown-item"
                            href="{% url 'chemical_curation' %}">
                             Chemical Curation
-                        </a>
-                        <a class="dropdown-item"
-                           href="{% url 'product_curation' %}">
-                            Product Curation
                         </a>
                         <a class="dropdown-item"
                            href="{% url 'list_presence_tag_curation' %}">

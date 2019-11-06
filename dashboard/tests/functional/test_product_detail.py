@@ -33,9 +33,11 @@ class TestProductDetail(TestCase):
 
     def test_product_delete(self):
         self.assertTrue(Product.objects.get(pk=11), "Product 11 should exist")
-        self.client.get(f"/product/delete/11/")
+        response = self.client.get("/product/delete/11/")
         with self.assertRaises(ObjectDoesNotExist):
             Product.objects.get(pk=11)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, "/datadocument/163194/")
 
     def test_product_update(self):
         p = Product.objects.get(pk=11)
