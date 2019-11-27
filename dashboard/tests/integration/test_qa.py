@@ -62,3 +62,17 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             0, ExtractedText.objects.filter(extraction_script=extraction_script).count()
         )
         self.assertEqual(False, extraction_script.qa_begun)
+
+    def test_skip_button(self):
+        # A Composition page should include a Skip button
+        qa_url = self.live_server_url + f"/qa/extractedtext/121698/"
+        self.browser.get(qa_url)
+        btn_skip = self.browser.find_element_by_name("skip")
+        self.assertEqual(btn_skip.text, "Skip")
+
+        # A Chemical Presence page should not
+        qa_url = self.live_server_url + f"/qa/extractedtext/254780/"
+        self.browser.get(qa_url)
+        with self.assertRaises(NoSuchElementException):
+            self.browser.find_element_by_name("skip")
+

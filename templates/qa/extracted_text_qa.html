@@ -139,12 +139,13 @@
                     <input type="hidden" name="referer" value="{{request.path}}" />
                 <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
 
+
+                {% if referer == 'qa_extraction_script' and doc.data_group.type != "CP"%}
                 <br>
-                {% if referer == 'qa_extraction_script'%}
                     {% if nextid > 0 %}
-                        <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
+                        <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" name="skip" role="button">Skip</a>
                     {% else %}
-                        <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+                        <button type="button" title="All the other documents in this QA group have been approved" name="skip" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
                     {% endif %}
                 {% endif %}
                 <br>
