@@ -10,6 +10,8 @@ import requests
 from django.test import TestCase, RequestFactory
 from factotum import settings
 
+import bs4
+
 from elastic.models import QueryLog
 
 
@@ -197,3 +199,20 @@ class TestSearch(TestCase):
             messages,
             "Error should be thrown for query longer than 255 characters.",
         )
+
+    def test_chemical_captions(self):
+        """
+        Searching by chemical name should return the CAS without any highlights,
+        searching by CAS should return a highlighted element
+        """
+        qs = self._get_query_str("water")
+        resp = self.client.get("/search/chemical/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        selector = soup.find_all(text="7732-18-5")[0]
+        self.assertEqual(selector, "7732-18-5")
+
+        qs = self._get_query_str("7732-18-5")
+        resp = self.client.get("/search/chemical/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        selector = soup.find_all(text="7732-18-5")[0]
+        self.assertEqual(str(selector.parent), "<em>7732-18-5</em>")
