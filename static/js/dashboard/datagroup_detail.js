@@ -52,7 +52,7 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
     }
     function renderMatched(data, type, row, meta) {
         if (row.matched) {
-            return "<div class='text-secondary text-center'><span class='fa fa-check'></span></div>";
+            return "<div class='text-secondary text-center'><span class='fa fa-check'></span><span style='display:none'>1</span></div>";
         } else {
             return [
                 "<div class='text-center'>",
@@ -67,9 +67,17 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
     }
     function renderExtracted(data, type, row, meta) {
         if (row.extracted) {
-            return "<div class='text-secondary text-center'><span class='fa fa-check'></span></div>";
+            return "<div class='text-secondary text-center'><span class='fa fa-check'></span><span style='display:none'>1</span></div>";
         } else {
             return "<div class='text-secondary text-center'><span class='fa fa-times'></span></div>";
+        }
+    }
+
+    function renderHidden(data, type, row, meta) {
+        if (row.hidden === 'Extracted') {
+            return "<div>Extracted</div>";
+        } else {
+            return "<div>Not Extracted</div>";
         }
     }
 
@@ -95,8 +103,9 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
         var columns = [
             { "data": "title", "render": renderTitle },
             { "data": "matched", "render": renderMatched },
-            { "data": "extracted", "render": renderExtracted },
-            { "data": "product", "render": renderProd }
+            { "data": "extracted", "render": renderExtracted , "width": "13%" },
+            { "data": "product", "render": renderProd },
+            { "data": "hidden", "render": renderHidden },
         ];
     } else if (boolHab) {
         var columns = [
@@ -116,11 +125,48 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
             { "data": "extracted", "render": renderExtracted },
         ];
     }
-    $('#docs').dataTable({
-        "ajax": "./documents_table/",
-        "columns": columns
-    });
+    if (boolComp) {
+        $('#docs').DataTable({
+            "ajax": "./documents_table/",
+            "columns": columns,
+            columnDefs: [
+                    { targets: [4], visible: false },
+                ],
+            initComplete: function () {
+                
+                var extracted = this.api().columns( 2 ).every( function () {
+                    return this;
+                } );
+    
+                this.api().columns( 4 ).every( function () {
+                    var column = this;
+                    var select = $('<select class="custom-select"><option value="">All</option></select>')
+                        .appendTo( $(extracted.footer()).empty() )
+                        .on( 'change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                                );
+                            column
+                                .search( val ? '^'+val+'$' : '', true, false )
+                                .draw();
+                        } );
+                    column.data().unique().sort().each( function ( d, j ) {
+                        select.append( 
+                            '<option value="'+d+'" name="'+d.replace(/ /g, '_')+'">'+d+'</option>' 
+                        )
+                    } );
+                } );
+            }
+        });
+    } else {
+        $('#docs').DataTable({
+            "ajax": "./documents_table/",
+            "columns": columns,
+        });
+    }
 }
+
+
 function renderDonut(id, part, total) {
     // http://bl.ocks.org/mbostock/5100636
     var tau = 2 * Math.PI;

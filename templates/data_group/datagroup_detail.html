@@ -388,9 +388,27 @@
           {% endif %}
           {% if datagroup.is_composition %}
           <th class="text-center">Product</th>
+          <th class="text-center">Hidden</th>
           {% endif %}
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            {% if datagroup.is_habits_and_practices %}
+            <th></th>
+            {% else %}
+              {% if not datagroup.is_supplemental_doc %}
+                <th id='footer-options'></th>
+              {% endif %}
+            {% endif %}
+            {% if datagroup.is_composition %}
+            <th></th>
+            <th></th>
+            {% endif %}
+        </tr>
+    </tfoot>
     </table>
   </div>
 </div>

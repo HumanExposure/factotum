@@ -441,3 +441,24 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertIn(dg_url, self.browser.current_url)
         # and removes the record
         self.assertFalse(DataDocument.objects.filter(id=354788).exists())
+
+    def test_extracted_datatable_filter(self):
+        self.browser.get(self.live_server_url + "/datagroup/18/")
+        wait = WebDriverWait(self.browser, 10)
+        trash_can = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='footer-options']"))
+        )
+        banner = wait.until(
+            ec.element_to_be_clickable((By.CLASS_NAME, "dataTables_info"))
+        )
+        self.assertEqual(banner.text, "Showing 1 to 4 of 4 entries")
+        not_extracted = trash_can.find_element_by_name("Not_extracted")
+        not_extracted.click()
+        self.assertEqual(
+            banner.text, "Showing 1 to 1 of 1 entries (filtered from 4 total entries)"
+        )
+        extracted = trash_can.find_element_by_name("Extracted")
+        extracted.click()
+        self.assertEqual(
+            banner.text, "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
+        )
