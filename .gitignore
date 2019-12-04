@@ -149,9 +149,8 @@ slop/
 elasticsearch-2.4.6/
 src/
 
-# docker
-/docker/docker-compose.override.yaml
-/docker/docker-compose.override.yml
 /chromedriver.exe
 /mysql.cnf
 /chromedriver.exe
+
+/collected_static

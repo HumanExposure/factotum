@@ -4,60 +4,36 @@ version: "3.1"
 volumes:
   esdata:
   lsdata:
-  kibanadata:
-  kibanaoptdata:
 
 
 services:
   elasticsearch:
-    build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-dev}:elasticsearch
     image: factotum-elasticsearch
     restart: unless-stopped
     environment:
-      discovery.type: single-node
       bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      http.port: ${ELASTICSEARCH_PORT:-9200}
+      xpack.graph.enabled: "false"
       xpack.monitoring.enabled: "false"
-      ES_JAVA_OPTS: -Xms${ES_MEMORY_LIMIT:-1g} -Xmx${ES_MEMORY_LIMIT:-1g}
+      xpack.security.enabled: "false"
+      xpack.watcher.enabled: "false"
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - 9200:9200
-      - 9300:9300
     volumes:
       - esdata:/usr/share/elasticsearch/data
 
-  kibana:
-    image: kibana:7.3.1
-    restart: unless-stopped
-    environment:
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-      XPACK_MONITORING_ENABLED: "false"
-    ports:
-      - 5601:5601
-    volumes:
-      - kibanadata:/usr/share/kibana/data
-      - kibanaoptdata:/usr/share/kibana/optimize
-    depends_on:
-      - elasticsearch
-
   logstash:
-    build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-dev}:logstash
     image: factotum-logstash
     restart: unless-stopped
     environment:
-      ELASTICSEARCH_HOST: elasticsearch
-      ELASTICSEARCH_PORT: 9200
-      SQL_DATABASE: ${SQL_DATABASE}
-      SQL_USER: ${SQL_USER}
-      SQL_PASSWORD: ${SQL_PASSWORD}
-      SQL_HOST: ${SQL_HOST:-host.docker.internal}
-      SQL_PORT: ${SQL_PORT:-3306}
       DELETE_INDEX_SCHEDULE: ${DELETE_INDEX_SCHEDULE:-25 1 * * * America/New_York}
-      REINDEX_SCHEDULE: ${REINDEX_SCHEDULE:-30 1 * * * America/New_York}
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
+      SQL_PORT: ${SQL_PORT:-3306}
       XPACK_MONITORING_ENABLED: "false"
-      LS_JAVA_OPTS: -Xms${LS_MEMORY_LIMIT:-1g} -Xmx${LS_MEMORY_LIMIT:-1g}
     volumes:
       - lsdata:/usr/share/logstash/data
     depends_on:

@@ -2,6 +2,8 @@
 import os
 import sys
 
+from factotum.environment import env
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "factotum.settings")
     try:
@@ -19,4 +21,7 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
+    from django.core.management.commands.runserver import Command as runserver
+
+    runserver.default_port = env.FACTOTUM_PORT
     execute_from_command_line(sys.argv)

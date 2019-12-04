@@ -8,22 +8,22 @@ class QueryLogRouter:
     """
 
     def db_for_read(self, model, **hints):
-        if model._meta.model_name == "querylog":
-            return settings.QUERY_LOG_DATABASE
+        if model._meta.model_name == "querylog" and "querylogdb" in settings.DATABASES:
+            return "querylogdb"
         return None
 
     def db_for_write(self, model, **hints):
-        if model._meta.model_name == "querylog":
-            return settings.QUERY_LOG_DATABASE
+        if model._meta.model_name == "querylog" and "querylogdb" in settings.DATABASES:
+            return "querylogdb"
         return None
 
     def allow_relation(self, obj1, obj2, **hints):
         return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        if settings.QUERY_LOG_DATABASE == "default":
+        if "querylogdb" not in settings.DATABASES:
             return None
         if model_name == "querylog":
-            return db == settings.QUERY_LOG_DATABASE
-        if db == settings.QUERY_LOG_DATABASE:
+            return db == "querylogdb"
+        if db == "querylogdb":
             return False

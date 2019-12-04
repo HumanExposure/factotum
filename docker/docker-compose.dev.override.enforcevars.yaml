@@ -1,0 +1,8 @@
+version: "3.1"
+
+
+services:
+  logstash:
+    environment:
+      SQL_PASSWORD: ${SQL_PASSWORD?must specify environment variable $SQL_PASSWORD}
+      SQL_USER: ${SQL_USER?must specify environment variable $SQL_USER}
