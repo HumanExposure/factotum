@@ -402,16 +402,19 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                    href="#chem-{{ chemical.pk }}">
+                                    {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
                                     <p class="m-0"
                                        data-toggle="tooltip"
                                        data-placement="left"
-                                       title="{{ chemical.rendered_chemname }}"
+                                       title="{{ title_name }}"
                                        data-boundary="viewport">
-                                        {{ chemical.rendered_chemname|truncatechars:18 }}
+                                       {{ title_name|truncatechars:18 }}
                                     </p>
-                                    <small class="m-0">
-                                        {{ chemical.rendered_cas|truncatechars:18 }}
-                                    </small>
+                                    {% if chemical.rendered_chemname and chemical.rendered_cas %}
+                                        <small class="m-0">
+                                            {{ chemical.rendered_cas|truncatechars:18 }}
+                                        </small>
+                                    {% endif %}
                                 </a>
                             </li>
                         {% endfor %}
