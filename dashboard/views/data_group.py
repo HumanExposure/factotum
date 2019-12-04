@@ -193,6 +193,11 @@ def data_group_documents_table(request, pk):
             "product_id",
             "product_title",
         )
+        for doc in doc_vals:
+            if doc["extracted"]:
+                doc["hidden"] = "Extracted"
+            else:
+                doc["hidden"] = "Not extracted"
     elif dg.is_supplemental_doc:
         doc_vals = docs.values("id", "title", "matched", "fileext")
     else:

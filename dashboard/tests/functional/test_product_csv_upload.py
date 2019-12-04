@@ -85,7 +85,7 @@ class UploadProductTest(TestCase):
             "162019,fff53301-a199-4e1b-91b4-39227ca0fe3c.pdf,'product title a',110230011425\n"
             "161990,fefd813f-d1e0-4fa7-8c4e-49030eca08a3.pdf,'product title b',903944840750\n"
             "161938,fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
-            "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d',stub_5"
+            "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d',stub_11"
         )
         req = self.generate_csv_request(sample_csv)
         resp = views.data_group_detail(request=req, pk=23)

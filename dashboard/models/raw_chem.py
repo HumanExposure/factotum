@@ -70,28 +70,16 @@ class RawChem(models.Model):
 
     @property
     def true_cas(self):
-        if hasattr(self, "dsstox") and self.dsstox is not None:
-            return self.dsstox.true_cas
-        else:
-            return None
+        return self.dsstox.true_cas if self.dsstox else None
 
     @property
     def true_chemname(self):
-        if hasattr(self, "dsstox") and self.dsstox is not None:
-            return self.dsstox.true_chemname
-        else:
-            return None
+        return self.dsstox.true_chemname if self.dsstox else None
 
     @property
     def rendered_chemname(self):
-        if hasattr(self, "dsstox") and self.dsstox is not None:
-            return self.dsstox.true_chemname
-        else:
-            return self.raw_chem_name
+        return self.dsstox.true_chemname if self.dsstox else self.raw_chem_name
 
     @property
     def rendered_cas(self):
-        if hasattr(self, "dsstox") and self.dsstox is not None:
-            return self.dsstox.true_cas
-        else:
-            return self.raw_cas
+        return self.dsstox.true_cas if self.dsstox else self.raw_cas

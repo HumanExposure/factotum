@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load humanize %}
 {% load proper_paginate %}
+{% load dashboard_extras %}
 
 {% block title %}
 "{{ decoded_q }}" | {{ block.super }}
@@ -89,33 +90,56 @@
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link
-                        {% if model == 'product' %}        
+                    {%  if unique_counts.product == 0 %}
+                        disabled
+                    {% endif %}
+                    {% if model == 'product' %}
                         active
-                        {% endif %}" 
+                    {% endif %}"
                     href="{% url 'search-model' 'product' %}?q={{ encoded_q }}">
                     Products
+                    <span class="badge badge-light">{{ unique_counts.product }}</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link
+                    {%  if unique_counts.datadocument == 0 %}
+                        disabled
+                    {% endif %}
                     {% if model == 'datadocument' %}        
-                    active
-                    {% endif %}" 
-                 href="{% url 'search-model' 'datadocument' %}?q={{ encoded_q }}">Documents</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link
-                    {% if model == 'puc' %}        
-                    active
-                    {% endif %}" 
-                 href="{% url 'search-model' 'puc' %}?q={{ encoded_q }}">PUCs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link
-                    {% if model == 'chemical' %}
-                    active
+                        active
                     {% endif %}"
-                 href="{% url 'search-model' 'chemical' %}?q={{ encoded_q }}">Chemicals</a>
+
+                 href="{% url 'search-model' 'datadocument' %}?q={{ encoded_q }}">
+                    Documents
+                    <span class="badge badge-light">{{ unique_counts.datadocument }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {%  if unique_counts.puc == 0 %}
+                        disabled
+                    {% endif %}
+                    {% if model == 'puc' %}        
+                        active
+                    {% endif %}" 
+                 href="{% url 'search-model' 'puc' %}?q={{ encoded_q }}">
+                    PUCs
+                    <span class="badge badge-light">{{ unique_counts.puc }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link
+                    {%  if unique_counts.chemical == 0 %}
+                        disabled
+                    {% endif %}
+                    {% if model == 'chemical' %}
+                        active
+                    {% endif %}"
+                 href="{% url 'search-model' 'chemical' %}?q={{ encoded_q }}">
+                    Chemicals
+                    <span class="badge badge-light">{{ unique_counts.chemical }}</span>
+                </a>
             </li>
         </ul>
         <small class="text-muted pb-4" id="total-took">

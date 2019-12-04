@@ -1,0 +1,25 @@
+- model: dashboard.extractedhhdoc
+  pk: 354782
+  fields:
+    hhe_report_number: 2017-0006-3319
+    study_location: Massachusetts
+    naics_code: '621111'
+    sampling_date: Dec-16, Feb-17, July-17
+    population_gender: null
+    population_age: null
+    population_other: null
+    occupation: dermatologist
+    facility: Hospital dermatology center
+- model: dashboard.extractedhhdoc
+  pk: 354783
+  fields:
+    hhe_report_number: 2016-0090-331
+    study_location: Minnesota
+    naics_code: '111419'
+    sampling_date: August 2016 and April 2017
+    population_gender: BO
+    population_age: average age 38, age range 24-55
+    population_other: 'employment: average 1 year and 2 months, range 2 months - 1
+      year 10 months'
+    occupation: employees
+    facility: Medical Cannabis Manufacturing

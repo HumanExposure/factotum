@@ -1,0 +1,12 @@
+- model: dashboard.extractedfunctionaluse
+  pk: 756
+  fields:
+    created_at: 2018-09-06 07:16:07
+    updated_at: 2018-09-06 07:16:07
+    report_funcuse: surfactant
+- model: dashboard.extractedfunctionaluse
+  pk: 757
+  fields:
+    created_at: 2018-09-06 07:16:07
+    updated_at: 2018-09-06 07:16:07
+    report_funcuse: fragrance

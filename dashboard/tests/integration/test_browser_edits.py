@@ -275,7 +275,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                self.live_server_url + f"/qa/extractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
             # print(self.browser.page_source)
@@ -405,7 +405,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")
         self.assertEqual(
-            num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
+            num_pucs, len(bubbles), ("There should be a circle drawn for every PUC")
         )
 
     def test_delete_dd_from_dg(self):
@@ -441,3 +441,24 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.assertIn(dg_url, self.browser.current_url)
         # and removes the record
         self.assertFalse(DataDocument.objects.filter(id=354788).exists())
+
+    def test_extracted_datatable_filter(self):
+        self.browser.get(self.live_server_url + "/datagroup/18/")
+        wait = WebDriverWait(self.browser, 10)
+        trash_can = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='footer-options']"))
+        )
+        banner = wait.until(
+            ec.element_to_be_clickable((By.CLASS_NAME, "dataTables_info"))
+        )
+        self.assertEqual(banner.text, "Showing 1 to 4 of 4 entries")
+        not_extracted = trash_can.find_element_by_name("Not_extracted")
+        not_extracted.click()
+        self.assertEqual(
+            banner.text, "Showing 1 to 1 of 1 entries (filtered from 4 total entries)"
+        )
+        extracted = trash_can.find_element_by_name("Extracted")
+        extracted.click()
+        self.assertEqual(
+            banner.text, "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
+        )

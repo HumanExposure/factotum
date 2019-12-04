@@ -1,0 +1,118 @@
+version: "3.1"
+
+volumes:
+  factotumstatic:
+
+
+services:
+  elasticsearch:
+    build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-master}:elasticsearch
+    environment:
+      ES_JAVA_OPTS: -Xms${ES_MEMORY_LIMIT:-5g} -Xmx${ES_MEMORY_LIMIT:-5g} -Des.enforce.bootstrap.checks=true
+
+  logstash:
+    build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-master}:logstash
+    environment:
+      LS_JAVA_OPTS: -Xms${LS_MEMORY_LIMIT:-5g} -Xmx${LS_MEMORY_LIMIT:-5g}
+      SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
+      SQL_HOST: ${SQL_HOST:-tesla.epa.gov}
+      SQL_PASSWORD: ${SQL_PASSWORD:?must specify environment variable $SQL_PASSWORD}
+      SQL_USER: ${SQL_USER:-dave}
+      REINDEX_SCHEDULE: ${REINDEX_SCHEDULE:-30 1 * * * America/New_York}
+
+
+  factotum:
+    build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
+    image: factotum
+    restart: unless-stopped
+    environment:
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-*}
+      DEBUG: ${DEBUG:-false}
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
+      FACTOTUM_ALLOWED_HOSTS: ${FACTOTUM_ALLOWED_HOSTS:-}
+      FACTOTUM_DEBUG: ${FACTOTUM_DEBUG:-}
+      FACTOTUM_GUNICORN_OPTS: ${FACTOTUM_GUNICORN_OPTS:-}
+      FACTOTUM_PORT: ${FACTOTUM_PORT:-80}
+      FACTOTUM_SECRET_KEY: ${FACTOTUM_SECRET_KEY:?must specify environment variable $FACTOTUM_SECRET_KEY}
+      GUNICORN_OPTS: ${GUNICORN_OPTS:-}
+      MAX_UPLOAD_SIZE: ${MAX_UPLOAD_SIZE:-5242880}
+      PROD: "true"
+      QUERY_LOG_DATABASE: ${QUERY_LOG_DATABASE:-prod_search_log}
+      SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
+      SQL_HOST: ${SQL_HOST:-tesla.epa.gov}
+      SQL_PASSWORD: ${SQL_PASSWORD:?must specify environment variable $SQL_PASSWORD}
+      SQL_PORT: ${SQL_PORT:-3306}
+      SQL_USER: ${SQL_USER:-dave}
+    volumes:
+      - ${MEDIA_MOUNT:?must specify environment variable $MEDIA_MOUNT}:/app/media
+      - factotumstatic:/app/collected_static
+    depends_on:
+      - elasticsearch
+
+  factotum-nginx:
+    image: nginx:1-alpine
+    restart: unless-stopped
+    ports:
+      - ${FACTOTUM_PORT:-80}:${FACTOTUM_PORT:-80}
+    volumes:
+      - ${MEDIA_MOUNT}:/app/media/:ro
+      - factotumstatic:/app/collected_static:ro
+    depends_on:
+      - factotum
+    entrypoint: >
+      sh -c "
+        rm /etc/nginx/conf.d/default.conf \
+        && echo \"
+          upstream factotum {
+              server factotum:${FACTOTUM_PORT:-80};
+          }
+          server {
+              listen ${FACTOTUM_PORT:-80} default_server;
+              server_name _;
+              charset utf-8;
+              client_max_body_size 0;
+              location /media  {
+                  alias /app/media;
+              }
+              location /static {
+                  alias /app/collected_static;
+              }
+              location /favicon.ico {
+                  access_log off;
+                  log_not_found off;
+              }
+              location / {
+                  proxy_set_header Host \$$host;
+                  proxy_pass http://factotum;
+                  access_log off;
+              }
+          }
+        \" > /etc/nginx/conf.d/default.conf \
+        && exec nginx -g 'daemon off;'
+      "
+
+  factotum-ws:
+    build:
+      context: https://github.com/HumanExposure/factotum_ws.git#${FACTOTUM_WS_BRANCH:-master}
+      args:
+        FACTOTUM_BRANCH: ${FACTOTUM_BRANCH:-master}
+    image: factotum-ws
+    restart: unless-stopped
+    environment:
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-*}
+      DEBUG: ${DEBUG:-false}
+      FACTOTUM_WS_ALLOWED_HOSTS: ${FACTOTUM_WS_ALLOWED_HOSTS:-}
+      FACTOTUM_WS_DEBUG: ${FACTOTUM_WS_DEBUG:-}
+      FACTOTUM_WS_GUNICORN_OPTS: ${FACTOTUM_WS_GUNICORN_OPTS:-}
+      FACTOTUM_WS_PORT: ${FACTOTUM_WS_PORT:-8001}
+      FACTOTUM_WS_SECRET_KEY: ${FACTOTUM_WS_SECRET_KEY:?must specify environment variable $FACTOTUM_WS_SECRET_KEY}
+      GUNICORN_OPTS: ${GUNICORN_OPTS:-}
+      PROD: "true"
+      SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
+      SQL_HOST: ${SQL_HOST:-tesla.epa.gov}
+      SQL_PASSWORD: ${SQL_PASSWORD:?must specify environment variable $SQL_PASSWORD}
+      SQL_PORT: ${SQL_PORT:-3306}
+      SQL_USER: ${SQL_USER:-dave}
+    ports:
+      - ${FACTOTUM_WS_PORT:-8001}:${FACTOTUM_WS_PORT:-8001}

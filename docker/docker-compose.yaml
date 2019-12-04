@@ -1,0 +1,40 @@
+version: "3.1"
+
+
+volumes:
+  esdata:
+  lsdata:
+
+
+services:
+  elasticsearch:
+    image: factotum-elasticsearch
+    restart: unless-stopped
+    environment:
+      bootstrap.memory_lock: "true"
+      discovery.type: single-node
+      http.port: ${ELASTICSEARCH_PORT:-9200}
+      xpack.graph.enabled: "false"
+      xpack.monitoring.enabled: "false"
+      xpack.security.enabled: "false"
+      xpack.watcher.enabled: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+  logstash:
+    image: factotum-logstash
+    restart: unless-stopped
+    environment:
+      DELETE_INDEX_SCHEDULE: ${DELETE_INDEX_SCHEDULE:-25 1 * * * America/New_York}
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
+      SQL_PORT: ${SQL_PORT:-3306}
+      XPACK_MONITORING_ENABLED: "false"
+    volumes:
+      - lsdata:/usr/share/logstash/data
+    depends_on:
+      - elasticsearch

@@ -89,17 +89,17 @@ urlpatterns = [
         "link_product_form/<int:pk>/", views.link_product_form, name="link_product_form"
     ),
     path(
-        "qa/extractionscript/",
+        "qa/compextractionscript/",
         views.qa_extractionscript_index,
         name="qa_extractionscript_index",
     ),
     path(
-        "qa/extractionscript/<int:pk>/",
+        "qa/compextractionscript/<int:pk>/",
         dashboard.views.qa.qa_extraction_script,
         name="qa_extraction_script",
     ),
     path(
-        "qa/extractionscript/<int:pk>/summary",
+        "qa/compextractionscript/<int:pk>/summary",
         dashboard.views.qa.qa_extraction_script_summary,
         name="qa_extraction_script_summary",
     ),
@@ -254,11 +254,19 @@ urlpatterns = [
     ),
     path("chemical/<pk>/edit/", views.ChemUpdateView.as_view(), name="chemical_update"),
     path(
+        "chemical/<pk>/auditlog/", views.chemical_audit_log, name="chemical_audit_log"
+    ),
+    path(
         "list_presence_tag/delete/<int:doc_pk>/<int:chem_pk>/<int:tag_pk>/",
         views.list_presence_tag_delete,
         name="list_presence_tag_delete",
     ),
     path("search/<str:model>/", views.search_model, name="search-model"),
+    path(
+        "keywordset_documents/<int:pk>/",
+        views.keywordset_documents,
+        name="keywordset_documents",
+    ),
 ]
 
 if settings.DEBUG is True:

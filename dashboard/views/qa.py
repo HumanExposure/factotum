@@ -77,7 +77,7 @@ def qa_extraction_script(request, pk, template_name="qa/extraction_script.html")
     script = get_object_or_404(Script, pk=pk)
     # If the Script has no related ExtractedText objects, redirect back to the QA index
     if ExtractedText.objects.filter(extraction_script=script).count() == 0:
-        return redirect("/qa/extractionscript/")
+        return redirect("/qa/compextractionscript/")
     qa_group = script.get_or_create_qa_group()
     texts = ExtractedText.objects.filter(qa_group=qa_group, qa_checked=False)
     return render(
@@ -172,9 +172,10 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         r = ExtractedText.objects.filter(qa_group=extext.qa_group).count() - a
         stats = "%s document(s) approved, %s documents remaining" % (a, r)
 
-    if "datadocument" in request.path:
-        referer = "data_document"
-    else:
+    # If the Referer is set but not the compextractionscript or a previous extracted text page
+    # then when they hit the exit button send them back to their referer
+    referer = request.headers.get("Referer", "")
+    if "compextractionscript" in referer or "extractedtext" in referer or referer == "":
         referer = "qa_extraction_script"
 
     # Create the formset factory for the extracted records

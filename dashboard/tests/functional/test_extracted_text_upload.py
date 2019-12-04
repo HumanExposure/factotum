@@ -1,4 +1,5 @@
 import io
+import bs4
 
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
@@ -123,6 +124,33 @@ class UploadExtractedFileTest(TestCase):
         return in_mem_sample_csv
 
     def test_chem_upload(self):
+        # create a matched-but-not-extracted document
+        # so that uploading ExtractedText is an option
+        dd = DataDocument.objects.create(
+            filename="fake.pdf",
+            title="Another unextracted document",
+            matched=True,
+            data_group_id="6",
+            created_at="2019-11-18 11:00:00.000000",
+            updated_at="2019-11-18 12:00:00.000000",
+            document_type_id="2",
+            organization="Org",
+        )
+
+        # Check the scripts offered in the selection form
+        resp = self.c.get(path="/datagroup/6/", stream=True)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        selector = soup.find_all(attrs={"name": "extfile-extraction_script"})[0]
+
+        # The options should include "Home Depot (extraction)"
+        hd = soup.find_all(string="Home Depot (extraction)")
+        self.assertEqual(hd[0], "Home Depot (extraction)")
+
+        # The Sun INDS script should not be available, because
+        # its qa_begun value is True
+        gp = soup.find_all(string="Sun INDS (extract)")
+        self.assertEqual(gp, [])
+
         req_data = {
             "extfile-extraction_script": 5,
             "extfile-weight_fraction_type": 1,

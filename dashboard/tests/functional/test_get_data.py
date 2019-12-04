@@ -1,19 +1,19 @@
-from django.urls import resolve
 from django.test import TestCase, override_settings
 from django.test.client import Client
 
-from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from dashboard.models import PUC, Product, ProductToPUC, ProductDocument, DSSToxLookup
-from dashboard.views.get_data import *
+from dashboard.models import (
+    DSSToxLookup,
+    DataDocument,
+    ExtractedChemical,
+    Product,
+    ProductDocument,
+    ProductToPUC,
+    PUC,
+)
+from dashboard.views.get_data import stats_by_dtxsids
 
 from dashboard.tests.loader import fixtures_standard
-
-
-# from dashboard import views
-# from django.urls import resolve
-# from django.contrib.auth import authenticate
-# from django.contrib.auth.models import User
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
@@ -48,12 +48,10 @@ class TestGetData(TestCase):
             )
         )
         dd = dds[0]
-
-        ds = dd.data_group.data_source
         p = Product.objects.create(
             title="Test Product", upc="Test UPC for ProductToPUC"
         )
-        pd = ProductDocument.objects.create(document=dd, product=p)
+        ProductDocument.objects.create(document=dd, product=p)
         dd.refresh_from_db()
 
         # get one of the products that was just linked to a data document with DTXSID9022528 in its extracted chemicals
@@ -81,7 +79,7 @@ class TestGetData(TestCase):
                 ethylparaben_stats = e
 
         self.assertEqual(
-            2,
+            3,
             ethylparaben_stats["dds_n"],
             "There should be 2 datadocuments associated with ethylaraben",
         )
@@ -147,7 +145,7 @@ class TestGetData(TestCase):
                 ethylparaben_stats = e
 
         self.assertEqual(
-            4,
+            5,
             ethylparaben_stats["products_n"],
             "There should be 4 products \
         associated with ethylparaben",
@@ -160,13 +158,10 @@ class TestGetData(TestCase):
             )
         )
         dd = dds[0]
-
-        ds = dd.data_group.data_source
         p = Product.objects.create(
             title="Test Product", upc="Test UPC for ProductToPUC"
         )
-        pd = ProductDocument.objects.create(document=dd, product=p)
-        pd.save()
+        ProductDocument.objects.create(document=dd, product=p)
         dd.refresh_from_db()
 
         stats = stats_by_dtxsids(dtxs)
@@ -174,9 +169,9 @@ class TestGetData(TestCase):
             if e["sid"] == "DTXSID9022528":
                 ethylparaben_stats = e
         self.assertEqual(
-            5,
+            7,
             ethylparaben_stats["products_n"],
-            "There should now be 5 products \
+            "There should now be 7 products \
         associated with ethylparaben",
         )
 

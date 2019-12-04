@@ -15,7 +15,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary" id="saveChem" value="Save changes" />
+                <input type="submit" class="btn btn-primary" id="saveChem" value="Save changes"/>
             </div>
         </div><!-- /.modal-content -->
     </form>
@@ -23,7 +23,12 @@
 <script>
     var form_options = {
         target: '#chemical-update-modal',
-        success: function (response) {}
+        success: function (response) {
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
     };
     $('#chem-update').ajaxForm(form_options);
 </script>
+

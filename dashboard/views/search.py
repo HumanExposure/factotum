@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
-from elastic.search import run_query, FACETS
+from elastic.search import run_query, get_unique_count, FACETS, VALID_MODELS
 from elastic.models import QueryLog
 
 
@@ -41,6 +41,13 @@ def search_model(request, model, template_name="search/base.html"):
         QueryLog.objects.create(
             query=decoded_q, application=QueryLog.FACTOTUM, user_id=user_id
         )
+        # Get model counts for fresh search
+        get_model_counts(request, decoded_q)
+
+    # In case counts are missing from session data, catch up
+    if not request.session.has_key("unique_counts"):
+        get_model_counts(request, decoded_q)
+
     result = run_query(decoded_q, model, size=10, facets=facets, page=page)
     context = {
         "encoded_q": encoded_q,
@@ -48,5 +55,20 @@ def search_model(request, model, template_name="search/base.html"):
         "result": result,
         "model": model,
         "faceted": bool(facets),
+        "unique_counts": request.session["unique_counts"],
     }
     return render(request, template_name, context)
+
+
+def get_model_counts(request, decoded_q):
+    """
+    Get the unique count for each model and store results in session.
+    :param request: the request
+    :param decoded_q: the query string
+    :return: the unique counts
+    """
+    unique_counts = {}
+    for model in VALID_MODELS:
+        unique_counts[model] = get_unique_count(decoded_q, model)
+    request.session["unique_counts"] = unique_counts
+    return unique_counts

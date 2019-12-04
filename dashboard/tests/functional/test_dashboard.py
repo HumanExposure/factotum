@@ -32,7 +32,7 @@ class DashboardTest(TestCase):
         self.assertNotIn(
             "QA",
             response_html.xpath(
-                'string(/html/body/nav//a[@href="/qa/extractionscript/"])'
+                'string(/html/body/nav//a[@href="/qa/compextractionscript/"])'
             ),
             "The link to /qa/ should not appear in the public navbar",
         )
@@ -46,7 +46,7 @@ class DashboardTest(TestCase):
             response_html.xpath('string(//*[@id="navbarQADropdownMenuLink"])'),
             "The link to /qa/ must be in the logged-in navbar",
         )
-        found = resolve("/qa/extractionscript/")
+        found = resolve("/qa/compextractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
 
     def test_percent_extracted_text_doc(self):

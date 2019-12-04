@@ -36,7 +36,7 @@ class NavBarTest(TestCase):
         self.assertEqual(found.func, views.data_source_list)
 
     def test_qa_link(self):
-        found = resolve("/qa/extractionscript/")
+        found = resolve("/qa/compextractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
 
     def test_get_data_without_auth(self):

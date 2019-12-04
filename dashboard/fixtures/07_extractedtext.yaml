@@ -1,0 +1,7672 @@
+- model: dashboard.extractedtext
+  pk: 354787
+  fields:
+    created_at: 2019-07-25 11:00:24.286539
+    updated_at: 2019-07-25 11:00:24.286572
+    prod_name: huggies
+    doc_date: '2018-04-47'
+    rev_num: '47474747'
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 354786
+  fields:
+    created_at: 2019-09-19 11:24:56.456067
+    updated_at: 2019-09-19 11:24:56.456092
+    prod_name: lids
+    doc_date: '2018-04-47'
+    rev_num: '474747'
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 354783
+  fields:
+    created_at: 2019-02-21 11:24:00
+    updated_at: 2019-05-03 15:43:50.693764
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 354782
+  fields:
+    created_at: 2019-02-21 11:22:00
+    updated_at: 2019-02-21 11:23:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254781
+  fields:
+    created_at: 2018-09-27 22:49:26.999437
+    updated_at: 2018-09-27 22:49:26.999467
+    prod_name: CPCAT Example Product 2
+    doc_date: '2018-09-27'
+    rev_num: null
+    extraction_script: 18
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254780
+  fields:
+    created_at: 2018-09-27 22:49:26.971596
+    updated_at: 2018-09-27 22:49:26.971623
+    prod_name: CPCAT Example Product 1
+    doc_date: '2018-09-27'
+    rev_num: null
+    extraction_script: 18
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254777
+  fields:
+    created_at: 2018-06-06 08:35:33
+    updated_at: 2018-06-06 08:35:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254742
+  fields:
+    created_at: 2018-06-06 09:26:08
+    updated_at: 2018-06-06 09:26:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254726
+  fields:
+    created_at: 2018-06-06 08:17:33
+    updated_at: 2018-06-06 08:17:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254720
+  fields:
+    created_at: 2018-06-06 07:28:01
+    updated_at: 2018-06-06 07:28:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254643
+  fields:
+    created_at: 2018-06-06 07:17:26
+    updated_at: 2018-06-06 07:17:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254383
+  fields:
+    created_at: 2018-06-06 08:27:35
+    updated_at: 2018-06-06 08:27:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254377
+  fields:
+    created_at: 2018-06-06 07:17:26
+    updated_at: 2018-06-06 07:17:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254360
+  fields:
+    created_at: 2018-06-06 07:17:26
+    updated_at: 2018-06-06 07:17:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254306
+  fields:
+    created_at: 2018-06-06 08:17:32
+    updated_at: 2018-06-06 08:17:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254297
+  fields:
+    created_at: 2018-06-06 08:27:34
+    updated_at: 2018-06-06 08:27:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254291
+  fields:
+    created_at: 2018-06-06 08:11:41
+    updated_at: 2018-06-06 08:11:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254223
+  fields:
+    created_at: 2018-06-06 08:27:34
+    updated_at: 2018-06-06 08:27:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254222
+  fields:
+    created_at: 2018-06-06 08:17:32
+    updated_at: 2018-06-06 08:17:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254200
+  fields:
+    created_at: 2018-06-06 08:17:32
+    updated_at: 2018-06-06 08:17:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254158
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254049
+  fields:
+    created_at: 2018-06-06 07:36:26
+    updated_at: 2018-06-06 07:36:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 254003
+  fields:
+    created_at: 2018-06-06 07:36:03
+    updated_at: 2018-06-06 07:36:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253990
+  fields:
+    created_at: 2018-06-06 08:11:40
+    updated_at: 2018-06-06 08:11:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253988
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253971
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253922
+  fields:
+    created_at: 2018-06-06 08:11:40
+    updated_at: 2018-06-06 08:11:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253883
+  fields:
+    created_at: 2018-06-06 08:17:32
+    updated_at: 2018-06-06 08:17:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253834
+  fields:
+    created_at: 2018-06-06 08:27:33
+    updated_at: 2018-06-06 08:27:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253712
+  fields:
+    created_at: 2018-06-06 07:15:22
+    updated_at: 2018-06-06 07:15:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253689
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253686
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253667
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253634
+  fields:
+    created_at: 2018-06-06 08:27:33
+    updated_at: 2018-06-06 08:27:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253574
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253546
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253539
+  fields:
+    created_at: 2018-06-06 08:27:33
+    updated_at: 2018-06-06 08:27:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253374
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253229
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253219
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253188
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253156
+  fields:
+    created_at: 2018-06-06 07:38:05
+    updated_at: 2018-06-06 07:38:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253155
+  fields:
+    created_at: 2018-06-06 08:11:40
+    updated_at: 2018-06-06 08:11:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253151
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253124
+  fields:
+    created_at: 2018-06-06 08:17:31
+    updated_at: 2018-06-06 08:17:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 253086
+  fields:
+    created_at: 2018-06-07 12:43:34
+    updated_at: 2018-06-07 12:43:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252952
+  fields:
+    created_at: 2018-06-06 08:27:32
+    updated_at: 2018-06-06 08:27:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252939
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252912
+  fields:
+    created_at: 2018-06-06 08:35:31
+    updated_at: 2018-06-06 08:35:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252879
+  fields:
+    created_at: 2018-06-06 08:17:30
+    updated_at: 2018-06-06 08:17:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252826
+  fields:
+    created_at: 2018-06-06 08:27:32
+    updated_at: 2018-06-06 08:27:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252806
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252780
+  fields:
+    created_at: 2018-06-06 08:35:31
+    updated_at: 2018-06-06 08:35:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252713
+  fields:
+    created_at: 2018-06-06 07:28:01
+    updated_at: 2018-06-06 07:28:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252618
+  fields:
+    created_at: 2018-06-06 08:17:30
+    updated_at: 2018-06-06 08:17:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252584
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252538
+  fields:
+    created_at: 2018-06-06 08:27:31
+    updated_at: 2018-06-06 08:27:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252501
+  fields:
+    created_at: 2018-06-06 08:11:40
+    updated_at: 2018-06-06 08:11:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252476
+  fields:
+    created_at: 2018-06-06 08:27:31
+    updated_at: 2018-06-06 08:27:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252456
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252415
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252395
+  fields:
+    created_at: 2018-06-06 08:17:30
+    updated_at: 2018-06-06 08:17:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252387
+  fields:
+    created_at: 2018-06-06 07:21:58
+    updated_at: 2018-06-06 07:21:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252383
+  fields:
+    created_at: 2018-06-06 08:17:30
+    updated_at: 2018-06-06 08:17:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252370
+  fields:
+    created_at: 2018-06-06 07:36:25
+    updated_at: 2018-06-06 07:36:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252369
+  fields:
+    created_at: 2018-06-06 07:17:25
+    updated_at: 2018-06-06 07:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252334
+  fields:
+    created_at: 2018-06-06 08:17:30
+    updated_at: 2018-06-06 08:17:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252310
+  fields:
+    created_at: 2018-06-06 07:22:01
+    updated_at: 2018-06-06 07:22:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252276
+  fields:
+    created_at: 2018-06-06 07:38:05
+    updated_at: 2018-06-06 07:38:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252230
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252229
+  fields:
+    created_at: 2018-06-06 08:25:14
+    updated_at: 2018-06-06 08:25:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252157
+  fields:
+    created_at: 2018-06-06 08:27:31
+    updated_at: 2018-06-06 08:27:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252093
+  fields:
+    created_at: 2018-06-06 08:17:29
+    updated_at: 2018-06-06 08:17:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252078
+  fields:
+    created_at: 2018-06-06 08:19:31
+    updated_at: 2018-06-06 08:19:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252070
+  fields:
+    created_at: 2018-06-06 08:17:29
+    updated_at: 2018-06-06 08:17:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 252011
+  fields:
+    created_at: 2018-06-06 08:17:29
+    updated_at: 2018-06-06 08:17:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251968
+  fields:
+    created_at: 2018-06-06 08:17:29
+    updated_at: 2018-06-06 08:17:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251924
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251903
+  fields:
+    created_at: 2018-06-06 07:18:35
+    updated_at: 2018-06-06 07:18:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251875
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251870
+  fields:
+    created_at: 2018-06-06 08:17:29
+    updated_at: 2018-06-06 08:17:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251845
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251784
+  fields:
+    created_at: 2018-06-06 07:22:01
+    updated_at: 2018-06-06 07:22:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251692
+  fields:
+    created_at: 2018-06-06 08:27:28
+    updated_at: 2018-06-06 08:27:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251542
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251481
+  fields:
+    created_at: 2018-06-06 08:27:26
+    updated_at: 2018-06-06 08:27:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251332
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251309
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251308
+  fields:
+    created_at: 2018-06-06 08:11:40
+    updated_at: 2018-06-06 08:11:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251272
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251253
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251184
+  fields:
+    created_at: 2018-06-06 08:11:51
+    updated_at: 2018-06-06 08:11:51
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251180
+  fields:
+    created_at: 2018-06-06 08:11:51
+    updated_at: 2018-06-06 08:11:51
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251122
+  fields:
+    created_at: 2018-06-06 08:27:26
+    updated_at: 2018-06-06 08:27:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251077
+  fields:
+    created_at: 2018-06-06 08:17:28
+    updated_at: 2018-06-06 08:17:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251067
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251058
+  fields:
+    created_at: 2018-06-06 08:27:26
+    updated_at: 2018-06-06 08:27:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 251010
+  fields:
+    created_at: 2018-06-06 08:40:05
+    updated_at: 2018-06-06 08:40:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250963
+  fields:
+    created_at: 2018-06-06 08:17:28
+    updated_at: 2018-06-06 08:17:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250896
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250854
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250808
+  fields:
+    created_at: 2018-06-06 07:32:08
+    updated_at: 2018-06-06 07:32:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250755
+  fields:
+    created_at: 2018-06-06 07:38:04
+    updated_at: 2018-06-06 07:38:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250709
+  fields:
+    created_at: 2018-06-06 08:27:25
+    updated_at: 2018-06-06 08:27:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250675
+  fields:
+    created_at: 2018-06-06 08:27:25
+    updated_at: 2018-06-06 08:27:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250662
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250555
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250547
+  fields:
+    created_at: 2018-06-06 08:27:25
+    updated_at: 2018-06-06 08:27:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250538
+  fields:
+    created_at: 2018-06-06 07:15:15
+    updated_at: 2018-06-06 07:15:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250505
+  fields:
+    created_at: 2018-06-06 07:17:24
+    updated_at: 2018-06-06 07:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250496
+  fields:
+    created_at: 2018-06-06 08:17:27
+    updated_at: 2018-06-06 08:17:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250474
+  fields:
+    created_at: 2018-06-06 07:38:04
+    updated_at: 2018-06-06 07:38:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250351
+  fields:
+    created_at: 2018-06-06 07:32:08
+    updated_at: 2018-06-06 07:32:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250335
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250329
+  fields:
+    created_at: 2018-06-06 08:17:27
+    updated_at: 2018-06-06 08:17:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250267
+  fields:
+    created_at: 2018-06-06 08:29:52
+    updated_at: 2018-06-06 08:29:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250250
+  fields:
+    created_at: 2018-06-06 08:27:23
+    updated_at: 2018-06-06 08:27:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250244
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250216
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250213
+  fields:
+    created_at: 2018-06-06 07:18:29
+    updated_at: 2018-06-06 07:18:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250178
+  fields:
+    created_at: 2018-06-06 07:32:30
+    updated_at: 2018-06-06 07:32:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250110
+  fields:
+    created_at: 2018-06-06 07:36:25
+    updated_at: 2018-06-06 07:36:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 250078
+  fields:
+    created_at: 2018-06-06 08:27:22
+    updated_at: 2018-06-06 08:27:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249937
+  fields:
+    created_at: 2018-06-06 08:27:22
+    updated_at: 2018-06-06 08:27:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249829
+  fields:
+    created_at: 2018-06-06 08:27:21
+    updated_at: 2018-06-06 08:27:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249796
+  fields:
+    created_at: 2018-06-06 08:17:26
+    updated_at: 2018-06-06 08:17:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249768
+  fields:
+    created_at: 2018-06-06 13:29:32
+    updated_at: 2018-06-06 13:29:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249735
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249642
+  fields:
+    created_at: 2018-06-06 08:27:20
+    updated_at: 2018-06-06 08:27:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249613
+  fields:
+    created_at: 2018-06-06 08:40:04
+    updated_at: 2018-06-06 08:40:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249486
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249467
+  fields:
+    created_at: 2018-06-06 07:32:08
+    updated_at: 2018-06-06 07:32:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249413
+  fields:
+    created_at: 2018-06-06 08:30:29
+    updated_at: 2018-06-06 08:30:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249412
+  fields:
+    created_at: 2018-06-06 08:17:26
+    updated_at: 2018-06-06 08:17:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249342
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249338
+  fields:
+    created_at: 2018-06-06 07:36:28
+    updated_at: 2018-06-06 07:36:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249217
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249215
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249197
+  fields:
+    created_at: 2018-06-06 07:31:14
+    updated_at: 2018-06-06 07:31:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249107
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249055
+  fields:
+    created_at: 2018-06-06 08:11:39
+    updated_at: 2018-06-06 08:11:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 249024
+  fields:
+    created_at: 2018-06-06 07:36:25
+    updated_at: 2018-06-06 07:36:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248872
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248806
+  fields:
+    created_at: 2018-06-06 08:27:18
+    updated_at: 2018-06-06 08:27:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248747
+  fields:
+    created_at: 2018-06-06 08:11:39
+    updated_at: 2018-06-06 08:11:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248647
+  fields:
+    created_at: 2018-06-06 07:25:02
+    updated_at: 2018-06-06 07:25:02
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248645
+  fields:
+    created_at: 2018-06-06 07:22:01
+    updated_at: 2018-06-06 07:22:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248636
+  fields:
+    created_at: 2018-06-06 08:17:25
+    updated_at: 2018-06-06 08:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248410
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248406
+  fields:
+    created_at: 2018-06-06 08:17:25
+    updated_at: 2018-06-06 08:17:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248359
+  fields:
+    created_at: 2018-06-06 08:25:13
+    updated_at: 2018-06-06 08:25:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248220
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248209
+  fields:
+    created_at: 2018-06-06 08:30:28
+    updated_at: 2018-06-06 08:30:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248185
+  fields:
+    created_at: 2018-06-06 08:35:28
+    updated_at: 2018-06-06 08:35:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248098
+  fields:
+    created_at: 2018-06-06 07:17:23
+    updated_at: 2018-06-06 07:17:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248095
+  fields:
+    created_at: 2018-06-06 08:11:39
+    updated_at: 2018-06-06 08:11:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248086
+  fields:
+    created_at: 2018-06-08 00:21:12
+    updated_at: 2018-06-08 00:21:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248050
+  fields:
+    created_at: 2018-06-06 08:11:49
+    updated_at: 2018-06-06 08:11:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 248014
+  fields:
+    created_at: 2018-06-06 07:36:25
+    updated_at: 2018-06-06 07:36:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247943
+  fields:
+    created_at: 2018-06-06 07:33:17
+    updated_at: 2018-06-06 07:33:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247938
+  fields:
+    created_at: 2018-06-06 08:12:54
+    updated_at: 2018-06-06 08:12:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247932
+  fields:
+    created_at: 2018-06-06 09:17:28
+    updated_at: 2018-06-06 09:17:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247931
+  fields:
+    created_at: 2018-06-06 07:21:57
+    updated_at: 2018-06-06 07:21:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247919
+  fields:
+    created_at: 2018-06-06 08:09:08
+    updated_at: 2018-06-06 08:09:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247873
+  fields:
+    created_at: 2018-06-06 08:27:17
+    updated_at: 2018-06-06 08:27:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247862
+  fields:
+    created_at: 2018-06-06 08:40:03
+    updated_at: 2018-06-06 08:40:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247790
+  fields:
+    created_at: 2018-06-06 07:38:04
+    updated_at: 2018-06-06 07:38:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247677
+  fields:
+    created_at: 2018-06-06 08:17:24
+    updated_at: 2018-06-06 08:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247604
+  fields:
+    created_at: 2018-06-06 07:28:01
+    updated_at: 2018-06-06 07:28:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247164
+  fields:
+    created_at: 2018-06-06 08:09:08
+    updated_at: 2018-06-06 08:09:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247152
+  fields:
+    created_at: 2018-06-06 08:27:14
+    updated_at: 2018-06-06 08:27:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247095
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247083
+  fields:
+    created_at: 2018-06-06 08:35:27
+    updated_at: 2018-06-06 08:35:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 247021
+  fields:
+    created_at: 2018-06-06 08:35:27
+    updated_at: 2018-06-06 08:35:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246960
+  fields:
+    created_at: 2018-06-06 07:36:24
+    updated_at: 2018-06-06 07:36:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246535
+  fields:
+    created_at: 2018-06-06 07:38:04
+    updated_at: 2018-06-06 07:38:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246491
+  fields:
+    created_at: 2018-06-06 08:17:24
+    updated_at: 2018-06-06 08:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246442
+  fields:
+    created_at: 2018-06-06 08:27:13
+    updated_at: 2018-06-06 08:27:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246427
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246380
+  fields:
+    created_at: 2018-06-06 08:35:28
+    updated_at: 2018-06-06 08:35:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246360
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246352
+  fields:
+    created_at: 2018-06-06 08:17:24
+    updated_at: 2018-06-06 08:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246186
+  fields:
+    created_at: 2018-06-06 07:36:24
+    updated_at: 2018-06-06 07:36:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246132
+  fields:
+    created_at: 2018-06-06 08:27:13
+    updated_at: 2018-06-06 08:27:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 246020
+  fields:
+    created_at: 2018-06-06 07:24:01
+    updated_at: 2018-06-06 07:24:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245879
+  fields:
+    created_at: 2018-06-06 08:17:24
+    updated_at: 2018-06-06 08:17:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245820
+  fields:
+    created_at: 2018-06-06 08:27:12
+    updated_at: 2018-06-06 08:27:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245776
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245741
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245729
+  fields:
+    created_at: 2018-06-06 08:11:38
+    updated_at: 2018-06-06 08:11:38
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245722
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245683
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245634
+  fields:
+    created_at: 2018-06-06 08:27:10
+    updated_at: 2018-06-06 08:27:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245532
+  fields:
+    created_at: 2018-06-06 08:25:01
+    updated_at: 2018-06-06 08:25:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245512
+  fields:
+    created_at: 2018-06-06 07:30:39
+    updated_at: 2018-06-06 07:30:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245401
+  fields:
+    created_at: 2018-06-06 07:18:12
+    updated_at: 2018-06-06 07:18:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245395
+  fields:
+    created_at: 2018-06-06 07:18:12
+    updated_at: 2018-06-06 07:18:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245336
+  fields:
+    created_at: 2018-06-06 08:11:21
+    updated_at: 2018-06-06 08:11:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245143
+  fields:
+    created_at: 2018-06-06 08:40:00
+    updated_at: 2018-06-06 08:40:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245106
+  fields:
+    created_at: 2018-06-06 08:35:20
+    updated_at: 2018-06-06 08:35:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 245048
+  fields:
+    created_at: 2018-06-06 07:18:12
+    updated_at: 2018-06-06 07:18:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244936
+  fields:
+    created_at: 2018-06-06 08:35:25
+    updated_at: 2018-06-06 08:35:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244882
+  fields:
+    created_at: 2018-06-06 08:11:38
+    updated_at: 2018-06-06 08:11:38
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244868
+  fields:
+    created_at: 2018-06-06 08:27:05
+    updated_at: 2018-06-06 08:27:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244771
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244724
+  fields:
+    created_at: 2018-06-06 08:17:22
+    updated_at: 2018-06-06 08:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244645
+  fields:
+    created_at: 2018-06-06 08:35:20
+    updated_at: 2018-06-06 08:35:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244633
+  fields:
+    created_at: 2018-06-06 08:11:38
+    updated_at: 2018-06-06 08:11:38
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244372
+  fields:
+    created_at: 2018-06-06 08:17:22
+    updated_at: 2018-06-06 08:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244327
+  fields:
+    created_at: 2018-06-06 07:15:14
+    updated_at: 2018-06-06 07:15:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244294
+  fields:
+    created_at: 2018-06-06 08:35:31
+    updated_at: 2018-06-06 08:35:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244183
+  fields:
+    created_at: 2018-06-06 08:27:00
+    updated_at: 2018-06-06 08:27:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244071
+  fields:
+    created_at: 2018-06-06 08:26:59
+    updated_at: 2018-06-06 08:26:59
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 244036
+  fields:
+    created_at: 2018-06-06 08:34:49
+    updated_at: 2018-06-06 08:34:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243857
+  fields:
+    created_at: 2018-06-06 08:26:58
+    updated_at: 2018-06-06 08:26:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243794
+  fields:
+    created_at: 2018-06-07 13:20:44
+    updated_at: 2018-06-07 13:20:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243765
+  fields:
+    created_at: 2018-06-06 08:26:58
+    updated_at: 2018-06-06 08:26:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243759
+  fields:
+    created_at: 2018-06-06 07:21:48
+    updated_at: 2018-06-06 07:21:48
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243534
+  fields:
+    created_at: 2018-06-06 08:35:24
+    updated_at: 2018-06-06 08:35:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243490
+  fields:
+    created_at: 2018-06-06 08:26:56
+    updated_at: 2018-06-06 08:26:56
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 243249
+  fields:
+    created_at: 2018-06-06 08:26:55
+    updated_at: 2018-06-06 08:26:55
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 181273
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 181081
+  fields:
+    created_at: 2018-06-06 15:55:16
+    updated_at: 2018-06-06 15:55:16
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180966
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180913
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180904
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180891
+  fields:
+    created_at: 2018-06-06 15:55:36
+    updated_at: 2018-06-06 15:55:36
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180404
+  fields:
+    created_at: 2018-06-06 15:55:15
+    updated_at: 2018-06-06 15:55:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180358
+  fields:
+    created_at: 2018-06-06 15:55:57
+    updated_at: 2018-06-06 15:55:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180319
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180309
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180303
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180260
+  fields:
+    created_at: 2018-06-06 15:55:41
+    updated_at: 2018-06-06 15:55:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180200
+  fields:
+    created_at: 2018-06-06 15:55:40
+    updated_at: 2018-06-06 15:55:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180174
+  fields:
+    created_at: 2018-06-06 15:55:39
+    updated_at: 2018-06-06 15:55:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 180119
+  fields:
+    created_at: 2018-06-06 15:55:37
+    updated_at: 2018-06-06 15:55:37
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 179486
+  fields:
+    created_at: 2018-06-06 07:28:22
+    updated_at: 2018-06-06 07:28:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178925
+  fields:
+    created_at: 2018-06-06 07:19:24
+    updated_at: 2018-06-06 07:19:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178646
+  fields:
+    created_at: 2018-06-06 07:19:24
+    updated_at: 2018-06-06 07:19:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178577
+  fields:
+    created_at: 2018-06-06 07:16:07
+    updated_at: 2018-06-06 07:16:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178496
+  fields:
+    created_at: 2018-06-06 07:32:26
+    updated_at: 2018-06-06 07:32:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178456
+  fields:
+    created_at: 2018-06-06 07:20:32
+    updated_at: 2018-06-06 07:20:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178193
+  fields:
+    created_at: 2018-06-06 09:32:24
+    updated_at: 2018-06-06 09:32:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178109
+  fields:
+    created_at: 2018-06-06 07:29:35
+    updated_at: 2018-06-06 07:29:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 178037
+  fields:
+    created_at: 2018-06-06 07:29:35
+    updated_at: 2018-06-06 07:29:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177907
+  fields:
+    created_at: 2018-06-06 07:29:40
+    updated_at: 2018-06-06 07:29:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177896
+  fields:
+    created_at: 2018-06-06 08:02:34
+    updated_at: 2018-06-06 08:02:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177887
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177852
+  fields:
+    created_at: 2018-06-06 18:25:16
+    updated_at: 2018-06-06 18:25:16
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177774
+  fields:
+    created_at: 2018-06-06 07:20:32
+    updated_at: 2018-06-06 07:20:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177772
+  fields:
+    created_at: 2018-06-06 07:19:22
+    updated_at: 2018-06-06 07:19:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177502
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177258
+  fields:
+    created_at: 2018-06-06 07:21:03
+    updated_at: 2018-06-06 07:21:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177154
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177134
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 177125
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176680
+  fields:
+    created_at: 2018-06-06 07:18:25
+    updated_at: 2018-06-06 07:18:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176605
+  fields:
+    created_at: 2018-06-06 07:16:34
+    updated_at: 2018-06-06 07:16:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176535
+  fields:
+    created_at: 2018-06-06 07:35:12
+    updated_at: 2018-06-06 07:35:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176478
+  fields:
+    created_at: 2018-06-06 07:18:08
+    updated_at: 2018-06-06 07:18:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176257
+  fields:
+    created_at: 2018-06-06 07:33:34
+    updated_at: 2018-06-06 07:33:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176163
+  fields:
+    created_at: 2018-06-06 07:35:12
+    updated_at: 2018-06-06 07:35:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176109
+  fields:
+    created_at: 2018-06-06 07:16:19
+    updated_at: 2018-06-06 07:16:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 176015
+  fields:
+    created_at: 2018-06-06 07:16:34
+    updated_at: 2018-06-06 07:16:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 175736
+  fields:
+    created_at: 2018-06-06 07:16:45
+    updated_at: 2018-06-06 07:16:45
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174937
+  fields:
+    created_at: 2018-06-06 07:35:11
+    updated_at: 2018-06-06 07:35:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174801
+  fields:
+    created_at: 2018-06-06 07:19:21
+    updated_at: 2018-06-06 07:19:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174794
+  fields:
+    created_at: 2018-06-06 07:35:11
+    updated_at: 2018-06-06 07:35:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174686
+  fields:
+    created_at: 2018-06-06 07:47:05
+    updated_at: 2018-06-06 07:47:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174533
+  fields:
+    created_at: 2018-06-06 07:16:19
+    updated_at: 2018-06-06 07:16:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174238
+  fields:
+    created_at: 2018-06-06 07:29:34
+    updated_at: 2018-06-06 07:29:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174122
+  fields:
+    created_at: 2018-06-06 07:17:13
+    updated_at: 2018-06-06 07:17:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 174049
+  fields:
+    created_at: 2018-06-06 07:22:12
+    updated_at: 2018-06-06 07:22:12
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 173824
+  fields:
+    created_at: 2018-06-06 07:20:54
+    updated_at: 2018-06-06 07:20:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 173802
+  fields:
+    created_at: 2018-06-06 07:18:08
+    updated_at: 2018-06-06 07:18:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 173396
+  fields:
+    created_at: 2018-06-06 07:35:37
+    updated_at: 2018-06-06 07:35:37
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172921
+  fields:
+    created_at: 2018-06-06 07:32:57
+    updated_at: 2018-06-06 07:32:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172821
+  fields:
+    created_at: 2018-06-06 07:17:13
+    updated_at: 2018-06-06 07:17:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172793
+  fields:
+    created_at: 2018-06-06 07:35:10
+    updated_at: 2018-06-06 07:35:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172694
+  fields:
+    created_at: 2018-06-06 07:19:22
+    updated_at: 2018-06-06 07:19:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172462
+  fields:
+    created_at: 2018-06-06 07:29:34
+    updated_at: 2018-06-06 07:29:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 172146
+  fields:
+    created_at: 2018-06-06 07:24:05
+    updated_at: 2018-06-06 07:24:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171900
+  fields:
+    created_at: 2018-06-06 07:24:03
+    updated_at: 2018-06-06 07:24:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171774
+  fields:
+    created_at: 2018-06-06 07:24:04
+    updated_at: 2018-06-06 07:24:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171768
+  fields:
+    created_at: 2018-06-06 07:23:36
+    updated_at: 2018-06-06 07:23:36
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171407
+  fields:
+    created_at: 2018-06-06 07:43:45
+    updated_at: 2018-06-06 07:43:45
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171361
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171359
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 171201
+  fields:
+    created_at: 2018-06-06 07:22:50
+    updated_at: 2018-06-06 07:22:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170788
+  fields:
+    created_at: 2018-06-06 07:28:14
+    updated_at: 2018-06-06 07:28:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170709
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170652
+  fields:
+    created_at: 2018-06-06 07:42:54
+    updated_at: 2018-06-06 07:42:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170524
+  fields:
+    created_at: 2018-06-06 11:41:30
+    updated_at: 2018-06-06 11:41:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170505
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170415
+  fields:
+    created_at: 2018-06-06 07:16:35
+    updated_at: 2018-06-06 07:16:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170289
+  fields:
+    created_at: 2018-06-06 07:24:04
+    updated_at: 2018-06-06 07:24:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 170277
+  fields:
+    created_at: 2018-06-06 07:17:41
+    updated_at: 2018-06-06 07:17:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169812
+  fields:
+    created_at: 2018-06-06 07:42:55
+    updated_at: 2018-06-06 07:42:55
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169753
+  fields:
+    created_at: 2018-06-06 07:19:11
+    updated_at: 2018-06-06 07:19:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169615
+  fields:
+    created_at: 2018-06-06 07:21:19
+    updated_at: 2018-06-06 07:21:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169472
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169447
+  fields:
+    created_at: 2018-06-06 07:16:34
+    updated_at: 2018-06-06 07:16:34
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169381
+  fields:
+    created_at: 2018-06-06 07:21:19
+    updated_at: 2018-06-06 07:21:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169380
+  fields:
+    created_at: 2018-06-06 07:59:08
+    updated_at: 2018-06-06 07:59:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169314
+  fields:
+    created_at: 2018-06-06 07:21:20
+    updated_at: 2018-06-06 07:21:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169226
+  fields:
+    created_at: 2018-06-06 07:55:30
+    updated_at: 2018-06-06 07:55:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 169143
+  fields:
+    created_at: 2018-06-06 08:02:33
+    updated_at: 2018-06-06 08:02:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168622
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168359
+  fields:
+    created_at: 2018-06-06 11:41:31
+    updated_at: 2018-06-06 11:41:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168353
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168259
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168107
+  fields:
+    created_at: 2018-06-06 07:16:31
+    updated_at: 2018-06-06 07:16:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 168025
+  fields:
+    created_at: 2018-06-06 07:40:13
+    updated_at: 2018-06-06 07:40:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 167827
+  fields:
+    created_at: 2018-06-06 07:24:04
+    updated_at: 2018-06-06 07:24:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 167497
+  fields:
+    created_at: 2018-06-06 07:17:47
+    updated_at: 2018-06-06 07:17:47
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 167482
+  fields:
+    created_at: 2018-06-06 07:24:05
+    updated_at: 2018-06-06 07:24:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 167314
+  fields:
+    created_at: 2018-06-06 07:42:54
+    updated_at: 2018-06-06 07:42:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 167291
+  fields:
+    created_at: 2018-06-06 07:19:23
+    updated_at: 2018-06-06 07:19:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166938
+  fields:
+    created_at: 2018-06-06 07:48:25
+    updated_at: 2018-06-06 07:48:25
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166836
+  fields:
+    created_at: 2018-06-06 07:19:11
+    updated_at: 2018-06-06 07:19:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166656
+  fields:
+    created_at: 2018-06-06 07:19:11
+    updated_at: 2018-06-06 07:19:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166655
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166510
+  fields:
+    created_at: 2018-06-06 07:24:03
+    updated_at: 2018-06-06 07:24:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166372
+  fields:
+    created_at: 2018-06-06 07:53:41
+    updated_at: 2018-06-06 07:53:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166324
+  fields:
+    created_at: 2018-06-06 07:19:14
+    updated_at: 2018-06-06 07:19:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166266
+  fields:
+    created_at: 2018-06-06 07:55:29
+    updated_at: 2018-06-06 07:55:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 166229
+  fields:
+    created_at: 2018-06-06 11:41:28
+    updated_at: 2018-06-06 11:41:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165963
+  fields:
+    created_at: 2018-06-06 07:23:38
+    updated_at: 2018-06-06 07:23:38
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165909
+  fields:
+    created_at: 2018-06-06 07:21:20
+    updated_at: 2018-06-06 07:21:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165721
+  fields:
+    created_at: 2018-06-06 07:20:22
+    updated_at: 2018-06-06 07:20:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165493
+  fields:
+    created_at: 2018-06-06 07:48:26
+    updated_at: 2018-06-06 07:48:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165412
+  fields:
+    created_at: 2018-06-06 07:22:54
+    updated_at: 2018-06-06 07:22:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165284
+  fields:
+    created_at: 2018-06-06 07:17:41
+    updated_at: 2018-06-06 07:17:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 165106
+  fields:
+    created_at: 2018-06-06 11:41:29
+    updated_at: 2018-06-06 11:41:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 164683
+  fields:
+    created_at: 2018-06-06 07:46:53
+    updated_at: 2018-06-06 07:46:53
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 164678
+  fields:
+    created_at: 2018-06-06 07:16:54
+    updated_at: 2018-06-06 07:16:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 164606
+  fields:
+    created_at: 2018-06-06 07:55:28
+    updated_at: 2018-06-06 07:55:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 164345
+  fields:
+    created_at: 2018-06-06 07:24:06
+    updated_at: 2018-06-06 07:24:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 164199
+  fields:
+    created_at: 2018-06-06 07:42:18
+    updated_at: 2018-06-06 07:42:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163826
+  fields:
+    created_at: 2018-06-06 07:16:35
+    updated_at: 2018-06-06 07:16:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163770
+  fields:
+    created_at: 2018-06-06 07:28:21
+    updated_at: 2018-06-06 07:28:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163590
+  fields:
+    created_at: 2018-06-06 07:21:19
+    updated_at: 2018-06-06 07:21:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163538
+  fields:
+    created_at: 2018-06-06 07:16:54
+    updated_at: 2018-06-06 07:16:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163535
+  fields:
+    created_at: 2018-06-06 07:24:04
+    updated_at: 2018-06-06 07:24:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163525
+  fields:
+    created_at: 2018-06-06 07:42:53
+    updated_at: 2018-06-06 07:42:53
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163428
+  fields:
+    created_at: 2018-06-06 07:15:58
+    updated_at: 2018-06-06 07:15:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163267
+  fields:
+    created_at: 2018-06-06 07:55:29
+    updated_at: 2018-06-06 07:55:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163250
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163194
+  fields:
+    created_at: 2018-06-06 07:53:41
+    updated_at: 2018-06-06 07:53:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163096
+  fields:
+    created_at: 2018-06-06 07:21:20
+    updated_at: 2018-06-06 07:21:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163092
+  fields:
+    created_at: 2018-06-06 07:19:27
+    updated_at: 2018-06-06 07:19:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163086
+  fields:
+    created_at: 2018-06-06 11:41:28
+    updated_at: 2018-06-06 11:41:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163085
+  fields:
+    created_at: 2018-06-06 07:24:58
+    updated_at: 2018-06-06 07:24:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 163034
+  fields:
+    created_at: 2018-06-06 07:49:53
+    updated_at: 2018-06-06 07:49:53
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162849
+  fields:
+    created_at: 2018-06-06 07:42:54
+    updated_at: 2018-06-06 07:42:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162817
+  fields:
+    created_at: 2018-06-06 07:16:54
+    updated_at: 2018-06-06 07:16:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162743
+  fields:
+    created_at: 2018-06-06 07:19:14
+    updated_at: 2018-06-06 07:19:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162628
+  fields:
+    created_at: 2018-06-06 07:21:17
+    updated_at: 2018-06-06 07:21:17
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162451
+  fields:
+    created_at: 2018-06-06 07:24:03
+    updated_at: 2018-06-06 07:24:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162344
+  fields:
+    created_at: 2018-06-06 07:21:19
+    updated_at: 2018-06-06 07:21:19
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162211
+  fields:
+    created_at: 2018-06-06 07:21:18
+    updated_at: 2018-06-06 07:21:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162199
+  fields:
+    created_at: 2018-06-06 07:42:39
+    updated_at: 2018-06-06 07:42:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162149
+  fields:
+    created_at: 2018-06-06 11:41:29
+    updated_at: 2018-06-06 11:41:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 162019
+  fields:
+    created_at: 2018-06-06 09:01:37
+    updated_at: 2018-06-06 09:01:37
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161990
+  fields:
+    created_at: 2018-06-06 09:00:04
+    updated_at: 2018-06-06 09:00:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161938
+  fields:
+    created_at: 2018-06-06 09:05:31
+    updated_at: 2018-06-06 09:05:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161698
+  fields:
+    created_at: 2018-06-06 19:32:32
+    updated_at: 2018-06-06 19:32:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161549
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161409
+  fields:
+    created_at: 2018-06-06 08:59:09
+    updated_at: 2018-06-06 08:59:09
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161154
+  fields:
+    created_at: 2018-06-06 08:58:47
+    updated_at: 2018-06-06 08:58:47
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 161013
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160938
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160879
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160710
+  fields:
+    created_at: 2018-06-06 11:16:01
+    updated_at: 2018-06-06 11:16:01
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160685
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160449
+  fields:
+    created_at: 2018-06-06 09:16:28
+    updated_at: 2018-06-06 09:16:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160353
+  fields:
+    created_at: 2018-06-06 09:01:44
+    updated_at: 2018-06-06 09:01:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160321
+  fields:
+    created_at: 2018-06-06 09:16:28
+    updated_at: 2018-06-06 09:16:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160247
+  fields:
+    created_at: 2018-06-06 09:16:26
+    updated_at: 2018-06-06 09:16:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160104
+  fields:
+    created_at: 2018-06-06 09:03:07
+    updated_at: 2018-06-06 09:03:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160071
+  fields:
+    created_at: 2018-06-06 09:18:32
+    updated_at: 2018-06-06 09:18:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 160030
+  fields:
+    created_at: 2018-06-06 20:45:43
+    updated_at: 2018-06-06 20:45:43
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 159926
+  fields:
+    created_at: 2018-06-06 09:03:06
+    updated_at: 2018-06-06 09:03:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 159738
+  fields:
+    created_at: 2018-06-06 09:23:06
+    updated_at: 2018-06-06 09:23:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 159684
+  fields:
+    created_at: 2018-06-06 09:23:16
+    updated_at: 2018-06-06 09:23:16
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 159270
+  fields:
+    created_at: 2018-06-06 09:23:07
+    updated_at: 2018-06-06 09:23:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 159066
+  fields:
+    created_at: 2018-06-06 08:59:28
+    updated_at: 2018-06-06 08:59:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 158917
+  fields:
+    created_at: 2018-06-06 09:01:21
+    updated_at: 2018-06-06 09:01:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 158612
+  fields:
+    created_at: 2018-06-06 09:04:57
+    updated_at: 2018-06-06 09:04:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 158115
+  fields:
+    created_at: 2018-06-06 09:03:06
+    updated_at: 2018-06-06 09:03:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 158102
+  fields:
+    created_at: 2018-06-06 09:01:05
+    updated_at: 2018-06-06 09:01:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 158036
+  fields:
+    created_at: 2018-06-06 09:23:07
+    updated_at: 2018-06-06 09:23:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 157031
+  fields:
+    created_at: 2018-06-06 09:23:05
+    updated_at: 2018-06-06 09:23:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156686
+  fields:
+    created_at: 2018-06-06 08:59:28
+    updated_at: 2018-06-06 08:59:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156624
+  fields:
+    created_at: 2018-06-06 09:24:53
+    updated_at: 2018-06-06 09:24:53
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156586
+  fields:
+    created_at: 2018-06-06 09:01:20
+    updated_at: 2018-06-06 09:01:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156520
+  fields:
+    created_at: 2018-06-06 08:59:24
+    updated_at: 2018-06-06 08:59:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156421
+  fields:
+    created_at: 2018-06-06 09:00:04
+    updated_at: 2018-06-06 09:00:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156247
+  fields:
+    created_at: 2018-06-06 09:04:45
+    updated_at: 2018-06-06 09:04:45
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156227
+  fields:
+    created_at: 2018-06-06 09:23:07
+    updated_at: 2018-06-06 09:23:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156182
+  fields:
+    created_at: 2018-06-06 09:16:26
+    updated_at: 2018-06-06 09:16:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 156051
+  fields:
+    created_at: null
+    updated_at: null
+    prod_name: Sun_INDS_89
+    doc_date: '2018-04-07'
+    rev_num: '47'
+    extraction_script: 6
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 155180
+  fields:
+    created_at: 2018-06-06 07:23:54
+    updated_at: 2018-06-06 07:23:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 155091
+  fields:
+    created_at: 2018-06-06 07:49:57
+    updated_at: 2018-06-06 07:49:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 154934
+  fields:
+    created_at: 2018-06-06 08:11:00
+    updated_at: 2018-06-06 08:11:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 154774
+  fields:
+    created_at: 2018-06-06 07:19:44
+    updated_at: 2018-06-06 07:19:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 154624
+  fields:
+    created_at: 2018-06-06 07:51:23
+    updated_at: 2018-06-06 07:51:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 154480
+  fields:
+    created_at: 2018-06-06 07:21:51
+    updated_at: 2018-06-06 07:21:51
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153827
+  fields:
+    created_at: 2018-06-06 08:08:39
+    updated_at: 2018-06-06 08:08:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153687
+  fields:
+    created_at: 2018-06-06 07:35:31
+    updated_at: 2018-06-06 07:35:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153618
+  fields:
+    created_at: 2018-06-06 07:50:13
+    updated_at: 2018-06-06 07:50:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153434
+  fields:
+    created_at: 2018-06-06 07:20:29
+    updated_at: 2018-06-06 07:20:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153366
+  fields:
+    created_at: 2018-06-06 08:06:50
+    updated_at: 2018-06-06 08:06:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 153000
+  fields:
+    created_at: 2018-06-06 08:00:50
+    updated_at: 2018-06-06 08:00:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152797
+  fields:
+    created_at: 2018-06-06 07:23:52
+    updated_at: 2018-06-06 07:23:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152754
+  fields:
+    created_at: 2018-06-06 07:50:13
+    updated_at: 2018-06-06 07:50:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152281
+  fields:
+    created_at: 2018-06-06 07:50:14
+    updated_at: 2018-06-06 07:50:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152233
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152059
+  fields:
+    created_at: 2018-06-06 16:00:27
+    updated_at: 2018-06-06 16:00:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 152048
+  fields:
+    created_at: 2018-06-06 07:21:50
+    updated_at: 2018-06-06 07:21:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 151618
+  fields:
+    created_at: 2018-06-06 07:25:43
+    updated_at: 2018-06-06 07:25:43
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 151579
+  fields:
+    created_at: 2018-06-06 07:21:50
+    updated_at: 2018-06-06 07:21:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 151031
+  fields:
+    created_at: 2018-06-06 07:21:52
+    updated_at: 2018-06-06 07:21:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 150935
+  fields:
+    created_at: 2018-06-06 08:24:53
+    updated_at: 2018-06-06 08:24:53
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 150924
+  fields:
+    created_at: 2018-06-06 07:50:15
+    updated_at: 2018-06-06 07:50:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 150828
+  fields:
+    created_at: 2018-06-06 08:11:00
+    updated_at: 2018-06-06 08:11:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 150584
+  fields:
+    created_at: 2018-06-06 08:06:31
+    updated_at: 2018-06-06 08:06:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 150192
+  fields:
+    created_at: 2018-06-06 07:25:48
+    updated_at: 2018-06-06 07:25:48
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 149639
+  fields:
+    created_at: 2018-06-06 12:56:39
+    updated_at: 2018-06-06 12:56:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 149508
+  fields:
+    created_at: 2018-06-06 07:20:08
+    updated_at: 2018-06-06 07:20:08
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 149452
+  fields:
+    created_at: 2018-06-06 07:25:43
+    updated_at: 2018-06-06 07:25:43
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 149407
+  fields:
+    created_at: 2018-06-06 07:21:52
+    updated_at: 2018-06-06 07:21:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 149242
+  fields:
+    created_at: 2018-06-06 07:21:52
+    updated_at: 2018-06-06 07:21:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148935
+  fields:
+    created_at: 2018-06-06 12:28:46
+    updated_at: 2018-06-06 12:28:46
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148922
+  fields:
+    created_at: 2018-06-06 07:19:06
+    updated_at: 2018-06-06 07:19:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148886
+  fields:
+    created_at: 2018-06-06 07:19:06
+    updated_at: 2018-06-06 07:19:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148729
+  fields:
+    created_at: 2018-06-06 07:29:15
+    updated_at: 2018-06-06 07:29:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148557
+  fields:
+    created_at: 2018-06-06 08:06:29
+    updated_at: 2018-06-06 08:06:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148549
+  fields:
+    created_at: 2018-06-06 07:30:15
+    updated_at: 2018-06-06 07:30:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 148426
+  fields:
+    created_at: 2018-06-06 12:56:39
+    updated_at: 2018-06-06 12:56:39
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147947
+  fields:
+    created_at: 2018-06-06 07:21:43
+    updated_at: 2018-06-06 07:21:43
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147505
+  fields:
+    created_at: 2018-06-06 07:24:05
+    updated_at: 2018-06-06 07:24:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147489
+  fields:
+    created_at: 2018-06-06 08:06:50
+    updated_at: 2018-06-06 08:06:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147447
+  fields:
+    created_at: 2018-06-06 08:00:50
+    updated_at: 2018-06-06 08:00:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147446
+  fields:
+    created_at: 2018-06-06 07:26:06
+    updated_at: 2018-06-06 07:26:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147408
+  fields:
+    created_at: 2018-06-06 07:24:42
+    updated_at: 2018-06-06 07:24:42
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147387
+  fields:
+    created_at: 2018-06-06 07:25:42
+    updated_at: 2018-06-06 07:25:42
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147297
+  fields:
+    created_at: 2018-06-06 07:16:09
+    updated_at: 2018-06-06 07:16:09
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147117
+  fields:
+    created_at: 2018-06-06 07:19:44
+    updated_at: 2018-06-06 07:19:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 147032
+  fields:
+    created_at: 2018-06-06 08:15:58
+    updated_at: 2018-06-06 08:15:58
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146915
+  fields:
+    created_at: 2018-06-06 07:19:05
+    updated_at: 2018-06-06 07:19:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146658
+  fields:
+    created_at: 2018-06-06 07:50:13
+    updated_at: 2018-06-06 07:50:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146587
+  fields:
+    created_at: 2018-06-06 07:21:49
+    updated_at: 2018-06-06 07:21:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146437
+  fields:
+    created_at: 2018-06-06 08:06:31
+    updated_at: 2018-06-06 08:06:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146313
+  fields:
+    created_at: 2018-06-06 07:21:50
+    updated_at: 2018-06-06 07:21:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 146297
+  fields:
+    created_at: 2018-06-06 07:50:13
+    updated_at: 2018-06-06 07:50:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 145996
+  fields:
+    created_at: 2018-06-06 07:30:15
+    updated_at: 2018-06-06 07:30:15
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 145972
+  fields:
+    created_at: 2018-06-06 07:15:32
+    updated_at: 2018-06-06 07:15:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 145754
+  fields:
+    created_at: 2018-06-07 14:29:03
+    updated_at: 2018-06-07 14:29:03
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 145305
+  fields:
+    created_at: 2018-06-06 07:19:44
+    updated_at: 2018-06-06 07:19:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 145228
+  fields:
+    created_at: 2018-06-06 07:59:14
+    updated_at: 2018-06-06 07:59:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 144974
+  fields:
+    created_at: 2018-06-06 08:11:57
+    updated_at: 2018-06-06 08:11:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 144903
+  fields:
+    created_at: 2018-06-06 07:14:52
+    updated_at: 2018-06-06 07:14:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 144610
+  fields:
+    created_at: 2018-06-06 08:06:29
+    updated_at: 2018-06-06 08:06:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 144561
+  fields:
+    created_at: 2018-06-06 08:06:26
+    updated_at: 2018-06-06 08:06:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 144094
+  fields:
+    created_at: 2018-06-06 07:49:56
+    updated_at: 2018-06-06 07:49:56
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 143711
+  fields:
+    created_at: 2018-06-06 07:21:52
+    updated_at: 2018-06-06 07:21:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 143665
+  fields:
+    created_at: 2018-06-06 07:21:52
+    updated_at: 2018-06-06 07:21:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 143553
+  fields:
+    created_at: 2018-06-06 18:18:57
+    updated_at: 2018-06-06 18:18:57
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 143250
+  fields:
+    created_at: 2018-06-06 07:26:06
+    updated_at: 2018-06-06 07:26:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 143049
+  fields:
+    created_at: 2018-06-06 07:19:05
+    updated_at: 2018-06-06 07:19:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 142559
+  fields:
+    created_at: 2018-06-06 07:20:29
+    updated_at: 2018-06-06 07:20:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 142272
+  fields:
+    created_at: 2018-06-06 07:21:50
+    updated_at: 2018-06-06 07:21:50
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 142162
+  fields:
+    created_at: 2018-06-06 07:49:56
+    updated_at: 2018-06-06 07:49:56
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 142067
+  fields:
+    created_at: 2018-06-06 08:06:29
+    updated_at: 2018-06-06 08:06:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 141970
+  fields:
+    created_at: 2018-06-06 07:50:13
+    updated_at: 2018-06-06 07:50:13
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 141892
+  fields:
+    created_at: 2018-06-06 07:19:07
+    updated_at: 2018-06-06 07:19:07
+    prod_name: SSC Dark & Natural Hair Color Kit
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 141765
+  fields:
+    created_at: 2018-06-06 10:05:52
+    updated_at: 2018-06-06 10:05:52
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 140076
+  fields:
+    created_at: 2018-06-06 09:55:24
+    updated_at: 2018-06-06 09:55:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 137309
+  fields:
+    created_at: 2018-06-06 09:55:36
+    updated_at: 2018-06-06 09:55:36
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134824
+  fields:
+    created_at: 2018-06-06 08:08:51
+    updated_at: 2018-06-06 08:08:51
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134802
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134372
+  fields:
+    created_at: 2018-06-06 07:21:35
+    updated_at: 2018-06-06 07:21:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134297
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134115
+  fields:
+    created_at: 2018-06-06 07:21:41
+    updated_at: 2018-06-06 07:21:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134093
+  fields:
+    created_at: 2018-06-06 07:17:10
+    updated_at: 2018-06-06 07:17:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 134073
+  fields:
+    created_at: 2018-06-06 07:17:06
+    updated_at: 2018-06-06 07:17:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 133988
+  fields:
+    created_at: 2018-06-06 07:15:49
+    updated_at: 2018-06-06 07:15:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 133953
+  fields:
+    created_at: 2018-06-06 07:45:21
+    updated_at: 2018-06-06 07:45:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 133718
+  fields:
+    created_at: 2018-06-06 07:14:47
+    updated_at: 2018-06-06 07:14:47
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 133439
+  fields:
+    created_at: 2018-06-06 07:21:02
+    updated_at: 2018-06-06 07:21:02
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 133186
+  fields:
+    created_at: 2018-06-06 10:52:38
+    updated_at: 2018-06-06 10:52:38
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 132901
+  fields:
+    created_at: 2018-06-06 07:17:10
+    updated_at: 2018-06-06 07:17:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 132427
+  fields:
+    created_at: 2018-06-06 07:21:40
+    updated_at: 2018-06-06 07:21:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 132304
+  fields:
+    created_at: 2018-06-06 07:17:07
+    updated_at: 2018-06-06 07:17:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 132285
+  fields:
+    created_at: 2018-06-06 07:19:54
+    updated_at: 2018-06-06 07:19:54
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 132100
+  fields:
+    created_at: 2018-06-06 07:18:45
+    updated_at: 2018-06-06 07:18:45
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 131898
+  fields:
+    created_at: 2018-06-06 07:17:06
+    updated_at: 2018-06-06 07:17:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 131589
+  fields:
+    created_at: 2018-06-06 07:17:11
+    updated_at: 2018-06-06 07:17:11
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 131206
+  fields:
+    created_at: 2018-06-06 07:48:10
+    updated_at: 2018-06-06 07:48:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 131144
+  fields:
+    created_at: 2018-06-06 07:15:14
+    updated_at: 2018-06-06 07:15:14
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 130616
+  fields:
+    created_at: 2018-06-06 07:17:22
+    updated_at: 2018-06-06 07:17:22
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 130255
+  fields:
+    created_at: 2018-06-06 07:27:30
+    updated_at: 2018-06-06 07:27:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 130169
+  fields:
+    created_at: 2018-06-06 10:52:32
+    updated_at: 2018-06-06 10:52:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129952
+  fields:
+    created_at: 2018-06-06 07:45:32
+    updated_at: 2018-06-06 07:45:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129788
+  fields:
+    created_at: 2018-06-06 07:45:21
+    updated_at: 2018-06-06 07:45:21
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129746
+  fields:
+    created_at: 2018-06-06 07:17:07
+    updated_at: 2018-06-06 07:17:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129688
+  fields:
+    created_at: 2018-06-06 07:20:26
+    updated_at: 2018-06-06 07:20:26
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129616
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129596
+  fields:
+    created_at: 2018-06-06 07:17:07
+    updated_at: 2018-06-06 07:17:07
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129298
+  fields:
+    created_at: 2018-06-06 07:15:44
+    updated_at: 2018-06-06 07:15:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 129074
+  fields:
+    created_at: 2018-06-06 07:17:33
+    updated_at: 2018-06-06 07:17:33
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 128998
+  fields:
+    created_at: 2018-06-06 07:21:28
+    updated_at: 2018-06-06 07:21:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127870
+  fields:
+    created_at: 2018-06-06 07:15:05
+    updated_at: 2018-06-06 07:15:05
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127808
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127798
+  fields:
+    created_at: 2018-06-06 10:52:32
+    updated_at: 2018-06-06 10:52:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127755
+  fields:
+    created_at: 2018-06-06 07:15:00
+    updated_at: 2018-06-06 07:15:00
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127650
+  fields:
+    created_at: 2018-06-06 07:21:27
+    updated_at: 2018-06-06 07:21:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 127133
+  fields:
+    created_at: 2018-06-06 07:48:10
+    updated_at: 2018-06-06 07:48:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 126964
+  fields:
+    created_at: 2018-06-06 07:38:24
+    updated_at: 2018-06-06 07:38:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 126582
+  fields:
+    created_at: 2018-06-06 07:45:20
+    updated_at: 2018-06-06 07:45:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 126468
+  fields:
+    created_at: 2018-06-06 07:17:06
+    updated_at: 2018-06-06 07:17:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 126447
+  fields:
+    created_at: 2018-06-06 07:35:18
+    updated_at: 2018-06-06 07:35:18
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 126327
+  fields:
+    created_at: 2018-06-06 07:45:32
+    updated_at: 2018-06-06 07:45:32
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 125810
+  fields:
+    created_at: 2018-06-06 10:33:49
+    updated_at: 2018-06-06 10:33:49
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 125637
+  fields:
+    created_at: 2018-06-06 07:38:24
+    updated_at: 2018-06-06 07:38:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 125274
+  fields:
+    created_at: 2018-06-06 07:21:40
+    updated_at: 2018-06-06 07:21:40
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 124838
+  fields:
+    created_at: 2018-06-06 07:27:29
+    updated_at: 2018-06-06 07:27:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 124723
+  fields:
+    created_at: 2018-06-06 07:35:35
+    updated_at: 2018-06-06 07:35:35
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 124711
+  fields:
+    created_at: 2018-06-06 07:21:27
+    updated_at: 2018-06-06 07:21:27
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 124302
+  fields:
+    created_at: 2018-06-06 08:08:29
+    updated_at: 2018-06-06 08:08:29
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 123517
+  fields:
+    created_at: 2018-06-06 07:45:20
+    updated_at: 2018-06-06 07:45:20
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122910
+  fields:
+    created_at: 2018-06-06 07:48:10
+    updated_at: 2018-06-06 07:48:10
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122732
+  fields:
+    created_at: 2018-06-06 07:21:28
+    updated_at: 2018-06-06 07:21:28
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122582
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122493
+  fields:
+    created_at: 2018-06-06 07:45:23
+    updated_at: 2018-06-06 07:45:23
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122400
+  fields:
+    created_at: 2018-06-06 07:45:31
+    updated_at: 2018-06-06 07:45:31
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122279
+  fields:
+    created_at: 2018-06-06 07:38:24
+    updated_at: 2018-06-06 07:38:24
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 122079
+  fields:
+    created_at: 2018-06-06 07:21:41
+    updated_at: 2018-06-06 07:21:41
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 121831
+  fields:
+    created_at: 2018-06-06 07:17:06
+    updated_at: 2018-06-06 07:17:06
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 121722
+  fields:
+    created_at: 2018-06-06 07:24:30
+    updated_at: 2018-06-06 07:24:30
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 121698
+  fields:
+    created_at: 2018-06-06 07:19:04
+    updated_at: 2018-06-06 07:19:04
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 121576
+  fields:
+    created_at: 2018-06-06 07:15:44
+    updated_at: 2018-06-06 07:15:44
+    prod_name: null
+    doc_date: null
+    rev_num: null
+    extraction_script: 12
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 54
+  fields:
+    created_at: null
+    updated_at: 2018-07-02 22:58:59.310189
+    prod_name: Bubbles Again
+    doc_date: '2018-04-13'
+    rev_num: null
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 53
+  fields:
+    created_at: null
+    updated_at: 2018-07-02 22:58:59.310189
+    prod_name: Bubbles
+    doc_date: '2018-04-13'
+    rev_num: null
+    extraction_script: 13
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 8
+  fields:
+    created_at: null
+    updated_at: 2018-07-02 22:57:45.760331
+    prod_name: AVCAT Gas
+    doc_date: '2018-04-13'
+    rev_num: '666'
+    extraction_script: 5
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 7
+  fields:
+    created_at: null
+    updated_at: 2018-07-02 22:58:59.310189
+    prod_name: AV Gas
+    doc_date: '2018-04-13'
+    rev_num: '666'
+    extraction_script: 5
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null
+- model: dashboard.extractedtext
+  pk: 5
+  fields:
+    created_at: null
+    updated_at: null
+    prod_name: Product with functional use
+    doc_date: '2018-04-07'
+    rev_num: null
+    extraction_script: 15
+    qa_checked: false
+    qa_edited: false
+    qa_approved_date: null
+    qa_approved_by: null
+    qa_group: null

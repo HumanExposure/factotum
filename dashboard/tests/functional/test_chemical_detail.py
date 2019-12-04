@@ -73,7 +73,7 @@ class ChemicalDetail(TestCase):
         dss = DSSToxLookup.objects.get(sid="DTXSID9020584")
         response = self.client.get(dss.get_absolute_url())
         self.assertGreater(
-            len(response.context["tagDict"]),
+            len(response.context["keysets"]),
             0,
             f"DSSTox pk={dss.pk} should return CP keyword sets in the context",
         )

@@ -15,7 +15,7 @@ class QATest(TestCase):
 
     def test_qa_scoreboard(self):
         scripts = Script.objects.filter(script_type="EX").exclude(extractedtext=None)
-        response = self.client.get("/qa/extractionscript/").content.decode("utf8")
+        response = self.client.get("/qa/compextractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
 
         row_count = len(
@@ -74,7 +74,7 @@ class QATest(TestCase):
 
         # A button for each row that will take you to the script's QA page
         script_qa_link = response_html.xpath(f'//*[@id="qa-{script.pk}"]/a/@href').pop()
-        self.assertIn(f"/qa/extractionscript/{script.pk}/", script_qa_link)
+        self.assertIn(f"/qa/compextractionscript/{script.pk}/", script_qa_link)
 
         # Before clicking link, the script's qa_done property should be false
         self.assertFalse(script.qa_begun, "The property should be False")
@@ -97,7 +97,7 @@ class QATest(TestCase):
         )
 
         # Go back to the QA index page to confirm that the QA is complete
-        response = self.client.get("/qa/extractionscript/").content.decode("utf8")
+        response = self.client.get("/qa/compextractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
         status = response_html.xpath(f'//*[@id="qa-{ script.pk }"]/a').pop()
         self.assertIn(

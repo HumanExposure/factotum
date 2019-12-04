@@ -87,6 +87,8 @@ FRIENDLY_FIELDS = {
     "puc_description": "Description",
 }
 
+VALID_MODELS = {"product", "datadocument", "puc", "chemical"}
+
 TOTAL_COUNT_AGG = "unique_total_count"
 
 
@@ -174,9 +176,7 @@ def run_query(
 
     """
     # make sure the model is valid
-    valid_models = set([id_field[:-3] for id_field in FIELD_DICT] + ["chemical"])
-    if model not in valid_models:
-        raise ValueError("'model' must be one of " + str(valid_models))
+    validate_model(model)
     # get index to search on based on ELASTICSEARCH setting and con
     index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "_all")
     # get the search object
@@ -185,7 +185,7 @@ def run_query(
     for term, filter_array in facets.items():
         s = s.filter("terms", **{term: filter_array})
     # pull relevant fields
-    id_field = model + "_id" if model != "chemical" else "truechem_dtxsid"
+    id_field = get_id_field(model)
     fields = FIELD_DICT[id_field]
     # filter null id
     s = s.filter("exists", field=id_field)
@@ -264,3 +264,41 @@ def run_query(
         "took": response["took"] / 1000,
         "total": length,
     }
+
+
+def get_unique_count(q, model, fuzzy=False, connection="default"):
+    # make sure the model is valid
+    validate_model(model)
+
+    # get index to search on based on ELASTICSEARCH setting and con
+    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "_all")
+    # get the search object
+    s = Search(using=connection, index=index)
+    # pull relevant fields
+    id_field = get_id_field(model)
+
+    fields = FIELD_DICT[id_field]
+    # filter null id
+    s = s.filter("exists", field=id_field)
+    # add the query with optional fuzziness
+    if fuzzy:
+        s = s.query(MultiMatch(query=q, fields=fields, fuzziness="AUTO"))
+    else:
+        s = s.query(MultiMatch(query=q, fields=fields))
+
+    # add cardinal aggregation on id_field to get unique total count
+    s.aggs.bucket(TOTAL_COUNT_AGG, A("cardinality", field=id_field))
+    # execute the search
+    response = s.execute().to_dict()
+    # get unique total count
+    response_aggs = response["aggregations"]
+    return response_aggs[TOTAL_COUNT_AGG]["value"]
+
+
+def validate_model(model):
+    if model not in VALID_MODELS:
+        raise ValueError("'model' must be one of " + str(valid_models))
+
+
+def get_id_field(model):
+    return model + "_id" if model != "chemical" else "truechem_dtxsid"

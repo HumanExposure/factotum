@@ -82,13 +82,18 @@ python manage.py dumpdata dashboard.datasource --format=yaml > ./dashboard/fixtu
 python manage.py dumpdata dashboard.datagroup --format=yaml > ./dashboard/fixtures/03_datagroup.yaml
 python manage.py dumpdata dashboard.PUC --format=yaml > ./dashboard/fixtures/04_PUC.yaml
 python manage.py dumpdata dashboard.product --format=yaml > ./dashboard/fixtures/05_product.yaml
-python manage.py dumpdata dashboard.datadocument  --format=yaml > ./dashboard/fixtures/06_datadocument.yaml
-python manage.py dumpdata dashboard.extractedtext dashboard.extractedcpcat dashboard.extractedhhdoc dashboard.rawchem dashboard.extractedchemical dashboard.extractedfunctionaluse dashboard.extractedlistpresence dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07_rawchem_etc.yaml
+python manage.py dumpdata dashboard.datadocument --format=yaml > ./dashboard/fixtures/06_datadocument.yaml
+python manage.py dumpdata dashboard.extractedtext --format=yaml > ./dashboard/fixtures/07_extractedtext.yaml
+python manage.py dumpdata dashboard.extractedcpcat --format=yaml > ./dashboard/fixtures/07b_extractedcpcat.yaml
+python manage.py dumpdata dashboard.extractedhhdoc --format=yaml > ./dashboard/fixtures/07c_extractedhhdoc.yaml
+python manage.py dumpdata dashboard.rawchem --format=yaml > ./dashboard/fixtures/07d_rawchem.yaml
+python manage.py dumpdata dashboard.extractedchemical --format=yaml > ./dashboard/fixtures/07e_extractedchemical.yaml
+python manage.py dumpdata dashboard.extractedfunctionaluse --format=yaml > ./dashboard/fixtures/07f_extractedfunctionaluse.yaml
+python manage.py dumpdata dashboard.extractedlistpresence --format=yaml > ./dashboard/fixtures/07g_extractedlistpresence.yaml
+python manage.py dumpdata dashboard.extractedhhrec --format=yaml > ./dashboard/fixtures/07h_extractedhhrec.yaml
 python manage.py dumpdata dashboard.script --format=yaml > ./dashboard/fixtures/08_script.yaml
 python manage.py dumpdata dashboard.productdocument --format=yaml > ./dashboard/fixtures/09_productdocument.yaml
-
 python manage.py dumpdata dashboard.extractedhabitsandpractices --format=yaml > ./dashboard/fixtures/10_habits_and_practices.yaml
-
 python manage.py dumpdata dashboard.extractedhabitsandpracticestopuc --format=yaml > ./dashboard/fixtures/11_habits_and_practices_to_puc.yaml
 python manage.py dumpdata dashboard.producttopuc --format=yaml > ./dashboard/fixtures/12_product_to_puc.yaml
 python manage.py dumpdata dashboard.puctag dashboard.producttotag dashboard.puctotag --format=yaml > ./dashboard/fixtures/13_puc_tag.yaml

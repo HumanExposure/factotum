@@ -152,7 +152,7 @@ class TestProductPuc(TestCase):
             product_response_html.xpath("string(/)"),
             "The form should not display if no products are returned",
         )
-        product_response = self.client.get(product_response_url + "?q=bayer")
+        product_response = self.client.get(product_response_url + "?q=flux")
         product_response_html = html.fromstring(product_response.content.decode("utf8"))
         self.assertIn(
             "Product Title",
@@ -164,7 +164,9 @@ class TestProductPuc(TestCase):
 
     def test_bulk_product_puc_post(self):
         product_response_url = reverse("bulk_product_puc")
-        self.client.post(product_response_url, {"puc": "1", "id_pks": "11,150,151,152"})
+        self.client.post(
+            product_response_url, {"puc": "1", "id_pks": "11,878,1836,1842"}
+        )
         # Note that product 11 already has PUC 1 linked to it in the seed data. Including it in this
         # test set is a test against the edge case wherein a product with a manually assigned PUC
         # somehow makes it into the batch assignment process. This should generate a new 'MB' ProductToPuc

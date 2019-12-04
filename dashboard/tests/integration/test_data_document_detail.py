@@ -2,7 +2,6 @@ from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import DataDocument, ExtractedText
 
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -195,3 +194,70 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//td[text()="Supplemental Memo"]')
         except NoSuchElementException:
             self.fail("Label for SU title does not exist.")
+
+    def test_cp_keyword_docs(self):
+        """
+        Test that a CP keyword/tag set contains a doc table with links to docs
+        """
+        chem_url = self.live_server_url + "/chemical/DTXSID9020584/"
+        self.browser.get(chem_url)
+
+        wait = WebDriverWait(self.browser, 10)
+        testKeywordSet = self.browser.find_element_by_xpath('//*[@id="keywords-4"]')
+
+        try:
+            testKeywordSet.click()
+            wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, "//*[@href='/datadocument/354787']")
+                )
+            )
+        except NoSuchElementException:
+            self.fail("Link does not exist.")
+
+    def test_co_clean_comp_slider(self):
+        dd_pk = 156051
+        list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
+        self.browser.get(list_url)
+
+        # Verify that the sliders have been generated for extracted chemicals in this datadocument
+        try:
+            slider = WebDriverWait(self.browser, 5).until(
+                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider856"]'))
+            )
+            slider2 = WebDriverWait(self.browser, 5).until(
+                ec.visibility_of_element_located((By.XPATH, '//*[@id="slider2"]'))
+            )
+        except NoSuchElementException:
+            self.fail("Sliders should exist on this page, but does not.")
+
+    def test_chemical_update(self):
+        dd_pk = 156051
+        list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
+        self.browser.get(list_url)
+
+        self.browser.find_element_by_xpath('//*[@id="chemical-update-856"]').click()
+
+        # Verify that the modal window appears by finding the Cancel button
+        # The modal window does not immediately appear, so the browser
+        # should wait for the button to be clickable
+        wait = WebDriverWait(self.browser, 10)
+        save_button = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+        )
+        self.assertEqual("Save changes", save_button.get_attribute("value"))
+
+        report_funcuse_box = self.browser.find_element_by_id("id_report_funcuse")
+        report_funcuse_box.send_keys("canoeing")
+        save_button.click()
+
+        audit_link = wait.until(
+            ec.element_to_be_clickable((By.XPATH, "//*[@id='chemical-audit-log-856']"))
+        )
+        self.assertIn("Last updated: 0 minutes ago", audit_link.text)
+        audit_link.click()
+
+        datatable = wait.until(
+            ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+        )
+        self.assertIn("canoeing", datatable.text)

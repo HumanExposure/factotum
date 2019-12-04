@@ -11,10 +11,17 @@
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/qa">QA</a></li>
-      <li class="breadcrumb-item">
-           <a href='{% url "qa_extraction_script" script.id %}'> {{ script }} </a>
-    </li>
+      {% if doc.data_group.type == "CP" %}
+        <li class="breadcrumb-item"><a href='{% url "qa_chemicalpresence_index" %}'>Chemical Presence</a></li>
+        <li class="breadcrumb-item">
+          <a href='{% url "qa_chemical_presence_group" doc.data_group_id %}'> {{ doc.data_group }} </a>
+        </li>
+      {% else %}
+        <li class="breadcrumb-item"><a href='{% url "qa_extractionscript_index" %}'>Composition</a></li>
+        <li class="breadcrumb-item">
+          <a href='{% url "qa_extraction_script" script.id %}'> {{ script }} </a>
+        </li>
+      {% endif %}
       <li class="breadcrumb-item active" aria-current="page">{{ doc.title }}</li>
     </ol>
   </nav>
@@ -127,28 +134,28 @@
         <div class="row card-body">
 
         <div class="col-sm-6">
+            <form action="{% url 'approve_extracted_text' doc.pk %}" method="post" id="approve-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="referer" value="{{request.path}}" />
+                <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
 
-        <form action="{% url 'approve_extracted_text' doc.pk %}" method="post" id="approve-form">
-                {% csrf_token %}
-                <input type="hidden" name="referer" value="{{request.path}}" />
-            <button type = "submit" id="approve" name="approve" class="btn btn-success btn-lg btn-block" role="button">Approve</button>
 
+                {% if referer == 'qa_extraction_script' and doc.data_group.type != "CP"%}
                 <br>
-                {% if referer != 'data_document'%}
                     {% if nextid > 0 %}
-                        <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" role="button">Skip</a>
+                        <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" name="skip" role="button">Skip</a>
                     {% else %}
-                        <button type="button" title="All the other documents in this QA group have been approved" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
+                        <button type="button" title="All the other documents in this QA group have been approved" name="skip" class="btn btn-secondary btn-lg btn-block" aria-disabled="true" disabled>Skip</button>
                     {% endif %}
                 {% endif %}
                 <br>
-                {% if referer != 'data_document'%}
-                <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.extractedtext.extraction_script_id %}" role="button">Exit</a>
+                {% if referer == 'qa_extraction_script'%}
+                    <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.extractedtext.extraction_script_id %}" role="button">Exit</a>
                 {% else %}
-                <a class="btn btn-secondary btn-lg btn-block" href="{% url referer doc.id %}" role="button">Exit</a>
+                    <a class="btn btn-secondary btn-lg btn-block" href="{{ referer }}" role="button">Exit</a>
                 {% endif %}
-            </div>
-        </form>
+            </form>
+        </div>
 
 
               

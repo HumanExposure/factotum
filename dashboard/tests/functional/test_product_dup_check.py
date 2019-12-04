@@ -34,12 +34,11 @@ class TestProductDupCheck(TestCase):
             self.list_upc_names.append(norm_prod)
 
     def test_top_match(self):
-        stub_product = (
-            "fastset anchoring epoxy, high strength anchoring epoxy, dot anchoring"
-        )
-        upc_product = (
-            "fastset anchoring epoxy, high strength epoxy, dot anchoring epoxy"
-        )
+        """
+        Provided a product title, the search should return a single match
+        from the titles of existing products with non-stub UPCs
+        """
+        stub_product = "Magic Baby Oil Cream"
         cutoff = 80
 
         # Get the top one match, using the fuzz.token_set_ratio matching and a threshold value.
@@ -50,15 +49,14 @@ class TestProductDupCheck(TestCase):
             score_cutoff=cutoff,
         )
         upc_prod_match = list_one[0]
-        self.assertEqual(upc_prod_match, upc_product)
+        self.assertEqual(upc_prod_match, "baby magic creamy baby oil")
 
     def test_multi_match(self):
-        stub_product = "okeeffes working hand cream"
-        upc_product = [
-            "goof off professional strength voc compliant",
-            "softsoap liquid hand soap lavender & chamomile",
-            "dap alex plus acrylic latex caulk plus silicone",
-        ]
+        """ 
+        Provided a product title, the matcher should return a ranked list
+        of similar product titles drawn only from those products with non-stub UPCs
+        """
+        stub_product = "Magic Baby Oil Cream"
 
         # Set the number of matches ordered by scores.  By default this number is 5.
         num_matches = 3
@@ -70,7 +68,8 @@ class TestProductDupCheck(TestCase):
             scorer=fuzz.token_set_ratio,
             limit=num_matches,
         )
-
-        for i in range(num_matches):
-            upc_prod_match = list_multi[i][0]
-            self.assertEqual(upc_prod_match, upc_product[i])
+        self.assertEqual(
+            list_multi[0][0],
+            "baby magic creamy baby oil".lower(),
+            "The first result should match the search string",
+        )

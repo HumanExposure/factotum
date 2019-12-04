@@ -2,6 +2,8 @@ import os
 from django import template
 
 register = template.Library()
+from django.template.defaultfilters import register
+
 
 ICON_MAP = {
     ".csv": "-csv",
@@ -20,3 +22,9 @@ ICON_MAP = {
 def fileicon(value):
     _, ext = os.path.splitext(value)
     return "fa-file" + ICON_MAP.get(ext, "")
+
+
+@register.filter(name="dict_key")
+def dict_key(d, k):
+    """Returns the given key from a dictionary."""
+    return d.get(k)

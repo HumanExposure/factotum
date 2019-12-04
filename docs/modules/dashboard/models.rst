@@ -36,3 +36,9 @@ Dashboard Models
 
 .. automodule:: dashboard.models.product
     :members:
+
+.. automodule:: dashboard.models.script
+    :members:
+
+.. automodule:: dashboard.models.qagroup
+    :members:

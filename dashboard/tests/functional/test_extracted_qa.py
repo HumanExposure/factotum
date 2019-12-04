@@ -15,7 +15,7 @@ class ExtractedQaTest(TestCase):
         self.assertIsNone(self.objects.extext.qa_group)
         self.assertEqual(len(QAGroup.objects.all()), 0)
         pk = self.objects.extext.extraction_script.pk
-        response = self.client.get(f"/qa/extractionscript/{pk}/")
+        response = self.client.get(f"/qa/compextractionscript/{pk}/")
         self.assertEqual(response.status_code, 200)
         qa_group = QAGroup.objects.get(
             extraction_script=self.objects.extext.extraction_script
@@ -26,12 +26,12 @@ class ExtractedQaTest(TestCase):
 
     def test_qa_approval_redirect(self):
         # first need to create a QAGroup w/ this get request.
-        self.client.get(f"/qa/extractionscript/{self.objects.exscript.pk}/")
+        self.client.get(f"/qa/compextractionscript/{self.objects.exscript.pk}/")
         pk = self.objects.extext.pk
         response = self.client.post(f"/extractedtext/approve/{pk}/")
         self.assertEqual(
             response.url,
-            "/qa/extractionscript/",
+            "/qa/compextractionscript/",
             (
                 "User should be redirected to "
                 "QA homepage after last extext is approved."

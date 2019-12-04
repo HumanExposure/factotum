@@ -250,7 +250,7 @@ class ExtractedHHDocForm(ExtractedTextForm):
 
 class ExtractedHHDocEditForm(ExtractedHHDocForm):
     class Meta(ExtractedHHDocForm.Meta):
-        fields = ExtractedHHDocForm.Meta.fields + ["prod_name", "doc_date", "rev_num"]
+        fields = ExtractedHHDocForm.Meta.fields + ["doc_date"]
 
 
 class DocumentTypeForm(forms.ModelForm):
@@ -261,6 +261,7 @@ class DocumentTypeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(DocumentTypeForm, self).__init__(*args, **kwargs)
         self.fields["document_type"].label = ""
+        self.fields["document_type"].help_text = None
         self.fields["document_type"].widget.attrs.update({"onchange": "form.submit();"})
 
 

@@ -3,145 +3,154 @@
 {% load humanize %}
 {% load dashboard_extras %}
 {% block title %}Product {{ product.id }}: {{ product.title }}{% endblock %}
-
+{% block css %}
+{{ tagform.media.css }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard/product.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard/full_width_container.css' %}">
+{% endblock %}
 {% block content %}
+
 <div class="row">
-    <div class="col-12">
+    <div class="col-lg-10 border-bottom" id="title">
         <h1>
             <span name="title">{{ product.title }}</span>
-            {% if user.is_authenticated %}
-            <div class="btn-group float-lg-right" role="group" aria-label="Manage Product">
-                <a class="btn btn-light btn-sm" role="button" title="edit"
-                    href="{% url 'product_edit' pk=product.pk %}">
-                    <span class="fa fa-fs fa-edit"></span> </a>
-                <a class="btn btn-light btn-sm" role="button" title="delete"
-                    href="{% url "product_delete" pk=product.pk %}">
-                    <span class="fa fa-fs fa-trash"></span> </a>
-            </div>
-            {% endif %}
         </h1>
         <h2>
-            <span name="title">{{ product.upc }}</span>
+            <span name="upc" class="text-secondary">{{ product.upc }}</span>
         </h2>
-        <br>
-        <div class="row">
-            <div class="col-3">
-                <h4>
-                    <span>PUC</span>
-                    <div class="btn-group float-lg-right" role="group" aria-label="Manage PUC">
-                        {% if puc.id %}
+    </div> 
 
-                        <a class="btn btn-light btn-sm" role="button" title="View PUC"
-                            href="{% url 'puc_detail' pk=puc.id %}">
-                            <span class="fa fa-fs fa-sitemap"></span> </a>
-
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-light btn-sm" role="button" title="Edit PUC Relationship"
-                            href="{% url 'product_puc' pk=product.pk %}">
-                            <span class="fa fa-fs fa-edit"></span> </a>
-                        <a class="btn btn-light btn-sm" role="button" title="Delete PUC Relationship"
-                            href="{% url 'product_puc_delete' pk=product.pk %}">
-                            <span class="fa fa-fs fa-trash"></span> </a>
-                        {% endif %}
-                        {% else %}
-                        {% if user.is_authenticated %}
-                        <a class="btn btn-sm btn-outline-primary" role="button" title="edit" id="button_assign_puc"
-                            href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
-                        {% endif %}
-                        {% endif %}
-                    </div>
-                </h4>
-                <div class="form-group border p-2">
-                    <dl>
-                        <dt>General Category:</dt>
-                        <dd class="pl-4">{{ puc.gen_cat|default:"PUC not yet assigned" }}</dd>
-                        <dt>Product Family:</dt>
-                        <dd class="pl-4">{{ puc.prod_fam|default:"not specified" }}</dd>
-                        <dt>Product Type:</dt>
-                        <dd class="pl-4">{{ puc.prod_type|default:"not specified" }}</dd>
-                    </dl>
+    <div class="col-lg-2 d-flex border-bottom">
+                {% if user.is_authenticated %}
+                <div class="btn-group float-lg-right my-auto" role="group" aria-label="Manage Product">
+                    <a class="btn btn-light btn-sm" role="button" title="edit"
+                        href="{% url 'product_edit' pk=product.pk %}">
+                        <span class="fa fa-fs fa-edit"></span> </a>
+                    <a class="btn btn-light btn-sm" role="button" title="delete"
+                        href="{% url "product_delete" pk=product.pk %}">
+                        <span class="fa fa-fs fa-trash"></span> </a>
                 </div>
-
+                {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <h4>
+            <span>PUC</span>
+            <div class="btn-group float-lg-right" role="group" aria-label="Manage PUC">
                 {% if puc.id %}
-                <h5 class="">
-                    <span>Assumed Attributes</span>
-                </h5>
-                <div class="flex border border-secondary border-2 border-top-0 border-left-0 rounded-bottom">
-                    {% for assumed in assumed_tags %}
-                    <button type="button" class="flex-1 mb-1 ml-1 assumed btn btn-primary"
-                        data-tag-name="{{ assumed.name }}" {% if assumed.definition %} title="{{ assumed.definition }}"
-                        {% else %} title="No definition" {% endif %} disabled>
-                        {{ assumed.name }}
-                    </button>
-                    {% endfor %}
-                </div>
-                </br>
-                <div class="form-group">
-                    {% if product.get_puc_tag_list|length > 1 %}
-                    <form method="post" enctype="multipart/form-data" novalidate>
-                        {% csrf_token %}
-                        <h5 class="d-flex">
-                            <span name="PUCTags" class="disabled">Product Attributes</span>
-                            {% if product.get_puc_tag_list|length > 1 %}
-                            {% if user.is_authenticated %}
-                            <button type="submit" id="tag_submit" class="btn btn-sm btn-success rounded-0 ml-auto">
-                                <small>
-                                    Submit
-                                </small>
-                            </button>
-                            {% endif %}
-                        </h5>
-                        {% if user.is_authenticated %}
-                            {{ tagform }}
-                        {% else %}
-                            <ul class="taggit-labels taggit-list" id="id_tags">
-                            {% for tag in product.get_puc_tags %}
-                                <li class="taggit-tag">{{ tag.name }}</li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </form>
-                    {%  else %}
-                    </h5>
-                    </form>
-                    No attributes are associated with this PUC
-                    <a href={{ puc.admin_url }}>(edit)</a>
-                    {% endif %}
-                </div>
+
+                <a class="btn btn-light btn-sm" role="button" title="View PUC"
+                    href="{% url 'puc_detail' pk=puc.id %}">
+                    <span class="fa fa-fs fa-sitemap"></span> </a>
+
+                {% if user.is_authenticated %}
+                <a class="btn btn-light btn-sm" role="button" title="Edit PUC Relationship"
+                    href="{% url 'product_puc' pk=product.pk %}">
+                    <span class="fa fa-fs fa-edit"></span> </a>
+                <a class="btn btn-light btn-sm" role="button" title="Delete PUC Relationship"
+                    href="{% url 'product_puc_delete' pk=product.pk %}">
+                    <span class="fa fa-fs fa-trash"></span> </a>
                 {% endif %}
-                {% endif %}
-            </div>
-            
-            <div class="col-5">
-                <div class="form-group ">
-                    <i>{{ product.long_description|default:"" }} </i>
-                </div>
-            </div>
-            <div class="col-4">
-                {% if product.medium_image %}
-                <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
-                <br>
                 {% else %}
-                    <div class="p-6">&nbsp;</div>
+                {% if user.is_authenticated %}
+                <a class="btn btn-sm btn-outline-primary" role="button" title="edit" id="button_assign_puc"
+                    href="{% url 'product_puc' pk=product.pk %}">Assign PUC</a>
                 {% endif %}
-                <div class="form-group border p-2">
-                <dl>
-                    <dt>Brand Name</dt>
-                    <dd class="pl-4">{{ product.brand_name|default:"" }}</dd>
-                    <dt>Manufacturer</dt>
-                    <dd class="pl-4">{{ product.manufacturer|default:"" }}</dd>
-                    <dt>Model Number</dt>
-                    <dd class="pl-4">{{ product.model_number|default:"" }}</dd>
-                    <dt>Size</dt>
-                    <dd class="pl-4">{{ product.size|default:"" }}</dd>
-                    <dt>Color</dt>
-                    <dd class="pl-4">{{ product.color|default:"" }}</dd>
-                </dl>
-                {{ product.short_description|default:"" }}
-                </div>
+                {% endif %}
             </div>
+        </h4>
+        <div class="form-group border p-2">
+            <dl>
+                <dt>General Category:</dt>
+                <dd class="pl-4">{{ puc.gen_cat|default:"PUC not yet assigned" }}</dd>
+                <dt>Product Family:</dt>
+                <dd class="pl-4">{{ puc.prod_fam|default:"not specified" }}</dd>
+                <dt>Product Type:</dt>
+                <dd class="pl-4">{{ puc.prod_type|default:"not specified" }}</dd>
+            </dl>
         </div>
+
+        {% if puc.id %}
+        <h5 class="">
+            <span>Assumed Attributes</span>
+        </h5>
+        <div class="flex border border-secondary border-2 border-top-0 border-left-0 rounded-bottom">
+            {% for assumed in assumed_tags %}
+            <button type="button" class="flex-1 mb-1 ml-1 assumed btn btn-primary"
+                data-tag-name="{{ assumed.name }}" {% if assumed.definition %} title="{{ assumed.definition }}"
+                {% else %} title="No definition" {% endif %} disabled>
+                {{ assumed.name }}
+            </button>
+            {% endfor %}
+        </div>
+        </br>
+        <div class="form-group">
+            {% if product.get_puc_tag_list|length > 1 %}
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <h5 class="d-flex">
+                    <span name="PUCTags" class="disabled">Product Attributes</span>
+                    {% if product.get_puc_tag_list|length > 1 %}
+                    {% if user.is_authenticated %}
+                    <button type="submit" id="tag_submit" class="btn btn-sm btn-success rounded-0 ml-auto">
+                        <small>
+                            Submit
+                        </small>
+                    </button>
+                    {% endif %}
+                </h5>
+                {% if user.is_authenticated %}
+                    {{ tagform }}
+                {% else %}
+                    <ul class="taggit-labels taggit-list" id="id_tags">
+                    {% for tag in product.get_puc_tags %}
+                        <li class="taggit-tag">{{ tag.name }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </form>
+            {%  else %}
+            </h5>
+            </form>
+            No attributes are associated with this PUC
+            <a href={{ puc.admin_url }}>(edit)</a>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+    
+    <div class="col-5">
+        <div class="form-group ">
+            <i>{{ product.long_description|default:"" }} </i>
+        </div>
+    </div>
+    <div class="col-4">
+        {% if product.medium_image %}
+        <img src="{{ product.medium_image }}" height="180px" width="180px" alt="Product Medium Image">
         <br>
+        {% else %}
+            <div class="p-6">&nbsp;</div>
+        {% endif %}
+        <div class="form-group border p-2">
+        <dl>
+            <dt>Brand Name</dt>
+            <dd class="pl-4">{{ product.brand_name|default:"" }}</dd>
+            <dt>Manufacturer</dt>
+            <dd class="pl-4">{{ product.manufacturer|default:"" }}</dd>
+            <dt>Model Number</dt>
+            <dd class="pl-4">{{ product.model_number|default:"" }}</dd>
+            <dt>Size</dt>
+            <dd class="pl-4">{{ product.size|default:"" }}</dd>
+            <dt>Color</dt>
+            <dd class="pl-4">{{ product.color|default:"" }}</dd>
+        </dl>
+        {{ product.short_description|default:"" }}
+        </div>
+    </div>
+</div>
+
         <div class="row">
             <div class="col-12">
                 <table class="table table-striped table-bordered dataTable no-footer table-sm" align="center">
@@ -186,15 +195,11 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> <!-- end of row -->
     </div> <!-- end of column -->
-</div> <!-- end of row -->
 {% endblock %}
 
-{% block css %}
-{{ tagform.media.css }}
-<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard/product.css' %}">
-{% endblock %}
+
 {% block js %}
 <script src="{% static 'js/dashboard/product.js' %}"></script>
 {{ tagform.media.js }}

@@ -9,6 +9,8 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedHHRec,
+    ExtractedChemical,
+    ExtractedListPresence,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
     DataDocument,
@@ -17,7 +19,6 @@ from dashboard.models import (
 from dashboard.forms import create_detail_formset
 from factotum.settings import EXTRA
 from dashboard.tests.loader import fixtures_standard, datadocument_models
-from django.db.models import F, Min
 from dashboard.utils import get_extracted_models
 
 
@@ -121,15 +122,28 @@ class DataDocumentDetailTest(TestCase):
             "The card and the scrollspy should show different chem names",
         )
 
+        # Test presence of necessary display attributes
+        raw_comp = page.xpath('//*[@id="raw_comp"]')[0].text
+        self.assertInHTML("4 - 7 weight fraction", raw_comp)
+        report_funcuse = page.xpath('//*[@id="report_funcuse"]')[0].text
+        self.assertIn("swell", report_funcuse)
+        ingredient_rank = page.xpath('//*[@id="ingredient_rank"]')[0].text
+        self.assertIn("1", ingredient_rank)
+
     def test_script_links(self):
-        DataDocument.objects.first()
-        # response = self.client.get(f'/datadocument/{doc.pk}/')
-        response = self.client.get(f"/datadocument/156051/")
-        self.assertIn("Download Script", response.content.decode("utf-8"))
-        self.assertIn("Extraction Script", response.content.decode("utf-8"))
-        self.assertIn("Cleaning Script", response.content.decode("utf-8"))
+        doc = DataDocument.objects.get(pk=156051)
+        response = self.client.get(doc.get_absolute_url())
+        self.assertContains(response, "Extraction script")
+        self.assertContains(response, "Download Script")
+        self.assertContains(response, "Cleaning Script")
         comptox = "https://comptox.epa.gov/dashboard/dsstoxdb/results?search="
         self.assertContains(response, comptox)
+        chems = doc.extractedtext.rawchem.all().select_subclasses()
+        for chem in chems:
+            chem.script = None
+            chem.save()
+        response = self.client.get(doc.get_absolute_url())
+        self.assertNotContains(response, "Cleaning Script")
 
     def test_product_card_location(self):
         response = self.client.get("/datadocument/179486/")
@@ -153,6 +167,27 @@ class DataDocumentDetailTest(TestCase):
         self.assertRedirects(response, "/datadocument/167497/")
         response = self.client.get(response.url)
         self.assertContains(response, "New Product")
+
+    def test_no_product_create_link(self):
+        # GroupTypes that should have no products associated.
+        product_restricted_codes = ["CP", "HH", "HP"]
+
+        docs = DataDocument.objects.filter(
+            data_group__group_type__code__in=product_restricted_codes
+        )
+
+        for doc in docs:
+            if doc.data_group.type in product_restricted_codes:
+                response = self.client.get("/datadocument/" + str(doc.pk) + "/")
+                self.assertNotContains(
+                    response, "/link_product_form/"
+                )
+
+                product_restricted_codes.remove(doc.data_group.type)
+
+                # If all restricted types have been checked, break.
+                if not product_restricted_codes:
+                    break
 
     def test_product_title_duplication(self):
         response = self.client.get("/datadocument/245401/")
@@ -233,7 +268,10 @@ class DataDocumentDetailTest(TestCase):
         """
         post_uri = "/datadocument/delete/"
         pk = 354784
-        doc_exists = lambda: DataDocument.objects.filter(pk=pk).exists()
+
+        def doc_exists():
+            return DataDocument.objects.filter(pk=pk).exists()
+
         self.assertTrue(
             doc_exists(), "Document does not exist prior to delete attempt."
         )
@@ -274,9 +312,6 @@ class DataDocumentDetailTest(TestCase):
 
     def test_subtitle_ellipsis(self):
         id = 354783
-        doc = DataDocument.objects.get(id=id)
-        subtitle = doc.subtitle
-        subtitle45 = subtitle[:45]
         response = self.client.get("/datadocument/%i/" % id)
         # Confirm that the displayed subtitle is truncated and ... is appended
         self.assertContains(response, "This subtitle is more than 90 c…")
@@ -309,7 +344,7 @@ class DataDocumentDetailTest(TestCase):
         response_html = html.fromstring(response.content)
         trunc_rc_name = rc.raw_chem_name[: trunc_length - 1] + "…"
         trunc_side_rc_name = rc.raw_chem_name[: trunc_side_length - 1] + "…"
-        path = '//*[@id="chem-%i"]/div/div[1]/h3' % rc.id
+        path = '//*[@id="chem-%i"]/div/div/div[1]/h5' % rc.id
         side_path = "//*[@id=\"chem-scrollspy\"]/ul/li/a[@href='#chem-%i']/p" % rc.id
         html_rc_name = response_html.xpath(path)[0].text
         html_side_rc_name = response_html.xpath(side_path)[0].text
@@ -350,6 +385,22 @@ class DataDocumentDetailTest(TestCase):
         self.assertEqual("fa fa-fs fa-file-alt", icon_span)
         icon_span = self._get_icon_span("172462.pdf")
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
+
+    def test_last_updated(self):
+        doc = (
+            ExtractedChemical.objects.filter(updated_at__isnull=False)
+            .first()
+            .extracted_text.data_document
+        )
+        response = self.client.get(doc.get_absolute_url())
+        self.assertContains(response, "Last updated:")
+        doc = (
+            ExtractedListPresence.objects.filter(updated_at__isnull=False)
+            .first()
+            .extracted_text.data_document
+        )
+        response = self.client.get(doc.get_absolute_url())
+        self.assertContains(response, "Last updated:")
 
 
 class TestDynamicDetailFormsets(TestCase):
@@ -473,4 +524,23 @@ class TestDynamicDetailFormsets(TestCase):
         )
         hhrec.save()
         response = self.client.get("/datadocument/%i/" % ext.data_document_id)
-        self.assertIn("None\n                </h3>", response.content.decode("utf-8"))
+        page = html.fromstring(response.content)
+        raw_chem_name = page.xpath('//*[@id="raw_chem_name-' + str(hhrec.id) + '"]/h5')[
+            0
+        ].text
+        self.assertIn("None", raw_chem_name)
+        raw_cas = page.xpath('//*[@id="raw_cas-' + str(hhrec.id) + '"]/h5')[0].text
+        self.assertIn("None", raw_cas)
+
+    def test_datadoc_datasource_url_links(self):
+        # Check data document with datadoc and datasource URL links
+        response = self.client.get("/datadocument/179486/")
+        self.assertIn(
+            "View source document (external)", response.content.decode("utf-8")
+        )
+        datadocURL = "http://airgas.com/msds/001088.pdf"
+        self.assertContains(response, datadocURL)
+
+        self.assertIn("View data source (external)", response.content.decode("utf-8"))
+        datasourceURL = "http://www.airgas.com/sds-search"
+        self.assertContains(response, datasourceURL)

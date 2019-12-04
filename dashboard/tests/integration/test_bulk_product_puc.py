@@ -30,7 +30,7 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         self.browser.quit()
 
     def test_select_all(self):
-        qa_url = self.live_server_url + f"/bulk_product_puc/?q=water"
+        qa_url = self.live_server_url + f"/bulk_product_puc/?q=cream"
         self.browser.get(qa_url)
 
         select_all_button = self.browser.find_element_by_class_name("select-checkbox")
@@ -45,5 +45,5 @@ class TestBulkProductPuc(StaticLiveServerTestCase):
         self.browser.get(qa_url)
         body = self.browser.find_element_by_tag_name("body")
         self.assertIn(
-            'products matching "water" are already associated with a PUC.', body.text
+            'products matching "cream" are already associated with a PUC.', body.text
         )

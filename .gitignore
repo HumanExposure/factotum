@@ -149,8 +149,8 @@ slop/
 elasticsearch-2.4.6/
 src/
 
-# docker
-/docker/compositions/elk/docker.settings_secret.py
 /chromedriver.exe
 /mysql.cnf
 /chromedriver.exe
+
+/collected_static

@@ -1,43 +1,10 @@
 - model: dashboard.producttopuc
-  pk: 1
-  fields:
-    created_at: 2018-08-30 18:29:30.348842
-    updated_at: 2018-08-30 18:29:30.348873
-    product: 1840
-    puc: 20
-    puc_assigned_usr: null
-    puc_assigned_script: null
-    classification_method: MA
-    classification_confidence: '1.000'
-- model: dashboard.producttopuc
   pk: 2
   fields:
     created_at: 2018-08-30 18:38:10.868539
     updated_at: 2018-08-30 18:38:10.868561
     product: 878
     puc: 245
-    puc_assigned_usr: null
-    puc_assigned_script: null
-    classification_method: MA
-    classification_confidence: '1.000'
-- model: dashboard.producttopuc
-  pk: 3
-  fields:
-    created_at: 2018-09-06 00:24:50.290404
-    updated_at: 2018-09-06 00:24:50.290438
-    product: 1672
-    puc: 3
-    puc_assigned_usr: null
-    puc_assigned_script: null
-    classification_method: MA
-    classification_confidence: '1.000'
-- model: dashboard.producttopuc
-  pk: 4
-  fields:
-    created_at: 2018-09-06 00:27:58.990304
-    updated_at: 2018-09-06 00:27:58.990398
-    product: 793
-    puc: 6
     puc_assigned_usr: null
     puc_assigned_script: null
     classification_method: MA
@@ -148,6 +115,17 @@
     updated_at: 2019-05-10 14:45:56.307244
     product: 1859
     puc: 137
+    puc_assigned_usr: 1
+    puc_assigned_script: null
+    classification_method: MA
+    classification_confidence: '1.000'
+- model: dashboard.producttopuc
+  pk: 15
+  fields:
+    created_at: 2019-11-06 12:12:39.603403
+    updated_at: 2019-11-06 12:12:39.603429
+    product: 1842
+    puc: 48
     puc_assigned_usr: 1
     puc_assigned_script: null
     classification_method: MA

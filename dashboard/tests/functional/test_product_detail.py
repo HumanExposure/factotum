@@ -77,7 +77,7 @@ class TestProductDetail(TestCase):
         self.assertIn(b"/puc/185", response.content)
 
     def test_add_puc(self):
-        p = Product.objects.get(pk=14)
+        p = Product.objects.get(pk=1864)
         response = self.client.get(f"/product/{str(p.pk)}/").content.decode("utf8")
         response_html = html.fromstring(response)
 
@@ -154,7 +154,7 @@ class TestProductDetail(TestCase):
         """Product 1840 is associated with a PUC that has no prod_fam or
         prod_type specified.
         """
-        response = self.client.get("/product/1840/")
+        response = self.client.get("/product/1842/")
         count = response.content.decode("utf-8").count("not specified")
         self.assertEqual(
             count, 2, ("Both prod_fam and prod_type should" "not be specified.")

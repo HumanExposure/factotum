@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponse
+from django.db.models import OuterRef, Subquery
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
@@ -17,6 +18,7 @@ from dashboard.forms import (
     ExtractedListPresenceForm,
 )
 from dashboard.models import (
+    AuditLog,
     DataDocument,
     ExtractedListPresence,
     ExtractedText,
@@ -25,6 +27,7 @@ from dashboard.models import (
     ExtractedListPresenceTag,
     ExtractedChemical,
     RawChem,
+    AuditLog,
 )
 
 
@@ -40,10 +43,11 @@ def data_document_detail(request, pk):
     ParentForm, _ = create_detail_formset(doc)
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
-    chemicals = Child.objects.filter(extracted_text__data_document=doc)
-    ingredients = ExtractedChemical.objects.filter(
-        rawchem_ptr_id__in=chemicals.values_list("pk", flat=True)
-    )
+    chemicals = Child.objects.filter(
+        extracted_text__data_document=doc
+    ).prefetch_related("dsstox")
+    if Child == ExtractedListPresence:
+        chemicals = chemicals.prefetch_related("tags")
     lp = ExtractedListPresence.objects.filter(
         extracted_text=ext if ext else None
     ).first()
@@ -52,10 +56,12 @@ def data_document_detail(request, pk):
         "doc": doc,
         "extracted_text": ext,
         "chemicals": chemicals,
-        "ingredients": ingredients,
         "edit_text_form": ParentForm(instance=ext),  # empty form if ext is None
         "list_presence_tag_form": tag_form if lp else None,
     }
+    if doc.data_group.group_type.code == "CO":
+        script_chem = chemicals.filter(script__isnull=False).first()
+        context["cleaning_script"] = script_chem.script if script_chem else None
     return render(request, template_name, context)
 
 
@@ -255,3 +261,31 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     url = reverse("data_document", args=[doc_pk])
     url += card
     return redirect(url)
+
+
+@login_required
+def chemical_audit_log(request, pk):
+    chemical = get_object_or_404(ExtractedChemical, pk=pk)
+    auditlog = AuditLog.objects.filter(
+        object_key=pk,
+        model_name__in=["extractedchemical", "rawchem"],
+        field_name__in=[
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type_id",
+            "report_funcuse",
+            "ingredient_rank",
+            "lower_wf_analysis",
+            "central_wf_analysis",
+            "upper_wf_analysis",
+            "raw_cas",
+            "raw_chem_name",
+            "rid",
+        ],
+    ).order_by("-date_created")
+    return render(
+        request,
+        "chemicals/chemical_audit_log.html",
+        {"chemical": chemical, "auditlog": auditlog},
+    )

@@ -142,25 +142,48 @@
         <div class="col-7 pl-4 pr-0">
             <div class="row">
                 <h4>Products Linked to PUCs</h4>
+                {% if pucs.children %}
                 <svg id="nestedcircles" width="100%" height="500"></svg>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-{% if tagDict|length > 0 %}
-    &nbsp;<h6 class="text-left">CP keyword sets (and number of CP documents containing chemical connected to the set)</h6>
-    {% for tags, count in tagDict.items %}
-        <div class="pb-2 d-flex flex-row">
-            <div class="pb-2 d-flex flex-column">
-                <div class="p-2 m-1 border border-secondary rounded bg-light">
-                {% for tag in tags %}
-                    <span class="btn-sm border border-secondary bg-white">{{ tag }}</span>
+{% if keysets|length > 0 %}
+
+    <div class="pb-2 d-flex flex-row">
+        <div class="col-lg-6">
+        &nbsp;<h6 class="text-left">CP keyword sets (and number of chemicals connected to the set)</h6>
+        <hr>
+        {% for keyset in keysets %}
+            <div class="pb-2 d-flex flex-column"
+               id="keywords-{{ forloop.counter }}"
+               data-presence-id={{ keyset.presence_id }}
+            >
+                <div class="p-2 m-1 border border-secondary flash rounded bg-light"
+                     title="Click for linked document list">
+                {% for tag in keyset.keywords %}
+                    <div class="btn border border-secondary bg-white mt-2">{{ tag }}</div>
                 {% endfor %}
-                <span class="dot dot-dg-HP float-right text-center ml-2"><small><b>{{ count }}</b></small></span>
+                <span class="dot dot-dg-HP float-right text-center ml-2">
+                    <small><b>{{ keyset.count }}</b></small>
+                </span>
                 </div>
             </div>
+        {% endfor %}
         </div>
-    {% endfor %}
+        <div class="col-md-6 table-responsive">
+            <br>
+            <table class="table table-striped table-bordered" id="keywords">
+                <thead class="table-light">
+                <tr>
+                    <th>Documents</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 {% else %}
     &nbsp;<h6 class="text-left">No CP keyword sets associated with this chemical</h6>
 {% endif %}

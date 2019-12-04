@@ -1,0 +1,37 @@
+version: "3.1"
+
+
+volumes:
+  mysqldata:
+
+
+services:
+  mysql:
+    image: mysql:5.7.23
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ${SQL_DATABASE:-factotum}
+      MYSQL_ROOT_PASSWORD: ${SQL_PASSWORD:-}
+      MYSQL_TCP_PORT: ${SQL_PORT:-3306}
+    ports:
+      - ${SQL_PORT:-3306}:${SQL_PORT:-3306}
+    volumes:
+      - mysqldata:/var/lib/mysql
+    entrypoint: >
+      sh -c "
+        echo \"
+          USE mysql;
+          UPDATE user SET user='${SQL_USER:-root}' WHERE user='root';
+          FLUSH PRIVILEGES;
+        \" > /docker-entrypoint-initdb.d/init.sql \
+        && docker-entrypoint.sh --character-set-server=utf8mb4 --ssl=0
+      "
+
+  logstash:
+    environment:
+      SQL_HOST: mysql
+      SQL_PASSWORD: ${SQL_PASSWORD:-}
+      SQL_USER: ${SQL_USER:-root}
+    depends_on:
+      - mysql

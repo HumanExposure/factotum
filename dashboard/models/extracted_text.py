@@ -18,9 +18,15 @@ class ExtractedText(CommonInfo):
     data_document = models.OneToOneField(
         "DataDocument", on_delete=models.CASCADE, primary_key=True
     )
-    prod_name = models.CharField(max_length=500, null=True, blank=True)
-    doc_date = models.CharField(max_length=25, null=True, blank=True)
-    rev_num = models.CharField(max_length=50, null=True, blank=True)
+    prod_name = models.CharField(
+        "Product name",
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="The name of the product according to the extracted document",
+    )
+    doc_date = models.CharField("Document date", max_length=25, null=True, blank=True)
+    rev_num = models.CharField("Revision number", max_length=50, null=True, blank=True)
     extraction_script = models.ForeignKey(
         "Script", on_delete=models.CASCADE, limit_choices_to={"script_type": "EX"}
     )
@@ -95,18 +101,18 @@ class ExtractedText(CommonInfo):
         Returns true or false to indicate whether the ExtractedText object
         can be approved. If the object has been edited, then there must be
         some related QA Notes.
-        
+
         Note that if the ExtractedText object is missing a related QANotes
         record, self.qanotes will not return None. Instead it returns an 
         ObjectDoesNotExist error.
         https://stackoverflow.com/questions/3463240/check-if-onetoonefield-is-none-in-django
-        
+
         The hasattr() method is the correct way to test for the presence of 
         a related record.
 
         It is not enough to test for the related record, though, because an empty
         qa_notes field is functionally equivalent to a missing QANotes record.
-        
+
         """
 
         if not self.qa_edited:

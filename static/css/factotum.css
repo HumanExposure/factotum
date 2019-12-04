@@ -103,3 +103,12 @@ div.search-result-main{
 .hidden {
     visibility: hidden;
 }
+
+.flash:hover {
+    box-shadow: 4px 4px #b3b1a7;
+}
+.flash {
+    -webkit-transition: -webkit-box-shadow 0.5s ease-out, opacity 0.5s ease-out;
+    -moz-transition: -moz-box-shadow 0.5s ease-out, opacity 0.5s ease-out;
+    transition: box-shadow 0.5s ease-out, opacity 0.5s ease-out;
+}

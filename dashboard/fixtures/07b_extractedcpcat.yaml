@@ -1,0 +1,28 @@
+- model: dashboard.extractedcpcat
+  pk: 254780
+  fields:
+    cat_code: CPCat code 1
+    description_cpcat: CPCat-specific description
+    cpcat_code: cpcat_code
+    cpcat_sourcetype: free
+- model: dashboard.extractedcpcat
+  pk: 254781
+  fields:
+    cat_code: CPCat code 2
+    description_cpcat: CPCat-specific description
+    cpcat_code: cpcat_code
+    cpcat_sourcetype: free
+- model: dashboard.extractedcpcat
+  pk: 354786
+  fields:
+    cat_code: purrrrrrr
+    description_cpcat: 10-speed
+    cpcat_code: more cowbell!
+    cpcat_sourcetype: free
+- model: dashboard.extractedcpcat
+  pk: 354787
+  fields:
+    cat_code: toy boat
+    description_cpcat: stylistics
+    cpcat_code: harvey
+    cpcat_sourcetype: milky way

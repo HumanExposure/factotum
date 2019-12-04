@@ -5,429 +5,434 @@
 {% load dashboard_extras %}
 
 {% block title %}Data Document {{ doc.id }}: {{ doc.title }}{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/dashboard/datadocument_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/full_width_container.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/anchored_footer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-slider/css/bootstrap-slider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/data_document_detail.css' %}">
 {% endblock %}
+
 {% block content %}
 
-<div class="row">
-    <!-- DataDocument title -->
-    <div class="col-lg-10 border-bottom"
-         data-toggle="tooltip"
-         data-html="true"
-         data-placement="bottom"
-         title="{{ doc.title }}{% if doc.subtitle %}<br>{{ doc.subtitle }}{% endif %}"
-         id="title">
-        <h1>{{ doc.title|truncatechars:45 }}</h1>
-        {% if doc.subtitle %}
-        <h4 class="text-secondary">
-            {{ doc.subtitle|truncatechars:90 }}
-        </h4>
-        {% endif %}
-    </div>
-    <div class="col-lg-2 d-flex border-bottom">
-        <div class="btn-group my-auto"
-             role="group"
-             aria-label="Data Document Modification">
-            <a class="btn btn-sm btn-outline-secondary hover-info"
-               role="button"
-               title="View data document"
-               data-toggle="tooltip"
-               href="{{ doc.pdf_url }}">
-                <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
-            </a>
-            {% if ingredients %}
-            {% with ingredient=ingredients.first %}
-            <a class="btn btn-outline-secondary btn-sm hover-info"
-               title="Cleaning Script"
-               data-toggle="tooltip"               
-               href="{{ ingredient.script.url }}">
-                <span class="fas fa-broom"></span>
-            </a>
-            {% endwith %}
-            {% endif %}
-            {% if request.user.is_authenticated %}
-            <a class="btn btn-outline-secondary btn-sm hover-success"
-               title="edit"
-               id="edit_document"
-               data-toggle="tooltip"
-               href="{% url 'data_document_edit' doc.id %}">
-                <span class="fa fa-fs fa-edit"></span>
-            </a>
-            <a class="btn btn-outline-secondary btn-sm hover-danger"
-               role="button"
-               title="delete"
-               id="delete_document"
-               data-toggle="tooltip"
-               href="{% url 'data_document_delete' doc.id %}">
-                <span class="fa fa-fs fa-trash"></span>
-            </a>
+    <div class="row">
+        <!-- DataDocument title -->
+        <div class="col-lg-10 border-bottom"
+             data-toggle="tooltip"
+             data-html="true"
+             data-placement="bottom"
+             title="{{ doc.title }}{% if doc.subtitle %}<br>{{ doc.subtitle }}{% endif %}"
+             id="title">
+            <h1>{{ doc.title|truncatechars:45 }}</h1>
+            {% if doc.subtitle %}
+                <h4 class="text-secondary">
+                    {{ doc.subtitle|truncatechars:90 }}
+                </h4>
             {% endif %}
         </div>
-    </div>
-</div>
-<div class="row" id="panels">
-    <!-- meta panel -->
-    <div class="col-lg-3 bg-light pt-2 scroll-div border-bottom"
-         id="meta">
-        <a id="datasource_link"
-           title="DataSource"
-           data-toggle="tooltip"
-        {% if request.user.is_authenticated %}
-           href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
-        {% endif %}
-        >
-            <h5>{{ doc.data_group.data_source }}</h5>
-        </a>
-        <a id="datagroup_link"
-           title="DataGroup"
-           data-toggle="tooltip"
-           {% if request.user.is_authenticated %}
-           href="{% url 'data_group_detail' doc.data_group.id %}"
-           {% endif %}
-        >
-            <h5>{{ doc.data_group }}</h5>
-        </a>
-
-        <div class="d-table-cell">
-            <h5 title="group type : document type"
-                data-toggle="tooltip">
-                {{ doc.data_group.group_type }}
-                {% if doc.document_type %}
-                :
-                {{ doc.document_type }}
+        <div class="col-lg-2 d-flex border-bottom">
+            <div class="btn-group my-auto"
+                 role="group"
+                 aria-label="Data Document Modification">
+                <a class="btn btn-sm btn-outline-secondary hover-info"
+                   role="button"
+                   title="View data document"
+                   data-toggle="tooltip"
+                   target="_blank"
+                   href="{{ doc.pdf_url }}">
+                    <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
+                </a>
+                {% if doc.url %}
+                    <a class="btn btn-sm btn-outline-secondary hover-info"
+                        title="View source document (external)"
+                        data-toggle="tooltip"
+                        target="_blank"
+                        href="{{ doc.url }}">
+                        <span class="fa fa-fs fa-external-link-alt"></span>
+                    </a>
                 {% endif %}
-            </h5>
+                {% if cleaning_script %}
+                    <a class="btn btn-outline-secondary btn-sm hover-info"
+                        title="Cleaning Script"
+                        data-toggle="tooltip"
+                        href="{{ cleaning_script.url }}">
+                        <span class="fas fa-broom"></span>
+                    </a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                    <a class="btn btn-outline-secondary btn-sm hover-success"
+                       title="edit"
+                       id="edit_document"
+                       data-toggle="tooltip"
+                       href="{% url 'data_document_edit' doc.id %}">
+                        <span class="fa fa-fs fa-edit"></span>
+                    </a>
+                    <a class="btn btn-outline-secondary btn-sm hover-danger"
+                       role="button"
+                       title="delete"
+                       id="delete_document"
+                       data-toggle="tooltip"
+                       href="{% url 'data_document_delete' doc.id %}">
+                        <span class="fa fa-fs fa-trash"></span>
+                    </a>
+                {% endif %}
+            </div>
         </div>
-        {% if doc.data_group.download_script %}
-        <h5 class="d-inline"
-            title="Download Script"
-            data-toggle="tooltip">
-            {{ doc.data_group.download_script }}
-        </h5>
-        <a class="btn btn-outline-secondary btn-sm float-right"
-           title="Link to Download Script"
-           data-toggle="tooltip"
-           href={{ doc.data_group.download_script.url }}
-           name="secondary">
-            <i class="fab fa-github"></i>
-        </a>
-        {% endif %}
-        <div class="pt-2">
-            <!-- doc.note -->
-            {% if doc.note %}
-            {% if doc.note|length > 112 %}
-            <span id="press">
+    </div>
+    <div class="row" id="panels">
+        <!-- meta panel -->
+        <div class="col-lg-3 bg-light pt-2 scroll-div border-bottom"
+             id="meta">
+            <a id="datasource_link"
+               title="DataSource"
+               data-toggle="tooltip"
+                    {% if request.user.is_authenticated %}
+               href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
+                    {% endif %}
+            >
+                <h5>{{ doc.data_group.data_source }}
+                    {% if doc.data_group.data_source.url %}
+                        <a class="btn btn-outline-secondary btn-sm hover-success"
+                            title="View data source (external)"
+                            id="datasource_url"
+                            data-toggle="tooltip"
+                            target="_blank"
+                            href="{{ doc.data_group.data_source.url }}">
+                            <span class="fa fa-fs fa-external-link-alt"></span>
+                        </a>
+                    {% endif %}
+                </h5>
+            </a>
+            <a id="datagroup_link"
+               title="DataGroup"
+               data-toggle="tooltip"
+                    {% if request.user.is_authenticated %}
+               href="{% url 'data_group_detail' doc.data_group.id %}"
+                    {% endif %}
+            >
+                <h5>{{ doc.data_group }}</h5>
+            </a>
+
+            <div class="d-table-cell">
+                <h5 title="group type : document type"
+                    data-toggle="tooltip">
+                    {{ doc.data_group.group_type }}
+                    {% if doc.document_type %}
+                        :
+                        {{ doc.document_type }}
+                    {% endif %}
+                </h5>
+            </div>
+            {% if doc.data_group.download_script %}
+                <h5 class="d-inline"
+                    title="Download Script"
+                    data-toggle="tooltip">
+                    {{ doc.data_group.download_script }}
+                </h5>
+                <a class="btn btn-outline-secondary btn-sm float-right"
+                   title="Link to Download Script"
+                   data-toggle="tooltip"
+                   href={{ doc.data_group.download_script.url }}
+                           name="secondary">
+                    <i class="fab fa-github"></i>
+                </a>
+            {% endif %}
+            <div class="pt-2">
+                <!-- doc.note -->
+                {% if doc.note %}
+                    {% if doc.note|length > 112 %}
+                        <span id="press">
                 {{ doc.note|truncatechars:112 }}
             </span>
-            <span id="tone"
-                  style="display:none">
+                        <span id="tone"
+                              style="display:none">
                 {{ doc.note }}
             </span>
-            <a class="small" href="#" id="preferably" onclick="textFlip('preferably','press', 'tone')">
-                more
-            </a>
-            {% else %}
-            {{ doc.note }}
-            {% endif %}
-            {% endif %}
-        </div>
-        {% if list_presence_tag_form and request.user.is_authenticated %}
-        <hr>
-        <div class="">
-            <form class="form-inline p-0"
-                action="{% url 'save_list_presence_tag_form' doc.id %}"
-                method="post">
-                {% csrf_token %}
-                <h5 class="">
-                    <b>List Presence Keywords</b>
-                <div class="btn-group float-right ml-3"
-                    role="group"
-                    aria-label="Data Document Modification">
-                    <a class="btn btn-sm btn-outline-secondary hover"
-                        role="button"
-                        id="select-all-chems"
-                        title="Select All Chemicals"
-                        data-toggle="tooltip"
-                        name="info">
-                        <i id="select-all" class="fas fa-object-group"></i>
-                        <i id="select-none" class="far fa-object-ungroup d-none"></i>
-                    </a>
-                    <button class="btn btn-sm btn-outline-secondary hover"
-                            id="keyword-save"
-                            title="save"
-                            data-toggle="tooltip"
-                            type="submit"
-                            name="success"
-                            disabled>
-                        <i class="far fa-save"></i>
-                    </button>
-                </div>
-            </h5>
-                {{ list_presence_tag_form }}
-                <input type="hidden" name="chems" value="" id="id_chems">
-            </form>
-            <p class="text-center text-muted"><span id="selected">0</span> of {{ chemicals|length }} Chemicals Selected</p>
-        </div>
-        {% endif %}
-        {% if not doc.data_group.is_habits_and_practices %}
-        <hr>
-        <div>
-            <!-- Products -->
-            <h5 id="product-title">
-                <b>Linked Products</b>
-                {% if request.user.is_authenticated %}
-                <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover-success"
-                   href="{% url 'link_product_form' doc.pk %}"
-                   title="create"
-                   id="add_product_button"
-                   role="button"
-                   data-toggle="tooltip">
-
-                    <small>ADD PRODUCT&nbsp</small>
-                    <i class="fas fa-plus"></i>
-                </a>
+                        <a class="small" href="#" id="preferably" onclick="textFlip('preferably','press', 'tone')">
+                            more
+                        </a>
+                    {% else %}
+                        {{ doc.note }}
+                    {% endif %}
                 {% endif %}
-            </h5>
-            {% if doc.products.count %}
-            <div id="trim">
-                {% for product in doc.products.all|slice:":3" %}
-                <a href="{% url "product_detail" product.pk %}">
-                    {{ product|truncatechars:35 }}
-                </a><br>
-                {% endfor %}
             </div>
-            <div id="full"
-                 style="display: none">
-                {% for product in doc.products.all %}
-                <a href="{% url "product_detail" product.pk %}">
-                    {{ product|truncatechars:35 }}
-                </a><br>
-                {% endfor %}
-            </div>
-            {% if doc.products.all|length > 3 %}
-            <a class="small"
-               href="#"
-               id="add"
-               onclick="textFlip('add','trim','full')">
-                more
-            </a>
+            {% if list_presence_tag_form and request.user.is_authenticated %}
+                <hr>
+                <div class="">
+                    <form class="form-inline p-0"
+                          action="{% url 'save_list_presence_tag_form' doc.id %}"
+                          method="post">
+                        {% csrf_token %}
+                        <h5 class="">
+                            <b>List Presence Keywords</b>
+                            <div class="btn-group float-right ml-3"
+                                 role="group"
+                                 aria-label="Data Document Modification">
+                                <a class="btn btn-sm btn-outline-secondary hover"
+                                   role="button"
+                                   id="select-all-chems"
+                                   title="Select All Chemicals"
+                                   data-toggle="tooltip"
+                                   name="info">
+                                    <i id="select-all" class="fas fa-object-group"></i>
+                                    <i id="select-none" class="far fa-object-ungroup d-none"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-secondary hover"
+                                        id="keyword-save"
+                                        title="save"
+                                        data-toggle="tooltip"
+                                        type="submit"
+                                        name="success"
+                                        disabled>
+                                    <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </h5>
+                        {{ list_presence_tag_form }}
+                        <input type="hidden" name="chems" value="" id="id_chems">
+                    </form>
+                    <p class="text-center text-muted"><span id="selected">0</span> of {{ chemicals|length }} Chemicals
+                        Selected</p>
+                </div>
             {% endif %}
-            {% endif %}
-        </div>
-        {% endif %}
-        <hr>
-        <div>
-            <!-- Extracted Text -->
-            <div class="d-flex justify-content-between">
-                <h5 class="d-inline mr-2"
-                    id="extracted-text-title">
-                    <b>Extracted Text</b>
-                </h5>                
-                <div class="btn-group btn-group-sm shadow float-right">
-                    {% if doc.is_extracted %}
-                        {% if not extracted_text.qa_checked %}
-                            <a class="btn btn-sm border-secondary"
-                                id="qa_icon_unchecked"
-                                {% if request.user.is_authenticated %}
-                                title="Go to QA"
-                                href={% url "extracted_text_qa" doc.pk %}
-                                {% else %}
-                                title="Not checked in QA"
-                                {% endif %}
-                                data-toggle="tooltip">
-                                <i class="far fa-square"></i>
+            {% if doc.data_group.can_have_products %}
+                <hr>
+                <div>
+                    <!-- Products -->
+                    <h5 id="product-title">
+                        <b>Linked Products</b>
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-sm btn-outline-secondary float-right d-inline shadow hover-success"
+                               href="{% url 'link_product_form' doc.pk %}"
+                               title="create"
+                               id="add_product_button"
+                               role="button"
+                               data-toggle="tooltip">
+
+                                <small>ADD PRODUCT&nbsp</small>
+                                <i class="fas fa-plus"></i>
                             </a>
-                        {% else %}
-                            <a class="btn btn-sm btn-secondary"
-                                title="QA Complete"
-                                id="qa_icon_checked"
+                        {% endif %}
+                    </h5>
+                    {% if doc.products.count %}
+                        <div id="trim">
+                            {% for product in doc.products.all|slice:":3" %}
+                                <a href="{% url "product_detail" product.pk %}">
+                                    {{ product|truncatechars:35 }}
+                                </a><br>
+                            {% endfor %}
+                        </div>
+                        <div id="full"
+                             style="display: none">
+                            {% for product in doc.products.all %}
+                                <a href="{% url "product_detail" product.pk %}">
+                                    {{ product|truncatechars:35 }}
+                                </a><br>
+                            {% endfor %}
+                        </div>
+                        {% if doc.products.all|length > 3 %}
+                            <a class="small"
+                               href="#"
+                               id="add"
+                               onclick="textFlip('add','trim','full')">
+                                more
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endif %}
+            <hr>
+            <div>
+                <!-- Extracted Text -->
+                <div class="d-flex justify-content-between">
+                    <h5 class="d-inline mr-2"
+                        id="extracted-text-title">
+                        <b>Extracted Text</b>
+                    </h5>
+                    <div class="btn-group btn-group-sm shadow float-right">
+                        {% if doc.is_extracted %}
+                            {% if not extracted_text.qa_checked %}
+                                <a class="btn btn-outline-secondary"
+                                   id="qa_icon_unchecked"
+                                        {% if request.user.is_authenticated %}
+                                   title="Go to QA"
+                                   href={% url "extracted_text_qa" doc.pk %}
+                                           {% else %}
+                                           title="Not checked in QA"
+                                        {% endif %}
                                 data-toggle="tooltip">
                                 <i class="far fa-check-square"></i>
+                                </a>
+                            {% else %}
+                                <a class="btn border-secondary"
+                                   title="QA Complete"
+                                   id="qa_icon_checked"
+                                   data-toggle="tooltip">
+                                    <i class="fas fa-check-square"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        {% if extracted_text.extraction_script.url %}
+                            <a class="btn btn-outline-secondary"
+                               role="button"
+                               title="Extraction script"
+                               data-toggle="tooltip"
+                               href={{ doc.extractedtext.extraction_script.url }}>
+                                <i class="fab fa-github"></i>
                             </a>
                         {% endif %}
-                    {% endif %}
-                    {% if extracted_text.extraction_script.url %}
-                    <a class="btn btn-outline-secondary"
-                       role="button"
-                       title="Extraction script"
-                       data-toggle="tooltip"
-                       href={{ doc.extractedtext.extraction_script.url }}>
-                        <i class="fab fa-github"></i>
-                    </a>
-                    {% endif %}
-                    {% if request.user.is_authenticated %}
-                    <button class="btn btn-outline-secondary hover-success"
-                            title="edit"
-                            id="btn-add-or-edit-extracted-text"
-                            data-toggle="modal"
-                            data-target="#extextModal">
-                        {% if doc.is_extracted %}
-                        <span class="fa fa-fs fa-edit"></span>
-                        {% else %}
-                        <span class="fa fa-fs fa-plus"></span>
-                        {% endif %}
-                    </button>
-                    {% endif %}
-                </div>
-            </div>
-            {% if doc.is_extracted %}
-            <div class="mt-2">
-                {% for field in edit_text_form.visible_fields %}
-                <dl class="mb-0">
-                    <dt>
-                        <u>
-                            {{ field.label }}
-                        </u>
-                    </dt>
-                    <dd class="pl-4 mb-0"
-                        id={{ field.id_for_label }}>
-                        {% if field.value %}
-                        {{field.value}}
-                        {% else %}
-                        <small class="pl-3 pr-3">
-                            <i class="text-muted">
-                                ...No value
-                            </i>
-                        </small>
-                        {%  endif %}
-                    </dd>
-                </dl>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div>
-                No Extracted Text exists for this Data Document
-            </div>
-            {% endif %}
-            <!-- Modal -->
-            <div class="modal fade"
-                 id="extextModal"
-                 tabindex="-1"
-                 role="dialog"
-                 aria-labelledby="extextModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered"
-                     role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="extextModalLabel">
+                        {% if request.user.is_authenticated %}
+                            <button class="btn btn-outline-secondary hover-success"
+                                    title="edit"
+                                    id="btn-add-or-edit-extracted-text"
+                                    data-toggle="modal"
+                                    data-target="#extextModal">
                                 {% if doc.is_extracted %}
-                                Edit
+                                    <span class="fa fa-fs fa-edit"></span>
                                 {% else %}
-                                Add
+                                    <span class="fa fa-fs fa-plus"></span>
                                 {% endif %}
-                                Extracted Text
-                            </h5>
-                            <button type="button"
-                                    class="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                        <form action="{% url 'extracted_text_edit' doc.id %}"
-                              method="post">
-                            {% csrf_token %}
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    {% include 'core/bs4_form.html' with form=edit_text_form colspan='col-6'%}
+                        {% endif %}
+                    </div>
+                </div>
+                {% if doc.is_extracted %}
+                    <div class="mt-2">
+                        {% for field in edit_text_form.visible_fields %}
+                            <dl class="mb-0">
+                                <dt>
+                                    {{ field.label }}
+                                </dt>
+                                <dd class="pl-4 mb-0"
+                                    id={{ field.id_for_label }}>
+                                    {% if field.value %}
+                                        {{ field.value }}
+                                    {% else %}
+                                        <small class="pl-3 pr-3">
+                                            <i class="text-muted">
+                                                ...No value
+                                            </i>
+                                        </small>
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div>
+                        No Extracted Text exists for this Data Document
+                    </div>
+                {% endif %}
+                <!-- Modal -->
+                <div class="modal fade"
+                     id="extextModal"
+                     tabindex="-1"
+                     role="dialog"
+                     aria-labelledby="extextModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered"
+                         role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="extextModalLabel">
+                                    {% if doc.is_extracted %}
+                                        Edit
+                                    {% else %}
+                                        Add
+                                    {% endif %}
+                                    Extracted Text
+                                </h5>
+                                <button type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{% url 'extracted_text_edit' doc.id %}"
+                                  method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        {% include 'core/bs4_form.html' with form=edit_text_form colspan='col-6' %}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="extracted-text-modal-cancel"
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">
-                                    Cancel
-                                </button>
-                                <button id="extracted-text-modal-save" type="submit" value="Note"
-                                        class="btn btn-primary">
-                                    Save
-                                </button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button id="extracted-text-modal-cancel"
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button id="extracted-text-modal-save" type="submit" value="Note"
+                                            class="btn btn-primary">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- chemical card panel -->
-    {% if doc.data_group.is_habits_and_practices %}
-    {% include 'data_document/hnp_cards.html' %}
-    {% else %}
-    {% include 'data_document/chemical_cards.html' %}
-    {% endif %}
-    <div class="col-lg-2 position-relative bg-white shadow scroll-div" id="scroll-nav">
-        <nav class="pt-2" id="chem-scrollspy">
-            <ul class="nav nav-pills nav-stacked flex-column">
-                {% if doc.data_group.is_habits_and_practices %}
-                {% for chemical in doc.extractedtext.practices.all %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#chem-{{ chemical.pk }}">
-                        <p class="m-0"
-                           data-toggle="tooltip"
-                           data-placement="left"
-                           title="{{ chemical.product_surveyed|truncatechars:18 }}">
-                            {{ chemical.product_surveyed|truncatechars:18 }}
-                        </p>
-                    </a>
-                </li>
-                {% endfor %}
-                {% else %}
-                {% for chemical in chemicals %}
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="#chem-{{ chemical.pk }}">
-                        <p class="m-0"
-                           data-toggle="tooltip"
-                           data-placement="left"
-                           title="{{ chemical.rendered_chemname }}"
-                           data-boundary="viewport">
-                            {{ chemical.rendered_chemname|truncatechars:18 }}
-                        </p>
-                        <small class="m-0">
-                            {{ chemical.rendered_cas|truncatechars:18 }}
-                        </small>
-                    </a>
-                </li>
-                {% endfor %}
-                {% endif %}
-            </ul>
-        </nav>
-    </div><!-- scrollspy -->
-</div><!-- 3 column panel -->
-{{ list_presence_tag_form.media }}
+        <!-- chemical card panel -->
+        {% if doc.data_group.is_habits_and_practices %}
+            {% include 'data_document/hnp_cards.html' %}
+        {% else %}
+            {% include 'data_document/chemical_cards.html' %}
+        {% endif %}
+        <div class="col-lg-2 position-relative bg-white shadow scroll-div" id="scroll-nav">
+            <nav class="pt-2" id="chem-scrollspy">
+                <ul class="nav nav-pills nav-stacked flex-column">
+                    {% if doc.data_group.is_habits_and_practices %}
+                        {% for chemical in doc.extractedtext.practices.all %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#chem-{{ chemical.pk }}">
+                                    <p class="m-0"
+                                       data-toggle="tooltip"
+                                       data-placement="left"
+                                       title="{{ chemical.product_surveyed|truncatechars:18 }}">
+                                        {{ chemical.product_surveyed|truncatechars:18 }}
+                                    </p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        {% for chemical in chemicals %}
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="#chem-{{ chemical.pk }}">
+                                    {% firstof chemical.rendered_chemname chemical.rendered_cas "None" as title_name %}
+                                    <p class="m-0"
+                                       data-toggle="tooltip"
+                                       data-placement="left"
+                                       title="{{ title_name }}"
+                                       data-boundary="viewport">
+                                       {{ title_name|truncatechars:18 }}
+                                    </p>
+                                    {% if chemical.rendered_chemname and chemical.rendered_cas %}
+                                        <small class="m-0">
+                                            {{ chemical.rendered_cas|truncatechars:18 }}
+                                        </small>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div><!-- scrollspy -->
+    </div><!-- 3 column panel -->
+    {{ list_presence_tag_form.media }}
 
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
-{% if doc.data_group.is_chemical_presence %}
-<script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_CP.js' %}"></script>
-{% endif %}
-<script src="{% static 'js/jquery.form.js' %}"></script>
-<script type="text/javascript">
-    $('#chemical-add-modal').on('show.bs.modal', function (event) {
-        var modal = $(this)
-        $.ajax({
-            url: "{% url 'chemical_create' doc.pk %}",
-            context: document.body
-        }).done(function (response) {
-            modal.html(response);
-        });
-    });
-
-    $('#chemical-update-modal').on('show.bs.modal', function (event) {
-        var modal = $(this)
-        var chem_pk = event.relatedTarget.value
-        $.ajax({
-            url: "{% url 'chemical_update' pk=47 %}".replace(/47/, chem_pk.toString()),
-            context: document.body
-        }).done(function (response) {
-            modal.html(response);
-        });
-    });
-</script>
+    <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
+    <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
+    {% if doc.data_group.is_chemical_presence %}
+        <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_CP.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/jquery.form.js' %}"></script>
 {% endblock %}

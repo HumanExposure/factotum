@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content modal-lg">
+        <div class="modal-header">
+            <h4 class="modal-title">Chemical Audit Log</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-bordered dataTable no-footer table-sm col-6" id="audit-log">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Field</th>
+                    <th>Old Value</th>
+                    <th>New Value</th>
+                    <th>User</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for log_entry in auditlog %}
+                    {# filter out white noise audit log records #}
+                    {%  if log_entry.old_value != '' and log_entry.new_value != None  %}
+                    <tr>
+                        <td>{{ log_entry.date_created }}</td>
+                        <td>{{ log_entry.field_name }}</td>
+                        <td>{{ log_entry.old_value }}</td>
+                        <td>{{ log_entry.new_value }}</td>
+                        <td>{{ log_entry.user }}</td>
+                    </tr>
+                    {%  endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button id="close-button" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+{% block js %}
+    <script src="{% static 'js/dashboard/chemical_audit_log.js' %}"></script>
+{% endblock %}

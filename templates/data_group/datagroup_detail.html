@@ -119,7 +119,7 @@
                     <a class="nav-link" data-toggle="tab" href="#productupload_form" role="tab" href="#productupload_form">Product</a>
                 </li>
             {% endif %}
-            {% if extfile_form %}
+            {% if extfile_formset %}
             <li class="nav-item">
               <a class="nav-link" data-toggle="tab" href="#extfile_formset" role="tab" href="#extfile_formset">Extracted</a>
             </li>
@@ -162,7 +162,7 @@
                 {% csrf_token %}
                 {{ cleancomp_formset.management_form }}
                 <div class="form-group row pl-3 pr-3">
-                  <select class="custom-select" name="cleancomp-script" required>
+                  <select class="custom-select" name="cleancomp-script_id" required>
                     <option value="" selected>Choose a script...</option>
                     {% for v, n in cleancomp_formset.script_choices %}
                     {% if v %}
@@ -216,7 +216,9 @@
                     </div>
                   </div>
 
-            <div class="tab-pane fade" id="extfile_form">
+
+            <div class="tab-pane fade" id="extfile_formset">
+
               <h5 class="card-title">Upload extracted text data</h5>
               <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -386,9 +388,27 @@
           {% endif %}
           {% if datagroup.is_composition %}
           <th class="text-center">Product</th>
+          <th class="text-center">Hidden</th>
           {% endif %}
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            {% if datagroup.is_habits_and_practices %}
+            <th></th>
+            {% else %}
+              {% if not datagroup.is_supplemental_doc %}
+                <th id='footer-options'></th>
+              {% endif %}
+            {% endif %}
+            {% if datagroup.is_composition %}
+            <th></th>
+            <th></th>
+            {% endif %}
+        </tr>
+    </tfoot>
     </table>
   </div>
 </div>

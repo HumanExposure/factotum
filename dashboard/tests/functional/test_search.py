@@ -10,6 +10,8 @@ import requests
 from django.test import TestCase, RequestFactory
 from factotum import settings
 
+import bs4
+
 from elastic.models import QueryLog
 
 
@@ -99,6 +101,16 @@ class TestSearch(TestCase):
         expected_total = "1 chemicals"
         self.assertIn(expected_total, total_took)
 
+    def test_model_counts(self):
+        qs = self._get_query_str("water")
+        response = self.client.get("/search/product/" + qs)
+        counts = response.wsgi_request.session["unique_counts"]
+        self.assertIsNotNone(counts)
+        self.assertEquals(counts["datadocument"], 42)
+        self.assertEquals(counts["product"], 7)
+        self.assertEquals(counts["chemical"], 1)
+        self.assertEquals(counts["puc"], 12)
+
     def test_facets(self):
         qs = self._get_query_str("water", {"product_brandname": ["3M"]})
         response = self.client.get("/search/product/" + qs)
@@ -187,3 +199,20 @@ class TestSearch(TestCase):
             messages,
             "Error should be thrown for query longer than 255 characters.",
         )
+
+    def test_chemical_captions(self):
+        """
+        Searching by chemical name should return the CAS without any highlights,
+        searching by CAS should return a highlighted element
+        """
+        qs = self._get_query_str("water")
+        resp = self.client.get("/search/chemical/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        selector = soup.find_all(text="7732-18-5")[0]
+        self.assertEqual(selector, "7732-18-5")
+
+        qs = self._get_query_str("7732-18-5")
+        resp = self.client.get("/search/chemical/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        selector = soup.find_all(text="7732-18-5")[0]
+        self.assertEqual(str(selector.parent), "<em>7732-18-5</em>")

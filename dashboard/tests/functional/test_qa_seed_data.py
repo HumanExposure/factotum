@@ -30,18 +30,20 @@ class TestQaPage(TestCase):
             Script.objects.get(pk=5).qa_begun,
             "The Script should have qa_begun of False at the beginning",
         )
-        self.client.get("/qa/extractionscript/5/")
+        self.client.get("/qa/compextractionscript/5/")
         self.assertTrue(
             Script.objects.get(pk=5).qa_begun, "qa_begun should now be true"
         )
 
     def test_new_qa_group_urls(self):
         # Begin from the QA index page
-        response = self.client.get(f"/qa/extractionscript/")
-        self.assertIn(f"/qa/extractionscript/15/'> Begin QA".encode(), response.content)
+        response = self.client.get(f"/qa/compextractionscript/")
+        self.assertIn(
+            f"/qa/compextractionscript/15/'> Begin QA".encode(), response.content
+        )
         # Script 15 has one ExtractedText object
         pk = 15
-        response = self.client.get(f"/qa/extractionscript/{pk}/")
+        response = self.client.get(f"/qa/compextractionscript/{pk}/")
         et = ExtractedText.objects.filter(extraction_script=pk).first()
         self.assertIn(f"/qa/extractedtext/{et.pk}/".encode(), response.content)
         # After opening the URL, the following should be true:
@@ -55,9 +57,9 @@ class TestQaPage(TestCase):
         et = ExtractedText.objects.filter(extraction_script=pk).first()
         self.assertTrue(et.qa_group_id == group_pk)
         # The link on the QA index page should now say "Continue QA"
-        response = self.client.get(f"/qa/extractionscript/")
+        response = self.client.get(f"/qa/compextractionscript/")
         self.assertIn(
-            f"'/qa/extractionscript/15/'> Continue QA".encode(), response.content
+            f"'/qa/compextractionscript/15/'> Continue QA".encode(), response.content
         )
 
     def test_doc_fields(self):
@@ -68,13 +70,15 @@ class TestQaPage(TestCase):
 
     def test_qa_script_without_ext_text(self):
         # Begin from the QA index page
-        response = self.client.get(f"/qa/extractionscript/")
-        self.assertIn(f"/qa/extractionscript/15/'> Begin QA".encode(), response.content)
+        response = self.client.get(f"/qa/compextractionscript/")
+        self.assertIn(
+            f"/qa/compextractionscript/15/'> Begin QA".encode(), response.content
+        )
         # Script 9 has no ExtractedText objects
         pk = 9
         # a user will see no link on the QA index page, but it's still
         # possible to enter the URL
-        response = self.client.get(f"/qa/extractionscript/{pk}/", follow=True)
+        response = self.client.get(f"/qa/compextractionscript/{pk}/", follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_data_document_qa(self):
@@ -108,8 +112,10 @@ class TestQaPage(TestCase):
         et = ExtractedText.objects.get(pk=pk)
         self.assertTrue(et.qa_group == new_group)
         # The link on the QA index page should now say "Continue QA"
-        response = self.client.get(f"/qa/extractionscript/")
-        self.assertContains(response, f"'/qa/extractionscript/{scr.pk}/'> Continue QA")
+        response = self.client.get(f"/qa/compextractionscript/")
+        self.assertContains(
+            response, f"'/qa/compextractionscript/{scr.pk}/'> Continue QA"
+        )
 
         # Open the QA page for an ExtractedText record that has no QA group and
         # is related to a script with over 100 documents
@@ -156,7 +162,7 @@ class TestQaPage(TestCase):
 
     def test_approval(self):
         # Open the Script page to create a QA Group
-        self.client.get("/qa/extractionscript/5", follow=True)
+        self.client.get("/qa/compextractionscript/5", follow=True)
         # Follow the first approval link
         self.client.get("/qa/extractedtext/7", follow=True)
 
@@ -246,7 +252,7 @@ class TestQaPage(TestCase):
         """ExtractionScript 15 includes a functional use data group with pk = 5.
         Its QA page should hide the composition fields """
         # Create the QA group by opening the Script's page
-        response = self.client.get("/qa/extractionscript/15/", follow=True)
+        response = self.client.get("/qa/compextractionscript/15/", follow=True)
         # Open the DataGroup's first QA approval link
         response = self.client.get("/qa/extractedtext/5/", follow=True)
         # A raw_cas field should be in the page
@@ -259,7 +265,7 @@ class TestQaPage(TestCase):
         self.assertIn(b"Functional Use Chem1", response.content)
 
         # Go back to a different ExtractionScript
-        response = self.client.get("/qa/extractionscript/5", follow=True)
+        response = self.client.get("/qa/compextractionscript/5", follow=True)
         # Open the QA page for a non-FunctionalUse document
         response = self.client.get("/qa/extractedtext/7/", follow=True)
         # This page should include a unit_type input form
@@ -312,7 +318,7 @@ class TestQaPage(TestCase):
         es = Script.objects.get(pk=5)
         extext = ExtractedText.objects.get(pk=7)
         response = self.client.get(
-            f"/qa/extractionscript/{es.pk}/summary"
+            f"/qa/compextractionscript/{es.pk}/summary"
         ).content.decode("utf8")
         response_html = html.fromstring(response)
         extractedtext_count = response_html.xpath(
@@ -345,7 +351,7 @@ class TestQaPage(TestCase):
         extext.save()
 
         response = self.client.get(
-            f"/qa/extractionscript/{es.pk}/summary"
+            f"/qa/compextractionscript/{es.pk}/summary"
         ).content.decode("utf8")
         response_html = html.fromstring(response)
         extractedtext_count = response_html.xpath(

@@ -26,7 +26,6 @@ def validate_wf_analysis(value):
 
 
 class ExtractedChemical(CommonInfo, RawChem):
-
     raw_min_comp = models.CharField(
         "Minimum",
         max_length=100,
@@ -120,12 +119,12 @@ class ExtractedChemical(CommonInfo, RawChem):
     def clean(self):
         error_dict = {}
         ut = bool(self.unit_type_id)
-        minc = bool(self.raw_min_comp)
-        cenc = bool(self.raw_central_comp)
-        maxc = bool(self.raw_max_comp)
-        minwf = bool(self.lower_wf_analysis)
-        cenwf = bool(self.central_wf_analysis)
-        maxwf = bool(self.upper_wf_analysis)
+        minc = self.raw_min_comp is not None
+        cenc = self.raw_central_comp is not None
+        maxc = self.raw_max_comp is not None
+        minwf = self.lower_wf_analysis is not None
+        cenwf = self.central_wf_analysis is not None
+        maxwf = self.upper_wf_analysis is not None
         # Don't allow the unit_type to be empty if there are raw_min_comp,
         # raw_central_comp, or raw_max_comp values.
         if ~ut & (minc | cenc | maxc):
