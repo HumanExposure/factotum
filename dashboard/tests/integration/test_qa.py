@@ -75,4 +75,3 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.get(qa_url)
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_name("skip")
-

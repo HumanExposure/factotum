@@ -168,6 +168,27 @@ class DataDocumentDetailTest(TestCase):
         response = self.client.get(response.url)
         self.assertContains(response, "New Product")
 
+    def test_no_product_create_link(self):
+        # GroupTypes that should have no products associated.
+        product_restricted_codes = ["CP", "HH", "HP"]
+
+        docs = DataDocument.objects.filter(
+            data_group__group_type__code__in=product_restricted_codes
+        )
+
+        for doc in docs:
+            if doc.data_group.type in product_restricted_codes:
+                response = self.client.get("/datadocument/" + str(doc.pk) + "/")
+                self.assertNotContains(
+                    response, "/link_product_form/"
+                )
+
+                product_restricted_codes.remove(doc.data_group.type)
+
+                # If all restricted types have been checked, break.
+                if not product_restricted_codes:
+                    break
+
     def test_product_title_duplication(self):
         response = self.client.get("/datadocument/245401/")
         self.assertContains(response, "/link_product_form/245401/")
