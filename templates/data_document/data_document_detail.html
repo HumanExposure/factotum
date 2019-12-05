@@ -38,7 +38,9 @@
                    role="button"
                    title="View data document"
                    data-toggle="tooltip"
+
                    target="_blank"
+
                    href="{{ doc.pdf_url }}">
                     <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
                 </a>
@@ -196,6 +198,7 @@
                 </div>
             {% endif %}
             {% if doc.data_group.can_have_products %}
+
                 <hr>
                 <div>
                     <!-- Products -->
@@ -415,6 +418,7 @@
                                             {{ chemical.rendered_cas|truncatechars:18 }}
                                         </small>
                                     {% endif %}
+
                                 </a>
                             </li>
                         {% endfor %}

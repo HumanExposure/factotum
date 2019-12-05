@@ -142,6 +142,7 @@
 
                 {% if referer == 'qa_extraction_script' and doc.data_group.type != "CP"%}
                 <br>
+
                     {% if nextid > 0 %}
                         <a class="btn btn-warning btn-lg btn-block" href="{% url "extracted_text_qa" nextid %}" name="skip" role="button">Skip</a>
                     {% else %}

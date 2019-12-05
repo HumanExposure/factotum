@@ -6,6 +6,7 @@ volumes:
 
 
 services:
+
   mysql:
     image: mysql:5.7.23
     restart: unless-stopped
@@ -33,5 +34,6 @@ services:
       SQL_HOST: mysql
       SQL_PASSWORD: ${SQL_PASSWORD:-}
       SQL_USER: ${SQL_USER:-root}
+
     depends_on:
       - mysql

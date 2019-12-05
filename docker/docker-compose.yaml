@@ -5,9 +5,9 @@ volumes:
   esdata:
   lsdata:
 
-
 services:
   elasticsearch:
+
     image: factotum-elasticsearch
     restart: unless-stopped
     environment:
