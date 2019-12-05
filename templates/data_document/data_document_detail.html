@@ -125,7 +125,31 @@
                     {% endif %}
                 </h5>
             </div>
-            {% if doc.data_group.download_script %}
+            {% if doc.raw_category %}
+                <div>
+                    <h5 title="Source category"
+                        data-toggle="tooltip">
+                        <!-- {{ doc.raw_category|truncatechars:3 }} -->
+                        {% if doc.raw_category %}
+                            {% if doc.raw_category|length > 35 %}
+                                <span id="rawpress">
+                                    {{ doc.raw_category|truncatechars:36 }}
+                                </span>
+                                <span id="rawcat"
+                                    style="display:none">
+                                    {{ doc.raw_category }}
+                                </span>
+                                <a class="small" href="#" id="flipraw" onclick="textFlip('flipraw','rawpress','rawcat')">
+                                    more
+                                </a>
+                            {% else %}
+                                {{ doc.raw_category }}
+                            {% endif %}
+                        {% endif %}
+                    </h5>
+                </div>
+            {% endif %}
+                {% if doc.data_group.download_script %}
                 <h5 class="d-inline"
                     title="Download Script"
                     data-toggle="tooltip">

@@ -359,6 +359,12 @@ class DataDocumentDetailTest(TestCase):
             "Long DataDocument chemical names not truncated in sidebar.",
         )
 
+    def test_raw_category_ellipsis(self):
+        id = 354784
+        response = self.client.get("/datadocument/%i/" % id)
+        # Confirm that the raw category is truncated and ... is appended
+        self.assertContains(response, "Purple haze all in my brain, lately…")
+
     def _get_icon_span(self, doc):
         response = self.client.get("/datadocument/" + doc.split(".")[0] + "/")
         h = html.fromstring(response.content.decode("utf8"))
