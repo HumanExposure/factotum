@@ -6,9 +6,10 @@ from django.db import migrations
 def update_extraction_script(apps, schema_editor):
     Text = apps.get_model("dashboard", "ExtractedText")
     Script = apps.get_model("dashboard", "Script")
-    script = Script.objects.get(pk=14)
-    docs = Text.objects.filter(pk__in=[1372609, 1372610])
-    docs.update(extraction_script=script)
+    script = Script.objects.filter(pk=14).first()
+    if script:
+        docs = Text.objects.filter(pk__in=[1372609, 1372610])
+        docs.update(extraction_script=script)
 
 
 class Migration(migrations.Migration):
