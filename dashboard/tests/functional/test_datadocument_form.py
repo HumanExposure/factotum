@@ -17,7 +17,7 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
         self.client.login(username="Karyn", password="specialP@55word")
 
     def test_field_exclusive_existence(self):
-        self.fields_exclusive(["title", "subtitle", "document_type", "note", "url"])
+        self.fields_exclusive(["title", "subtitle", "document_type", "note", "url", "raw_category"])
 
     def test_post_fields(self):
         self.post_field("/datadocument/edit/", "title", "lol", pk=354784)
@@ -25,3 +25,4 @@ class DataDocumentDetailFormTest(TestCase, DashboardFormFieldTestMixin):
         self.post_field("/datadocument/edit/", "document_type", 5, pk=5)
         self.post_field("/datadocument/edit/", "note", "lol", pk=354784)
         self.post_field("/datadocument/edit/", "url", "http://www.epa.gov", pk=8)
+        self.post_field("/datadocument/edit/", "raw_category", "raw category", pk=8)

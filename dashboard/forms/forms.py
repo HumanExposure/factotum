@@ -111,18 +111,15 @@ class PriorityForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PriorityForm, self).__init__(*args, **kwargs)
         self.fields["priority"].label = ""
-        self.fields["priority"].widget.attrs.update(
-            {"onchange": "form.submit();"})
+        self.fields["priority"].widget.attrs.update({"onchange": "form.submit();"})
 
 
 class QANotesForm(forms.ModelForm):
     class Meta:
         model = QANotes
         fields = ["qa_notes"]
-        widgets = {"qa_notes": forms.Textarea(
-            attrs={"id": "qa-notes-textarea"})}
-        labels = {"qa_notes": _(
-            "QA Notes (required if approving edited records)")}
+        widgets = {"qa_notes": forms.Textarea(attrs={"id": "qa-notes-textarea"})}
+        labels = {"qa_notes": _("QA Notes (required if approving edited records)")}
 
 
 class ExtractedTextQAForm(forms.ModelForm):
@@ -143,8 +140,7 @@ class ProductLinkForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["title", "manufacturer",
-                  "brand_name", "upc", "size", "color"]
+        fields = ["title", "manufacturer", "brand_name", "upc", "size", "color"]
 
     def __init__(self, *args, **kwargs):
         super(ProductLinkForm, self).__init__(*args, **kwargs)
@@ -190,10 +186,8 @@ class BulkProductPUCForm(forms.ModelForm):
 
 class BulkProductTagForm(forms.ModelForm):
     required_css_class = "required"  # adds to label tag
-    tag = forms.ModelChoiceField(
-        queryset=PUCTag.objects.none(), label="Attribute")
-    id_pks = forms.CharField(label="Product Titles",
-                             widget=forms.HiddenInput())
+    tag = forms.ModelChoiceField(queryset=PUCTag.objects.none(), label="Attribute")
+    id_pks = forms.CharField(label="Product Titles", widget=forms.HiddenInput())
 
     class Meta:
         model = ProductToPUC
@@ -402,8 +396,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         ParentForm = ExtractedHHDocForm if extracted else ExtractedHHDocEditForm
         return (ParentForm, HHFormSet)
 
-    dg_types = {"CO": one, "UN": one, "FU": two,
-                "HP": three, "CP": four, "HH": five}
+    dg_types = {"CO": one, "UN": one, "FU": two, "HP": three, "CP": four, "HH": five}
     func = dg_types.get(group_type, lambda: None)
     return func()
 
@@ -413,10 +406,11 @@ class DataDocumentForm(forms.ModelForm):
 
     class Meta:
         model = DataDocument
-        fields = ["title", "subtitle", "document_type", "note", "url"]
+        fields = ["title", "subtitle", "document_type", "note", "url", "raw_category"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["raw_category"].label = "Source category"
         self.fields["document_type"].queryset = DocumentType.objects.compatible(
             self.instance
         )
