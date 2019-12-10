@@ -75,7 +75,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             "//*[@id='select2-id_tags-results']/li[1]"
         )
         option.click()
-        save_button.click()
+        save_button.submit()
         card = self.browser.find_element_by_id("chem-click-759")
         tags = card.find_elements_by_class_name("tag-btn")
         self.assertEqual(

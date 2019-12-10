@@ -85,26 +85,43 @@
         <!-- meta panel -->
         <div class="col-lg-3 bg-light pt-2 scroll-div border-bottom"
              id="meta">
-            <a id="datasource_link"
-               title="DataSource"
-               data-toggle="tooltip"
-                    {% if request.user.is_authenticated %}
-               href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
-                    {% endif %}
-            >
-                <h5>{{ doc.data_group.data_source }}
+            <div class="d-flex flex-row justify-content-between">
+                <div>
+                    <a id="datasource_link"
+                       title="DataSource"
+                       data-toggle="tooltip"
+                            {% if request.user.is_authenticated %}
+                       href="{% url 'data_source_detail' doc.data_group.data_source.id %}"
+                            {% endif %}
+                    >
+                        <h5>
+                            {{ doc.data_group.data_source }}
+                        </h5>
+                    </a>
+                </div>
+                <div class="btn-group btn-group-sm shadow ">
                     {% if doc.data_group.data_source.url %}
-                        <a class="btn btn-outline-secondary btn-sm hover-success"
-                            title="View data source (external)"
-                            id="datasource_url"
-                            data-toggle="tooltip"
-                            target="_blank"
-                            href="{{ doc.data_group.data_source.url }}">
+                        <a class="btn btn-outline-secondary hover-success"
+                                title="View data source (external)"
+                                id="datasource_url"
+                                data-toggle="tooltip"
+                                target="_blank"
+                                href="{{ doc.data_group.data_source.url }}">
                             <span class="fa fa-fs fa-external-link-alt"></span>
                         </a>
                     {% endif %}
-                </h5>
-            </a>
+                    {% if doc.data_group.download_script %}
+                        <a class="btn btn-outline-secondary"
+                                title="Download Script"
+                                data-toggle="tooltip"
+                                href="{{ doc.data_group.download_script.url }}"
+                                name="secondary"
+                        >
+                            <i class="fab fa-github"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
             <a id="datagroup_link"
                title="DataGroup"
                data-toggle="tooltip"
@@ -149,39 +166,25 @@
                     </h5>
                 </div>
             {% endif %}
-                {% if doc.data_group.download_script %}
-                <h5 class="d-inline"
-                    title="Download Script"
-                    data-toggle="tooltip">
-                    {{ doc.data_group.download_script }}
-                </h5>
-                <a class="btn btn-outline-secondary btn-sm float-right"
-                   title="Link to Download Script"
-                   data-toggle="tooltip"
-                   href={{ doc.data_group.download_script.url }}
-                           name="secondary">
-                    <i class="fab fa-github"></i>
-                </a>
-            {% endif %}
-            <div class="pt-2">
-                <!-- doc.note -->
-                {% if doc.note %}
+            {% if doc.note %}
+                <div class="pt-2">
+                    <!-- doc.note -->
                     {% if doc.note|length > 112 %}
                         <span id="press">
-                {{ doc.note|truncatechars:112 }}
-            </span>
+                            {{ doc.note|truncatechars:112 }}
+                        </span>
                         <span id="tone"
                               style="display:none">
-                {{ doc.note }}
-            </span>
+                            {{ doc.note }}
+                        </span>
                         <a class="small" href="#" id="preferably" onclick="textFlip('preferably','press', 'tone')">
                             more
                         </a>
                     {% else %}
                         {{ doc.note }}
                     {% endif %}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
             {% if list_presence_tag_form and request.user.is_authenticated %}
                 <hr>
                 <div class="">
@@ -281,21 +284,23 @@
                             {% if not extracted_text.qa_checked %}
                                 <a class="btn btn-outline-secondary"
                                    id="qa_icon_unchecked"
-                                        {% if request.user.is_authenticated %}
+                                   data-toggle="tooltip"
+                                {% if request.user.is_authenticated %}
                                    title="Go to QA"
                                    href={% url "extracted_text_qa" doc.pk %}
-                                           {% else %}
-                                           title="Not checked in QA"
-                                        {% endif %}
-                                data-toggle="tooltip">
-                                <i class="far fa-check-square"></i>
+                                {% else %}
+                                   title="Not checked in QA"
+                                {% endif %}
+                                >
+                                    <i class="far fa-check-square"></i>
                                 </a>
                             {% else %}
                                 <a class="btn border-secondary"
                                    title="QA Complete"
                                    id="qa_icon_checked"
-                                   data-toggle="tooltip">
-                                    <i class="fas fa-check-square"></i>
+                                   data-toggle="tooltip"
+                                >
+                                    <i class="text-muted fas fa-check-square"></i>
                                 </a>
                             {% endif %}
                         {% endif %}
