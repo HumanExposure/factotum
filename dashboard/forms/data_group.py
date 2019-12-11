@@ -138,25 +138,7 @@ class ProductBulkCSVFormSet(DGFormSet):
 
     def clean(self, *args, **kwargs):
         header = list(self.bulk.fieldnames)
-        header_cols = [
-            "data_document_id",
-            "data_document_filename",
-            "title",
-            "upc",
-            "url",
-            "brand_name",
-            "size",
-            "color",
-            "item_id",
-            "parent_item_id",
-            "short_description",
-            "long_description",
-            "thumb_image",
-            "medium_image",
-            "large_image",
-            "model_number",
-            "manufacturer",
-        ]
+        header_cols = ["data_document_id", "data_document_filename"] + DataGroup.get_product_template_fieldnames(self)
         if header != header_cols:
             raise forms.ValidationError(f"CSV column titles should be {header_cols}")
 
