@@ -276,12 +276,12 @@ class ExtractedChemicalForm(forms.ModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
+            "report_funcuse",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
             "unit_type",
             "ingredient_rank",
-            "report_funcuse",
             "weight_fraction_type",
             "component",
         ]
@@ -373,7 +373,6 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
             model=child,
             formset=ExtractedChemicalFormSet,
             form=ExtractedChemicalForm,
-            hidden=["component"],
         )
         return (ExtractedTextForm, ChemicalFormSet)
 

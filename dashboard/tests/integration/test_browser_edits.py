@@ -44,20 +44,16 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             rawchem__dsstox__isnull=False
         ).filter(pk=245401)
         for et in ets_with_curation:
-            doc_qa_link = f"/qa/extractedtext/%s/" % et.data_document_id
+            doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
-
-            rc_id = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-rawchem_ptr"]'
+            self.browser.find_element_by_id("chem-card-1").click()
+            rc_id = self.browser.find_element_by_id(
+                "id_rawchem-0-rawchem_ptr"
             ).get_attribute("value")
-            self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
-                "\n"
-            )
-            raw_cas_input = self.browser.find_element_by_xpath(
-                '//*[@id="id_rawchem-0-raw_cas"]'
-            )
+            self.browser.find_element_by_id("btn-toggle-edit").send_keys("\n")
+            raw_cas_input = self.browser.find_element_by_id("id_rawchem-0-raw_cas")
             raw_cas_input.send_keys("changed cas")
-            self.browser.find_element_by_xpath('//*[@id="save"]').click()
+            self.browser.find_element_by_id("save").click()
             rc = RawChem.objects.get(pk=rc_id)  # reload the rawchem record
             self.assertEqual(
                 None,
@@ -80,7 +76,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         for et in ets_with_curation:
             doc_qa_link = f"/qa/extractedtext/%s/" % et.data_document_id
             self.browser.get(self.live_server_url + doc_qa_link)
-
+            self.browser.find_element_by_id("chem-card-2").click()
             self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
                 "\n"
             )
@@ -102,13 +98,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Save the edits
             save_button.send_keys("\n")
             # Check for the error message after clicking Save
-            wait.until(
-                ec.visibility_of(
-                    self.browser.find_element_by_xpath(
-                        '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
-                    )
-                )
-            )
+            wait.until(ec.visibility_of(self.browser.find_element_by_id("chem-card-2")))
+            self.browser.find_element_by_id("chem-card-2").click()
             parent_div = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
             )
@@ -120,6 +111,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             # Try editing a new record correctly
             self.browser.get(self.live_server_url + doc_qa_link)
+            self.browser.find_element_by_id("chem-card-2").click()
             self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
                 "\n"
             )
@@ -203,6 +195,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]'
             )
+            self.browser.find_element_by_id("chem-card-1").click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable

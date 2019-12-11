@@ -1,8 +1,6 @@
 $(document).ready(function () {
   $('input:checkbox').prop('checked', false);
   checkBoxes();
-  $('[data-toggle="tooltip"]').tooltip();
-});
 
 function addParam(v) {
   var page = window.location.search.indexOf('page=')

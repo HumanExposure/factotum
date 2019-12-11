@@ -1,68 +1,97 @@
 {% load bs_tags %}
+{% load widget_tweaks %}
 
 
-<form method="post"  >
-        {% csrf_token %}
-        {{ detail_formset.management_form }}
-        <ul class="list-inline factotum-control-row" role="group" aria-label="Extracted child record editing controls">
-                <li class="list-inline-item">
-                        <button type="button" id="btn-toggle-edit" data-toggle="button" class="btn btn-secondary" onclick="toggleDetailEdit(true)">
-                                <span id="btn-toggle-label" class="fa fa-wrench"></span>
-                                Edit {{ doc.data_group.group_type }} Records
-                        </button>  
-                </li>
-                <li class="list-inline-item">
-                <button type = "submit" id="save" name="save" class="btn btn-primary detail-control" role="button">Save edits</button>
-                </li>
-            </ul>
-
-            <table id="formset" class="form">
-            {% for form in detail_formset.forms %}
-            <tr class="{% cycle row1 row2 %}">
-            {{ form.management_form }}
-            {% for field in form.visible_fields %}
-                {% if forloop.first %}
-                    <tr class='padding-row'
-                        id='rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}'>
-                        <td>&nbsp;
-                          <!-- <code>I am an empty row with id of "rawchem-{% if form.instance.id %}{{form.instance.id}}{% else %}{{form.data.id}}{% endif %}"</code> -->
-                        </td>
-                    </tr>
+<form method="post" >
+    {% csrf_token %}
+    {{ detail_formset.management_form }}
+    <ul class="list-inline factotum-control-row"
+        role="group" 
+        aria-label="Extracted child record editing controls">
+        <li class="list-inline-item">
+            <button type="button" 
+                    id="btn-toggle-edit" 
+                    data-toggle="button"
+                    class="btn btn-secondary"
+                    onclick="toggleDetailEdit(true)">
+                    <span id="btn-toggle-label" class="fa fa-wrench"></span>
+                    Edit {{ doc.data_group.group_type }} Records
+            </button>  
+        </li>
+        <li class="list-inline-item">
+            <button type="submit"
+                    id="save" 
+                    name="save"
+                    class="btn btn-primary detail-control"
+                    role="button">Save edits
+            </button>
+        </li>
+    </ul>
+    <div id="accordion">
+        {% for form in detail_formset.forms %}
+         <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    
+                    <button class="btn btn-link" 
+                            type="button"
+                            id="chem-card-{{ forloop.counter }}"
+                            data-toggle="collapse" 
+                            data-target="#chem{{ forloop.counter }}" 
+                            aria-expanded="true">
+                            {% if form.instance.raw_chem_name %}
+                                <span class="fas fa-flask"></span>
+                                {{ form.instance.raw_chem_name|truncatechars:133 }}
+                            {% elif forloop.last %}
+                                <span class="fa fa-fs fa-plus"></span>
+                                Add New Chemical
+                            {% else %}
+                                <span class="fas fa-flask"></span>
+                                Chemical {{ forloop.counter }}
+                            {% endif %}
+                    </button>
                     {% if form.component.value %}
-                        <tr>
-                            <td>&nbsp;
-                                <h5>{{ form.component.value }}</h5>
-                            </td>
-                        </tr>
+                        <span class="float-right border border-dark rounded-pill p-1"
+                              title="Component"
+                              data-toggle="tooltip">
+                            {{ form.instance.component }}
+                        </span>
                     {% endif %}
-                {% endif %}
-                <td>
-                {# Include the hidden fields in the form #}
-                {% if forloop.first %}
-                    {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                    {% endfor %}
-                {% endif %}
-                {{ field.label|capfirst }}
-                {% if field.errors %}
-                    {{ field|add_class:"is-invalid" }}
-                    <small  class="text-danger">
-                        {{ field.errors.as_text }}
-                      </small>    
-                {% else %}
-                    {{ field }}
-                {% endif %}
-                </td>
-
-                {% if forloop.counter|divisibleby:4 %} <!-- if it is after form 4, 8, 12, etc -->
-                </td> <!-- close the table-row -->
-                <tr class="{% cycle row1 row2 %}"> <!-- open a new form-row -->
-                {% endif %}
-
-            {% endfor %} 
-
-            {# End of the form #}
-            </tr>
+                </h5>
+            </div>
+            {% for field in form.hidden_fields %}
+                {{ field }}
             {% endfor %}
-            </table>
-        </form>
+            <div id="chem{{ forloop.counter }}" 
+                 class="collapse" 
+                 aria-labelledby="headingOne" 
+                 data-parent="#accordion">
+                <div class="card-body d-flex flex-wrap">
+                        {% for field in form.visible_fields %}                
+
+                        <div class="col-lg-4 mb-4">
+                        {{ field.label|capfirst }}
+                        {% if field.errors %}
+                            {{ field|add_class:"is-invalid detail-control form-control" }}
+                            <small class="text-danger">
+                                {{ field.errors.as_text }}
+                            </small>    
+                        {% else %}
+                            {% with classes="detail-control form-control "|add:doc.data_group.type %}
+                                {% render_field field class+=classes %}
+                            {% endwith %}
+                        {% endif %}
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+                <div class="card-footer text-muted text-right">
+                    {% if form.instance.updated_at %}
+                        Last updated: {{ form.instance.updated_at | timesince }} ago 
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</form>

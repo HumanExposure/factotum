@@ -55,6 +55,10 @@ class ExtractedText(CommonInfo):
     def __str__(self):
         return str(self.data_document)
 
+    @property
+    def group_type(self):
+        return self.data_document.data_group.group_type.code
+
     def next_extracted_text_in_qa_group(self):
         nextid = 0
         # If the document is part of a Script-based QA Group, the

@@ -133,10 +133,9 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
     doc = DataDocument.objects.get(pk=pk)
     exscript = extext.extraction_script
-    group_type_code = extext.data_document.data_group.group_type.code
     stats = ""
     qa_focus = "script"
-    if group_type_code in ["CP"]:
+    if extext.group_type in ["CP"]:
         qa_focus = "doc"
         #
         # Document-focused QA process
@@ -144,7 +143,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         # If the object is an ExtractedCPCat record, there will be no Script
         # associated with it and no QA Group
         flagged_qs = extext.prep_cp_for_qa()
-    elif group_type_code in ["HH"]:
+    elif extext.group_type in ["HH"]:
         pass
     else:
         #
@@ -191,22 +190,12 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # extext = extext.pull_out_cp()
     ext_form = ParentForm(instance=extext)
     detail_formset = ChildForm(instance=extext)
-
     # If the document is CPCat or HHE type, the display should only show the
     # child records where qa_flag = True
     if qa_focus == "doc":
         # qs = detail_formset.get_queryset().filter(qa_flag=True)
         # print(detail_formset._queryset)
         detail_formset._queryset = flagged_qs
-
-    # This code is being repeated in the GET and POST blocks
-
-    # Add CSS selector classes to each form
-    for form in detail_formset:
-        for field in form.fields:
-            form.fields[field].widget.attrs.update(
-                {"class": f"detail-control form-control %s" % doc.data_group.type}
-            )
 
     note, created = QANotes.objects.get_or_create(extracted_text=extext)
     notesform = QANotesForm(instance=note)
@@ -217,7 +206,6 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     document_type_form.fields["document_type"].queryset = qs
     # the form class overrides the label, so over-override it
     document_type_form.fields["document_type"].label = "Data document type:"
-
     context = {
         "extracted_text": extext,
         "doc": doc,
@@ -257,15 +245,6 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
 
             context["detail_formset"] = detail_formset
             context["ext_form"] = ext_form
-
-        # This code is being repeated in the GET and POST blocks
-
-        # Add CSS selector classes to each form
-        for form in detail_formset:
-            for field in form.fields:
-                form.fields[field].widget.attrs.update(
-                    {"class": f"detail-control form-control %s" % doc.data_group.type}
-                )
 
     return render(request, template_name, context)
 

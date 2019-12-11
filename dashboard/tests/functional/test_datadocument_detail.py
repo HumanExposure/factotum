@@ -179,9 +179,7 @@ class DataDocumentDetailTest(TestCase):
         for doc in docs:
             if doc.data_group.type in product_restricted_codes:
                 response = self.client.get("/datadocument/" + str(doc.pk) + "/")
-                self.assertNotContains(
-                    response, "/link_product_form/"
-                )
+                self.assertNotContains(response, "/link_product_form/")
 
                 product_restricted_codes.remove(doc.data_group.type)
 

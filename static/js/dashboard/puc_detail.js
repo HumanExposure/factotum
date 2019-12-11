@@ -1,7 +1,4 @@
 $(document).ready(function () {
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    })
   var puc = $('#products').data('puc')
   var table = $('#products').DataTable({
       "serverSide": true,

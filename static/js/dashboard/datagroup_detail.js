@@ -202,9 +202,6 @@ function renderDonut(id, part, total) {
     }
 }
 $(document).ready(function () {
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    })
     var tableData = JSON.parse(document.getElementById('tabledata').textContent);
     renderDataTable(tableData.boolComp, tableData.boolHab, tableData.boolSD, tableData.fsid);
     renderDonut("matcheddonut", tableData.nummatched, tableData.numregistered);

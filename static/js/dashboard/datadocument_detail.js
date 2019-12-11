@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $('[data-toggle]').tooltip();
 
     var title_height = $('#title').height();
     var scroll_height = $(window).height() - (title_height + 80);

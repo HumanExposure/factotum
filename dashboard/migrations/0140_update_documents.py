@@ -13,12 +13,10 @@ def update_extraction_script(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('dashboard', '0139_audit_log_indexes'),
-    ]
+    dependencies = [("dashboard", "0139_audit_log_indexes")]
 
     operations = [
         migrations.RunPython(
             update_extraction_script, reverse_code=migrations.RunPython.noop
-        ),
+        )
     ]
