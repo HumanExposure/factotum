@@ -411,6 +411,8 @@
         <!-- chemical card panel -->
         {% if doc.data_group.is_habits_and_practices %}
             {% include 'data_document/hnp_cards.html' %}
+        {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition %}
+            {% include 'data_document/co_cp_chemical_cards.html' %}
         {% else %}
             {% include 'data_document/chemical_cards.html' %}
         {% endif %}

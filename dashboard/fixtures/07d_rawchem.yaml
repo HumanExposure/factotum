@@ -7554,7 +7554,7 @@
   fields:
     extracted_text: 5
     raw_cas: 520-45-6
-    raw_chem_name: Functional Use Chem1
+    raw_chem_name: Functional Use Chem1 Chloro(tetrahydrothiophene)gold(I)
     temp_id: 1
     temp_obj_name: ExtractedFunctionalUse
     rid: null

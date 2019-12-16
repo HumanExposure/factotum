@@ -104,7 +104,7 @@ class DataDocumentDetailTest(TestCase):
         """
         ddid = 7
         resp = self.client.get(f"/datadocument/%s/" % ddid)
-        self.assertIn("href=/chemical/DTXSID2021781/", resp.content.decode("utf-8"))
+        self.assertIn('href="/chemical/DTXSID2021781/"', resp.content.decode("utf-8"))
         # Any curated chemicals should also be linked to COMPTOX
         self.assertIn(
             "https://comptox.epa.gov/dashboard/dsstoxdb/results?search=DTXSID2021781",
@@ -115,7 +115,7 @@ class DataDocumentDetailTest(TestCase):
         # The raw chem name is different from the curated chem name,
         # so the right-side navigation link should NOT match the card
         # h3 element
-        card_chemname = page.xpath('//*[@id="chem-4"]/div[2]/div[1]/h3')[0].text
+        card_chemname = page.xpath('//*[@id="raw_chem_name-4"]//*')[0].text
         nav_chemname = page.xpath('//*[@id="chem-scrollspy"]/ul/li/a/p')[0].text
         self.assertFalse(
             card_chemname == nav_chemname,
@@ -324,8 +324,11 @@ class DataDocumentDetailTest(TestCase):
                     ".{%i,}" % (trunc_length + 1)
                 )
             )
+            # Filter out co and cp types as they use co_cp_chemical_cards.html
+            .exclude(data_group__group_type__code__in=["CO", "CP"])
+            .exclude(extractedtext__rawchem=None)
             .prefetch_related("extractedtext__rawchem")
-            .first()
+            .get()
         )
         rc = doc.extractedtext.rawchem.filter(
             raw_chem_name__iregex=(".{%i,}" % (trunc_length + 1))
