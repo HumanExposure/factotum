@@ -17,7 +17,7 @@ RUN rm -f .env \
  && rm -rf media \
  && python manage.py collectstatic
 
-CMD gunicorn factotum.wsgi -c factotum/gunicorn.py --log-config factotum/logging.conf
+CMD gunicorn factotum.wsgi -c factotum/gunicorn.py
 
 EXPOSE 8000
 VOLUME /app/collected_static

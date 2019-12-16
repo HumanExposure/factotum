@@ -9,13 +9,8 @@ class MetaEnv(type):
     prefix = "FACTOTUM_"
 
     @property
-    def PROD(cls):
-        default = "false"
-        return cls._get("PROD", default, prefix=True) in cls.truevals
-
-    @property
     def DEBUG(cls):
-        default = not cls.PROD
+        default = "true"
         return cls._get("DEBUG", default, prefix=True) in cls.truevals
 
     @property
@@ -25,7 +20,7 @@ class MetaEnv(type):
 
     @property
     def ALLOWED_HOSTS(cls):
-        default = ""
+        default = "*"
         return [
             host
             for host in cls._get("ALLOWED_HOSTS", default, prefix=True).split(",")

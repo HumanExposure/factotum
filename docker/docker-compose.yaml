@@ -7,7 +7,6 @@ volumes:
 
 services:
   elasticsearch:
-
     image: factotum-elasticsearch
     restart: unless-stopped
     environment:
@@ -32,6 +31,7 @@ services:
       DELETE_INDEX_SCHEDULE: ${DELETE_INDEX_SCHEDULE:-25 1 * * * America/New_York}
       ELASTICSEARCH_HOST: elasticsearch
       ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
+      LOGSTASH_PORT: ${LOGSTASH_PORT:-5959}
       SQL_PORT: ${SQL_PORT:-3306}
       XPACK_MONITORING_ENABLED: "false"
     volumes:

@@ -37,7 +37,6 @@ services:
       FACTOTUM_SECRET_KEY: ${FACTOTUM_SECRET_KEY:?must specify environment variable $FACTOTUM_SECRET_KEY}
       GUNICORN_OPTS: ${GUNICORN_OPTS:-}
       MAX_UPLOAD_SIZE: ${MAX_UPLOAD_SIZE:-5242880}
-      PROD: "true"
       QUERY_LOG_DATABASE: ${QUERY_LOG_DATABASE:-prod_search_log}
       SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
       SQL_HOST: ${SQL_HOST:-tesla.epa.gov}
@@ -108,7 +107,8 @@ services:
       FACTOTUM_WS_PORT: ${FACTOTUM_WS_PORT:-8001}
       FACTOTUM_WS_SECRET_KEY: ${FACTOTUM_WS_SECRET_KEY:?must specify environment variable $FACTOTUM_WS_SECRET_KEY}
       GUNICORN_OPTS: ${GUNICORN_OPTS:-}
-      PROD: "true"
+      LOGSTASH_HOST: logstash
+      LOGSTASH_PORT: ${LOGSTASH_PORT:-5959}
       SQL_DATABASE: ${SQL_DATABASE:-prod_factotum}
       SQL_HOST: ${SQL_HOST:-tesla.epa.gov}
       SQL_PASSWORD: ${SQL_PASSWORD:?must specify environment variable $SQL_PASSWORD}

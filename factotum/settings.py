@@ -1,4 +1,3 @@
-import logging
 import os
 
 from django.contrib.messages import constants as messages
@@ -8,16 +7,8 @@ from factotum.environment import env
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = env.DEBUG
-if DEBUG and env.PROD:
-    logger = logging.getLogger("gunicorn.warn")
-    logger.warning("Running in DEBUG mode")
-
 SECRET_KEY = env.SECRET_KEY
-
 ALLOWED_HOSTS = env.ALLOWED_HOSTS
-if ALLOWED_HOSTS == ["*"] and env.PROD:
-    logger = logging.getLogger("gunicorn.warn")
-    logger.warning("Host checking is disabled (ALLOWED_HOSTS is set to accept all)")
 
 # IPs allowed to see django-debug-toolbar output
 INTERNAL_IPS = ("127.0.0.1",)
@@ -89,8 +80,6 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "factotum.wsgi.application"
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -151,3 +140,49 @@ EXTRA = 1
 
 TEST_BROWSER = "chrome"
 CHROMEDRIVER_PATH = env.CHROMEDRIVER_PATH
+
+LOGGING = {
+    "version": 1,
+    "formatters": {
+        "console": {
+            "format": "%(asctime)s [%(levelname)s] %(message)s",
+            "datefmt": "[%d/%b/%Y %H:%M:%S]",
+            "class": "logging.Formatter",
+        },
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] [INFO] {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "console",
+        },
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+    },
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "django.server": {
+            "handlers": ["django.server"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "gunicorn.access": {
+            "level": "INFO",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "gunicorn.error": {
+            "level": "INFO",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
+}
