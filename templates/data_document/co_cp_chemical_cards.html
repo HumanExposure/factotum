@@ -161,12 +161,10 @@
                     {% if request.user.is_authenticated %}
                         <small class="text-muted float-right font-italic">
                             <a id="chemical-audit-log-{{ chemical.pk }}"
-                               {% if doc.data_group.is_composition %}
                                title="audit log"
                                href="{% url 'chemical_audit_log' chemical.pk %}"
                                data-toggle="modal"
                                data-target="#chemical-audit-log-modal"
-                               {% endif %}
                                >
                                 Last updated: {{ chemical.updated_at|timesince }} ago
                             </a>

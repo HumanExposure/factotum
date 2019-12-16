@@ -146,7 +146,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             )
 
     def test_sd_group_type(self):
-        """A Composition data group should display links to 
+        """A Composition data group should display links to
         both the data document detail page and the pdf file.
         A Supplemental data group should only display links
         to the stored pdf files in the /media/ folder """
@@ -232,32 +232,37 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             self.fail("Sliders should exist on this page, but does not.")
 
     def test_chemical_update(self):
-        dd_pk = 156051
-        list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
-        self.browser.get(list_url)
+        docs = DataDocument.objects.filter(pk__in=[156051, 354786])
+        for doc in docs:
+            list_url = self.live_server_url + f"/datadocument/{doc.pk}/"
+            self.browser.get(list_url)
+            chem = doc.extractedtext.rawchem.last()
+            self.browser.find_element_by_xpath(
+                f'//*[@id="chemical-update-{chem.pk}"]'
+            ).click()
 
-        self.browser.find_element_by_xpath('//*[@id="chemical-update-856"]').click()
+            # Verify that the modal window appears by finding the Cancel button
+            # The modal window does not immediately appear, so the browser
+            # should wait for the button to be clickable
+            wait = WebDriverWait(self.browser, 10)
+            save_button = wait.until(
+                ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
+            )
+            self.assertEqual("Save changes", save_button.get_attribute("value"))
 
-        # Verify that the modal window appears by finding the Cancel button
-        # The modal window does not immediately appear, so the browser
-        # should wait for the button to be clickable
-        wait = WebDriverWait(self.browser, 10)
-        save_button = wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='saveChem']"))
-        )
-        self.assertEqual("Save changes", save_button.get_attribute("value"))
+            report_funcuse_box = self.browser.find_element_by_id("id_report_funcuse")
+            report_funcuse_box.send_keys("canoeing")
+            save_button.click()
 
-        report_funcuse_box = self.browser.find_element_by_id("id_report_funcuse")
-        report_funcuse_box.send_keys("canoeing")
-        save_button.click()
+            audit_link = wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, f"//*[@id='chemical-audit-log-{chem.pk}']")
+                )
+            )
+            self.assertIn("Last updated: 0 minutes ago", audit_link.text)
+            audit_link.click()
 
-        audit_link = wait.until(
-            ec.element_to_be_clickable((By.XPATH, "//*[@id='chemical-audit-log-856']"))
-        )
-        self.assertIn("Last updated: 0 minutes ago", audit_link.text)
-        audit_link.click()
-
-        datatable = wait.until(
-            ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
-        )
-        self.assertIn("canoeing", datatable.text)
+            datatable = wait.until(
+                ec.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+            )
+            self.assertIn("canoeing", datatable.text)

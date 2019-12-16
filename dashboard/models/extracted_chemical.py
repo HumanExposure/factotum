@@ -223,3 +223,28 @@ class ExtractedChemical(CommonInfo, RawChem):
     @property
     def component_label(self):
         return self.__get_label("component")
+
+    @property
+    def auditlog_model_name(self):
+        """
+        Returns the string that is used in the AuditLog table in the
+        'model_name' field
+        """
+        return "extractedchemical"
+
+    @property
+    def auditlog_fields(self):
+        return [
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type_id",
+            "report_funcuse",
+            "ingredient_rank",
+            "lower_wf_analysis",
+            "central_wf_analysis",
+            "upper_wf_analysis",
+            "raw_cas",
+            "raw_chem_name",
+            "rid",
+        ]

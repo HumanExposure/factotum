@@ -265,24 +265,11 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
 
 @login_required
 def chemical_audit_log(request, pk):
-    chemical = get_object_or_404(ExtractedChemical, pk=pk)
+    chemical = RawChem.objects.filter(pk=pk).select_subclasses().first()
     auditlog = AuditLog.objects.filter(
         object_key=pk,
-        model_name__in=["extractedchemical", "rawchem"],
-        field_name__in=[
-            "raw_min_comp",
-            "raw_max_comp",
-            "raw_central_comp",
-            "unit_type_id",
-            "report_funcuse",
-            "ingredient_rank",
-            "lower_wf_analysis",
-            "central_wf_analysis",
-            "upper_wf_analysis",
-            "raw_cas",
-            "raw_chem_name",
-            "rid",
-        ],
+        model_name__in=[chemical.auditlog_model_name, "rawchem"],
+        field_name__in=chemical.auditlog_fields,
     ).order_by("-date_created")
     return render(
         request,

@@ -10,7 +10,7 @@ from .common_info import CommonInfo
 
 
 class ExtractedListPresence(CommonInfo, RawChem):
-    """ 
+    """
     A record of a chemical's presence in a CPCat list
 
     :param qa_flag: whether a record has been QA approved
@@ -30,7 +30,7 @@ class ExtractedListPresence(CommonInfo, RawChem):
     @classmethod
     def detail_fields(cls):
         """Lists the fields to be displayed on a detail form
-        
+
         Returns:
             list -- a list of field names
         """
@@ -38,7 +38,7 @@ class ExtractedListPresence(CommonInfo, RawChem):
 
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model
-        
+
         Returns:
             URL
         """
@@ -58,14 +58,26 @@ class ExtractedListPresence(CommonInfo, RawChem):
     def report_funcuse_label(self):
         return self.__get_label("report_funcuse")
 
+    @property
+    def auditlog_model_name(self):
+        """
+        Returns the string that is used in the AuditLog table in the
+        'model_name' field
+        """
+        return "extractedlistpresence"
+
+    @property
+    def auditlog_fields(self):
+        return ["report_funcuse", "raw_cas", "raw_chem_name", "rid"]
+
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
     """Many-to-many relationship between ExtractedListPresence and Tag
-    
+
     Arguments:
         TaggedItemBase {[type]} -- [description]
         CommonInfo {[type]} -- [description]
-    
+
     Returns:
         [type] -- [description]
     """
