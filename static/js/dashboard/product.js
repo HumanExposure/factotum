@@ -3,7 +3,6 @@ $('#id_tags').addClass('taggit-labels taggit-list')
 $(document).ready(function($) {
     var inputs = $(this).find(".taggit-labels + input")[0]
     var tagList = inputs.value.split(", ")
-    console.log(tagList);
     tagList.indexOf("") === -1 ? tagList.push("") : tagList
     $("#tag_submit").attr('disabled', 'disabled');
     $(".taggit-tag").click(function(){

@@ -100,21 +100,11 @@
                     </button>
                     {% endif %}
                 </h5>
-                {% if user.is_authenticated %}
-                    {{ tagform }}
-                {% else %}
-                    <ul class="taggit-labels taggit-list" id="id_tags">
-                    {% for tag in product.get_puc_tags %}
-                        <li class="taggit-tag">{{ tag.name }}</li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}
+                {{ tagform }}
             </form>
             {%  else %}
-            </h5>
-            </form>
-            No attributes are associated with this PUC
-            <a href={{ puc.admin_url }}>(edit)</a>
+                No attributes are associated with this PUC
+                <a href={{ puc.admin_url }}>(edit)</a>
             {% endif %}
         </div>
         {% endif %}
@@ -201,6 +191,8 @@
 
 
 {% block js %}
-<script src="{% static 'js/dashboard/product.js' %}"></script>
-{{ tagform.media.js }}
+    <script src="{% static 'js/dashboard/product.js' %}"></script>
+    {% if user.is_authenticated %}
+        {{ tagform.media.js }}
+    {%  endif %}
 {% endblock %}

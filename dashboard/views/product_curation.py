@@ -298,7 +298,7 @@ def product_detail(request, pk):
     tagform["tags"].label = ""
     puc = p.get_uber_puc()
     assumed_tags = puc.get_assumed_tags() if puc else PUCTag.objects.none()
-    if tagform.is_valid():
+    if request.user.is_authenticated and tagform.is_valid():
         tagform.save()
     docs = p.datadocument_set.order_by("-created_at")
     return render(

@@ -2,6 +2,9 @@ from dashboard.tests.loader import fixtures_standard, load_browser
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import ExtractedText, Script
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def log_karyn_in(object):
@@ -46,7 +49,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         et_delete_button = self.browser.find_element_by_id("et-delete-button-5")
         et_delete_button.send_keys("\n")
 
-        popover_div = self.browser.find_element_by_class_name("popover")
+        wait = WebDriverWait(self.browser, 10)
+        popover_div = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "popover")))
+        # popover_div = self.browser.find_element_by_class_name("popover")
         self.assertIn(
             "This action will delete 2 extracted text records.", popover_div.text
         )
