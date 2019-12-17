@@ -143,8 +143,8 @@
                     </div>
                 </li>
                 {% block nav %}{% endblock %}
-                </ul>
             {% endif %} <!--user.is_authenticated-->
+        </ul>
         <ul class="nav navbar-nav navbar-right ml-auto">
             <li class="nav-item ml-5
                     {% if 'search' in request.resolver_match.url_name %}
@@ -166,19 +166,28 @@
                     </div>
                 </form>
             </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="navbarDropdownMenuLink"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        <span class="fa fa-user" title="factotum" aria-hidden="true"></span>
-                        {{ user.first_name }}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                   href="#"
+                   id="navbarDropdownMenuLink"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="fa fa-user" title="factotum" aria-hidden="true"></span>
+                    {{ user.first_name }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right"
+                     aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item"
+                       href="{% url 'feedback:comment' %}"
+                    >
+                        <span class="far fa-comment"
+                              title="Comment"
+                              aria-hidden="true">
+                        </span>
+                        Comment
                     </a>
-                    <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownMenuLink">
+                    {% if user.is_authenticated %}
                         {% if user.is_superuser %}
                             <a class="dropdown-item"
                                href="{% url 'admin:index' %}">
@@ -197,9 +206,9 @@
                             </span>
                             Logout
                         </a>
-                    </div>
-                </li>
-            {% endif %}
+                    {% endif %}
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

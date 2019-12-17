@@ -27,6 +27,7 @@ urlpatterns = [
     ),
     url(r"^logout/$", auth_views.LogoutView.as_view(next_page="index"), name="logout"),
     url(r"^admin/", admin.site.urls, name="admin"),
+    url(r"^feedback/", include("feedback.urls", namespace="feedback")),
     url(r"", include("dashboard.urls")),
     url(r"", include("api.urls")),
     url(r"^docs/", include("docs.urls")),

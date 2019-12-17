@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "dashboard.apps.DashboardConfig",
+    "feedback.apps.FeedbackConfig",
     "api.apps.ApiConfig",
     "bootstrap_datepicker_plus",
     "widget_tweaks",
@@ -143,6 +144,7 @@ CHROMEDRIVER_PATH = env.CHROMEDRIVER_PATH
 
 LOGGING = {
     "version": 1,
+    "filters": {"test_filter": {"()": "factotum.logging.TestFilter"}},
     "formatters": {
         "console": {
             "format": "%(asctime)s [%(levelname)s] %(message)s",
@@ -160,6 +162,7 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "console",
+            "filters": ["test_filter"],
         },
         "django.server": {
             "level": "INFO",
