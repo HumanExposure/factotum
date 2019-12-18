@@ -34,7 +34,7 @@ class ExtractedListPresence(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "report_funcuse"]
+        return ["raw_cas", "raw_chem_name", "report_funcuse", "component"]
 
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model

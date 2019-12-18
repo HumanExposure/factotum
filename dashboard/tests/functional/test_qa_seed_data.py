@@ -311,7 +311,9 @@ class TestQaPage(TestCase):
                 f"/qa/extractedtext/%s" % et.data_document_id, follow=True
             )
             if response.status_code != 200:
-                print(et.data_document_id)
+                # print(et.data_document_id)
+                pass
+
             self.assertEqual(response.status_code, 200)
 
     def test_qa_summary(self):

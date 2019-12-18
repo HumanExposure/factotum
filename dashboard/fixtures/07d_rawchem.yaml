@@ -7579,6 +7579,7 @@
     temp_obj_name: ExtractedListPresence
     rid: null
     dsstox: null
+    component: 'Test CP Component'
 - model: dashboard.rawchem
   pk: 759
   fields:
@@ -7589,6 +7590,7 @@
     temp_obj_name: ExtractedListPresence
     rid: null
     dsstox: 10
+    component: 'Test CP Component 2'
 - model: dashboard.rawchem
   pk: 760
   fields:
@@ -8529,6 +8531,7 @@
     temp_obj_name: null
     rid: null
     dsstox: 10
+    component: Test Component
 - model: dashboard.rawchem
   pk: 854
   fields:

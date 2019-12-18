@@ -62,60 +62,6 @@ class DataGroupDetailTest(TestCase):
             "ExtractForm should NOT be included in the page!",
         )
 
-    def test_detail_template_fieldnames(self):
-        pk = self.objects.dg.pk
-        self.assertEqual(
-            str(self.objects.dg.group_type),
-            "Composition",
-            'Type of DataGroup needs to be "composition" for this test.',
-        )
-        self.client.get(f"/datagroup/{pk}/")
-        self.assertEqual(
-            self.objects.dg.get_extracted_template_fieldnames(),
-            [
-                "data_document_id",
-                "data_document_filename",
-                "prod_name",
-                "doc_date",
-                "rev_num",
-                "raw_category",
-                "raw_cas",
-                "raw_chem_name",
-                "report_funcuse",
-                "raw_min_comp",
-                "raw_max_comp",
-                "unit_type",
-                "ingredient_rank",
-                "raw_central_comp",
-                "component",
-            ],
-            "Fieldnames passed are incorrect!",
-        )
-        self.objects.gt.title = "Functional use"
-        self.objects.gt.code = "FU"
-        self.objects.gt.save()
-        self.assertEqual(
-            str(self.objects.dg.group_type),
-            "Functional use",
-            'Type of DataGroup needs to be "FU" for this test.',
-        )
-        self.client.get(f"/datagroup/{pk}/")
-        self.assertEqual(
-            self.objects.dg.get_extracted_template_fieldnames(),
-            [
-                "data_document_id",
-                "data_document_filename",
-                "prod_name",
-                "doc_date",
-                "rev_num",
-                "raw_category",
-                "raw_cas",
-                "raw_chem_name",
-                "report_funcuse",
-            ],
-            "Fieldnames passed are incorrect!",
-        )
-
     def test_unidentifed_group_type(self):
         pk = self.objects.dg.pk
         self.objects.doc.matched = True
@@ -402,3 +348,81 @@ class DataGroupDetailTestWithFixtures(TestCase):
         path = "//button[@name='bulkassignprod-submit']"
         returned_count = int(response_html.xpath(path)[0].text.strip().split(" ")[2])
         self.assertEqual(expected_cnt, returned_count, "Bulk product count incorrect.")
+
+    def test_detail_template_fieldnames(self):
+        dg = DataGroup.objects.filter(group_type__code="CO").first()
+        self.assertEqual(
+            str(dg.group_type),
+            "Composition",
+            'Type of DataGroup needs to be "composition" for this test.',
+        )
+        self.client.get(f"/datagroup/{dg.pk}/")
+        self.assertEqual(
+            dg.get_extracted_template_fieldnames(),
+            [
+                "data_document_id",
+                "data_document_filename",
+                "prod_name",
+                "doc_date",
+                "rev_num",
+                "raw_category",
+                "raw_cas",
+                "raw_chem_name",
+                "report_funcuse",
+                "raw_min_comp",
+                "raw_max_comp",
+                "unit_type",
+                "ingredient_rank",
+                "raw_central_comp",
+                "component",
+            ],
+            "Fieldnames passed are incorrect!",
+        )
+        dg = DataGroup.objects.filter(group_type__code="FU").first()
+        self.assertEqual(
+            str(dg.group_type),
+            "Functional use",
+            'Type of DataGroup needs to be "FU" for this test.',
+        )
+        self.client.get(f"/datagroup/{dg.pk}/")
+        self.assertEqual(
+            dg.get_extracted_template_fieldnames(),
+            [
+                "data_document_id",
+                "data_document_filename",
+                "prod_name",
+                "doc_date",
+                "rev_num",
+                "raw_category",
+                "raw_cas",
+                "raw_chem_name",
+                "report_funcuse",
+            ],
+            "Fieldnames passed are incorrect!",
+        )
+        dg = DataGroup.objects.filter(group_type__code="CP").first()
+        print(dg.pk)
+        self.assertEqual(
+            str(dg.group_type),
+            "Chemical presence list",
+            'Type of DataGroup needs to be "composition" for this test.',
+        )
+        self.client.get(f"/datagroup/{dg.pk}/")
+        self.assertEqual(
+            dg.get_extracted_template_fieldnames(),
+            [
+                "data_document_id",
+                "data_document_filename",
+                "doc_date",
+                "raw_category",
+                "raw_cas",
+                "raw_chem_name",
+                "report_funcuse",
+                "cat_code",
+                "description_cpcat",
+                "cpcat_code",
+                "cpcat_sourcetype",
+                "component",
+            ],
+            "Fieldnames passed are incorrect!",
+        )

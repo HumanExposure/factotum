@@ -3,7 +3,7 @@ from lxml import html
 from django.test import TestCase, tag
 
 from dashboard.tests.loader import fixtures_standard
-from dashboard.models import Script, ExtractedText
+from dashboard.models import Script, ExtractedText, RawChem, DataDocument
 
 
 @tag("loader")
@@ -99,7 +99,7 @@ class QATest(TestCase):
         # Go back to the QA index page to confirm that the QA is complete
         response = self.client.get("/qa/compextractionscript/").content.decode("utf8")
         response_html = html.fromstring(response)
-        status = response_html.xpath(f'//*[@id="qa-{ script.pk }"]/a').pop()
+        status = response_html.xpath(f'//*[@id="qa-{script.pk}"]/a').pop()
         self.assertIn(
             "QA Complete",
             status.text,
@@ -108,3 +108,14 @@ class QATest(TestCase):
                 '"QA Complete" instead of "Begin QA"'
             ),
         )
+
+    def test_component_label(self):
+        data_document = DataDocument.objects.get(pk=354787)
+        rawchem = RawChem.objects.get(pk=853)
+        component = rawchem.component
+        response = self.client.get("/qa/extractedtext/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        component_text = response_html.xpath(
+            f'//*[@id="component-{rawchem.id}"]/text()'
+        )
+        self.assertIn(component, component_text)

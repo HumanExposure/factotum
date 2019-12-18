@@ -25,7 +25,6 @@ from dashboard.models import (
     ExtractedHHRec,
 )
 
-
 from dashboard.utils import get_extracted_models
 
 
@@ -296,7 +295,7 @@ class ExtractedFunctionalUseForm(forms.ModelForm):
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "report_funcuse"]
+        fields = ["raw_chem_name", "raw_cas", "report_funcuse", "component"]
 
 
 class ExtractedHHRecForm(forms.ModelForm):
@@ -387,7 +386,6 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
     def four():  # for extracted_list_presence
         ListPresenceFormSet = make_formset(parent, child)
         ParentForm = ExtractedCPCatForm if extracted else ExtractedCPCatEditForm
-
         return (ParentForm, ListPresenceFormSet)
 
     def five():  # for extracted_hh_rec

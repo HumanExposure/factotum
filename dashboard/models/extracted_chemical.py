@@ -105,13 +105,6 @@ class ExtractedChemical(CommonInfo, RawChem):
     script = models.ForeignKey(
         to=Script, on_delete=models.CASCADE, null=True, blank=True
     )
-    component = models.CharField(
-        "Component",
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="product component",
-    )
 
     class Meta:
         ordering = (F("ingredient_rank").asc(nulls_last=True),)

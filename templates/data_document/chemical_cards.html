@@ -18,11 +18,17 @@
                             {{ chemical.raw_chem_name|truncatechars:45 }}
                         </h5>
                     </div>
+
                     <div class="col-6 text-right" id="raw_cas-{{ chemical.pk }}">
                         <h5 class="text-muted">
                             {{ chemical.raw_cas }}
                         </h5>
                     </div>
+            {% if chemical.component %}
+                <div class="col-6 text-left" >
+                         <h5 class="text-muted">{{ chemical.component }}</h5>
+                </div>
+             {% endif %}
                 </div>
             </div>
             <div class="card-body shadow rounded"

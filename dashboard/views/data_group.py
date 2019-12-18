@@ -106,6 +106,7 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
                     "%d extracted record%s uploaded successfully."
                     % (num_saved, pluralize(num_saved)),
                 )
+                context["tabledata"]["numextracted"] = (dg.extracted_docs(),)
             else:
                 errors = gather_errors(formset)
                 for e in errors:

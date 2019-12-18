@@ -35,6 +35,13 @@ class RawChem(models.Model):
         null=True,
         blank=True,
     )
+    component = models.CharField(
+        "Component",
+        max_length=200,
+        null=True,
+        blank=True,
+        help_text="product component",
+    )
 
     objects = InheritanceManager()
 

@@ -265,6 +265,7 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
     report_funcuse = field_for_model(ExtractedListPresence, "report_funcuse")
+    component = field_for_model(ExtractedListPresence, "component")
 
     def clean(self):
         super().clean()

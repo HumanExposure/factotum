@@ -218,6 +218,7 @@ class DataGroup(CommonInfo):
                 "description_cpcat",
                 "cpcat_code",
                 "cpcat_sourcetype",
+                "component",
             ]
 
     def get_clean_comp_data_fieldnames(self):
