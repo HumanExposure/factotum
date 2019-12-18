@@ -19,6 +19,7 @@ fuzzywuzzy>=0.17.0
 gitpython>=2.1.11
 gunicorn>=20.0.0,<20.1.0
 ipython>=7.5.0
+json-logging-py==0.2
 lxml>=4.2.2
 mysqlclient==1.4.2.post1
 pyflakes==2.1.1
