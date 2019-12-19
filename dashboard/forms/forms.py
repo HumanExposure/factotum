@@ -212,23 +212,7 @@ class ExtractedTextForm(forms.ModelForm):
 class ExtractedCPCatForm(ExtractedTextForm):
     class Meta:
         model = ExtractedCPCat
-        fields = [
-            "doc_date",
-            "cat_code",
-            "description_cpcat",
-            "cpcat_code",
-            "cpcat_sourcetype",
-        ]
-
-
-class ExtractedCPCatEditForm(ExtractedCPCatForm):
-    class Meta(ExtractedCPCatForm.Meta):
-        fields = ExtractedCPCatForm.Meta.fields + [
-            "prod_name",
-            "doc_date",
-            "rev_num",
-            "cpcat_code",
-        ]
+        fields = ["doc_date"]
 
 
 class ExtractedHHDocForm(ExtractedTextForm):
@@ -385,8 +369,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
 
     def four():  # for extracted_list_presence
         ListPresenceFormSet = make_formset(parent, child)
-        ParentForm = ExtractedCPCatForm if extracted else ExtractedCPCatEditForm
-        return (ParentForm, ListPresenceFormSet)
+        return (ExtractedCPCatForm, ListPresenceFormSet)
 
     def five():  # for extracted_hh_rec
         HHFormSet = make_formset(parent, child)

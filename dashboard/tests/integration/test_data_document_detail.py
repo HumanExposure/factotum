@@ -88,7 +88,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         """
         Test that when a datadocument has no ExtractedText, the user can add one in the browser
         """
-        for doc_id in [155324]:  # CO record with no ExtractedText
+        for doc_id in [155324, 254782]:  # [CO, CP] records with no ExtractedText
+            # Verify this document has no Extracted Texts.
+            self.assertEqual(
+                0,
+                ExtractedText.objects.filter(data_document_id=doc_id).count(),
+                "This Data Document is already extracted",
+            )
+
             # QA Page
             dd_url = self.live_server_url + f"/datadocument/{doc_id}/"
             self.browser.get(dd_url)
@@ -132,18 +139,38 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                     (By.XPATH, "//*[@id='extracted-text-modal-cancel']")
                 )
             )
-            prod_name_box = self.browser.find_element_by_id("id_prod_name")
-            # Add a prod_name value to the box
-            prod_name_box.send_keys("Fake Product")
-            save_button = self.browser.find_element_by_id("extracted-text-modal-save")
-            save_button.click()
-            # Confirm the presence of the new ExtractedText record
-            et = ExtractedText.objects.get(data_document_id=doc_id)
-            self.assertEqual(
-                "Fake Product",
-                et.prod_name,
-                "The prod_name of the new object should match what was entered",
-            )
+            # Add a "Product Name" for CO documents and verify
+            if doc_id == 155324:
+                prod_name_box = self.browser.find_element_by_id("id_prod_name")
+                # Add a prod_name value to the box
+                prod_name_box.send_keys("Fake Product")
+                save_button = self.browser.find_element_by_id(
+                    "extracted-text-modal-save"
+                )
+                save_button.click()
+                # Confirm the presence of the new ExtractedText record
+                et = ExtractedText.objects.get(data_document_id=doc_id)
+                self.assertEqual(
+                    "Fake Product",
+                    et.prod_name,
+                    "The prod_name of the new object should match what was entered",
+                )
+            # Add a "Document Date" for CP documents and verify
+            elif doc_id == 254782:
+                prod_name_box = self.browser.find_element_by_id("id_doc_date")
+                # Add a prod_name value to the box
+                prod_name_box.send_keys("2018")
+                save_button = self.browser.find_element_by_id(
+                    "extracted-text-modal-save"
+                )
+                save_button.click()
+                # Confirm the presence of the new ExtractedText record
+                et = ExtractedText.objects.get(data_document_id=doc_id)
+                self.assertEqual(
+                    "2018",
+                    et.doc_date,
+                    "The prod_name of the new object should match what was entered",
+                )
 
     def test_sd_group_type(self):
         """A Composition data group should display links to

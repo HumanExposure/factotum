@@ -12,7 +12,6 @@ from .forms import (
     BulkProductTagForm,
     ExtractedTextForm,
     ExtractedCPCatForm,
-    ExtractedCPCatEditForm,
     ExtractedHHDocForm,
     ExtractedHHDocEditForm,
     DocumentTypeForm,
