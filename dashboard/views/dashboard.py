@@ -208,6 +208,24 @@ def bubble_PUCs(request):
     return JsonResponse(pucs.asdict())
 
 
+def collapsible_tree_PUCs(request):
+    """This view is used to download all of the PUCs in nested JSON form.
+    Regardless of if it is associated with an item
+    """
+    pucs = (
+        PUC.objects.all()
+        .filter(kind="FO")
+        .values("id", "gen_cat", "prod_fam", "prod_type")
+        .astree()
+        .asdict()
+    )
+
+    # Name the first element.  Default = Root
+    pucs["name"] = "Formulations"
+
+    return JsonResponse(pucs)
+
+
 def download_LPKeywords(request):
     """This view gets called to download all of the list presence keywords 
     and their definitions in a csv form.

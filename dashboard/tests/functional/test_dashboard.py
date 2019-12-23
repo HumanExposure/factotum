@@ -1,8 +1,7 @@
-import csv
-import time
+import json
 from lxml import html
 
-from django.urls import resolve
+from django.urls import resolve, reverse
 from django.test import TestCase, tag
 
 from dashboard.tests.loader import load_model_objects, fixtures_standard
@@ -118,6 +117,26 @@ class DashboardTest(TestCase):
         self.assertEqual(row1[6], "FO")
         self.assertEqual(row1[7], "3")
         self.assertEqual(row1[8], "0")
+
+    def test_collapsible_tree_PUCs(self):
+        # Keys that must be present at every level
+        required_keys = ["name"]
+
+        response = self.client.get(reverse("collapsible_tree_PUCs"))
+        json_response_content = json.loads(response.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_response_content["name"], "Formulations")
+        self._check_json_structure(json_response_content, required_keys)
+
+    def _check_json_structure(self, json, required_keys):
+        # This function recursively tests for keys at every level of a simple tree json response.
+        for key in required_keys:
+            self.assertTrue(key in json)
+
+        if "children" in json:
+            for i in range(len(json["children"])):
+                self._check_json_structure(json["children"][i], required_keys)
 
     def test_PUCTag_download(self):
         """check the PUCTag that would be downloaded from the loader

@@ -382,6 +382,16 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
         )
 
+    def test_collapsible_tree(self):
+        pucs = PUC.objects.filter(kind="FO").astree()
+        num_pucs = self._n_children(pucs)
+        self.browser.get(self.live_server_url)
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(ec.presence_of_element_located((By.CLASS_NAME, "tree-node")))
+        nodes = self.browser.find_elements_by_class_name("tree-node")
+        self.assertTrue(num_pucs > 0, "Need more than one PUC")
+        self.assertTrue(len(nodes) > 0, "Need more than one node")
+
     def test_dtxsid_bubble_plot(self):
         dss = next(dss for dss in DSSToxLookup.objects.all() if dss.puc_count > 0)
         self.browser.get(self.live_server_url + dss.get_absolute_url())

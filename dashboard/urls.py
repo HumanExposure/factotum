@@ -178,6 +178,9 @@ urlpatterns = [
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
     path("dl_pucs_json/", views.bubble_PUCs, name="bubble_PUCs"),
+    path(
+        "dl_pucs_json/tree/", views.collapsible_tree_PUCs, name="collapsible_tree_PUCs"
+    ),
     path("dl_pucs/", views.download_PUCs, name="download_PUCs"),
     path("dl_puctags/", views.download_PUCTags, name="download_PUCTags"),
     path("dl_lpkeywords/", views.download_LPKeywords, name="download_LPKeywords"),
