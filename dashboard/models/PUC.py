@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from .common_info import CommonInfo
 from django.apps import apps
 
-from dashboard.models import ProductDocument
+from dashboard.models import ProductDocument, DataDocument
 from django.db.models import Count, F, Q
 from .raw_chem import RawChem
 from dashboard.utils import GroupConcat, SimpleTree
@@ -206,11 +206,7 @@ class PUC(CommonInfo):
 
     @property
     def document_count(self):
-        return (
-            ProductDocument.objects.filter(product__in=self.products.all())
-            .distinct()
-            .count()
-        )
+        return DataDocument.objects.filter(Q(products__puc=self)).distinct().count()
 
     @property
     def admin_url(self):

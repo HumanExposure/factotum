@@ -22,7 +22,7 @@ def log_karyn_in(object):
     object.browser.find_element_by_class_name("btn").click()
 
 
-class TestPUCProductTable(StaticLiveServerTestCase):
+class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
@@ -33,9 +33,15 @@ class TestPUCProductTable(StaticLiveServerTestCase):
         self.browser.quit()
 
     def test_puc_product_datatable(self):
+        """
+        All the Products and Data Documents associated with the PUC 
+        should be returned via ajax calls and included in the tables
+        """
         puc = PUC.objects.get(pk=185)
         wait = WebDriverWait(self.browser, 10)
         self.browser.get(self.live_server_url + puc.url)
+
+        # Products
         input_el = self.browser.find_element_by_xpath(
             '//*[@id="products_filter"]/descendant::input[1]'
         )
@@ -49,4 +55,12 @@ class TestPUCProductTable(StaticLiveServerTestCase):
         self.assertInHTML(
             "Showing 1 to 1 of 1 entries (filtered from 3 total entries)",
             self.browser.find_element_by_xpath("//*[@id='products_info']").text,
+        )
+
+        # Data Documents
+        self.assertIn(
+            "body butter (PLP) Recertification",
+            self.browser.find_element_by_xpath(
+                "//*[@id='documents']/tbody/tr[1]/td[1]"
+            ).text,
         )

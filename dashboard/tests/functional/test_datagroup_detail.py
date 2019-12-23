@@ -401,7 +401,6 @@ class DataGroupDetailTestWithFixtures(TestCase):
             "Fieldnames passed are incorrect!",
         )
         dg = DataGroup.objects.filter(group_type__code="CP").first()
-        print(dg.pk)
         self.assertEqual(
             str(dg.group_type),
             "Chemical presence list",

@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from dashboard.models import Product
+from dashboard.models import Product, DataDocument
 from django.db.models import Q
 
 
@@ -36,6 +36,57 @@ def product_ajax(request):
     for i in all_objects.order_by(order_direction + order_column_name)[
         start : start + length
     ].values():
+        ret = [i[j] for j in columns]
+        objects.append(ret)
+
+    return JsonResponse(
+        {
+            "recordsTotal": total_count,
+            "recordsFiltered": filtered_count,
+            "data": objects,
+        }
+    )
+
+
+def document_ajax(request):
+    """ Returns a JSON response of data documents with the following optional arguments.
+
+    Arguments:
+        ``puc``
+            limits return set to products matching this puc
+        ``global_search``
+            limits return set to documents with titles matching search string
+    """
+    columns = ["title", "data_group__group_type__title", "id"]
+    start = int(request.GET.get("start", 0))
+    length = int(request.GET.get("length", 10))
+    order_column = int(request.GET.get("order[0][column]", 0))
+    order_direction = "-" if request.GET.get("order[0][dir]", "asc") == "desc" else ""
+    order_column_name = columns[order_column]
+    global_search = request.GET.get("search[value]", "")
+    puc = request.GET.get("puc", "")
+    if puc:
+        all_objects = (
+            DataDocument.objects.filter(Q(products__puc=puc))
+            .select_related("data_group__group_type")
+            .distinct()
+        )
+    else:
+        all_objects = (
+            DataDocument.objects.all()
+            .select_related("data_group__group_type")
+            .distinct()
+        )
+    total_count = all_objects.count()
+
+    if global_search:
+        all_objects = all_objects.filter(Q(title__icontains=global_search))
+    filtered_count = all_objects.count()
+
+    objects = []
+    for i in all_objects.order_by(order_direction + order_column_name)[
+        start : start + length
+    ].values("title", "data_group_id", "id", "data_group__group_type__title"):
         ret = [i[j] for j in columns]
         objects.append(ret)
 

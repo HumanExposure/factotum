@@ -73,7 +73,7 @@
                 <dt class="col-6">Curated Chemicals</dt>
                 <dd class="col-6">{{ puc.curated_chemical_count }}</dd>
                 <dt class="col-6">Documents</dt>
-                <dd class="col-6">{{ puc.document_count }} </dd>
+                <dd class="col-6"><a href="#documents">{{ puc.document_count }}</a> </dd>
             </dl>
         </div>
         <div class="col-6" id="taxonomies">
@@ -102,13 +102,28 @@
 
     <div class="row col-12 pt-4">
         <h4>Products Assigned To "{{ puc }}"</h4>
-        <table class="table table-striped table-bordered dataTable no-footer table-sm" 
+        <table class="table table-striped dataTable no-footer table-sm" 
             data-puc="{{ puc.id }}"
             id="products">
-            <thead class="table-primary">
+            <thead >
             <tr>
                 <th>Title</th>
                 <th>Brand Name</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+        <div class="row col-12 pt-4" id="doc-table-div">
+        <h4>Documents Associated with "{{ puc }}"</h4>
+        <table class="table table-striped  dataTable no-footer table-sm" 
+            data-puc="{{ puc.id }}"
+            id="documents">
+            <thead >
+            <tr>
+                <th>Document</th>
+                <th>Data Type</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -126,6 +141,9 @@
 {% block css %}
     <style>
         #products_wrapper {
+            width: 100%;
+        }
+        #documents_wrapper {
             width: 100%;
         }
     </style>

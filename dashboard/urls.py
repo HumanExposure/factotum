@@ -174,6 +174,7 @@ urlpatterns = [
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
     ),
+    path("d_json/", views.document_ajax, name="d_ajax_url"),
     path("p_json/", views.product_ajax, name="p_ajax_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),

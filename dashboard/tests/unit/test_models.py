@@ -2,7 +2,7 @@ import csv
 from django.utils import timezone
 from django.test import TestCase, tag
 from django.db.utils import IntegrityError
-from django.db.models import Count
+from django.db.models import Count, Q
 from dashboard.models import *
 from dashboard.tests.loader import *
 
@@ -281,6 +281,14 @@ class PUCModelTest(TestCase):
         self.assertEqual(
             pucs.get(pk=1).num_products, PUC.objects.get(pk=1).product_count
         )
+
+    def test_document_counts(self):
+        """Make sure that documents with multiple product linkages
+        are not being double-counted."""
+        puc = PUC.objects.get(pk=185)
+        docs = DataDocument.objects.filter(Q(products__puc=puc)).distinct()
+        distinct_doc_count = docs.count()
+        self.assertEqual(puc.document_count, distinct_doc_count)
 
 
 class DataGroupFilesTest(TestCase):
