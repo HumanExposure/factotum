@@ -36,24 +36,31 @@
                     <div class="card">
                         <!-- Level 1 -->
                         <div class="card-header-sm bg-light">
-                            <div class="text-left">
-                                <button class="handle mr-2 btn btn-light shadow-none"
-                                        data-toggle="collapse" 
-                                        data-target="#puc-{{ leaf.value.pk }}">
-                                    <i class="fas fa-chevron-circle-right icon-secondary"></i>
-                                    <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
-                                </button>
+                            <div class="d-flex align-items-center">
+                                {% if leaf.children %}
+                                    <button class="handle mr-2 btn btn-light shadow-none"
+                                            data-toggle="collapse"
+                                            data-target="#puc-{{ leaf.value.pk }}">
+                                        <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                        <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                                    </button>
+                                {% else %}
+                                    <button class="hidden btn" disabled>
+                                        <i class="fas fa-chevron-circle-right"></i>
+                                    </button>
+                                    <span class="m-1"></span>
+                                {% endif %}
                                 <b>{{ leaf.name }}</b>
                                 <a href="{{ leaf.value.url }}" 
-                                class="ml-2" 
-                                title="PUC detail" 
-                                data-toggle="tooltip" 
-                                data-placement="top">
-                                <i class="fas fa-info-circle icon-secondary"></i>
+                                   class="ml-2"
+                                   title="PUC detail"
+                                   data-toggle="tooltip" 
+                                   data-placement="top">
+                                    <i class="fas fa-info-circle icon-secondary"></i>
                                 </a>
-                                <span class="dot m-2 float-right text-center puc-link"
-                                    data-gen-cat="{{ leaf.name }}">
-                                    <small><b>{{ leaf|length|add:"-1" }}</b></small>
+                                <span class="dot m-2 ml-auto text-center puc-link text-nowrap"
+                                      data-gen-cat="{{ leaf.name }}">
+                                    <small><b>{{ leaf.value.cumnum_products }}</b></small>
                                 </span>
                             </div>
                         </div>
@@ -66,36 +73,32 @@
                                 {% for leaflet in leaf.children %}
                                 <div class="card">
                                     <!-- Level 2 -->
-                                    <div class="card-header-sm bg-light">
-                                        <div class="text-left">
-                                            {% if leaflet.children %}
+                                    <div class="card-header-sm bg-light d-flex align-items-center">
+                                        {% if leaflet.children %}
                                             <button class="handle mr-2 btn btn-light shadow-none"
                                                 data-toggle="collapse" 
                                                 data-target="#accordion-{{ leaflet.value.pk }}">
                                                 <i class="fas fa-chevron-circle-right icon-secondary"></i>
                                                 <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
                                             </button>
-                                            {% else %}
+                                        {% else %}
                                             <button class="hidden btn" disabled>
                                                 <i class="fas fa-chevron-circle-right"></i>
                                             </button>
                                             <span class="m-1"></span>
-                                            {% endif %}
-                                            <b>{{ leaflet.name }}</b>
-                                            <a href="{{ leaflet.value.url }}" 
-                                            class="ml-2" 
-                                            title="PUC detail" 
-                                            data-toggle="tooltip" 
-                                            data-placement="top">
-                                                <i class="fas fa-info-circle icon-secondary"></i>
-                                            </a>
-                                            {% if leaflet.children %}
-                                            <span class="dot m-2 float-right text-center puc-link"
-                                                data-gen-cat="{{ leaf.name }}">
-                                                <small><b>{{ leaflet|length|add:"-1" }}</b></small>
-                                            </span>
-                                            {% endif %}
-                                        </div>
+                                        {% endif %}
+                                        <b>{{ leaflet.name }}</b>
+                                        <a href="{{ leaflet.value.url }}"
+                                        class="ml-2"
+                                        title="PUC detail"
+                                        data-toggle="tooltip"
+                                        data-placement="top">
+                                            <i class="fas fa-info-circle icon-secondary"></i>
+                                        </a>
+                                        <span class="dot m-2 ml-auto text-center puc-link"
+                                            data-gen-cat="{{ leaf.name }}">
+                                            <small><b>{{ leaflet.value.cumnum_products }}</b></small>
+                                        </span>
                                     </div>
                                     <div id="accordion-{{ leaflet.value.pk }}" 
                                         class="collapse">
@@ -106,7 +109,7 @@
                                                 {% for needle in leaflet.children %}
                                                 <div class="card">
                                                     <div class="card-header-sm bg-light">
-                                                        <div class="text-left p-2 ml-2">
+                                                        <div class="text-left d-flex align-items-center">
                                                             <span class="m-4"></span>
                                                             <b>{{ needle.name }}</b>
                                                             <a href="{{ needle.value.url }}" 
@@ -116,6 +119,10 @@
                                                                 data-placement="top">
                                                                 <i class="fas fa-info-circle icon-secondary"></i>
                                                             </a>
+                                                            <span class="dot m-2 ml-auto text-center puc-link"
+                                                                data-gen-cat="{{ leaf.name }}">
+                                                                <small><b>{{ needle.value.cumnum_products }}</b></small>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>

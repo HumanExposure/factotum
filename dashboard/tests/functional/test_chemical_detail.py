@@ -52,6 +52,21 @@ class ChemicalDetail(TestCase):
             f"DSSTox pk={dss.pk} should return {dss.cumulative_puc_count} for the tree",
         )
 
+        # Check cumulative product count
+        pucs = (
+            PUC.objects.dtxsid_filter("DTXSID6026296")
+            .with_num_products()
+            .filter(gen_cat="Arts and Crafts/Office supplies")
+        )
+        cumulative_sum = sum(puc.num_products for puc in pucs)
+        response_for_water = self.client.get("/chemical/DTXSID6026296/")
+        self.assertEqual(
+            cumulative_sum,
+            response_for_water.context["pucs"].children[0].value.cumnum_products,
+            f'Water sid ("DTXSID6026296") should have {cumulative_sum} associated products '
+            + f"but returns {response_for_water.context['pucs'].children[0].value.cumnum_products}",
+        )
+
     def _n_children(self, children):
         cnt = sum(1 for c in children if "value" in c)
         for c in children:

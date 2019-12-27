@@ -73,10 +73,24 @@ class SimpleTree(MutableMapping):
     >>> pizza.asdict()
             {"name": "root", "children": [{"name": "pepperoni", "value": 5...}]}
 
+    You can merge in another tree to fill in missing values.
+
+    >>> cheese_pizza = SimpleTree()
+    >>> cheese_pizza["cheese"] = 100
+    >>> cheese_pizza["cheese", "no_pickles"] = "something"
+    >>> pizza.merge(cheese_pizza)
+    >>> pizza["cheese"]
+            100
+    >>> # pizza already had ("cheese", "no_pickles")
+    >>> # so cheese_pizza["cheese", "no_pickles"] will not get merged in
+    >>> pizza["cheese", "no_pickles"]
+            3
+
     Attributes:
         objects (SimpleTreeObjectInterface): returns SimpleTrees
         parent (SimpleTree): the parent SimpleTree object
         name (str): the node name
+        key (str): the node key
         value (any): the node value
         children (list): a list of children SimpleTree objects
     """
@@ -145,14 +159,18 @@ class SimpleTree(MutableMapping):
     def items(self):
         return zip(self.keys(), self.values())
 
+    @property
+    def key(self):
+        name = []
+        child = self
+        while child.parent is not None:
+            name.insert(0, child.name)
+            child = child.parent
+        return tuple(name)
+
     def keys(self):
         if self._is_item:
-            name = []
-            child = self
-            while child.parent is not None:
-                name.insert(0, child.name)
-                child = child.parent
-            yield tuple(name)
+            yield self.key
         for child in self.children:
             yield from child.keys()
 
@@ -161,6 +179,12 @@ class SimpleTree(MutableMapping):
             yield self.value
         for child in self.children:
             yield from child.values()
+
+    def merge(self, tree):
+        for child in self.children:
+            if child.value is None:
+                child.value = tree[child.key]
+            child.merge(tree)
 
     def asdict(self):
         """Return a dictionary representation of the tree.
