@@ -61,4 +61,39 @@ $(document).ready(function () {
             });
         }
     });
+
+    var chemicaltable = $('#chemicals').DataTable({
+        "serverSide": true,
+        "paging": true,
+        "searching": true,
+        "ordering": true,
+        "ajax": "/c_json/?puc=" + puc,
+        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
+            "<'row'<'col-12'tr>>" +
+            "<'row'<'col-6'i><'col-6'p>>", // order the control divs
+        "columns": [{
+                name: "chemical",
+                // "width": "70%",
+                "render": function (data, type, row) {
+                    return '<a href="/chemical/' + row[0] + '"' + ' title="Link to chemical" target="_blank">' + data + '</a>';
+                }
+            },
+            {
+                name: "sid",
+                // "width": "30%"
+            },
+            {
+                name: "true_chemname",
+                // "width": "30%"
+            },
+        ],
+        "initComplete": function (settings, json) {
+            $('#chemicals_filter input').unbind();
+            $('#chemicals_filter input').bind('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    chemicaltable.search(this.value).draw();
+                }
+            });
+        }
+    });
 });

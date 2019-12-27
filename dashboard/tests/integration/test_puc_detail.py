@@ -34,7 +34,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
 
     def test_puc_product_datatable(self):
         """
-        All the Products and Data Documents associated with the PUC 
+        All the Products, Chemicals, and Documents associated with the PUC 
         should be returned via ajax calls and included in the tables
         """
         puc = PUC.objects.get(pk=185)
@@ -62,5 +62,13 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
             "body butter (PLP) Recertification",
             self.browser.find_element_by_xpath(
                 "//*[@id='documents']/tbody/tr[1]/td[1]"
+            ).text,
+        )
+
+        # Chemicals
+        self.assertIn(
+            "DTXSID9022528",
+            self.browser.find_element_by_xpath(
+                "//*[@id='chemicals']/tbody/tr[1]/td[1]"
             ).text,
         )
