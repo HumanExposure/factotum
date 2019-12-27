@@ -154,3 +154,11 @@ class TestIntegration(StaticLiveServerTestCase):
             self.browser.find_element_by_xpath('//*[@id="id_weight_fraction_type"]')
         except NoSuchElementException:
             self.fail("Absence of weight_fraction_type element raised exception")
+
+    def test_search_pagination(self):
+        self.browser.get(self.live_server_url + "/search/datadocument/?q=d2F0ZXI=")
+        link = self.browser.find_elements_by_class_name("page-link").pop()
+        link.click()
+        self.assertIn(
+            "&page=", self.browser.current_url, "page parameter should be in URL"
+        )

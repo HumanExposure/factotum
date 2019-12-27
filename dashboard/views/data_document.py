@@ -106,7 +106,7 @@ class ChemUpdateView(UpdateView):
         return RawChem.objects.get_subclass(pk=obj.pk)
 
     def get_form_class(self):
-        code = self.object.extracted_text.data_document.data_group.group_type.code
+        code = self.object.extracted_text.group_type
         if code == "CO":
             return ExtractedChemicalForm
         if code == "CP":
@@ -126,9 +126,9 @@ class ChemUpdateView(UpdateView):
 
 @login_required()
 def save_doc_form(request, pk):
-    """Writes changes to the data document form 
-    
-    The request object should have a 'referer' key to redirect the 
+    """Writes changes to the data document form
+
+    The request object should have a 'referer' key to redirect the
     browser to the appropriate place after saving the edits
 
     Invoked by changing the document type in the data document detail view or the

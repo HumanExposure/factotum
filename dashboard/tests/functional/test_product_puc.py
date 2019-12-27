@@ -10,7 +10,7 @@ from dashboard.models import (
     ProductToPUC,
     ProductDocument,
 )
-from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
 from django.db.models import Count, Sum
 from dashboard.models.raw_chem import RawChem
 
@@ -190,7 +190,7 @@ class TestProductPuc(TestCase):
         duplicate_record = ProductToPUC(
             product=product, puc=puc, classification_method="MB"
         )
-        self.assertRaises(IntegrityError, duplicate_record.clean())
+        self.assertRaises(ValidationError, duplicate_record.full_clean)
 
     def test_product_puc_duplicate(self):
         product = Product.objects.get(pk=11)

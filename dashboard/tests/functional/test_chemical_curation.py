@@ -46,6 +46,7 @@ class ChemicalCurationTests(TestCase):
         rc = RawChem.objects.filter(dsstox_id__isnull=False).first()
         dg = rc.extracted_text.data_document.data_group
         response = self.client.get(f"/dl_raw_chems_dg/{dg.id}/", follow=True)
+        self.assertTrue(response.status_code == 200)
         resp = list(response.streaming_content)
         rc = RawChem.objects.filter(dsstox_id__isnull=False).first()
         rc_row = f'{rc.id},{rc.raw_cas},{rc.raw_chem_name},{rc.rid if rc.rid else ""},{rc.data_group_id}'

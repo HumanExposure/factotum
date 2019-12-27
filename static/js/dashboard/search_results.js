@@ -1,6 +1,8 @@
 $(document).ready(function () {
   $('input:checkbox').prop('checked', false);
   checkBoxes();
+});
+
 
 function addParam(v) {
   var page = window.location.search.indexOf('page=')

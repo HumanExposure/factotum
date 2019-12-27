@@ -59,7 +59,7 @@ class TestProductDetail(TestCase):
 
     def test_hover_definition(self):
         p = Product.objects.get(pk=11)
-        response = self.client.get(f"/product/{str(p.pk)}/")
+        response = self.client.get(f"/product/{p.pk}/")
         lxml = html.fromstring(response.content.decode("utf8"))
         for tag in p.get_puc_tags():
             elem = lxml.xpath(f'//li[@data-tag-name="{tag.name}"]')
@@ -78,7 +78,7 @@ class TestProductDetail(TestCase):
 
     def test_add_puc(self):
         p = Product.objects.get(pk=1864)
-        response = self.client.get(f"/product/{str(p.pk)}/").content.decode("utf8")
+        response = self.client.get(f"/product/{p.pk}/").content.decode("utf8")
         response_html = html.fromstring(response)
 
         self.assertTrue(
@@ -91,15 +91,17 @@ class TestProductDetail(TestCase):
             "There should be an Assign PUC button for this product",
         )
 
-        response = self.client.get(f"/product_puc/{str(p.pk)}/").content.decode("utf8")
+        response = self.client.get(f"/product_puc/{p.pk}/")
 
-        self.assertNotIn(
-            "Currently assigned PUC:", response, "Assigned PUC should not be visible"
+        self.assertNotContains(
+            response,
+            "Currently assigned PUC:",
+            msg_prefix="Assigned PUC should not be visible",
         )
         # Assign PUC 96
-        self.client.post(f"/product_puc/{str(p.pk)}/", {"puc": "96"})
+        self.client.post(f"/product_puc/{p.pk}/", {"puc": "96"})
 
-        response = self.client.get(f"/product_puc/{str(p.pk)}/?").content.decode("utf8")
+        response = self.client.get(f"/product_puc/{p.pk}/?").content.decode("utf8")
         self.assertIn(
             "Currently assigned PUC:", response, "Assigned PUC should be visible"
         )
@@ -111,7 +113,7 @@ class TestProductDetail(TestCase):
         )
 
         # Assign PUC 47, check that it replaces 96
-        self.client.post(f"/product_puc/{str(p.pk)}/", {"puc": "47"})
+        self.client.post(f"/product_puc/{p.pk}/", {"puc": "47"})
         self.assertTrue(
             ProductToPUC.objects.filter(product=p).filter(puc_id=47).exists(),
             "PUC link should be updated in table",
@@ -121,8 +123,9 @@ class TestProductDetail(TestCase):
             p.get_uber_puc() != None, "Product should now have an assigned PUC"
         )
 
-        response = self.client.get("/product/{str(p.pk)}/").content.decode("utf8")
-        response_html = html.fromstring(response)
+        response = self.client.get(f"/product/{p.pk}/")
+        self.assertTrue(response.status_code == 200)
+        response_html = html.fromstring(response.content.decode("utf8"))
 
         self.assertNotIn(
             "Assign PUC",

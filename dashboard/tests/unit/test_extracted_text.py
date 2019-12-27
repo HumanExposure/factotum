@@ -20,7 +20,7 @@ class ExtractedTest(TestCase):
             data_document=self.objects.doc,
             extraction_script=self.objects.script,
         )
-        self.assertRaises(ValidationError, text.clean())
+        self.assertRaises(ValidationError, text.clean_fields)
         # check validation not thrown for arbitrary date string less than 25 chars
         text = ExtractedText(
             doc_date="January 1984",
