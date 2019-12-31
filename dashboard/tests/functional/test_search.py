@@ -216,3 +216,21 @@ class TestSearch(TestCase):
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
         selector = soup.find_all(text="7732-18-5")[0]
         self.assertEqual(str(selector.parent), "<em>7732-18-5</em>")
+
+    def test_boosted_fields(self):
+        """
+        A search for "water" should score a document with "water" (or 
+        a synonym) in its chemicals' true chem names higher
+        than a document with "water" in its title. 
+        """
+        # The first result row should contain "True chemical name:"
+        qs = self._get_query_str("water")
+        resp = self.client.get("/search/datadocument/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        divs = soup.find_all("div", {"class": "resultrow"})
+        self.assertInHTML("True chemical name:", str(divs[0]))
+
+        # The example document 156624 with "water" only in its title
+        # should be all the way on the fifth page
+        resp = self.client.get("/search/datadocument/" + qs + "&page=5")
+        self.assertIn("/datadocument/156624/", str(resp.content))

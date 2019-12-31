@@ -1,6 +1,6 @@
 <!-- {{ result.hits.0 }} -->
 {% for hit in result.hits %}
-<div class="row pt-3 pb-3 border-bottom border-top">
+<div class="resultrow row pt-3 pb-3 border-bottom border-top">
     <div class="col-sm">
         <h5>
             <a href="{% url 'data_document' hit.id %}">
