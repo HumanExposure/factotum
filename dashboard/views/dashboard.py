@@ -39,6 +39,13 @@ def index(request):
         ProductToPUC.objects.values("product_id").distinct().count()
     )
     stats["product_with_puc_count_by_month"] = product_with_puc_count_by_month()
+
+    pucs = PUC.objects.with_num_products().filter(kind="FO").all().astree()
+    for puc_name, puc_obj in pucs.items():
+        puc_obj.cumnum_products = sum(
+            p.num_products for p in pucs.objects[puc_name].values()
+        )
+    stats["pucs"] = pucs
     return render(request, "dashboard/index.html", stats)
 
 

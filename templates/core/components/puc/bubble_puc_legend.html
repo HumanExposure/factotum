@@ -1,0 +1,122 @@
+<div class="card">
+    <div class="card-header text-center">
+        <h5><b>PUCs</b></h5>
+        <small class="card-text font-italic">
+            General Category - Product Family - Product Type
+        </small>
+    </div>
+    <div class="accordion" id="puc-accordion">
+        {% for leaf in pucs.children %}
+        <div id="card-{{ leaf.value.pk }}" class="card">
+            <!-- Level 1 -->
+            <div class="card-header-sm bg-light">
+                <div class="d-flex align-items-center">
+                    {% if leaf.children %}
+                        <button class="handle mr-2 btn btn-light shadow-none"
+                                data-toggle="collapse"
+                                data-target="#puc-{{ leaf.value.pk }}">
+                            <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                            <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                        </button>
+                    {% else %}
+                        <button class="hidden btn" disabled>
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </button>
+                        <span class="m-1"></span>
+                    {% endif %}
+                    <b>{{ leaf.name }}</b>
+                    <a href="{{ leaf.value.url }}"
+                       class="ml-2"
+                       title="PUC detail"
+                       data-toggle="tooltip"
+                       data-placement="top">
+                        <i class="fas fa-info-circle icon-secondary"></i>
+                    </a>
+                    <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                         data-gen-cat="{{ leaf.name }}">
+                        <b>{{ leaf.value.cumnum_products }}</b>
+                    </div>
+                </div>
+            </div>
+            <div id="puc-{{ leaf.value.pk }}"
+                class="collapse">
+                <div class="card-body p-0 puc-link"
+                    data-gen-cat="{{ leaf.name }}">
+                {% if leaf.children %}
+                <div class="accordion ml-3" id="accordion-{{ leaf.value.pk }}">
+                    {% for leaflet in leaf.children %}
+                    <div id="card-{{ leaflet.value.pk }}" class="card">
+                        <!-- Level 2 -->
+                        <div class="card-header-sm bg-light d-flex align-items-center">
+                            {% if leaflet.children %}
+                                <button class="handle mr-2 btn btn-light shadow-none"
+                                    data-toggle="collapse"
+                                    data-target="#accordion-{{ leaflet.value.pk }}">
+                                    <i class="fas fa-chevron-circle-right icon-secondary"></i>
+                                    <i class="fas fa-chevron-circle-down icon-secondary d-none"></i>
+                                </button>
+                            {% else %}
+                                <button class="hidden btn" disabled>
+                                    <i class="fas fa-chevron-circle-right"></i>
+                                </button>
+                                <span class="m-1"></span>
+                            {% endif %}
+                            <b>{{ leaflet.name }}</b>
+                            <a href="{{ leaflet.value.url }}"
+                            class="ml-2"
+                            title="PUC detail"
+                            data-toggle="tooltip"
+                            data-placement="top">
+                                <i class="fas fa-info-circle icon-secondary"></i>
+                            </a>
+                            <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                                  data-gen-cat="{{ leaf.name }}">
+                                <b>{{ leaflet.value.cumnum_products }}</b>
+                            </span>
+                        </div>
+                        <div id="accordion-{{ leaflet.value.pk }}"
+                            class="collapse">
+                            <div class="card-body p-0 puc-link"
+                                data-gen-cat="{{ leaf.name }}">
+                                {% if leaflet.children %}
+                                <div class="ml-3" id="accordion-{{ leaflet.value.pk }}">
+                                    {% for needle in leaflet.children %}
+                                    <div id="card-{{ needle.value.pk }}" class="card">
+                                        <div class="card-header-sm bg-light">
+                                            <div class="text-left d-flex align-items-center">
+                                                <span class="m-4"></span>
+                                                <b>{{ needle.name }}</b>
+                                                <a href="{{ needle.value.url }}"
+                                                    class="ml-2"
+                                                    title="PUC detail"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top">
+                                                    <i class="fas fa-info-circle icon-secondary"></i>
+                                                </a>
+                                                <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
+                                                      data-gen-cat="{{ leaf.name }}">
+                                                    <b>{{ needle.value.cumnum_products }}</b>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+        {% empty %}
+        <li class="list-group-item">
+            No PUCs are linked to this chemical
+        </li>
+        {% endfor %}
+    </div>
+</div>
+

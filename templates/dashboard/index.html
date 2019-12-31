@@ -65,9 +65,15 @@
         <svg id="collapsibletree" width="100%"></svg>
     </div>
 
-    <div class="row mt-5 mb-5">
-        <h4>Products Linked to PUCs</h4>
-        <svg id="nestedcircles" width="100%" height="500"></svg>
+    <h4 class="mt-5">Products Linked to PUCs</h4>
+    <div class="container d-flex p-0">
+        <div class="col-5">
+            {% include "core/components/puc/bubble_puc_legend.html" %}
+        </div>
+
+        <div class="col-7">
+            <svg id="nestedcircles" width="100%" height="500"></svg>
+        </div>
     </div>
 {% endblock %}
 
@@ -79,6 +85,7 @@
     <script src="{% static 'js/d3.v5.min.js' %}"></script>
     <script src="{% static 'js/d3-selection.v1.min.js' %}"></script>
     <script src="{% static 'js/bubble_chart.js' %}"></script>
+    <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
     <script src="{% static 'js/collapsible_tree.js' %}"></script>
     <script src="{% static 'js/dashboard/index.js' %}"></script>
 {% endblock %}

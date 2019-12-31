@@ -145,13 +145,13 @@ function nestedBubbleChart(width, height, dataurl) {
 
             const label = svg
                 .append("g")
-                .style("font", "14px sans-serif")
                 .attr("pointer-events", "none")
                 .attr("text-anchor", "middle")
                 .selectAll("text")
                 .data(root.descendants())
                 .join("text")
-                .style("fill-opacity", d => (d.parent === root ? 1 : 0))
+                .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
+                .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                 .style("display", d => (d.parent === root ? "inline" : "none"))
                 // Display the name with the cumulative count
                 .text(d => d.data.name + " (" + d.value + ")");
@@ -199,6 +199,7 @@ function nestedBubbleChart(width, height, dataurl) {
                         );
                     })
                     .transition(transition)
+                    .style("font", d => (d.parent === root ? "0px sans-serif" : "14px sans-serif"))
                     .style("fill-opacity", d => (d.parent === focus ? 1 : 0))
                     .on("start", function(d) {
                         if (d.parent === focus) this.style.display = "inline";

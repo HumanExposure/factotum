@@ -382,6 +382,15 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             num_pucs, len(bubbles), ("There should be a circle" "drawn for every PUC")
         )
 
+    def test_bubble_legend(self):
+        self.browser.get(self.live_server_url)
+        wait = WebDriverWait(self.browser, 10)
+        wait.until(ec.presence_of_element_located((By.ID, "puc-accordion")))
+        bubble_legend = self.browser.find_element_by_id("puc-accordion")
+        self.assertTrue(bubble_legend, "Bubble plot legend could not be found")
+        child_card = bubble_legend.find_element_by_xpath("//*[@id='puc-20']")
+        self.assertEqual(child_card.get_attribute("class"), "collapse")
+
     def test_collapsible_tree(self):
         pucs = PUC.objects.filter(kind="FO").astree()
         num_pucs = self._n_children(pucs)
