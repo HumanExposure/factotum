@@ -1,3 +1,5 @@
+import json
+
 from lxml import html
 
 from django.test import TestCase, tag
@@ -208,6 +210,21 @@ class DataGroupDetailTest(TestCase):
         self.objects.dg.save()
         response = self.client.get(f"/datagroup/{pk}/")
         self.assertNotContains(response, '<th class="text-center">Product</th>')
+
+    def test_detail_table_media_document_link(self):
+        dg = self.objects.dg
+        data_doc = DataDocument.objects.create(
+            data_group=dg, title="data_doc", filename="filename.pdf"
+        )
+        data_doc_with_dot = DataDocument.objects.create(
+            data_group=dg, title="data_doc_with_dot", filename="filename.2.pdf"
+        )
+        response = self.client.get(f"/datagroup/{dg.pk}/documents_table/")
+        self.assertEquals(response.status_code, 200)
+        response_content = json.loads(response.content.decode("utf-8"))["data"]
+        for content in response_content:
+            if content["id"] in [data_doc.pk, data_doc_with_dot.pk]:
+                self.assertTrue(content["fileext"] == ".pdf")
 
     def test_detail_datasource_link(self):
         pk = self.objects.dg.pk

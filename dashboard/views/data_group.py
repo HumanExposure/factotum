@@ -1,13 +1,12 @@
 import csv
-from djqscsv import render_to_csv_response
-from django.db.models import CharField, Exists, F, OuterRef, Value as V
-from django.db.models.functions import StrIndex, Substr
-from django.contrib.auth.decorators import login_required
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import Exists, F, OuterRef
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import pluralize
-from bulkformsets.serializers import CSVReader
+from djqscsv import render_to_csv_response
 
 from dashboard.forms import DataGroupForm, create_detail_formset
 from dashboard.forms.data_group import (
@@ -172,11 +171,7 @@ def data_group_documents_table(request, pk):
     docs = (
         DataDocument.objects.filter(data_group=dg)
         .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
-        .annotate(
-            fileext=Substr(
-                "filename", (StrIndex("filename", V("."))), output_field=CharField()
-            )
-        )
+        .annotate(fileext=F("filename"))
         .annotate(product_title=F("products__title"))
         .annotate(product_id=F("products__id"))
     )
@@ -201,6 +196,9 @@ def data_group_documents_table(request, pk):
         doc_vals = docs.values("id", "title", "matched", "fileext")
     else:
         doc_vals = docs.values("id", "title", "matched", "fileext", "extracted")
+    # Reduce file name to file extention
+    for doc in doc_vals:
+        doc["fileext"] = "." + doc["fileext"].split(".")[-1]
     return JsonResponse({"data": list(doc_vals)})
 
 
