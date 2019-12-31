@@ -56,6 +56,9 @@ def document_ajax(request):
             limits return set to products matching this puc
         ``global_search``
             limits return set to documents with titles matching search string
+        ``sid``
+            limits return set to documents associated with the curated chemical
+            whose DTXSID is the search string
     """
     columns = ["title", "data_group__group_type__title", "id"]
     start = int(request.GET.get("start", 0))
@@ -65,10 +68,17 @@ def document_ajax(request):
     order_column_name = columns[order_column]
     global_search = request.GET.get("search[value]", "")
     puc = request.GET.get("puc", "")
+    sid = request.GET.get("sid", "")
     if puc:
         all_objects = (
-            DataDocument.objects.filter(Q(products__puc=puc))
+            DataDocument.objects.filter(Q(products__puc__id=puc))
             .select_related("data_group__group_type")
+            .distinct()
+        )
+    elif sid:
+        all_objects = (
+            DataDocument.objects.filter(Q(extractedtext__rawchem__dsstox__sid=sid))
+            .select_related("dsstox")
             .distinct()
         )
     else:

@@ -222,26 +222,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         except NoSuchElementException:
             self.fail("Label for SU title does not exist.")
 
-    def test_cp_keyword_docs(self):
-        """
-        Test that a CP keyword/tag set contains a doc table with links to docs
-        """
-        chem_url = self.live_server_url + "/chemical/DTXSID9020584/"
-        self.browser.get(chem_url)
-
-        wait = WebDriverWait(self.browser, 10)
-        testKeywordSet = self.browser.find_element_by_xpath('//*[@id="keywords-4"]')
-
-        try:
-            testKeywordSet.click()
-            wait.until(
-                ec.element_to_be_clickable(
-                    (By.XPATH, "//*[@href='/datadocument/354787']")
-                )
-            )
-        except NoSuchElementException:
-            self.fail("Link does not exist.")
-
     def test_co_clean_comp_slider(self):
         dd_pk = 156051
         list_url = self.live_server_url + f"/datadocument/{dd_pk}/"
