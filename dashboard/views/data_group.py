@@ -205,7 +205,9 @@ def data_group_documents_table(request, pk):
 
 
 @login_required()
-def data_group_create(request, pk, template_name="data_group/datagroup_form.html"):
+def data_group_create(
+    request, pk, template_name="data_group/datagroup_create_form.html"
+):
     datasource = get_object_or_404(DataSource, pk=pk)
     group_key = DataGroup.objects.filter(data_source=datasource).count() + 1
     initial_values = {
@@ -254,16 +256,18 @@ def data_group_create(request, pk, template_name="data_group/datagroup_form.html
 
 
 @login_required()
-def data_group_update(request, pk, template_name="data_group/datagroup_form.html"):
+def data_group_update(
+    request, pk, template_name="data_group/datagroup_update_form.html"
+):
     datagroup = get_object_or_404(DataGroup, pk=pk)
     form = DataGroupForm(request.POST or None, instance=datagroup)
+    # Do not offer the chance to update the group type
+    form.fields.pop("group_type")
     if form.is_valid():
         if form.has_changed():
             form.save()
         return redirect("data_group_detail", pk=datagroup.id)
     form.referer = request.META.get("HTTP_REFERER", None)
-    # updated 07/03/2019 - now none of the group types should be allowed to change (was ones with extracted docs only)
-    form.fields["group_type"].disabled = True
     groups = GroupType.objects.all()
     for group in groups:
         group.codes = DocumentType.objects.compatible(group)

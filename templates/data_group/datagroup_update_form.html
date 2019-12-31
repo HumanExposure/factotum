@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="col-sm-12">
+        <span name="title">
+          {{ datagroup }}
+        </span>
+    </h2>
+    <h3 class="col-sm-12">
+        <span name="group_type">
+          {{ datagroup.group_type }}
+        </span>
+    </h3>
+    <div class="row">
+      <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {% include 'core/bs4_form.html' with form=form colspan='col-12'%}
+            {% if form.instance.pk %}
+            <div class="form-group col-6">
+                <label class="required" for="id_csv">
+                  Register Records CSV File:
+                </label>
+                <a href="/{{ media }}{{ form.instance.csv }}"
+                   target="_blank">
+                   {{ form.instance.csv_filename }}
+                   <i class="far fa-file" aria-hidden="true"></i>
+                </a>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
+            <a class="btn btn-secondary" href={% if form.referer %}
+                                              "{{ form.referer }}"
+                                              {% else %}
+                                              "{% url 'data_group_list' %}"
+                                              {% endif %}
+                                              name='cancel'>Cancel</a>
+        </form>
+        <br>
+      </div>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'bootstrap_datepicker_plus/js/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'bootstrap_datepicker_plus/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <script src="{% static 'bootstrap_datepicker_plus/js/datepicker-widget.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+    <link href="{% static 'bootstrap_datepicker_plus/css/bootstrap-datetimepicker.css' %}" type="text/css"
+          media="all" rel="stylesheet" />
+    <link href="{% static 'bootstrap_datepicker_plus/css/datepicker-widget.css' %}" type="text/css"
+          media="all" rel="stylesheet" />
+{% endblock %}

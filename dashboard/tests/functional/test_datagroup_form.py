@@ -62,59 +62,37 @@ class DataGroupFormTest(TestCase):
         self.assertContains(response, "Enter a valid URL")
 
     def test_detail_form_group_type(self):
-        # DG 6 has extracted docs, so group_type should be disabled, and a forced update should fail
+        # The group type should not be an editable field in the data group update page
         dg = DataGroup.objects.get(pk=6)
         response = self.client.get(f"/datagroup/edit/{str(dg.pk)}/").content.decode(
             "utf8"
         )
         response_html = html.fromstring(response)
+        group_type_field = response_html.xpath('//*[@id="id_group_type"]')
         self.assertTrue(
-            response_html.xpath('//*[@id="id_group_type"][@disabled]'),
-            "The group_type select box should be disabled",
+            group_type_field == [], "There should be no form field for group_type"
         )
+        group_type_before = dg.group_type
         response = self.client.post(
             f"/datagroup/edit/{dg.pk}/",
             {
                 "name": dg.name,
+                "description": "An edited data group",
                 "url": "http://www.epa.gov",
                 "group_type": dg.group_type_id + 1,
                 "downloaded_by": dg.downloaded_by_id,
                 "downloaded_at": dg.downloaded_at,
                 "data_source": dg.data_source_id,
             },
+            follow=True,
         )
 
         response_html = html.fromstring(response.content.decode("utf8"))
-        self.assertTrue(
-            response_html.xpath(
-                '//*[@id="id_group_type"]/following::div[@class="invalid-feedback"]'
-            ),
-            "Changing the group_type when extracted_docs exists should raise a ValidationError",
-        )
 
-        # Updated 07/03/2019 - Added a similar test for group type without extracted docs - now none of the group
-        # types are allowed to change
-
-        # DG 52 does not have extracted docs, so group_type should be disabled, and a forced update should fail
-        dg = DataGroup.objects.get(pk=52)
-        response = self.client.get(f"/datagroup/edit/{str(dg.pk)}/").content.decode(
-            "utf8"
-        )
-        response_html = html.fromstring(response)
-        self.assertTrue(
-            response_html.xpath('//*[@id="id_group_type"][@disabled]'),
-            "The group_type select box should be disabled",
-        )
-        response = self.client.post(
-            f"/datagroup/edit/{dg.pk}/", {"name": dg.name, "group_type_id": 2}
-        )
-
-        response_html = html.fromstring(response.content.decode("utf8"))
-        self.assertTrue(
-            response_html.xpath(
-                '//*[@id="id_group_type"]/following::div[@class="invalid-feedback"]'
-            ),
-            "Changing the group_type should raise a ValidationError",
+        self.assertEqual(
+            dg.group_type,
+            group_type_before,
+            "Submitting a different group_type in a POST should not change the object",
         )
 
     def test_register_records_header(self):
