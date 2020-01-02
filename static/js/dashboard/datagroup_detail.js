@@ -12,7 +12,7 @@ var ICON_MAP = new Map([
 ]);
 function renderDataTable(boolComp, boolHab, boolSD, fsid) {
     function renderTitle(data, type, row, meta) {
-        var icon = ICON_MAP.has(row.fileext) ? ICON_MAP.get(row.fileext) : "fa-file";
+        var icon = ICON_MAP.has(row.fileext.toLowerCase()) ? ICON_MAP.get(row.fileext.toLowerCase()) : "fa-file";
         if (row.matched) {
             return [
                 "<a ",
@@ -34,7 +34,7 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
         }
     }
     function renderTitleSD(data, type, row, meta) {
-        var icon = ICON_MAP.has(row.fileext) ? ICON_MAP.get(row.fileext) : "fa-file";
+        var icon = ICON_MAP.has(row.fileext.toLowerCase()) ? ICON_MAP.get(row.fileext.toLowerCase()) : "fa-file";
         if (row.matched) {
             return [
                 "<a ",

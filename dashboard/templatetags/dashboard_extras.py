@@ -21,7 +21,7 @@ ICON_MAP = {
 @register.filter
 def fileicon(value):
     _, ext = os.path.splitext(value)
-    return "fa-file" + ICON_MAP.get(ext, "")
+    return "fa-file" + ICON_MAP.get(ext.lower(), "")
 
 
 @register.filter(name="dict_key")
