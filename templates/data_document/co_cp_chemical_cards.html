@@ -160,7 +160,6 @@
                     <div class="col-6 text-left mt-auto">
                         <span id="component-{{ chemical.pk }}">{{ chemical.component|default:"" }}</span>
                     </div>
-                    {% if request.user.is_authenticated %}
                         <div class="col-6 text-right">
                             <small class="text-muted float-right font-italic">
                                 <a id="chemical-audit-log-{{ chemical.pk }}"
@@ -172,7 +171,6 @@
                                 </a>
                             </small>
                         </div>
-                    {% endif %}
                 </div>
             </div>
             </div>
@@ -235,6 +233,6 @@
              data-url="{% url 'chemical_create' doc.pk %}"></div>
         <div class="modal" id="chemical-update-modal" data-backdrop="static"
              data-url="{% url 'chemical_update' 47 %}"></div>
-        <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
     {% endif %}
+        <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
     </div>

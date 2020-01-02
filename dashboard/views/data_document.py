@@ -263,7 +263,6 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
     return redirect(url)
 
 
-@login_required
 def chemical_audit_log(request, pk):
     chemical = RawChem.objects.filter(pk=pk).select_subclasses().first()
     auditlog = AuditLog.objects.filter(
