@@ -14,6 +14,7 @@ from dashboard.models import (
     Product,
     ProductToPUC,
     RawChem,
+    GroupType,
 )
 
 
@@ -136,6 +137,28 @@ def product_with_puc_count_by_month():
                     i, {"product_count": "0", "puc_assigned_month": chart_month}
                 )
     return product_stats
+
+
+def grouptype_stats(request):
+    """Return a json representation of the stats for GroupType.
+    Returns:
+    json: { "data" : [[ title, documentcount ], [...], ], }
+    """
+    grouptype_rows = GroupType.objects.annotate(
+        documentcount=Count("datagroup__datadocument", distinct=True),
+        rawchemcount=Count(
+            "datagroup__datadocument__extractedtext__rawchem", distinct=True
+        ),
+    ).order_by("-documentcount")
+
+    return JsonResponse(
+        {
+            "data": [
+                [row.title, row.documentcount, row.rawchemcount]
+                for row in grouptype_rows
+            ]
+        }
+    )
 
 
 def download_PUCs(request):

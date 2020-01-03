@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("grouptype/stats/", views.grouptype_stats, name="grouptype_stats"),
     path("datasources/", views.data_source_list, name="data_source_list"),
     path("datasource/<int:pk>/", views.data_source_detail, name="data_source_detail"),
     path("datasource/new/", views.data_source_create, name="data_source_new"),
@@ -273,6 +274,5 @@ urlpatterns = [
         name="keywordset_documents",
     ),
 ]
-
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -97,6 +97,50 @@ class DashboardTest(TestCase):
             for i in range(len(json["children"])):
                 self._check_json_structure(json["children"][i], required_keys)
 
+    def test_grouptype_stats_table(self):
+        grouptypescount = GroupType.objects.all().count()
+
+        response = self.client.get(reverse("grouptype_stats"))
+        json_response_content = json.loads(response.content)
+
+        # Add a document and a rawchem to verify count increments.
+        DataDocument.objects.create(data_group=self.objects.dg)
+        RawChem.objects.create(extracted_text=self.objects.extext)
+        response_after_create = self.client.get(reverse("grouptype_stats"))
+        json_response_content_after_create = json.loads(response_after_create.content)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            len(json_response_content["data"]),
+            grouptypescount,
+            "All Group Types should be represented.",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][0],
+            "Composition",
+            "Values should be ordered by the number of related documents",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][1],
+            1,
+            "documentcount returned seems to be incorrect information",
+        )
+        self.assertEqual(
+            json_response_content["data"][0][2],
+            1,
+            "rawchemcount returned seems to be incorrect information",
+        )
+        self.assertEqual(
+            json_response_content_after_create["data"][0][1],
+            2,
+            "Adding a data document should increase documentcount",
+        )
+        self.assertEqual(
+            json_response_content_after_create["data"][0][2],
+            2,
+            "Adding a RawChem should increase rawchemcount",
+        )
+
     def test_PUCTag_download(self):
         """check the PUCTag that would be downloaded from the loader
         """
