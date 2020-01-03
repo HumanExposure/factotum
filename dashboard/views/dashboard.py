@@ -1,44 +1,34 @@
 import csv
 import datetime
 
-from dashboard.models import (
-    PUC,
-    DataDocument,
-    DataGroup,
-    DataSource,
-    DSSToxLookup,
-    ExtractedListPresenceTag,
-    Product,
-    ProductToPUC,
-    RawChem,
-)
 from dateutil.relativedelta import relativedelta
 from django.db.models import Count, DateField, DateTimeField, F
 from django.db.models.functions import Trunc
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
+from dashboard.models import (
+    PUC,
+    DataDocument,
+    ExtractedListPresenceTag,
+    Product,
+    ProductToPUC,
+    RawChem,
+)
+
 
 def index(request):
     stats = {}
-    stats["datagroup_count"] = DataGroup.objects.count()
-    stats["datasource_count"] = DataSource.objects.count()
-
     stats["datadocument_count"] = DataDocument.objects.count()
-    stats["datadocument_with_extracted_text_percent"] = (
-        DataDocument.objects.filter(extractedtext__isnull=False).count()
-        / DataDocument.objects.count()
-        * 100
-    )
-    stats["datadocument_count_by_date"] = datadocument_count_by_date()
-    stats["datadocument_count_by_month"] = datadocument_count_by_month()
     stats["product_count"] = Product.objects.count()
-    stats["dss_tox_count"] = DSSToxLookup.objects.count()
     stats["chemical_count"] = RawChem.objects.count()
     stats["product_with_puc_count"] = (
         ProductToPUC.objects.values("product_id").distinct().count()
     )
-    stats["product_with_puc_count_by_month"] = product_with_puc_count_by_month()
+    stats["curated_chemical_count"] = RawChem.objects.filter(
+        dsstox__isnull=False
+    ).count()
+    stats["dsstox_sid_count"] = RawChem.objects.values("dsstox__sid").distinct().count()
 
     pucs = PUC.objects.with_num_products().filter(kind="FO").all().astree()
     for puc_name, puc_obj in pucs.items():

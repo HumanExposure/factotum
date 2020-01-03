@@ -10,53 +10,77 @@
     <div class="card-deck">
         <div class="card text-center bg-light">
             <div class="card-body">
-                <h3 class="card-title text-muted">Sources</h3>
-                <div class="card-text font-weight-bold display-4">{{ datasource_count | intword }} </div>
-            </div>
-        </div>
-        <div class="card text-center bg-light">
-            <div class="card-body">
-                <h3 class="card-title text-muted">Groups</h3>
-                <div class="card-text font-weight-bold display-4">{{ datagroup_count | intword }} </div>
-            </div>
-        </div>
-        <div class="card text-center bg-light">
-            <div class="card-body">
                 <h3 class="card-title text-muted">Documents</h3>
-                <div class="card-text font-weight-bold display-4">{{ datadocument_count | intword }} </div>
+                <div class="card-text font-weight-bold display-4">
+                    {% if datadocument_count > 999999 %}
+                        {{ datadocument_count | intword }}
+                    {% else %}
+                        {{ datadocument_count | intcomma }}
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <div class="card text-center bg-light">
-            <div class="card-body">
-                <h3 class="card-title text-muted">Documents With Extracted Text</h3>
-                <div class="card-text font-weight-bold display-4">{{ datadocument_with_extracted_text_percent | intword }}%</div>
-            </div>
-        </div>
-    </div>
-    <div class="card-deck pt-2 mt-2">
         <div class="card text-center bg-light">
             <div class="card-body">
                 <h3 class="card-title text-muted">Products</h3>
-                <div class="card-text font-weight-bold display-4">{{ product_count | intword }} </div>
-            </div>
-        </div>
-        <div class="card text-center bg-light">
-            <div class="card-body">
-                <h3 class="card-title text-muted">Products Linked To PUC</h3>
-                <div name="product_with_puc_count"
-                     class="card-text font-weight-bold display-4">{{ product_with_puc_count | intword }} </div>
+                <div class="card-text font-weight-bold display-4">
+                    {% if product_count > 999999 %}
+                        {{ product_count | intword }}
+                    {% else %}
+                        {{ product_count | intcomma }}
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="card text-center bg-light">
             <div class="card-body">
                 <h3 class="card-title text-muted">Extracted Chemicals</h3>
-                <div class="card-text font-weight-bold display-4">{{ chemical_count | intword }}</div>
+                <div class="card-text font-weight-bold display-4">
+                    {% if chemical_count > 999999 %}
+                        {{ chemical_count | intword }}
+                    {% else %}
+                        {{ chemical_count | intcomma }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-deck pt-2 mt-2">
+        <div class="card text-center bg-light">
+            <div class="card-body">
+                <h3 class="card-title text-muted">Products Linked To PUCs</h3>
+                <div name="product_with_puc_count" class="card-text font-weight-bold display-4">
+                    {% if product_with_puc_count > 999999 %}
+                        {{ product_with_puc_count | intword }}
+                    {% else %}
+                        {{ product_with_puc_count | intcomma }}
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="card text-center bg-light">
             <div class="card-body">
-                <h3 class="card-title text-muted">DSS Tox Chemicals</h3>
-                <div class="card-text font-weight-bold display-4" name='dsstox'>{{ dss_tox_count | intword }}</div>
+                <h3 class="card-title text-muted">Curated Chemical Records</h3>
+                <div name="chemical_records" class="card-text font-weight-bold display-4">
+                    {% if curated_chemical_count > 999999 %}
+                        {{ curated_chemical_count | intword }}
+                    {% else %}
+                        {{ curated_chemical_count | intcomma }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card text-center bg-light">
+            <div class="card-body">
+                <h3 class="card-title text-muted">Unique DTXSIDs</h3>
+                <div class="card-text font-weight-bold display-4" name="dsstox">
+                    {% if dsstox_sid_count > 999999 %}
+                        {{ dsstox_sid_count | intword }}
+                    {% else %}
+                        {{ dsstox_sid_count | intcomma }}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

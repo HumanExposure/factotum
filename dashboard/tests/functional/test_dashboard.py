@@ -1,23 +1,18 @@
 import json
+
+from django.test import TestCase, tag
+from django.urls import resolve, reverse
 from lxml import html
 
-from django.urls import resolve, reverse
-from django.test import TestCase, tag
-
-from dashboard.tests.loader import load_model_objects, fixtures_standard
 from dashboard import views
-from dashboard.models import *
+from dashboard.models import PUCTag, PUCToTag, RawChem, ProductToPUC, Product, PUC
+from dashboard.tests.loader import load_model_objects, fixtures_standard
 
 
 @tag("loader")
 class DashboardTest(TestCase):
     def setUp(self):
         self.objects = load_model_objects()
-        # self.test_start = time.time()
-
-    # def tearDown(self):
-    #     self.test_elapsed = time.time() - self.test_start
-    #     print('\nFinished with ' + self._testMethodName + ' in {:.2f}s'.format(self.test_elapsed))
 
     def test_public_navbar(self):
         self.client.logout()
@@ -47,42 +42,6 @@ class DashboardTest(TestCase):
         )
         found = resolve("/qa/compextractionscript/")
         self.assertEqual(found.func, views.qa_extractionscript_index)
-
-    def test_percent_extracted_text_doc(self):
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("100%", extracted_doc_count)
-
-        # Add a Data Document with no related extracted record
-        dd = DataDocument.objects.create(
-            title="New Document",
-            data_group=self.objects.dg,
-            document_type=self.objects.dt,
-            filename="new_example.pdf",
-        )
-        dd.save()
-
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("50%", extracted_doc_count)
-
-        # Add an ExtractedText object
-        et = ExtractedText.objects.create(
-            data_document_id=dd.id, extraction_script=self.objects.exscript
-        )
-        et.save()
-        response = self.client.get("/").content.decode("utf8")
-        response_html = html.fromstring(response)
-        extracted_doc_count = response_html.xpath(
-            "/html/body/div[1]/div[1]/div[4]/div/div"
-        )[0].text
-        self.assertEqual("100%", extracted_doc_count)
 
     def test_PUC_download(self):
         puc = self.objects.puc
@@ -157,20 +116,16 @@ class DashboardTestWithFixtures(TestCase):
     def test_chemical_card(self):
         response = self.client.get("/").content.decode("utf8")
         self.assertIn(
-            "DSS Tox Chemicals", response, "Where is the DSS Tox Chemicals card???"
+            "Unique DTXSID", response, "Where is the DSS Tox Chemicals card???"
         )
         response_html = html.fromstring(response)
         num_dss = int(response_html.xpath('//*[@name="dsstox"]')[0].text)
-        dss_table_count = DSSToxLookup.objects.count()
+        dss_table_count = RawChem.objects.values("dsstox__sid").distinct().count()
         self.assertEqual(
             num_dss,
             dss_table_count,
-            "The number shown should match the number of records in DSSToxLookup",
+            "The number shown should match the number DSSToxLookup SIDs with a matching RawChem record",
         )
-
-
-class DashboardTestWithFixtures(TestCase):
-    fixtures = fixtures_standard
 
     def test_producttopuc_counts(self):
         response = self.client.get("/").content.decode("utf8")
@@ -181,10 +136,12 @@ class DashboardTestWithFixtures(TestCase):
         )
         response_html = html.fromstring(response)
 
-        chem_count = response_html.xpath(
-            '//div[@class="card-body" and contains(h3, "Extracted Chemicals")]/div'
-        )[0].text
-        self.assertEqual(str(RawChem.objects.count()), chem_count)
+        chem_count = int(
+            response_html.xpath(
+                '//div[@class="card-body" and contains(h3, "Extracted Chemicals")]/div'
+            )[0].text
+        )
+        self.assertEqual(RawChem.objects.count(), chem_count)
 
         num_prods = int(
             response_html.xpath('//*[@name="product_with_puc_count"]')[0].text
