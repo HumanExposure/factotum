@@ -5,7 +5,16 @@ from django.urls import resolve, reverse
 from lxml import html
 
 from dashboard import views
-from dashboard.models import PUCTag, PUCToTag, RawChem, ProductToPUC, Product, PUC
+from dashboard.models import (
+    PUCTag,
+    PUCToTag,
+    RawChem,
+    ProductToPUC,
+    Product,
+    PUC,
+    GroupType,
+    DataDocument,
+)
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 
 
