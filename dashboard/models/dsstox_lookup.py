@@ -1,11 +1,12 @@
+from collections import namedtuple
 from django.db import models
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
 from .common_info import CommonInfo
 from .product_document import ProductDocument
 from .PUC import PUC
+from .extracted_list_presence import ExtractedListPresence
 
 
 def validate_prefix(value):
@@ -23,7 +24,6 @@ def validate_blank_char(value):
 
 
 class DSSToxLookup(CommonInfo):
-
     sid = models.CharField(
         "DTXSID",
         max_length=50,
@@ -56,3 +56,33 @@ class DSSToxLookup(CommonInfo):
         for puc in pucs:
             titles += list(f for f in (puc.gen_cat, puc.prod_fam, puc.prod_type) if f)
         return len(set(titles))
+
+    def get_tag_sets(self):
+        qs = ExtractedListPresence.objects.filter(dsstox=self)
+        tagsets, presence_ids, doc_ids = [], [], []
+        for x in qs:
+            if x.tags.exists():
+                tagsets.append(tuple(x.tags.all()))
+                presence_ids.append(x.pk)
+                doc_ids.append(x.extracted_text.data_document_id)
+        one = {}
+        two = {}
+        for i, j in enumerate(tagsets):
+            if not two.get(hash(j)):
+                two[hash(j)] = []
+            one[hash(j)] = presence_ids[i]
+            two[hash(j)].append(doc_ids[i])
+        counter = set(tagsets)
+        KeywordSet = namedtuple("KeywordSet", "keywords count presence_id")
+        keysets = []
+        for kw_set in counter:
+            kw_hash = hash(kw_set)
+            if one[kw_hash]:
+                keysets.append(
+                    KeywordSet(
+                        keywords=kw_set,
+                        count=len(set(two[kw_hash])),
+                        presence_id=one[kw_hash],
+                    )
+                )
+        return keysets

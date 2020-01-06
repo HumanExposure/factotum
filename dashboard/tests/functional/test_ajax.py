@@ -5,7 +5,6 @@ from dashboard.tests.loader import fixtures_standard
 from dashboard.models import Product
 
 
-
 @override_settings(ALLOWED_HOSTS=["testserver"])
 class TestProductList(TestCase):
     fixtures = fixtures_standard
@@ -78,4 +77,3 @@ class TestProductList(TestCase):
             data["data"][0][0],
             "body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY)",
         )
-

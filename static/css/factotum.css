@@ -40,7 +40,9 @@ div.search-result-main{
 .dot-dg-UN {
     background-color: #2F4F4F;
 }
-
+.dot-dg-chem {
+    background-color: #000000;
+}
 .factotum-control-row{
     padding-left: 1em;
     padding-top: .5em;

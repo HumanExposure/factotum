@@ -87,11 +87,18 @@ class ChemicalDetail(TestCase):
     def test_cp_keyword_set(self):
         dss = DSSToxLookup.objects.get(sid="DTXSID9020584")
         response = self.client.get(dss.get_absolute_url())
-        self.assertGreater(
+        self.assertEqual(
             len(response.context["keysets"]),
-            0,
-            f"DSSTox pk={dss.pk} should return CP keyword sets in the context",
+            4,
+            f"DSSTox pk={dss.pk} should return 4 CP keyword sets in the context",
         )
+
+        for keyset in response.context["keysets"]:
+            self.assertEqual(
+                keyset.count,
+                1,
+                f"DSSTox pk={dss.pk} should keyword sets should all have 1 document associated with them",
+            )
 
     def test_anonymous_read(self):
         self.client.logout()

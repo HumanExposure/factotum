@@ -18,24 +18,7 @@ from dashboard.models import (
 
 def chemical_detail(request, sid):
     chemical = get_object_or_404(DSSToxLookup, sid=sid)
-    qs = ExtractedListPresence.objects.filter(dsstox=chemical)
-    tagsets, presence_ids = [], []
-    for x in qs:
-        if x.tags.exists():
-            tagsets.append(tuple(x.tags.all()))
-            presence_ids.append(x.pk)
-    one = {}
-    for i, j in enumerate(tagsets):
-        one[hash(j)] = presence_ids[i]
-    counter = Counter(tagsets)
-    KeywordSet = namedtuple("KeywordSet", "keywords count presence_id")
-    keysets = []
-    for kw_set, count in counter.items():
-        kw_hash = hash(kw_set)
-        if one[kw_hash]:
-            keysets.append(
-                KeywordSet(keywords=kw_set, count=count, presence_id=one[kw_hash])
-            )
+    keysets = chemical.get_tag_sets()
     pucs = PUC.objects.dtxsid_filter(sid).with_num_products().astree()
     # get parent PUCs too
     pucs.merge(

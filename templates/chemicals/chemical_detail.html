@@ -37,6 +37,33 @@
     </div>
 </div>
 
+{% if keysets|length > 0 %}
+
+    <div class="pb-2 d-flex flex-row">
+        <div class="col-lg-6">
+        &nbsp;<h6 class="text-left">Associated list presence keywords</h6>
+        <hr>
+        {% for keyset in keysets %}
+            <div class="pb-2 d-flex flex-column"
+               id="keywords-{{ forloop.counter }}"
+               data-presence-id={{ keyset.presence_id }}
+            >
+                <div class="p-2 m-1 border border-secondary flash rounded bg-light"
+                     title="Click for linked document list">
+                {% for tag in keyset.keywords %}
+                    <div class="btn border border-secondary bg-white mt-2">{{ tag }}</div>
+                {% endfor %}
+                <span class="dot dot-dg-chem float-right text-center ml-2">
+                    <small><b>{{ keyset.count }}</b></small>
+                </span>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+    &nbsp;<h6 class="text-left">No CP keyword sets associated with this chemical</h6>
+{% endif %}
 
 <div class="row col-12 pt-4" id="doc-table-div">
         <h4>Documents Associated with "{{ chemical.true_chemname }}"</h4>
