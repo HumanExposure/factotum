@@ -74,6 +74,20 @@ class TestSearch(TestCase):
         string = "DTXSID6026296"
         self.assertIn(string, str(response.content))
 
+    def test_pagination(self):
+        """
+        The results are paginated by the correct amount
+        """
+        qs = self._get_query_str("water")
+        response = self.client.get("/search/datadocument/" + qs)
+        response_html = html.fromstring(response.content.decode("utf8"))
+        element_count = len(
+            response_html.xpath(
+                '//*[contains(concat(" ", normalize-space(@class), " ")," resultrow ")]'
+            )
+        )
+        self.assertEqual(element_count, 40)
+
     def test_number_returned(self):
         # products
         qs = self._get_query_str("water")

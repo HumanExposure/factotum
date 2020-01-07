@@ -48,7 +48,7 @@ def search_model(request, model, template_name="search/base.html"):
     if not request.session.has_key("unique_counts"):
         get_model_counts(request, decoded_q)
 
-    result = run_query(decoded_q, model, size=10, facets=facets, page=page)
+    result = run_query(decoded_q, model, size=40, facets=facets, page=page)
     context = {
         "encoded_q": encoded_q,
         "decoded_q": decoded_q,
