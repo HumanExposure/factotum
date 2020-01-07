@@ -1,13 +1,12 @@
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.db.models import F
 from six import text_type
 
-from django.db import models
-from django.core.exceptions import ValidationError
-from django.db.models import F
-
-from .script import Script
-from .raw_chem import RawChem
-from .unit_type import UnitType
 from .common_info import CommonInfo
+from .raw_chem import RawChem
+from .script import Script
+from .unit_type import UnitType
 from .weight_fraction_type import WeightFractionType
 
 
@@ -150,6 +149,11 @@ class ExtractedChemical(CommonInfo, RawChem):
 
     @classmethod
     def detail_fields(cls):
+        """Lists the fields to be displayed on a detail form
+
+        Returns:
+            list -- a list of field names
+        """
         return [
             "extracted_text",
             "raw_chem_name",
@@ -163,6 +167,25 @@ class ExtractedChemical(CommonInfo, RawChem):
             "weight_fraction_type",
             "rawchem_ptr",
             "component",
+        ]
+
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return [
+            "raw_min_comp",
+            "raw_max_comp",
+            "raw_central_comp",
+            "unit_type_id",
+            "report_funcuse",
+            "ingredient_rank",
+            "lower_wf_analysis",
+            "central_wf_analysis",
+            "upper_wf_analysis"
         ]
 
     def get_datadocument_url(self):
@@ -224,20 +247,3 @@ class ExtractedChemical(CommonInfo, RawChem):
         'model_name' field
         """
         return "extractedchemical"
-
-    @property
-    def auditlog_fields(self):
-        return [
-            "raw_min_comp",
-            "raw_max_comp",
-            "raw_central_comp",
-            "unit_type_id",
-            "report_funcuse",
-            "ingredient_rank",
-            "lower_wf_analysis",
-            "central_wf_analysis",
-            "upper_wf_analysis",
-            "raw_cas",
-            "raw_chem_name",
-            "rid",
-        ]

@@ -1,7 +1,6 @@
+from django.db import models
 from model_utils import FieldTracker
 from model_utils.managers import InheritanceManager
-from django.db import models
-from django.apps import apps
 
 
 class RawChem(models.Model):
@@ -90,3 +89,15 @@ class RawChem(models.Model):
     @property
     def rendered_cas(self):
         return self.dsstox.true_cas if self.dsstox else self.raw_cas
+
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return ['raw_cas',
+                'raw_chem_name',
+                'rid',
+                'component']

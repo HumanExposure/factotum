@@ -80,3 +80,27 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         self.browser.get(qa_url)
         with self.assertRaises(NoSuchElementException):
             self.browser.find_element_by_name("skip")
+
+    def test_chemical_auditlog(self):
+        extracted_text = ExtractedText.objects.filter(pk__in=[156051, 354786])
+        for et in extracted_text:
+            list_url = self.live_server_url + f"/qa/extractedtext/{et.pk}/"
+            self.browser.get(list_url)
+            chem = et.rawchem.last()
+            self.browser.find_element_by_xpath(
+                f'//*[@id="chem-card-{chem.pk}"]'
+            ).click()
+
+            wait = WebDriverWait(self.browser, 10)
+            audit_link = wait.until(
+                EC.element_to_be_clickable(
+                    (By.XPATH, f"//*[@id='chemical-audit-log-{chem.pk}']")
+                )
+            )
+            self.assertIn("Last updated", audit_link.text)
+            audit_link.click()
+
+            datatable = wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//*[@id='audit-log']"))
+            )
+            self.assertIn("report_funcuse", datatable.text)

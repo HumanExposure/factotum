@@ -35,7 +35,7 @@
     raw_cas: 520-45-7
     raw_chem_name: Fictional acid
     temp_id: 6
-    temp_obj_name: ExtractedChemical
+    temp_obj_name: ExtractedFunctionalUse
     rid: DTXRID005
     dsstox: null
 - model: dashboard.rawchem

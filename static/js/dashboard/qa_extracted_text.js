@@ -1,68 +1,69 @@
-    $(document).ready(function () {
-        //toggleDetailEdit(unsaved);
-    });
+$(document).ready(function () {
+    //toggleDetailEdit(unsaved);
+});
 
-    function toggleDetailEdit(enable = true) {
-        // set the detail fields to editable
-        // show the notes box
-        if (enable) {
-            // enter edit mode
-            console.log("enabling editor");
-            // show the Save button 
-            $('#save').removeClass('disabled');
-            $('#save').show();
-            $('#btn-toggle-edit').addClass('btn-warning');
-            $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(false)");
-            // TODO: change the button's label to read "Stop Editing"
-            $('.detail-control').addClass('unlocked');
-            $('.detail-control').prop('disabled', false);
-            //$('.extext-control').addClass('unlocked');
-            //$('.extext-control').prop('disabled', false);
-        } else {
-            // exit edit mode
-            $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(true)");
-            // hide the Save button
-            $('#save').addClass('disabled');
-            $('#save').hide();
-            $('#btn-toggle-edit').removeClass('btn-warning');
-            $('.detail-control').removeClass('unlocked');
-            $('.detail-control').prop('disabled', true);
-            //$('.extext-control').removeClass('unlocked');
-            //$('.extext-control').prop('disabled', true);
-            //console.log("Has disabled class been added to controls?");
-            //console.log($('.detail-control').hasClass('disabled'));
+function toggleDetailEdit(enable = true) {
+    // set the detail fields to editable
+    // show the notes box
+    if (enable) {
+        // enter edit mode
+        console.log("enabling editor");
+        // show the Save button
+        $('#save').removeClass('disabled');
+        $('#save').show();
+        $('#btn-toggle-edit').addClass('btn-warning');
+        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(false)");
+        // TODO: change the button's label to read "Stop Editing"
+        $('.detail-control').addClass('unlocked');
+        $('.detail-control').prop('disabled', false);
+        //$('.extext-control').addClass('unlocked');
+        //$('.extext-control').prop('disabled', false);
+    } else {
+        // exit edit mode
+        $('#btn-toggle-edit').attr("onclick", "toggleDetailEdit(true)");
+        // hide the Save button
+        $('#save').addClass('disabled');
+        $('#save').hide();
+        $('#btn-toggle-edit').removeClass('btn-warning');
+        $('.detail-control').removeClass('unlocked');
+        $('.detail-control').prop('disabled', true);
+        //$('.extext-control').removeClass('unlocked');
+        //$('.extext-control').prop('disabled', true);
+        //console.log("Has disabled class been added to controls?");
+        //console.log($('.detail-control').hasClass('disabled'));
 
-        }
     }
-    // Save notes on submit
-    $('#qa-notes-form').on('submit', function (event) {
-        event.preventDefault();
-        console.log('submitting qa notes form')
-        console.log(  
-            $('#qa-notes-textarea').val()
-        )
-        save_qa_notes();
-    });
+}
+
+// Save notes on submit
+$('#qa-notes-form').on('submit', function (event) {
+    event.preventDefault();
+    console.log('submitting qa notes form')
+    console.log(
+        $('#qa-notes-textarea').val()
+    )
+    save_qa_notes();
+});
 
 
-
-    // AJAX for posting
+// AJAX for posting
 function save_qa_notes() {
-    console.log("save_qa_notes is running") 
+    console.log("save_qa_notes is running")
     $.ajax({
-        url : $('#qa-notes-form').attr( "action" ), // the endpoint
-        type : "POST", // http method
-        data : { qa_note_text : $('#qa-notes-textarea').val() ,
-                }, // data sent with the post request
+        url: $('#qa-notes-form').attr("action"), // the endpoint
+        type: "POST", // http method
+        data: {
+            qa_note_text: $('#qa-notes-textarea').val(),
+        }, // data sent with the post request
 
         // handle a successful response
-        success : function(json) {
+        success: function (json) {
             console.log(json); // log the returned json to the console
         },
 
         // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+        error: function (xhr, errmsg, err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
@@ -70,8 +71,7 @@ function save_qa_notes() {
 };
 
 
-
-$(function() {
+$(function () {
 
 
     // This function gets cookie with a given name
@@ -90,6 +90,7 @@ $(function() {
         }
         return cookieValue;
     }
+
     var csrftoken = getCookie('csrftoken');
 
     /*
@@ -100,6 +101,7 @@ $(function() {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
+
     function sameOrigin(url) {
         // test that a given url is a same-origin URL
         // url could be relative or scheme relative or absolute
@@ -115,7 +117,7 @@ $(function() {
     }
 
     $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
+        beforeSend: function (xhr, settings) {
             if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
                 // Send the token to same-origin, relative URLs only.
                 // Send the token only if the method warrants CSRF protection
@@ -125,4 +127,19 @@ $(function() {
         }
     });
 
+});
+
+$('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
+    $('[data-toggle]').tooltip('hide');
+    var modal = $(this);
+    $.ajax({
+        url: event.relatedTarget.href,
+        context: document.body,
+        error: function (response) {
+            alert(response.responseText);
+        }
+
+    }).done(function (response) {
+        modal.html(response);
+    });
 });

@@ -17,8 +17,8 @@
 - model: dashboard.extractedchemical
   pk: 3
   fields:
-    created_at: null
-    updated_at: null
+    created_at: !!timestamp '2019-04-08 07:01:07.897509'
+    updated_at: !!timestamp '2019-04-08 07:01:07.897509'
     raw_min_comp: '4'
     raw_max_comp: '7'
     unit_type: 2
@@ -29,8 +29,8 @@
 - model: dashboard.extractedchemical
   pk: 4
   fields:
-    created_at: null
-    updated_at: null
+    created_at: !!timestamp '2019-04-08 07:01:07.897509'
+    updated_at: !!timestamp '2019-04-08 07:01:07.897509'
     raw_min_comp: '4'
     raw_max_comp: '7'
     unit_type: 1
@@ -38,18 +38,6 @@
     weight_fraction_type: 1
     ingredient_rank: 1
     raw_central_comp: ''
-- model: dashboard.extractedchemical
-  pk: 5
-  fields:
-    created_at: 2018-09-06 07:16:07
-    updated_at: 2018-09-06 07:16:07
-    raw_min_comp: null
-    raw_max_comp: null
-    unit_type: 1
-    report_funcuse: surfactant
-    weight_fraction_type: 1
-    ingredient_rank: null
-    raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 6
   fields:
@@ -9053,8 +9041,8 @@
 - model: dashboard.extractedchemical
   pk: 856
   fields:
-    created_at: null
-    updated_at: null
+    created_at: !!timestamp '2019-04-08 07:01:07.897509'
+    updated_at: !!timestamp '2019-04-08 07:01:07.897509'
     raw_min_comp: null
     raw_max_comp: null
     unit_type: 1

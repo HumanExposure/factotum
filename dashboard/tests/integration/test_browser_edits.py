@@ -1,12 +1,13 @@
-from dashboard.tests.loader import fixtures_standard, load_browser
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from dashboard.models import DataDocument, ExtractedText, RawChem, DSSToxLookup, PUC
-
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 import time
+
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
+
+from dashboard.models import DataDocument, ExtractedText, RawChem, DSSToxLookup, PUC
+from dashboard.tests.loader import fixtures_standard, load_browser
 
 
 def log_karyn_in(object):
@@ -46,7 +47,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         for et in ets_with_curation:
             doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id("chem-card-1").click()
+            self.browser.find_element_by_id(f"chem-card-{et.rawchem.last().id}").click()
             rc_id = self.browser.find_element_by_id(
                 "id_rawchem-0-rawchem_ptr"
             ).get_attribute("value")
@@ -74,9 +75,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             rawchem__dsstox__isnull=False
         ).filter(pk=245401)
         for et in ets_with_curation:
-            doc_qa_link = f"/qa/extractedtext/%s/" % et.data_document_id
+            doc_qa_link = f"/qa/extractedtext/{et.data_document_id}/"
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id("chem-card-2").click()
+            self.browser.find_element_by_id(f"chem-card-None").click()
             self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
                 "\n"
             )
@@ -95,15 +96,27 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="id_rawchem-1-raw_min_comp"]'
             )
             raw_min_comp_input.send_keys("1")
+
+            raw_max_comp_input = self.browser.find_element_by_xpath(
+                '//*[@id="id_rawchem-1-raw_max_comp"]'
+            )
+            raw_min_comp_input.send_keys("1")
+            # # This time, set a unit_type
+            # unit_type_select = Select(
+            #     self.browser.find_element_by_xpath('//*[@id="id_rawchem-0-unit_type"]')
+            # )
+            # unit_type_select.select_by_index(0)
+
             # Save the edits
             save_button.send_keys("\n")
             # Check for the error message after clicking Save
-            wait.until(ec.visibility_of(self.browser.find_element_by_id("chem-card-2")))
-            self.browser.find_element_by_id("chem-card-2").click()
+            wait.until(ec.visibility_of(self.browser.find_element_by_id("chem-card-")))
+            self.browser.find_element_by_id("chem-card-").click()
             parent_div = self.browser.find_element_by_xpath(
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
             )
             card_div = parent_div.find_element_by_xpath("../..")
+            print(self.browser.find_element_by_xpath('//*[@id="id_rawchem-1-unit_type"]').get_attribute("innerHTML"))
             self.assertTrue(
                 "There must be a unit type if a composition value is provided."
                 in card_div.get_attribute("innerHTML")
@@ -111,7 +124,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
             # Try editing a new record correctly
             self.browser.get(self.live_server_url + doc_qa_link)
-            self.browser.find_element_by_id("chem-card-2").click()
+            self.browser.find_element_by_id("chem-card-None").click()
             self.browser.find_element_by_xpath('//*[@id="btn-toggle-edit"]').send_keys(
                 "\n"
             )
@@ -187,7 +200,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             254781,  # Chemical Presence List
             354783,  # HHE Report
         ]:
-
             # QA Page
             qa_url = self.live_server_url + f"/qa/extractedtext/{doc_id}/"
             self.browser.get(qa_url)
@@ -195,7 +207,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]'
             )
-            self.browser.find_element_by_id("chem-card-1").click()
+            self.browser.find_element_by_id(
+                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}").click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable
@@ -268,7 +281,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                    self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
             # print(self.browser.page_source)
@@ -367,9 +380,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind="FO")
-            .with_num_products()
-            .filter(num_products__gt=0)
-            .astree()
+                .with_num_products()
+                .filter(num_products__gt=0)
+                .astree()
         )
         num_pucs = self._n_children(pucs)
         self.browser.get(self.live_server_url)
@@ -409,10 +422,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         time.sleep(3)
         pucs = (
             PUC.objects.filter(kind="FO")
-            .dtxsid_filter(dss.sid)
-            .with_num_products()
-            .filter(num_products__gt=0)
-            .astree()
+                .dtxsid_filter(dss.sid)
+                .with_num_products()
+                .filter(num_products__gt=0)
+                .astree()
         )
         num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")

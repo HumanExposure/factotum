@@ -574,13 +574,16 @@ class TestDynamicDetailFormsets(TestCase):
         datasourceURL = "http://www.airgas.com/sds-search"
         self.assertContains(response, datasourceURL)
 
+
     def test_component_label(self):
         data_document = DataDocument.objects.get(pk=254781)
         rawchem = RawChem.objects.get(pk=759)
         component = rawchem.component
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
-        component_text = response_html.xpath(
-            f'//*[@id="component-{ rawchem.id }"]/text()'
-        ).pop()
-        self.assertEqual(component, component_text)
+        component_text = response_html.xpath(f'//*[@id="component-{ rawchem.id }"]/text()').pop()
+        self.assertEqual(
+            component,
+            component_text
+        )
+

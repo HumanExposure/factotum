@@ -108,7 +108,7 @@ class AuditLogTest(TestCase):
 
         # get audit logs
         logs = AuditLog.objects.all()
-        self.assertEquals(13, len(logs), "Should have log entries")
+        self.assertEquals(16, len(logs), "Should have log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -189,12 +189,28 @@ class AuditLogTest(TestCase):
             self.assertEquals("U", log.action, "Should be Update action")
         logs.delete()
 
+        # change component
+        for chem in chems:
+            chem.component = "A Changed Test Component"
+            chem.save()
+        logs = AuditLog.objects.all()
+        self.assertEquals(3, len(logs), "Should have log entries")
+        for log in logs:
+            self.assertEquals(log.model_name, "rawchem")
+            self.assertEquals("component", log.field_name)
+            self.assertEquals("Test Component", log.old_value)
+            self.assertEquals("A Changed Test Component", log.new_value)
+            self.assertIsNotNone(log.date_created)
+            self.assertIsNotNone(log.user_id)
+            self.assertEquals("U", log.action, "Should be Update action")
+        logs.delete()
+
         # delete chemicals
         for chemical in chems:
             chemical.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(36, len(logs), "Should have log entries")
+        self.assertEquals(39, len(logs), "Should have log entries")
         self.assertEquals(3, sum(log.field_name == "raw_min_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
@@ -209,6 +225,7 @@ class AuditLogTest(TestCase):
         self.assertEquals(3, sum(log.field_name == "raw_cas" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_chem_name" for log in logs))
         self.assertEquals(3, sum(log.field_name == "rid" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "component" for log in logs))
         for log in logs:
             self.assertIsNotNone(log.object_key)
             self.assertIsNotNone(log.model_name)
@@ -373,7 +390,8 @@ class AuditLogTest(TestCase):
         logs = AuditLog.objects.all()
         self.assertEquals(1, len(logs), "Should have log entries")
         for log in logs:
-            self.assertEquals(log.model_name, "extractedfuncationaluse")
+            print(":::" + log.model_name + ":::")
+            self.assertEquals(log.model_name, "extractedfunctionaluse")
             self.assertEquals(log.field_name, "report_funcuse")
             self.assertIsNotNone(log.new_value)
             self.assertEquals(log.new_value, "test func use")

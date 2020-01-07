@@ -29,13 +29,13 @@
     </ul>
     <div id="accordion">
         {% for form in detail_formset.forms %}
-            <div class="card">
+            <div class="card mb-2 chemical-card">
                 <div class="card-header">
                     <button class="btn btn-link mb-0 mt-0 float-left"
                             type="button"
-                            id="chem-card-{{ forloop.counter }}"
+                            id="chem-card-{{ form.rawchem_ptr.value }}"
                             data-toggle="collapse"
-                            data-target="#chem{{ forloop.counter }}"
+                            data-target="#chem{{ form.rawchem_ptr.value }}"
                             aria-expanded="true">
                         {% if form.instance.raw_chem_name %}
                             <span class="fas fa-flask"></span>
@@ -58,14 +58,14 @@
                 {% for field in form.hidden_fields %}
                     {{ field }}
                 {% endfor %}
-                <div id="chem{{ forloop.counter }}"
+                <div id="chem{{ form.rawchem_ptr.value }}"
                      class="collapse"
                      aria-labelledby="headingOne"
                      data-parent="#accordion">
                     <div class="card-body d-flex flex-wrap">
                         {% for field in form.visible_fields %}
 
-                            <div class="col-lg-4 mb-4">
+                            <div class="col-lg-4 {%  if not forloop.last %}mb-4{% endif %}">
                                 {{ field.label|capfirst }}
                                 {% if field.errors %}
                                     {{ field|add_class:"is-invalid detail-control form-control" }}
@@ -81,9 +81,17 @@
                         {% endfor %}
 
                     </div>
-                    <div class="card-footer text-muted text-right">
-                        {% if form.instance.updated_at %}
-                            Last updated: {{ form.instance.updated_at | timesince }} ago
+                    <div class="card-footer text-right">
+                        {% if form.instance.updated_at and form.rawchem_ptr.value %}
+                        <small class="text-muted float-right font-italic">
+                            <a id="chemical-audit-log-{{ form.rawchem_ptr.value  }}"
+                               title="audit log"
+                               href="{% url 'chemical_audit_log' form.rawchem_ptr.value  %}"
+                               data-toggle="modal"
+                               data-target="#chemical-audit-log-modal">
+                                Last updated: {{ form.instance.updated_at|timesince }} ago
+                            </a>
+                        </small>
                         {% endif %}
                     </div>
                 </div>
@@ -91,3 +99,5 @@
         {% endfor %}
     </div>
 </form>
+
+<div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>

@@ -1,10 +1,9 @@
+from django.db import models
 from six import text_type
 
-from django.db import models
-
-from .raw_chem import RawChem
 from .common_info import CommonInfo
 from .extracted_text import ExtractedText
+from .raw_chem import RawChem
 
 
 class ExtractedHHRec(CommonInfo, RawChem):
@@ -20,6 +19,11 @@ class ExtractedHHRec(CommonInfo, RawChem):
 
     @classmethod
     def detail_fields(cls):
+        """Lists the fields to be displayed on a detail form
+
+        Returns:
+            list -- a list of field names
+        """
         return [
             "raw_chem_name",
             "raw_cas",
@@ -28,6 +32,21 @@ class ExtractedHHRec(CommonInfo, RawChem):
             "num_nondetect",
             "sampling_method",
             "analytical_method",
+        ]
+
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return [
+            "media",
+            "sampling_method",
+            "analytical_method",
+            "num_measure",
+            "num_nondetect",
         ]
 
     def get_datadocument_url(self):
@@ -65,3 +84,11 @@ class ExtractedHHRec(CommonInfo, RawChem):
     @property
     def num_nondetect_label(self):
         return self.__get_label("num_nondetect")
+
+    @property
+    def auditlog_model_name(self):
+        """
+        Returns the string that is used in the AuditLog table in the
+        'model_name' field
+        """
+        return "extractedhhrec"

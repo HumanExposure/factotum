@@ -34,7 +34,21 @@ class ExtractedListPresence(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "report_funcuse", "component"]
+        return ["raw_cas",
+                "raw_chem_name",
+                "report_funcuse",
+                "component"]
+
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return [
+            "report_funcuse"
+        ]
 
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model
@@ -66,9 +80,6 @@ class ExtractedListPresence(CommonInfo, RawChem):
         """
         return "extractedlistpresence"
 
-    @property
-    def auditlog_fields(self):
-        return ["report_funcuse", "raw_cas", "raw_chem_name", "rid"]
 
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
@@ -123,3 +134,4 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
 
     def __str__(self):
         return self.name
+

@@ -268,7 +268,6 @@ def chemical_audit_log(request, pk):
     auditlog = AuditLog.objects.filter(
         object_key=pk,
         model_name__in=[chemical.auditlog_model_name, "rawchem"],
-        field_name__in=chemical.auditlog_fields,
     ).order_by("-date_created")
     return render(
         request,
