@@ -4,12 +4,3 @@ $(document).ready(function(){
     puc.style.backgroundColor = pucColors.get(gen_cat)
   })
 });
-
-$('.handle').on('click', function (e) {
-  $(this).find('svg').toggleClass('d-none');
-});
-
-$('div[id^="keywords-"]').on('click', e =>{
-  var pid = $(e.currentTarget).data('presence-id');
-  table.ajax.url( '/keywordset_documents/' + pid + '/' ).load();
-});

@@ -68,12 +68,12 @@ class TestProductList(TestCase):
         self.assertEquals(data["data"][0][0], "DTXSID9022528")
 
     def test_documents_by_sid(self):
-        response = self.client.get("/d_json/?puc=185")
+        response = self.client.get("/d_json/?sid=DTXSID9022528")
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
-        self.assertEquals(data["recordsTotal"], 3)
-        self.assertEquals(data["recordsFiltered"], 3)
+        self.assertEquals(data["recordsTotal"], 2)
+        self.assertEquals(data["recordsFiltered"], 2)
         self.assertEquals(
-            data["data"][0][0],
-            "body butter (PLP) Recertification / (ANHUA ZHOULI INDUSTRY)",
+            data["data"][1][0],
+            "The Healing Garden Rose Whipped Body Lotion Re... / (Ascendia Brands Co., Inc)",
         )
