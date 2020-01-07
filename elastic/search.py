@@ -198,7 +198,8 @@ def run_query(
             MultiMatch(query=q, fields=fields, type="most_fields", fuzziness="AUTO")
         )
     else:
-        s = s.query(MultiMatch(query=q, fields=fields, type="most_fields"))
+        # s = s.query(MultiMatch(query=q, fields=fields, type="most_fields"))
+        s = s.query(MultiMatch(query=q, fields=fields, type="cross_fields", tie_breaker="0.5"))
     # collapse on id_field
     dict_update = {}
     inner_hits = []
