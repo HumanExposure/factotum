@@ -64,7 +64,6 @@
                      data-parent="#accordion">
                     <div class="card-body d-flex flex-wrap">
                         {% for field in form.visible_fields %}
-
                             <div class="col-lg-4 {%  if not forloop.last %}mb-4{% endif %}">
                                 {{ field.label|capfirst }}
                                 {% if field.errors %}
@@ -79,7 +78,6 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
-
                     </div>
                     <div class="card-footer text-right">
                         {% if form.instance.updated_at and form.rawchem_ptr.value %}

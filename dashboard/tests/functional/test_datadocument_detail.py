@@ -574,7 +574,6 @@ class TestDynamicDetailFormsets(TestCase):
         datasourceURL = "http://www.airgas.com/sds-search"
         self.assertContains(response, datasourceURL)
 
-
     def test_component_label(self):
         data_document = DataDocument.objects.get(pk=254781)
         rawchem = RawChem.objects.get(pk=759)
@@ -586,4 +585,3 @@ class TestDynamicDetailFormsets(TestCase):
             component,
             component_text
         )
-

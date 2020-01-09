@@ -81,7 +81,6 @@ class ExtractedListPresence(CommonInfo, RawChem):
         return "extractedlistpresence"
 
 
-
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):
     """Many-to-many relationship between ExtractedListPresence and Tag
 
