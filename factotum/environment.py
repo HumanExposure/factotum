@@ -120,6 +120,13 @@ class MetaEnv(type):
             for k, v in entry.split("=")
         }
 
+    @property
+    def ENABLE_GOOGLE_ANALYTICS(cls):
+        default = False
+        return (
+            cls._get("ENABLE_GOOGLE_ANALYTICS", default, prefix=False) in cls.truevals
+        )
+
 
 class env(metaclass=MetaEnv):
     truevals = ("true", "True", "yes", "y", "1", "on", "ok", True)
