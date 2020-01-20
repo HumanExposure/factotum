@@ -2,6 +2,7 @@ version: "3.1"
 
 volumes:
   factotumstatic:
+  celeryfiletasks:
 
 
 services:
@@ -20,12 +21,11 @@ services:
       SQL_USER: ${SQL_USER:-dave}
       REINDEX_SCHEDULE: ${REINDEX_SCHEDULE:-30 1 * * * America/New_York}
 
-
   factotum:
     build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
     image: factotum
     restart: unless-stopped
-    environment:
+    environment: &factotum_env
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-*}
       DEBUG: ${DEBUG:-false}
       ELASTICSEARCH_HOST: elasticsearch
@@ -43,8 +43,13 @@ services:
       SQL_PASSWORD: ${SQL_PASSWORD:?must specify environment variable $SQL_PASSWORD}
       SQL_PORT: ${SQL_PORT:-3306}
       SQL_USER: ${SQL_USER:-dave}
+      REDIS_CACHE_DATABASE: ${REDIS_CACHE_DATABASE:-0}
+      REDIS_CELERY_DATABASE: ${REDIS_CELERY_DATABASE:-1}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT:-6379}
     volumes:
       - ${MEDIA_MOUNT:?must specify environment variable $MEDIA_MOUNT}:/app/media
+      - celeryfiletasks:/app/celeryfiles
       - factotumstatic:/app/collected_static
     depends_on:
       - elasticsearch
@@ -116,3 +121,29 @@ services:
       SQL_USER: ${SQL_USER:-dave}
     ports:
       - ${FACTOTUM_WS_PORT:-8001}:${FACTOTUM_WS_PORT:-8001}
+
+  celery:
+    build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
+    image: factotum
+    restart: unless-stopped
+    environment:
+      <<: *factotum_env
+    volumes:
+      - ${MEDIA_MOUNT}:/app/media
+      - celeryfiletasks:/app/celeryfiles
+    depends_on:
+      - elasticsearch
+    command: celery -A factotum worker
+
+  celery-beat:
+    build: https://github.com/HumanExposure/factotum.git#${FACTOTUM_BRANCH:-master}
+    image: factotum
+    restart: unless-stopped
+    environment:
+      <<: *factotum_env
+    volumes:
+      - ${MEDIA_MOUNT}:/app/media
+      - celeryfiletasks:/app/celeryfiles
+    depends_on:
+      - elasticsearch
+    command: celery -A factotum beat

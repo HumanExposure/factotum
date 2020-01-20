@@ -97,7 +97,4 @@ class RawChem(models.Model):
         Returns:
             list -- a list of field names
         """
-        return ['raw_cas',
-                'raw_chem_name',
-                'rid',
-                'component']
+        return ["raw_cas", "raw_chem_name", "rid", "component"]

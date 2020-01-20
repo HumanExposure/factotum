@@ -14,7 +14,7 @@ class CSVReader:
         fieldnames = kwargs.pop("fieldnames", None)
         if type(f.file) is io.StringIO:
             self.f = f
-        elif type(f.file) is io.BytesIO:
+        elif isinstance(f.file, io.BufferedIOBase):
             self.f = io.TextIOWrapper(f.file, encoding="utf-8-sig", newline="")
         else:
             raise ValueError("Unknown file type.")

@@ -266,8 +266,7 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
 def chemical_audit_log(request, pk):
     chemical = RawChem.objects.filter(pk=pk).select_subclasses().first()
     auditlog = AuditLog.objects.filter(
-        object_key=pk,
-        model_name__in=[chemical.auditlog_model_name, "rawchem"],
+        object_key=pk, model_name__in=[chemical.auditlog_model_name, "rawchem"]
     ).order_by("-date_created")
     return render(
         request,

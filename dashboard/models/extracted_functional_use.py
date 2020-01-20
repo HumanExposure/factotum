@@ -17,10 +17,7 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["extracted_text",
-                "raw_chem_name",
-                "raw_cas",
-                "report_funcuse"]
+        return ["extracted_text", "raw_chem_name", "raw_cas", "report_funcuse"]
 
     @classmethod
     def auditlog_fields(cls):
@@ -29,9 +26,7 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return [
-            "report_funcuse"
-        ]
+        return ["report_funcuse"]
 
     def get_extractedtext(self):
         return self.extracted_text
@@ -54,5 +49,3 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
         'model_name' field
         """
         return "extractedfunctionaluse"
-
-

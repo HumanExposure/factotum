@@ -1,13 +1,13 @@
+import crum
 import io
 
-from django.test import RequestFactory, TestCase, Client
+from django.test import RequestFactory, Client
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
-from django.db import connection
 
-from dashboard import views
+from celery.result import AsyncResult
+from celery_djangotest.unit import TransactionTestCase
+
 from dashboard.models import (
     DataDocument,
     DataGroup,
@@ -34,7 +34,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
-class AuditLogTest(TestCase):
+class AuditLogTest(TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
         "01_lookups.yaml",
@@ -54,8 +54,8 @@ class AuditLogTest(TestCase):
         }
         self.c = Client()
         self.factory = RequestFactory()
-        self.c.login(username="Karyn", password="specialP@55word")
-        connection.cursor().execute("SET @current_user = %s", [1])
+        self.user = User.objects.get(username="Karyn")
+        self.c.force_login(self.user)
 
     def generate_valid_chem_csv(self):
         csv_string = (
@@ -89,22 +89,12 @@ class AuditLogTest(TestCase):
             "extfile-extraction_script": 5,
             "extfile-weight_fraction_type": 1,
             "extfile-submit": "Submit",
+            "extfile-bulkformsetfileupload": self.generate_valid_chem_csv(),
         }
         req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/6/", data=req_data)
-        req.user = User.objects.get(username="Karyn")
-
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-
-        # upload chem
-        req.FILES["extfile-bulkformsetfileupload"] = self.generate_valid_chem_csv()
-        resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(resp, "3 extracted records uploaded successfully.")
+        with crum.impersonate(self.user):
+            resp = self.c.post("/datagroup/6/", req_data)
+        AsyncResult(resp.context["task_id"]).wait()
 
         # get audit logs
         logs = AuditLog.objects.all()
@@ -247,22 +237,16 @@ class AuditLogTest(TestCase):
         )
 
         # upload file
-        usr = User.objects.get(username="Karyn")
         in_mem_sample_csv = make_upload_csv("sample_files/presence_good.csv")
-        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data = {
+            "extfile-extraction_script": 5,
+            "extfile-submit": "Submit",
+            "extfile-bulkformsetfileupload": in_mem_sample_csv,
+        }
         req_data.update(self.mng_data)
-        req = self.factory.post("/datagroup/49/", data=req_data)
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = usr
-
-        resp = views.data_group_detail(request=req, pk=49)
-        self.assertContains(resp, "3 extracted records uploaded successfully.")
+        with crum.impersonate(self.user):
+            resp = self.c.post("/datagroup/49/", req_data)
+        AsyncResult(resp.context["task_id"]).wait()
 
         logs = AuditLog.objects.all()
         self.assertEquals(8, len(logs), "Should have log entries")
@@ -343,25 +327,15 @@ class AuditLogTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
+        req_data = {
+            "extfile-extraction_script": 5,
+            "extfile-submit": "Submit",
+            "extfile-bulkformsetfileupload": in_mem_sample_csv,
+        }
         req_data.update(self.mng_data)
-        req = self.factory.post("/datagroup/50/", data=req_data)
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        self.assertEqual(
-            len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
-            0,
-            "Empty before upload.",
-        )
-        # Now get the response
-        resp = views.data_group_detail(request=req, pk=50)
-        self.assertContains(resp, "1 extracted record uploaded successfully.")
+        with crum.impersonate(self.user):
+            resp = self.c.post("/datagroup/50/", req_data)
+        AsyncResult(resp.context["task_id"]).wait()
 
         self.assertEqual(
             len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
@@ -390,7 +364,6 @@ class AuditLogTest(TestCase):
         logs = AuditLog.objects.all()
         self.assertEquals(1, len(logs), "Should have log entries")
         for log in logs:
-            print(":::" + log.model_name + ":::")
             self.assertEquals(log.model_name, "extractedfunctionaluse")
             self.assertEquals(log.field_name, "report_funcuse")
             self.assertIsNotNone(log.new_value)

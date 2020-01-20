@@ -185,7 +185,7 @@ class ExtractedChemical(CommonInfo, RawChem):
             "ingredient_rank",
             "lower_wf_analysis",
             "central_wf_analysis",
-            "upper_wf_analysis"
+            "upper_wf_analysis",
         ]
 
     def get_datadocument_url(self):

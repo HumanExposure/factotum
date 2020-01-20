@@ -116,7 +116,11 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
             )
             card_div = parent_div.find_element_by_xpath("../..")
-            print(self.browser.find_element_by_xpath('//*[@id="id_rawchem-1-unit_type"]').get_attribute("innerHTML"))
+            print(
+                self.browser.find_element_by_xpath(
+                    '//*[@id="id_rawchem-1-unit_type"]'
+                ).get_attribute("innerHTML")
+            )
             self.assertTrue(
                 "There must be a unit type if a composition value is provided."
                 in card_div.get_attribute("innerHTML")
@@ -208,7 +212,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="btn-toggle-edit"]'
             )
             self.browser.find_element_by_id(
-                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}").click()
+                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}"
+            ).click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable
@@ -281,7 +286,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                    self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
             # print(self.browser.page_source)
@@ -380,9 +385,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind="FO")
-                .with_num_products()
-                .filter(num_products__gt=0)
-                .astree()
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
         )
         num_pucs = self._n_children(pucs)
         self.browser.get(self.live_server_url)
@@ -422,10 +427,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         time.sleep(3)
         pucs = (
             PUC.objects.filter(kind="FO")
-                .dtxsid_filter(dss.sid)
-                .with_num_products()
-                .filter(num_products__gt=0)
-                .astree()
+            .dtxsid_filter(dss.sid)
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
         )
         num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")

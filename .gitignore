@@ -154,3 +154,5 @@ src/
 /chromedriver.exe
 
 /collected_static
+/celeryfiles
+/celerybeat-schedule.db

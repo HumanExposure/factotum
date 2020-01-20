@@ -1,13 +1,12 @@
 import io
 import bs4
 
-from django.test import RequestFactory, TestCase, Client
-from django.contrib.auth.models import User
+from django.test import RequestFactory, Client
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
 
-from dashboard import views
+from celery.result import AsyncResult
+from celery_djangotest.integration import TransactionTestCase
+
 from dashboard.models import (
     ExtractedText,
     DataDocument,
@@ -35,7 +34,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
-class UploadExtractedFileTest(TestCase):
+class UploadExtractedFileTest(TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
         "01_lookups.yaml",
@@ -123,10 +122,14 @@ class UploadExtractedFileTest(TestCase):
         )
         return in_mem_sample_csv
 
+    def get_results(self, task_id):
+        AsyncResult(task_id).wait(propagate=False)
+        return self.c.get(f"/api/tasks/{task_id}/")
+
     def test_chem_upload(self):
         # create a matched-but-not-extracted document
         # so that uploading ExtractedText is an option
-        dd = DataDocument.objects.create(
+        DataDocument.objects.create(
             filename="fake.pdf",
             title="Another unextracted document",
             matched=True,
@@ -142,7 +145,6 @@ class UploadExtractedFileTest(TestCase):
         self.assertTrue("extfile_formset" in resp.context)
         self.assertContains(resp, 'name="cleancomp-script_id"')
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
-        selector = soup.find_all(attrs={"name": "extfile-extraction_script"})[0]
 
         # The options should include "Home Depot (extraction)"
         hd = soup.find_all(string="Home Depot (extraction)")
@@ -159,18 +161,10 @@ class UploadExtractedFileTest(TestCase):
             "extfile-submit": "Submit",
         }
         req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/6/", data=req_data)
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        req.FILES["extfile-bulkformsetfileupload"] = self.generate_invalid_chem_csv()
-        # get error in response
+        req_data["extfile-bulkformsetfileupload"] = self.generate_invalid_chem_csv()
+        resp = self.c.post("/datagroup/6/", req_data)
+        resp = self.get_results(resp.context["task_id"])
         text_count = ExtractedText.objects.all().count()
-        resp = views.data_group_detail(request=req, pk=6)
         self.assertContains(resp, "must be 1:1")
         self.assertContains(resp, "were not found for this data group")
         self.assertContains(resp, "There must be a unit type")
@@ -181,7 +175,6 @@ class UploadExtractedFileTest(TestCase):
             text_count, post_text_count, "Shouldn't have extracted texts uploaded"
         )
         # Now get the success response
-        req.FILES["extfile-bulkformsetfileupload"] = self.generate_valid_chem_csv()
         doc_count = DataDocument.objects.filter(
             raw_category="aerosol hairspray"
         ).count()
@@ -190,8 +183,10 @@ class UploadExtractedFileTest(TestCase):
         self.assertTrue(
             doc_count == 0, "DataDocument raw category shouldn't exist yet."
         )
-        resp = views.data_group_detail(request=req, pk=6)
-        self.assertContains(resp, "4 extracted records uploaded successfully.")
+        req_data["extfile-bulkformsetfileupload"] = self.generate_valid_chem_csv()
+        resp = self.c.post("/datagroup/6/", req_data)
+        resp = self.get_results(resp.context["task_id"])
+        self.assertContains(resp, '"result": 4,')
         new_rawchem_count = RawChem.objects.filter().count()
         new_extractedchemical_count = ExtractedChemical.objects.filter().count()
         self.assertTrue(
@@ -226,21 +221,13 @@ class UploadExtractedFileTest(TestCase):
         self.assertEqual(
             len(ExtractedCPCat.objects.all()), 0, "Should be empty before upload."
         )
-        usr = User.objects.get(username="Karyn")
         # test for error to be propagated w/o a 1:1 match of ExtCPCat to DataDoc
         in_mem_sample_csv = make_upload_csv("sample_files/presence_cpcat.csv")
         req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
-        req = self.factory.post("/datagroup/49/", data=req_data)
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = usr
-        resp = views.data_group_detail(request=req, pk=49)
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        resp = self.c.post("/datagroup/49/", req_data)
+        resp = self.get_results(resp.context["task_id"])
         self.assertContains(resp, "must be 1:1")
         self.assertEqual(
             len(ExtractedCPCat.objects.all()),
@@ -249,8 +236,9 @@ class UploadExtractedFileTest(TestCase):
         )
         # test for error to propogate w/ too many chars in a field
         in_mem_sample_csv = make_upload_csv("sample_files/presence_chars.csv")
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        resp = views.data_group_detail(request=req, pk=49)
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        resp = self.c.post("/datagroup/49/", req_data)
+        resp = self.get_results(resp.context["task_id"])
         self.assertContains(resp, "Ensure this value has at most 50 characters")
         self.assertEqual(
             len(ExtractedCPCat.objects.all()),
@@ -259,9 +247,10 @@ class UploadExtractedFileTest(TestCase):
         )
         # test that upload works successfully...
         in_mem_sample_csv = make_upload_csv("sample_files/presence_good.csv")
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        resp = views.data_group_detail(request=req, pk=49)
-        self.assertContains(resp, "3 extracted records uploaded successfully.")
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
+        resp = self.c.post("/datagroup/49/", req_data)
+        resp = self.get_results(resp.context["task_id"])
+        self.assertContains(resp, '"result": 3,')
 
         doc_count = DataDocument.objects.filter(
             raw_category="list presence category"
@@ -309,23 +298,16 @@ class UploadExtractedFileTest(TestCase):
         )
         req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
-        req = self.factory.post("/datagroup/50/", data=req_data)
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         self.assertEqual(
             len(ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)),
             0,
             "Empty before upload.",
         )
         # Now get the response
-        resp = views.data_group_detail(request=req, pk=50)
-        self.assertContains(resp, "1 extracted record uploaded successfully.")
+        resp = self.c.post("/datagroup/50/", req_data)
+        resp = self.get_results(resp.context["task_id"])
+        self.assertContains(resp, '"result": 1,')
 
         doc_count = DataDocument.objects.filter(raw_category="raw PUC").count()
         self.assertTrue(
@@ -362,21 +344,14 @@ class UploadExtractedFileTest(TestCase):
         )
         req_data = {"extfile-extraction_script": 5, "extfile-submit": "Submit"}
         req_data.update(self.mng_data)
-        req = self.factory.post("/datagroup/49/", data=req_data)
-        req.FILES["extfile-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
+        req_data["extfile-bulkformsetfileupload"] = in_mem_sample_csv
         self.assertEqual(
             len(ExtractedCPCat.objects.filter(pk=dd_id)), 0, "Empty before upload."
         )
         # Now get the response
-        resp = views.data_group_detail(request=req, pk=49)
-        self.assertContains(resp, "1 extracted record uploaded successfully.")
+        resp = self.c.post("/datagroup/49/", req_data)
+        resp = self.get_results(resp.context["task_id"])
+        self.assertContains(resp, '"result": 1,')
 
         self.assertEqual(
             len(ExtractedCPCat.objects.filter(pk=dd_id)),

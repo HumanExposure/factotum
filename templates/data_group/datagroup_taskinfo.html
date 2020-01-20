@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-sm-12 text-secondary text-center">
+    <div class="spinner-border formtask-spinner text-secondary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 text-center mt-2">
+    <h3 class="formtask-status">This is a test...</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 text-secondary text-center">
+    <p><small><strong>Last updated: </strong><span class="formtask-time">12/20/19 9:21pm</span></small></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 text-center mt-5">
+    <button type="button" class="btn btn-danger btn-lg formtask-err-btn" data-toggle="modal" data-target="#formset-error-modal">View Errors</button>
+  </div>
+</div>
+
+<div class="modal fade formtask-error-modal" tabindex="-1" role="dialog" aria-labelledby="uploadErrors" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload errors</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <p><span class="font-weight-bold formtask-error-exctype"></span>: <span class="formtask-error-excmsg"></span></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 formtask-error-form">
+          </div>
+        </div>
+        <div class="row formtask-error-traceback">
+          <div class="col-sm-12">
+            <pre class="pre-scrollable bg-light" style="line-height:1;"><small><code class="formtask-error-tracebackmsg"></code></small></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 text-center mt-5">
+    <button type="button" class="btn btn-outline-secondary btn-sm formtask-del-btn">Dismiss</button>
+  </div>
+</div>
+

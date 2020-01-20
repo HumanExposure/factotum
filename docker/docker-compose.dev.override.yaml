@@ -39,3 +39,7 @@ services:
       SQL_HOST: ${SQL_HOST:-host.docker.internal}
     ports:
       - ${LOGSTASH_PORT:-5959}:${LOGSTASH_PORT:-5959}/udp
+
+  redis:
+    ports:
+      - ${REDIS_PORT:-6379}:${REDIS_PORT:-6379}

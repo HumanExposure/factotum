@@ -27,7 +27,6 @@ from dashboard.models import (
     DataDocument,
     AuditLog,
     DataGroup,
-
 )
 from dashboard.utils import gather_errors
 from factotum.settings import MEDIA_URL
@@ -99,22 +98,12 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
 
     if dg.include_extract_form():
         if "extfile-submit" in request.POST:
-            formset = ExtractFileFormSet(dg, request.POST, request.FILES)
-            context["extfile_formset"] = ExtractFileFormSet(dg, request.POST)
-            if formset.is_valid():
-                num_saved = formset.save()
-                messages.success(
-                    request,
-                    "%d extracted record%s uploaded successfully."
-                    % (num_saved, pluralize(num_saved)),
-                )
-                context["tabledata"]["numextracted"] = (dg.extracted_docs(),)
-            else:
-                errors = gather_errors(formset)
-                for e in errors:
-                    messages.error(request, e)
+            formset = ExtractFileFormSet(request.POST, request.FILES, dgpk=dg.pk)
+            context["extfile_formset"] = ExtractFileFormSet(request.POST, dgpk=dg.pk)
+            async_result = formset.enqueue(f"extfile_formset.{dg.pk}")
+            context["task_id"] = async_result.id
         else:
-            context["extfile_formset"] = ExtractFileFormSet(dg)
+            context["extfile_formset"] = ExtractFileFormSet(dgpk=dg.pk)
 
     if dg.include_clean_comp_data_form():
         if "cleancomp-submit" in request.POST:

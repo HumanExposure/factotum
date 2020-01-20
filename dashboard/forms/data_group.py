@@ -14,8 +14,9 @@ from django.db.models import CharField, Value as V
 
 from django.db.models.functions import Cast, Concat
 
-from bulkformsets import BaseBulkFormSet, CSVReader, csvmodelformset_factory
-from django.forms import ModelForm
+from bulkformsets import BaseBulkFormSet, CSVReader
+from celery_formtask.forms import FormTaskMixin
+
 from dashboard.models import (
     DataDocument,
     Product,
@@ -97,7 +98,7 @@ class UploadDocsForm(forms.Form):
 
 class ProductCSVForm(forms.Form):
     """ A form based on the Product object
-    but with the addition of data_document_id and 
+    but with the addition of data_document_id and
     data_document_filename fields
     """
 
@@ -122,13 +123,13 @@ class ProductCSVForm(forms.Form):
 
 class ProductBulkCSVFormSet(DGFormSet):
     """
-    Multiple products can be created for a single document. 
-    If user attempts to upload product data for a document 
-    which already has an associated product, a new product 
-    is created with the newly uploaded data (rather than 
-    trying to insert data into the existing product record). 
-    If a user uploads a product file which includes multiple 
-    rows for a single data document ID, each row should be 
+    Multiple products can be created for a single document.
+    If user attempts to upload product data for a document
+    which already has an associated product, a new product
+    is created with the newly uploaded data (rather than
+    trying to insert data into the existing product record).
+    If a user uploads a product file which includes multiple
+    rows for a single data document ID, each row should be
     assumed to be a different product for that document
     """
 
@@ -280,14 +281,15 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
         obj.validate_unique()
 
 
-class ExtractFileFormSet(DGFormSet):
+class ExtractFileFormSet(FormTaskMixin, DGFormSet):
     prefix = "extfile"
     header_fields = ["weight_fraction_type", "extraction_script"]
     serializer = CSVReader
 
-    def __init__(self, dg, *args, **kwargs):
+    def __init__(self, *args, dgpk=None, **kwargs):
         # We seem to be doing nothing with DataDocument.filename even though it's
         # being collected.
+        dg = DataGroup.objects.get(pk=dgpk)
         self.dg = dg
         if dg.type == "FU":
             self.form = FunctionalUseExtractFileForm
@@ -305,7 +307,7 @@ class ExtractFileFormSet(DGFormSet):
             (str(s.pk), str(s))
             for s in Script.objects.filter(script_type="EX").filter(qa_begun=False)
         ]
-        super().__init__(*args, **kwargs)
+        super().__init__(*args, dgpk=dgpk, ignored_kwargs=["dgpk"], **kwargs)
 
     def clean(self):
         validation_errors = []
@@ -448,7 +450,6 @@ class ExtractFileFormSet(DGFormSet):
             data["child"] = child
 
     def save(self):
-        now = datetime.now()
         datadocuments = [
             f.cleaned_data["datadocument"]
             for f in self.forms

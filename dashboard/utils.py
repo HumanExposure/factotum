@@ -376,7 +376,7 @@ def get_missing_ids(Model, ids):
         ids: a sequence of integers represent the IDs to look up
 
     Optional args:
-        filter: 
+        filter:
 
     Returns:
         A list of IDs not in the database
@@ -400,7 +400,6 @@ def inheritance_bulk_create(models):
     Note that this handles less edge cases than the official
     bulk_create. For relatively simple models this will work well though.
     """
-
     model_class = models[0]._meta.model
     # The "chain" is a list of models leading up to and including the provided model
     chain = model_class._meta.get_parent_list() + [model_class]

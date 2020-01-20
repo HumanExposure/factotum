@@ -82,6 +82,26 @@ class MetaEnv(type):
         return cls._get("ELASTICSEARCH_PORT", default)
 
     @property
+    def REDIS_CACHE_DATABASE(cls):
+        default = "0"
+        return cls._get("REDIS_CACHE_DATABASE", default)
+
+    @property
+    def REDIS_CELERY_DATABASE(cls):
+        default = "1"
+        return cls._get("REDIS_CELERY_DATABASE", default)
+
+    @property
+    def REDIS_HOST(cls):
+        default = "localhost"
+        return cls._get("REDIS_HOST", default)
+
+    @property
+    def REDIS_PORT(cls):
+        default = "6379"
+        return cls._get("REDIS_PORT", default)
+
+    @property
     def CHROMEDRIVER_PATH(cls):
         chromedriver_in_path = shutil.which("chromedriver")
         if chromedriver_in_path:

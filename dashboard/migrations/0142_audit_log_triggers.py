@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             # Clear out old triggers, if they exist
-            '''
+            """
                 DROP TRIGGER IF EXISTS raw_chem_update_trigger;
                 DROP TRIGGER IF EXISTS raw_chem_insert_trigger;
                 DROP TRIGGER IF EXISTS raw_chem_delete_trigger;
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 DROP TRIGGER IF EXISTS extracted_list_presence_insert_trigger;
                 DROP TRIGGER IF EXISTS extracted_list_presence_delete_trigger;
 
-            ''',
+            """,
             reverse_sql=migrations.RunPython.noop,
         ),
         migrations.RunSQL(

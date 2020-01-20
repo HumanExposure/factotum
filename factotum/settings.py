@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     "elastic.apps.ElasticConfig",
     "bulkformsets.apps.BulkFormSetsConfig",
     "docs",
+    "celery_usertask",
+    "celery_filetask",
+    "celery_formtask",
+    "celery_djangotest",
+    "celery_resultsview",
 ]
 
 MIDDLEWARE = [
@@ -83,7 +88,7 @@ TEMPLATES = [
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "factotum.db",
         "NAME": env.SQL_DATABASE,
         "USER": env.SQL_USER,
         "PASSWORD": env.SQL_PASSWORD,
@@ -108,6 +113,16 @@ ELASTICSEARCH = {
         "INDEX": "dashboard",
     }
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CACHE_DATABASE}",
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+    }
+}
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/New_York"
@@ -141,6 +156,12 @@ EXTRA = 1
 
 TEST_BROWSER = "chrome"
 CHROMEDRIVER_PATH = env.CHROMEDRIVER_PATH
+
+CELERY_BROKER_URL = (
+    f"redis://{env.REDIS_HOST}:{env.REDIS_PORT}/{env.REDIS_CELERY_DATABASE}"
+)
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_FILETASK_ROOT = os.path.join(BASE_DIR, "celeryfiles")
 
 LOGGING = {
     "version": 1,
