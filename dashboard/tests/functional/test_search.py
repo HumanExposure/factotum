@@ -1,4 +1,6 @@
 import base64
+import re
+
 from lxml import html
 
 from dashboard.tests.loader import fixtures_standard
@@ -63,7 +65,7 @@ class TestSearch(TestCase):
         self.assertIn(string, str(response.content))
 
         response = self.client.get("/search/datadocument/?q=" + b64)
-        string = "Number of products related to chemical: 1"
+        string = "Number of products related to document: 1"
         self.assertIn(string, str(response.content))
 
         response = self.client.get("/search/puc/?q=" + b64)
@@ -230,6 +232,90 @@ class TestSearch(TestCase):
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
         selector = soup.find_all(text="7732-18-5")[0]
         self.assertEqual(str(selector.parent), "<em>7732-18-5</em>")
+
+    def test_document_search_product_count(self):
+        """
+        Searching for documents should return a list of data documents and
+        their associated product count
+        """
+        qs = self._get_query_str("water")
+        resp = self.client.get("/search/datadocument/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        # Filter down results to the 2 that are being tested
+        test_divs = []
+        for result in soup.find_all("div", class_="resultrow"):
+            valid_div = result.find(
+                text=[
+                    re.compile("Nonflammable Gas Mixture: Nitrogen / Oxygen / "),
+                    re.compile(
+                        "TRENDstarter Hard Gel 5.1 fl oz / \(New York Value Club\)"
+                    ),
+                ]
+            )
+            if valid_div:
+                test_divs.append(result)
+        # Verify correct number of results returned.
+        self.assertEqual(len(test_divs), 2, "Search did not provide correct results")
+        # Test first result for correct document count
+        self.assertIn(
+            "Nonflammable Gas Mixture:",
+            test_divs[0].get_text(),
+            'First result for water is not "Nonflammable Gas Mixture"',
+        )
+        self.assertIn(
+            "Number of products related to document: 0",
+            test_divs[0].get_text(),
+            "Nonflammable Gas Mixture has the incorrect number of associated products",
+        )
+        # Test second result for correct document count
+        self.assertIn(
+            "TRENDstarter Hard Gel 5.1 fl oz",
+            test_divs[1].get_text(),
+            'Second result for water is not "TRENDstarter Hard Gel 5.1 fl oz"',
+        )
+        self.assertIn(
+            "Number of products related to document: 1",
+            test_divs[1].get_text(),
+            "TRENDstarter Hard Gel 5.1 fl oz has the incorrect number of associated products",
+        )
+
+    def test_puc_search_product_count(self):
+        """
+        Searching for PUCs should return a list of PUCs and
+        their associated product count
+        """
+        qs = self._get_query_str("water")
+        resp = self.client.get("/search/puc/" + qs)
+        soup = bs4.BeautifulSoup(resp.content, features="lxml")
+        # Filter down results to the 2 that are being tested
+        test_divs = []
+        for result in soup.find_all("a", href=["/puc/245/", "/puc/137/"]):
+            test_divs.append(result.parent.parent)
+
+        # Verify correct number of results returned.
+        self.assertEqual(len(test_divs), 2, "Search did not provide correct results")
+        # Test first result for correct document count
+        self.assertIn(
+            "bubble bath",
+            test_divs[0].get_text(),
+            'First result for water is not "bubble bath"',
+        )
+        self.assertIn(
+            "Number of products related to PUC: 1",
+            test_divs[0].get_text(),
+            "Bubble bath has the incorrect number of associated products",
+        )
+        # Test second result for correct document count
+        self.assertIn(
+            "Personal care --",
+            test_divs[1].get_text(),
+            'Second result for water is not "Personal Care --"',
+        )
+        self.assertIn(
+            "Number of products related to PUC: 2",
+            test_divs[1].get_text(),
+            "Personal Care has the incorrect number of associated products",
+        )
 
     def test_boosted_fields(self):
         """

@@ -226,18 +226,11 @@ def run_query(
     # gather the results
     # hits
     results_hits = []
+    buckets = []
     for h in response["hits"]["hits"]:
+        buckets.append(h["_source"][id_field])
         results_hits_object = {
             "id": h["_source"][id_field],
-            "num_rawchem": h["inner_hits"]["rawchem_id"]["hits"]["total"]["value"],
-            "num_truechem": h["inner_hits"]["truechem_dtxsid"]["hits"]["total"][
-                "value"
-            ],
-            "num_datadocument": h["inner_hits"]["datadocument_id"]["hits"]["total"][
-                "value"
-            ],
-            "num_product": h["inner_hits"]["product_id"]["hits"]["total"]["value"],
-            "num_puc": h["inner_hits"]["puc_id"]["hits"]["total"]["value"],
             "highlights": h["highlight"],
             "source": h["_source"],
         }
@@ -257,6 +250,20 @@ def run_query(
         results_facets[facet] = results_facets_list
     # get unique total count
     length = response_aggs[TOTAL_COUNT_AGG]["value"]
+    # Request counts on associated buckets for this model id
+    stat_counts = search_counts(buckets, id_field, connection)
+    response["took"] += stat_counts["took"]
+    # Attach counts with their corresponding object
+    for object in results_hits:
+        object.update(
+            {
+                "num_rawchem": stat_counts["rawchem_id"][object["id"]],
+                "num_truechem": stat_counts["truechem_dtxsid"][object["id"]],
+                "num_datadocument": stat_counts["datadocument_id"][object["id"]],
+                "num_product": stat_counts["product_id"][object["id"]],
+                "num_puc": stat_counts["puc_id"][object["id"]],
+            }
+        )
     # replace hits with paginator
     if page is not None:
         espaginator = ElasticPaginator(
@@ -269,6 +276,43 @@ def run_query(
         "took": response["took"] / 1000,
         "total": length,
     }
+
+
+def search_counts(buckets, id_field, connection="default"):
+    """Find counts for specific buckets.
+
+    Arguments:
+        buckets (list): lists of buckets to count
+        id_field (str): id field for model
+        connection (optional str): which Elasticsearch instance to use [default="default"]
+
+    Returns:
+        {
+            "took" : milliseconds (int)
+            FIELD_DICT.keys() + rawchem_id: {
+                bucket[0] : count (int),
+                bucket[1] : count (int),
+                ...
+                bucket[n] : count (int)
+            },
+            ...
+        }
+    """
+    index = settings.ELASTICSEARCH.get(connection, {}).get("INDEX", "_all")
+    s = Search(using=connection, index=index, extra={"size": 0})
+    for f in list(FIELD_DICT.keys()) + ["rawchem_id"]:
+        a = A("terms", field=id_field, include=buckets, size=len(buckets) or 10)
+        a.metric("count", "cardinality", field=f)
+        s.aggs.bucket(f, a)
+    response = s.execute().to_dict()
+    # Sort results into a dict for easier matching.
+    return_dict = {"took": response["took"]}
+    for stat_key, stat_value in response["aggregations"].items():
+        return_dict.update({stat_key: {}})
+        for stat in stat_value["buckets"]:
+            return_dict[stat_key].update({stat["key"]: stat["count"]["value"]})
+
+    return return_dict
 
 
 def get_unique_count(q, model, fuzzy=False, connection="default"):
@@ -302,7 +346,7 @@ def get_unique_count(q, model, fuzzy=False, connection="default"):
 
 def validate_model(model):
     if model not in VALID_MODELS:
-        raise ValueError("'model' must be one of " + str(valid_models))
+        raise ValueError("'model' must be one of " + str(VALID_MODELS))
 
 
 def get_id_field(model):
