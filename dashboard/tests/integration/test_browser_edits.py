@@ -116,11 +116,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
             )
             card_div = parent_div.find_element_by_xpath("../..")
-            print(
-                self.browser.find_element_by_xpath(
-                    '//*[@id="id_rawchem-1-unit_type"]'
-                ).get_attribute("innerHTML")
-            )
             self.assertTrue(
                 "There must be a unit type if a composition value is provided."
                 in card_div.get_attribute("innerHTML")

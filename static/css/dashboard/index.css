@@ -22,3 +22,16 @@
 .node--leaf {
     pointer-events: none;
 }
+
+.venntooltip {
+    position: absolute;
+    text-align: center;
+    /* width: 300px; */
+    background: #333;
+    color: #ddd;
+    padding: 2px;
+    border: 0px;
+    border-radius: 8px;
+    opacity: 0;
+    font: 1em sans-serif;
+}

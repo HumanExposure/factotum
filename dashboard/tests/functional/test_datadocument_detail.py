@@ -580,8 +580,7 @@ class TestDynamicDetailFormsets(TestCase):
         component = rawchem.component
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
-        component_text = response_html.xpath(f'//*[@id="component-{ rawchem.id }"]/text()').pop()
-        self.assertEqual(
-            component,
-            component_text
-        )
+        component_text = response_html.xpath(
+            f'//*[@id="component-{ rawchem.id }"]/text()'
+        ).pop()
+        self.assertEqual(component, component_text)

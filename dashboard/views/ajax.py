@@ -1,6 +1,8 @@
 from django.http import JsonResponse
-from dashboard.models import Product, DataDocument, DSSToxLookup, RawChem
+from dashboard.models import Product, DataDocument, DSSToxLookup, RawChem, GroupType
+from dashboard.utils import GroupConcat
 from django.db.models import Q, F
+from django.views.decorators.cache import cache_page
 
 
 def product_ajax(request):
@@ -164,3 +166,68 @@ def chemical_ajax(request):
             "data": objects,
         }
     )
+
+
+@cache_page(86400)
+def sids_by_grouptype_ajax(request):
+    """Counts the number of DTXSIDs per GroupType. Multiple
+    GroupTypes can be associated with a single DTXSID. The
+    GroupType set is also counted.
+
+    The output is a JSON to be rendered with this library
+    https://github.com/benfred/venn.js
+
+
+    Args:
+        request ([type]): [description]
+    """
+    qs = DSSToxLookup.objects.annotate(
+        grouptype=GroupConcat(
+            "curated_chemical__extracted_text__data_document__data_group__group_type__id",
+            distinct=True,
+        )
+    ).values_list("grouptype", flat=True)
+    sets_cnt = {}
+
+    def add_set(key):
+        # Adds or creates set to sets_dict
+        if key not in sets_cnt:
+            sets_cnt[key] = 1
+        else:
+            sets_cnt[key] += 1
+
+    # Count sets
+    for group_str in qs:
+        # Ignore "None"
+        if group_str:
+            # Each value is a concatenation of GroupType IDs separated by a comma.
+            # Lets split them
+            groups = group_str.split(",")
+            # Then turn them into a list of integers
+            groups = [int(i) for i in groups]
+            # We want to make sure they are consistently sorted
+            groups.sort()
+            # We make them a tuple to use as a dictionary key
+            groups = tuple(groups)
+            # Record a count on it
+            add_set(groups)
+            # If this is more than one GroupType, we also want to count the GroupTypes
+            # within the set
+            if len(groups) > 1:
+                for group in groups:
+                    add_set((group,))
+
+    # Here is a dictionary relating the GroupType ID we've counted on to its title
+    titles = {
+        g["id"]: g["title"]
+        for g in GroupType.objects.all().order_by("id").values("id", "title")
+    }
+    # Create data
+    sets = []
+    for set_ids, set_cnt in sets_cnt.items():
+        # List the titles, not IDs
+        set_groups = [titles[i] for i in set_ids]
+        # Make the final dictionary output
+        sets.append({"sets": set_groups, "size": set_cnt})
+
+    return JsonResponse({"data": sets})

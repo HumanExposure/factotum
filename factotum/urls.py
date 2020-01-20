@@ -28,7 +28,6 @@ urlpatterns = [
     url(r"^admin/", admin.site.urls, name="admin"),
     url(r"^feedback/", include("feedback.urls", namespace="feedback")),
     url(r"", include("dashboard.urls")),
-    url(r"", include("api.urls")),
     url(r"^docs/", include("docs.urls")),
     url(r"^api/tasks/", include("celery_usertask.urls")),
     url(r"^api/tasks/", include("celery_resultsview.urls")),

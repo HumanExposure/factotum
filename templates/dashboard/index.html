@@ -114,6 +114,12 @@
             <svg id="nestedcircles" width="100%" height="500"></svg>
         </div>
     </div>
+
+<div class="row mt-5 mb-5">
+    <h4>SIDs per Group Type</h4>
+
+    <div id="venn"></div>
+</div>
 {% endblock %}
 
 {% block css %}
@@ -126,5 +132,6 @@
     <script src="{% static 'js/bubble_chart.js' %}"></script>
     <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
     <script src="{% static 'js/collapsible_tree.js' %}"></script>
+    <script src="{% static 'js/dashboard/venn.min.js' %}"></script>
     <script src="{% static 'js/dashboard/index.js' %}"></script>
 {% endblock %}

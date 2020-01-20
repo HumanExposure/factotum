@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "dashboard.apps.DashboardConfig",
     "feedback.apps.FeedbackConfig",
-    "api.apps.ApiConfig",
     "bootstrap_datepicker_plus",
     "widget_tweaks",
     "django.contrib.humanize",

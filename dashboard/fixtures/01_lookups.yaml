@@ -1,62 +1,160 @@
 - model: dashboard.grouptype
   pk: 1
-  fields: {created_at: ! '2018-06-20 12:16:49.051019', updated_at: ! '2018-06-20 12:16:49.051035',
-    title: Unidentified, description: Unidentified Group Type, code: UN}
+  fields:
+    {
+      created_at: ! "2018-06-20 12:16:49.051019",
+      updated_at: ! "2018-06-20 12:16:49.051035",
+      title: Unidentified,
+      description: Unidentified Group Type,
+      code: UN,
+    }
 - model: dashboard.grouptype
   pk: 2
-  fields: {created_at: ! '2018-07-12 10:49:27.780577', updated_at: ! '2018-07-12 10:49:27.780596',
-    title: Composition, description: '', code: CO}
+  fields:
+    {
+      created_at: ! "2018-07-12 10:49:27.780577",
+      updated_at: ! "2018-07-12 10:49:27.780596",
+      title: Composition,
+      description: "",
+      code: CO,
+    }
 - model: dashboard.grouptype
   pk: 3
-  fields: {created_at: ! '2018-07-12 10:49:39.992614', updated_at: ! '2018-07-12 10:49:39.992631',
-    title: Functional use, description: '', code: FU}
+  fields:
+    {
+      created_at: ! "2018-07-12 10:49:39.992614",
+      updated_at: ! "2018-07-12 10:49:39.992631",
+      title: Functional use,
+      description: "",
+      code: FU,
+    }
 - model: dashboard.grouptype
   pk: 4
-  fields: {created_at: ! '2018-07-12 10:49:45.927857', updated_at: ! '2018-07-12 10:49:45.927877',
-    title: Habits and practices, description: '', code: HP}
+  fields:
+    {
+      created_at: ! "2018-07-12 10:49:45.927857",
+      updated_at: ! "2018-07-12 10:49:45.927877",
+      title: Habits and practices,
+      description: "",
+      code: HP,
+    }
 - model: dashboard.grouptype
   pk: 5
-  fields: {created_at: ! '2018-07-12 10:51:29.240851', updated_at: ! '2018-07-12 10:51:29.240872',
-    title: Supplemental documents, description: '', code: SD}
+  fields:
+    {
+      created_at: ! "2018-07-12 10:51:29.240851",
+      updated_at: ! "2018-07-12 10:51:29.240872",
+      title: Supplemental documents,
+      description: "",
+      code: SD,
+    }
 - model: dashboard.grouptype
   pk: 6
-  fields: {created_at: ! '2018-09-17 23:46:47.762560', updated_at: ! '2018-09-17 23:46:47.762583',
-    title: Chemical presence list, description: '', code: CP}
+  fields:
+    {
+      created_at: ! "2018-09-17 23:46:47.762560",
+      updated_at: ! "2018-09-17 23:46:47.762583",
+      title: Chemical presence list,
+      description: "",
+      code: CP,
+    }
 - model: dashboard.grouptype
   pk: 7
-  fields: {created_at: ! '2019-02-21 09:08:21.651124', updated_at: ! '2019-02-21 09:08:21.651149',
-    title: HHE Report, description: null, code: HH}
+  fields:
+    {
+      created_at: ! "2019-02-21 09:08:21.651124",
+      updated_at: ! "2019-02-21 09:08:21.651149",
+      title: HHE Report,
+      description: null,
+      code: HH,
+    }
 - model: dashboard.dsstoxlookup
   pk: 8
-  fields: {created_at: null, updated_at: null, sid: DTXSID6026296, true_cas: 7732-18-5,
-    true_chemname: water}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID6026296,
+      true_cas: 7732-18-5,
+      true_chemname: water,
+    }
 - model: dashboard.dsstoxlookup
   pk: 9
-  fields: {created_at: null, updated_at: null, sid: DTXSID1020273, true_cas: 7782-50-5,
-    true_chemname: chlorine}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID1020273,
+      true_cas: 7782-50-5,
+      true_chemname: chlorine,
+    }
 - model: dashboard.dsstoxlookup
   pk: 10
-  fields: {created_at: null, updated_at: null, sid: DTXSID9020584, true_cas: 64-17-5,
-    true_chemname: ethanol}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID9020584,
+      true_cas: 64-17-5,
+      true_chemname: ethanol,
+    }
 - model: dashboard.dsstoxlookup
   pk: 11
-  fields: {created_at: null, updated_at: null, sid: DTXSID2021781, true_cas: 84-74-2,
-    true_chemname: dibutyl phthalate}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID2021781,
+      true_cas: 84-74-2,
+      true_chemname: dibutyl phthalate,
+    }
 - model: dashboard.dsstoxlookup
   pk: 12
-  fields: {created_at: null, updated_at: null, sid: DTXSID9022528, true_cas: 120-47-8,
-    true_chemname: ethylparaben}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID9022528,
+      true_cas: 120-47-8,
+      true_chemname: ethylparaben,
+    }
 - model: dashboard.dsstoxlookup
   pk: 13
-  fields: {created_at: null, updated_at: null, sid: DTXSID7020182, true_cas: 80-05-7,
-    true_chemname: bisphenol a}
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID7020182,
+      true_cas: 80-05-7,
+      true_chemname: bisphenol a,
+    }
+- model: dashboard.dsstoxlookup
+  pk: 14
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID70452491,
+      true_cas: 32501-94-3,
+      true_chemname: benzene,
+    }
+- model: dashboard.dsstoxlookup
+  pk: 15
+  fields:
+    {
+      created_at: null,
+      updated_at: null,
+      sid: DTXSID00184990,
+      true_cas: 3101-08-4,
+      true_chemname: Toluene,
+    }
 - model: dashboard.documenttype
   pk: 2
   fields:
     created_at: 2018-07-12 10:50:09.783274
     updated_at: 2018-10-31 21:39:49.836220
     title: MSDS
-    description: ''
+    description: ""
     code: MS
 - model: dashboard.documenttype
   pk: 3
@@ -64,7 +162,7 @@
     created_at: 2018-07-12 10:50:15.238632
     updated_at: 2018-10-31 21:39:49.838866
     title: SDS
-    description: ''
+    description: ""
     code: SD
 - model: dashboard.documenttype
   pk: 4
@@ -72,7 +170,7 @@
     created_at: 2018-07-12 10:50:23.345012
     updated_at: 2018-10-31 21:39:49.834781
     title: ingredient list
-    description: ''
+    description: ""
     code: IL
 - model: dashboard.documenttype
   pk: 5
@@ -80,7 +178,7 @@
     created_at: 2018-07-12 10:50:31.543699
     updated_at: 2018-10-31 21:39:49.833812
     title: ingredient disclosure
-    description: ''
+    description: ""
     code: ID
 - model: dashboard.documenttype
   pk: 9
@@ -88,7 +186,7 @@
     created_at: 2018-07-12 10:51:05.963622
     updated_at: 2018-10-31 21:39:49.833169
     title: chemical use disclosure
-    description: ''
+    description: ""
     code: CD
 - model: dashboard.documenttype
   pk: 10
@@ -96,7 +194,7 @@
     created_at: 2018-07-12 10:51:41.054772
     updated_at: 2018-10-31 21:39:49.835717
     title: Memo
-    description: ''
+    description: ""
     code: MO
 - model: dashboard.documenttype
   pk: 11
@@ -104,7 +202,7 @@
     created_at: 2018-07-12 10:51:46.155168
     updated_at: 2018-10-31 21:39:49.835249
     title: journal article
-    description: ''
+    description: ""
     code: JA
 - model: dashboard.documenttype
   pk: 12
@@ -112,7 +210,7 @@
     created_at: 2018-07-12 10:51:46.155168
     updated_at: 2018-10-31 21:39:49.837887
     title: poster
-    description: ''
+    description: ""
     code: PO
 - model: dashboard.documenttype
   pk: 13
@@ -120,7 +218,7 @@
     created_at: 2018-07-12 10:51:46.155168
     updated_at: 2018-10-31 21:39:49.838392
     title: professional society report
-    description: ''
+    description: ""
     code: SR
 - model: dashboard.documenttype
   pk: 14
@@ -128,7 +226,7 @@
     created_at: 2018-07-12 10:51:46.155168
     updated_at: 2018-10-31 21:39:49.837264
     title: other survey/study
-    description: ''
+    description: ""
     code: OT
 - model: dashboard.documenttype
   pk: 15
@@ -160,7 +258,8 @@
     created_at: 2018-07-12 10:50:39.660938
     updated_at: 2018-07-12 10:50:39.660938
     title: Declare Product Declaration
-    description: Standard information sheet from the Declare/Living Future website
+    description:
+      Standard information sheet from the Declare/Living Future website
       (https://living-future.org/declare/)
     code: DL
 - model: dashboard.documenttype
@@ -201,7 +300,8 @@
     created_at: 2018-07-12 10:50:39.660943
     updated_at: 2018-07-12 10:50:39.660943
     title: Federal government (US)
-    description: Report, etc. issued by a federal government agency in the U.S. (e.g.
+    description:
+      Report, etc. issued by a federal government agency in the U.S. (e.g.
       FDA, EPA, etc)
     code: FG
 - model: dashboard.documenttype
@@ -455,53 +555,118 @@
 
 - model: dashboard.unittype
   pk: 1
-  fields: {created_at: ! '2018-05-07 16:29:57', updated_at: null, title: weight fraction,
-    description: as a decimal}
+  fields:
+    {
+      created_at: ! "2018-05-07 16:29:57",
+      updated_at: null,
+      title: weight fraction,
+      description: as a decimal,
+    }
 - model: dashboard.unittype
   pk: 2
-  fields: {created_at: ! '2018-06-05 13:32:39.347661', updated_at: ! '2018-06-05 13:32:39.347686',
-    title: unknown, description: when text was extracted the unit type was not harvested}
+  fields:
+    {
+      created_at: ! "2018-06-05 13:32:39.347661",
+      updated_at: ! "2018-06-05 13:32:39.347686",
+      title: unknown,
+      description: when text was extracted the unit type was not harvested,
+    }
 - model: dashboard.unittype
   pk: 3
-  fields: {created_at: ! '2018-07-12 12:05:44.490989', updated_at: ! '2018-07-12 12:05:44.491025',
-    title: percent, description: weight fraction as a percent (ie 3%)}
+  fields:
+    {
+      created_at: ! "2018-07-12 12:05:44.490989",
+      updated_at: ! "2018-07-12 12:05:44.491025",
+      title: percent,
+      description: weight fraction as a percent (ie 3%),
+    }
 - model: dashboard.unittype
   pk: 4
-  fields: {created_at: ! '2018-07-12 14:26:11.965294', updated_at: ! '2018-07-12 14:26:11.965314',
-    title: ppm, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:26:11.965294",
+      updated_at: ! "2018-07-12 14:26:11.965314",
+      title: ppm,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 5
-  fields: {created_at: ! '2018-07-12 14:48:53.802278', updated_at: ! '2018-07-12 14:48:53.802297',
-    title: psi, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:48:53.802278",
+      updated_at: ! "2018-07-12 14:48:53.802297",
+      title: psi,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 6
-  fields: {created_at: ! '2018-07-12 14:49:51.833730', updated_at: ! '2018-07-12 14:49:51.833751',
-    title: volume, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:49:51.833730",
+      updated_at: ! "2018-07-12 14:49:51.833751",
+      title: volume,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 7
-  fields: {created_at: ! '2018-07-12 14:50:26.320607', updated_at: ! '2018-07-12 14:50:26.320627',
-    title: nCi, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:50:26.320607",
+      updated_at: ! "2018-07-12 14:50:26.320627",
+      title: nCi,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 8
-  fields: {created_at: ! '2018-07-12 14:51:17.900232', updated_at: ! '2018-07-12 14:51:17.900254',
-    title: mg per m3, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:51:17.900232",
+      updated_at: ! "2018-07-12 14:51:17.900254",
+      title: mg per m3,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 9
-  fields: {created_at: ! '2018-07-12 14:52:23.619012', updated_at: ! '2018-07-12 14:52:23.619032',
-    title: g per pcs, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:52:23.619012",
+      updated_at: ! "2018-07-12 14:52:23.619032",
+      title: g per pcs,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 10
-  fields: {created_at: ! '2018-07-12 14:53:05.936279', updated_at: ! '2018-07-12 14:53:05.936298',
-    title: Iron (Fe) by 3, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:53:05.936279",
+      updated_at: ! "2018-07-12 14:53:05.936298",
+      title: Iron (Fe) by 3,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 11
-  fields: {created_at: ! '2018-07-12 14:53:39.399276', updated_at: ! '2018-07-12 14:53:39.399297',
-    title: MPN/g TS, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:53:39.399276",
+      updated_at: ! "2018-07-12 14:53:39.399297",
+      title: MPN/g TS,
+      description: "",
+    }
 - model: dashboard.unittype
   pk: 12
-  fields: {created_at: ! '2018-07-12 14:55:18.802283', updated_at: ! '2018-07-12 14:55:18.802302',
-    title: gm, description: ''}
+  fields:
+    {
+      created_at: ! "2018-07-12 14:55:18.802283",
+      updated_at: ! "2018-07-12 14:55:18.802302",
+      title: gm,
+      description: "",
+    }
 - model: dashboard.weightfractiontype
   pk: 1
-  fields: {created_at: ! '2018-05-07 15:25:02', updated_at: null, title: reported,
-    description: 'i.e., from an MSDS sheet, as reported by the manufacturer'}
+  fields:
+    {
+      created_at: ! "2018-05-07 15:25:02",
+      updated_at: null,
+      title: reported,
+      description: "i.e., from an MSDS sheet, as reported by the manufacturer",
+    }

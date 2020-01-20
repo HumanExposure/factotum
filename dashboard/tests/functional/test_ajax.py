@@ -6,7 +6,7 @@ from dashboard.models import Product
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class TestProductList(TestCase):
+class TestAjax(TestCase):
     fixtures = fixtures_standard
 
     @classmethod
@@ -55,7 +55,7 @@ class TestProductList(TestCase):
         response = self.client.get("/c_json/?search[value]=ethylparaben")
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
-        self.assertEquals(data["recordsTotal"], 6)
+        self.assertEquals(data["recordsTotal"], 8)
         self.assertEquals(data["recordsFiltered"], 1)
         self.assertEquals(len(data["data"]), 1)
 
@@ -77,3 +77,18 @@ class TestProductList(TestCase):
             data["data"][1][0],
             "The Healing Garden Rose Whipped Body Lotion Re... / (Ascendia Brands Co., Inc)",
         )
+
+    def test_sids_per_grouptype_combo(self):
+        response = self.client.get("/sid_gt_json")
+        self.assertEqual(response.status_code, 200)
+        payload = json.loads(response.content)
+        expected_payload = {
+            "data": [
+                {"sets": ["Composition"], "size": 7},
+                {"sets": ["Composition", "Chemical presence list"], "size": 1},
+                {"sets": ["Chemical presence list"], "size": 1},
+                {"sets": ["HHE Report"], "size": 2},
+                {"sets": ["Composition", "HHE Report"], "size": 1},
+            ]
+        }
+        self.assertEqual(payload, expected_payload)

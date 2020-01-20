@@ -323,12 +323,12 @@ class TestSearch(TestCase):
         a synonym) in its chemicals' true chem names higher
         than a document with "water" in its title. 
         """
-        # The first result row should contain "True chemical name:"
+        # The second result row should contain "True chemical name:"
         qs = self._get_query_str("water")
         resp = self.client.get("/search/datadocument/" + qs)
         soup = bs4.BeautifulSoup(resp.content, features="lxml")
         divs = soup.find_all("div", {"class": "resultrow"})
-        self.assertInHTML("True chemical name:", str(divs[0]))
+        self.assertInHTML("True chemical name:", str(divs[1]))
 
         # The example document 156624 with "water" only in its title
         # should be all the way on the fifth page
