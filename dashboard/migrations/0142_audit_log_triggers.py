@@ -25,7 +25,6 @@ class Migration(migrations.Migration):
                 DROP TRIGGER IF EXISTS extracted_list_presence_update_trigger;
                 DROP TRIGGER IF EXISTS extracted_list_presence_insert_trigger;
                 DROP TRIGGER IF EXISTS extracted_list_presence_delete_trigger;
-
             """,
             reverse_sql=migrations.RunPython.noop,
         ),

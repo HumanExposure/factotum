@@ -34,7 +34,21 @@ class ExtractedListPresence(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "report_funcuse", "component"]
+        return ["raw_cas",
+                "raw_chem_name",
+                "report_funcuse",
+                "component"]
+
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return [
+            "report_funcuse"
+        ]
 
     @classmethod
     def auditlog_fields(cls):
@@ -128,3 +142,4 @@ class ExtractedListPresenceTag(TagBase, CommonInfo):
 
     def __str__(self):
         return self.name
+
