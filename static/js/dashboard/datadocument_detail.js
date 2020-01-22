@@ -26,6 +26,7 @@ $(document).ready(function () {
                 max: 1,
                 step: .00001,
                 ticks: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1],
+                ticks_labels: ['0', '', '', '', '', '', '', '', '', '', '1'],
                 range: range,
                 value: value,
                 enabled: false,
