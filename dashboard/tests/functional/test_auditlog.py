@@ -17,6 +17,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     AuditLog,
 )
+from dashboard.tests.mixins import TempFileMixin
 
 
 def make_upload_csv(filename):
@@ -34,7 +35,7 @@ def make_upload_csv(filename):
     return in_mem_sample_csv
 
 
-class AuditLogTest(TransactionTestCase):
+class AuditLogTest(TempFileMixin, TransactionTestCase):
     fixtures = [
         "00_superuser.yaml",
         "01_lookups.yaml",

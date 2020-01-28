@@ -10,6 +10,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from dashboard import views
 from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.mixins import TempFileMixin
 from dashboard.models import DataGroup, DataDocument, DocumentType
 
 
@@ -45,7 +46,7 @@ class DDTestModel(TestCase):
         self.assertEqual(dt_comp.title, dd.document_type.title)
 
 
-class DDTestUpload(TestCase):
+class DDTestUpload(TempFileMixin, TestCase):
 
     fixtures = fixtures_standard
 

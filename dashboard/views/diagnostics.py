@@ -1,7 +1,7 @@
 import os
 from django.core.management.base import BaseCommand, CommandError
 from dashboard.models import *
-from factotum import settings
+from django.conf import settings
 from pathlib import Path, PurePath
 from django.shortcuts import render
 

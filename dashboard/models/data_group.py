@@ -47,7 +47,7 @@ class DataGroup(CommonInfo):
     data_source = models.ForeignKey("DataSource", on_delete=models.CASCADE)
     fs_id = models.UUIDField(default=uuid.uuid4, editable=False)
     csv = models.FileField(upload_to=csv_upload_path, null=True)
-    zip_file = models.CharField(max_length=100)
+    zip_file = models.CharField(max_length=300)
     group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT, default=1)
     url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
 
@@ -127,14 +127,14 @@ class DataGroup(CommonInfo):
         return self.name.replace(" ", "_")
 
     def get_dg_folder(self):
-        uuid_dir = f"{settings.MEDIA_ROOT}{str(self.fs_id)}"
+        uuid_dir = os.path.join(settings.MEDIA_ROOT, str(self.fs_id))
 
         # this needs to handle missing csv files
         if bool(self.csv.name):
             # parse the media folder from the penultimate piece of csv file path
             p = PurePath(self.csv.path)
             csv_folder = p.parts[-2]
-            csv_fullfolderpath = f"{settings.MEDIA_ROOT}{csv_folder}"
+            csv_fullfolderpath = os.path.join(settings.MEDIA_ROOT, csv_folder)
 
         if os.path.isdir(uuid_dir):
             return uuid_dir  # UUID-based folder

@@ -1,8 +1,9 @@
 from taggit.managers import TaggableManager
 
+from django.apps import apps
 from django.db import models
 from django.urls import reverse
-from django.db.models import Max
+from django.db.models import Max, Prefetch
 
 from .common_info import CommonInfo
 from .extracted_text import ExtractedText
@@ -10,9 +11,18 @@ from .data_source import DataSource
 from .source_category import SourceCategory
 
 
-class ProductManager(models.Manager):
+class ProductQuerySet(models.QuerySet):
     def next_upc(self):
         return "stub_" + str(Product.objects.all().aggregate(Max("id"))["id__max"] + 1)
+
+    def prefetch_pucs(self):
+        """Prefetch PUCs to make Product.uber_puc use less SQL calls"""
+        ProductToPUC = apps.get_model("dashboard", "ProductToPUC")
+        return self.prefetch_related(
+            Prefetch(
+                "producttopuc_set", queryset=ProductToPUC.objects.select_related("puc")
+            )
+        )
 
 
 class Product(CommonInfo):
@@ -83,7 +93,7 @@ class Product(CommonInfo):
     large_image = models.CharField(
         max_length=500, null=True, blank=True, help_text="large image"
     )
-    objects = ProductManager()
+    objects = ProductQuerySet.as_manager()
 
     def __str__(self):
         return self.title
@@ -91,45 +101,32 @@ class Product(CommonInfo):
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"pk": self.pk})
 
-    def get_uber_product_to_puc(self):
-        pucs = self.producttopuc_set
-        if pucs.filter(classification_method="MA").exists():
-            return pucs.filter(classification_method="MA").first()
-        elif pucs.filter(classification_method="MB").exists():
-            return pucs.filter(classification_method="MB").first()
-        elif pucs.filter(classification_method="RU").exists():
-            return pucs.filter(classification_method="RU").first()
-        elif pucs.filter(classification_method="AU").exists():
-            return pucs.filter(classification_method="AU").first()
-        else:
-            return None
-
-    def get_uber_puc(self):
-        thispuc = self.get_uber_product_to_puc()
-        if thispuc:
-            return thispuc.puc
-        else:
-            return None
-
     @property
     def uber_puc(self):
-        thispuc = self.get_uber_product_to_puc()
-        if thispuc:
-            return thispuc.puc
-        else:
-            return None
+        """Returns the "uber" PUC for this product.
+
+        To reduce SQL calls, prefetch this result with
+            Product.objects.prefetch_pucs()
+        """
+        uberpuc_order = ("MA", "MB", "RU", "AU")
+        producttopucs = self.producttopuc_set.all()
+        for classification_method in uberpuc_order:
+            for producttopuc in producttopucs:
+                if producttopuc.classification_method == classification_method:
+                    return producttopuc.puc
+        return None
 
     def get_tag_list(self):
         return u", ".join(o.name for o in self.tags.all())
 
     # returns list of valid puc_tags
     def get_puc_tag_list(self):
-        all_uber_tags = self.get_uber_product_to_puc().puc.tags.all()
+        all_uber_tags = self.uber_puc.tags.all()
         return u", ".join(o.name for o in all_uber_tags)
 
     # returns set of valid puc_tags
     def get_puc_tags(self):
-        return self.get_uber_product_to_puc().puc.tags.all()
+        return self.uber_puc.tags.all()
 
     @property
     def rawchems(self):

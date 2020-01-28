@@ -79,7 +79,7 @@ class UploadDocsForm(forms.Form):
             )
 
     def save(self):
-        store = settings.MEDIA_URL + str(self.dg.fs_id)
+        store = os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
         fs = FileSystemStorage(store + "/pdf")
         upd_list = []
         doc_dict = {d.name: d for d in self.files.getlist("%s-documents" % self.prefix)}
@@ -478,7 +478,9 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 if created_objs:
                     inheritance_bulk_create(created_objs)
             # Store CSV
-            fs = FileSystemStorage(os.path.join(settings.MEDIA_URL, str(self.dg.fs_id)))
+            fs = FileSystemStorage(
+                os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
+            )
             fs.save(
                 str(self.dg) + "_extracted.csv",
                 self.files["extfile-bulkformsetfileupload"],
@@ -669,7 +671,7 @@ class RegisterRecordsFormSet(DGFormSet):
             myfile = File(f)
             myfile.write("".join(text))
         uid = str(self.dg.fs_id)
-        new_zip_path = Path(settings.MEDIA_URL) / uid / (uid + ".zip")
+        new_zip_path = Path(settings.MEDIA_ROOT) / uid / (uid + ".zip")
         zf = zipfile.ZipFile(str(new_zip_path), "w", zipfile.ZIP_DEFLATED)
         zf.close()
         self.dg.zip_file = new_zip_path

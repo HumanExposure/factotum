@@ -1,3 +1,4 @@
+import re
 import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -116,7 +117,6 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
                 '//*[@id="id_rawchem-1-raw_cas"]/parent::*'
             )
             card_div = parent_div.find_element_by_xpath("../..")
-            print(self.browser.find_element_by_xpath('//*[@id="id_rawchem-1-unit_type"]').get_attribute("innerHTML"))
             self.assertTrue(
                 "There must be a unit type if a composition value is provided."
                 in card_div.get_attribute("innerHTML")
@@ -207,9 +207,13 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]'
             )
-            self.browser.find_element_by_id(
-                f"chem-card-{RawChem.objects.filter(extracted_text__pk=doc_id).first().id}"
-            ).click()
+            # Find chemical card, not chem-card-None (i.e. "Add new chemical")
+            chem_cards = self.browser.find_elements_by_xpath(
+                "//*[starts-with(@id, 'chem-card-')]"
+            )
+            regex = re.compile("chem-card-\d+")
+            chem_card = next(c for c in chem_cards if regex.match(c.get_property("id")))
+            chem_card.click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable
@@ -282,7 +286,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             # Go to the extraction script's summary page
             scr_id = et.extraction_script_id
             qa_summary_url = (
-                    self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
+                self.live_server_url + f"/qa/compextractionscript/{scr_id}/summary"
             )
             self.browser.get(qa_summary_url)
             # print(self.browser.page_source)
@@ -381,9 +385,9 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
     def test_bubble_plot(self):
         pucs = (
             PUC.objects.filter(kind="FO")
-                .with_num_products()
-                .filter(num_products__gt=0)
-                .astree()
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
         )
         num_pucs = self._n_children(pucs)
         self.browser.get(self.live_server_url)
@@ -423,10 +427,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
         time.sleep(3)
         pucs = (
             PUC.objects.filter(kind="FO")
-                .dtxsid_filter(dss.sid)
-                .with_num_products()
-                .filter(num_products__gt=0)
-                .astree()
+            .dtxsid_filter(dss.sid)
+            .with_num_products()
+            .filter(num_products__gt=0)
+            .astree()
         )
         num_pucs = self._n_children(pucs)
         bubbles = self.browser.find_elements_by_class_name("bubble")
@@ -436,7 +440,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
 
     def test_delete_dd_from_dg(self):
         """
-        The seed data includes an unmatched data document that 
+        The seed data includes an unmatched data document that
         can be deleted from the data group detail page.
         Confirm that the delete button works.
         """

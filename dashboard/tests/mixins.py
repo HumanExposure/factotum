@@ -1,4 +1,7 @@
-class DashboardFormFieldTestMixin(object):
+import tempfile
+
+
+class DashboardFormFieldTestMixin:
     """This class mixes in some useful methods for testing dashboard form fields.
     It expects a form to be set in self.
     """
@@ -81,3 +84,24 @@ class DashboardFormFieldTestMixin(object):
             f'on field "{field}" '
             f'at "{post_uri}"',
         )
+
+
+class TempFileMixin:
+    """This class makes Django's media storage be a temporary directory.
+    It helps isolate tests from one another and cluttering the /media/ folder.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls._tmpdir = tempfile.TemporaryDirectory()
+        settings = {"MEDIA_ROOT": cls._tmpdir.name}
+        if cls._overridden_settings:
+            cls._overridden_settings.update(settings)
+        else:
+            cls._overridden_settings = settings
+        super().setUpClass()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._tmpdir = None
+        super().tearDownClass()

@@ -174,7 +174,7 @@ class TestProductPuc(TestCase):
         product = Product.objects.get(pk=11)
         puc = PUC.objects.get(pk=1)
         self.assertEqual(
-            product.get_uber_puc(),
+            product.uber_puc,
             puc,
             "Product 11 should still be assigned to uber_puc PUC 1",
         )

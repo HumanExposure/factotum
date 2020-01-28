@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 
 from dashboard import views
 from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.mixins import TempFileMixin
 from django.contrib import messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
@@ -17,7 +18,6 @@ import tempfile
 import csv
 import os
 import io
-import shutil
 from pathlib import Path
 
 
@@ -38,7 +38,7 @@ def string_to_csv(csv_string):
 
 
 @override_settings(ALLOWED_HOSTS=["testserver"])
-class TestZipPDFs(TestCase):
+class TestZipPDFs(TempFileMixin, TestCase):
 
     fixtures = fixtures_standard
 
@@ -56,10 +56,6 @@ class TestZipPDFs(TestCase):
             p = Path(f".{d.pdf_url()}")
             p.parent.mkdir(parents=True, exist_ok=True)
             p.touch()
-
-    def tearDown(self):
-        # rm fake files
-        shutil.rmtree("./media/3dada08f-91aa-4e47-9556-e3e1a23b1d7e")
 
     def test_zip_pdfs_small(self):
         """

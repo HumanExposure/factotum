@@ -3,7 +3,7 @@ from django.test import RequestFactory, TestCase, Client
 from django.http import HttpRequest
 from dashboard import views
 from dashboard.models import *
-from factotum import settings
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile, SimpleUploadedFile
 import tempfile, csv, os, io, errno
 from django.contrib.auth.models import User
@@ -11,13 +11,13 @@ from dashboard.tests.loader import fixtures_standard
 
 
 def build_datagroup_folder(dirname,):
-    fullpath = f"{settings.MEDIA_ROOT}/{dirname}"
+    fullpath = os.path.join(settings.MEDIA_ROOT, dirname)
     try:
         os.makedirs(fullpath)
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
-    pdfpath = f"{settings.MEDIA_ROOT}/{dirname}/pdf"
+    pdfpath = os.path.join(settings.MEDIA_ROOT, dirname, "pdf")
     try:
         os.makedirs(pdfpath)
     except OSError as e:

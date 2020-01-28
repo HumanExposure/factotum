@@ -9,7 +9,7 @@ class FilteredLabelWidget(LabelWidget):
     # overriding django-taggit-label function to display subset of tags
     def tag_list(self, tags):
         # must set form_instance in form __init__()
-        puc = self.form_instance.instance.get_uber_puc() or None
+        puc = self.form_instance.instance.uber_puc
         qs = self.model.objects.filter(content_object=puc, assumed=False)
         filtered = [unassumed.tag for unassumed in qs]
         return [

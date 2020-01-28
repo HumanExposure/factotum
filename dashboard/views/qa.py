@@ -19,7 +19,7 @@ from dashboard.models import (
     QAGroup,
     DocumentType,
 )
-from factotum.settings import EXTRA
+from django.conf import settings
 from django.utils.http import is_safe_url
 
 
@@ -183,7 +183,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
     # The QA view should exclude the weight_fraction_type field.
     ParentForm, ChildForm = create_detail_formset(
         doc,
-        EXTRA,
+        settings.EXTRA,
         can_delete=True,
         exclude=["weight_fraction_type", "true_cas", "true_chemname", "sid"],
     )
@@ -224,7 +224,7 @@ def extracted_text_qa(request, pk, template_name="qa/extracted_text_qa.html", ne
         # The save action only applies to the child records and QA properties,
         # no need to save the ExtractedText form
         ParentForm, ChildForm = create_detail_formset(
-            doc, EXTRA, can_delete=True, exclude=["weight_fraction_type"]
+            doc, settings.EXTRA, can_delete=True, exclude=["weight_fraction_type"]
         )
         # extext = extext.pull_out_cp()
         detail_formset = ChildForm(request.POST, instance=extext)

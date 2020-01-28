@@ -81,9 +81,7 @@ class TestProductDetail(TestCase):
         response = self.client.get(f"/product/{p.pk}/").content.decode("utf8")
         response_html = html.fromstring(response)
 
-        self.assertTrue(
-            p.get_uber_puc() == None, "Product should not have an assigned PUC"
-        )
+        self.assertTrue(p.uber_puc == None, "Product should not have an assigned PUC")
 
         self.assertIn(
             "Assign PUC",
@@ -119,9 +117,7 @@ class TestProductDetail(TestCase):
             "PUC link should be updated in table",
         )
         p.refresh_from_db()
-        self.assertTrue(
-            p.get_uber_puc() != None, "Product should now have an assigned PUC"
-        )
+        self.assertTrue(p.uber_puc != None, "Product should now have an assigned PUC")
 
         response = self.client.get(f"/product/{p.pk}/")
         self.assertTrue(response.status_code == 200)

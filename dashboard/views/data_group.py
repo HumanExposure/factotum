@@ -27,10 +27,9 @@ from dashboard.models import (
     DataDocument,
     AuditLog,
     DataGroup,
-
 )
 from dashboard.utils import gather_errors
-from factotum.settings import MEDIA_URL
+from django.conf import settings
 
 
 @login_required()
@@ -265,7 +264,12 @@ def data_group_update(
     return render(
         request,
         template_name,
-        {"datagroup": datagroup, "form": form, "media": MEDIA_URL, "groups": groups},
+        {
+            "datagroup": datagroup,
+            "form": form,
+            "media": settings.MEDIA_URL,
+            "groups": groups,
+        },
     )
 
 

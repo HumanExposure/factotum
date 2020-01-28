@@ -18,7 +18,7 @@ from dashboard.models import (
     RawChem,
 )
 from dashboard.forms import create_detail_formset
-from factotum.settings import EXTRA
+from django.conf import settings
 from dashboard.tests.loader import fixtures_standard, datadocument_models
 from dashboard.utils import get_extracted_models
 
@@ -441,7 +441,7 @@ class TestDynamicDetailFormsets(TestCase):
         """
         for et in ExtractedText.objects.all():
             dd = et.data_document
-            ParentForm, ChildForm = create_detail_formset(dd, EXTRA)
+            ParentForm, ChildForm = create_detail_formset(dd, settings.EXTRA)
             child_formset = ChildForm(instance=et)
             # Compare the model of the child formset's QuerySet to the model
             # of the ExtractedText object's child objects
@@ -580,8 +580,7 @@ class TestDynamicDetailFormsets(TestCase):
         component = rawchem.component
         response = self.client.get("/datadocument/%i/" % data_document.pk)
         response_html = html.fromstring(response.content)
-        component_text = response_html.xpath(f'//*[@id="component-{ rawchem.id }"]/text()').pop()
-        self.assertEqual(
-            component,
-            component_text
-        )
+        component_text = response_html.xpath(
+            f'//*[@id="component-{ rawchem.id }"]/text()'
+        ).pop()
+        self.assertEqual(component, component_text)

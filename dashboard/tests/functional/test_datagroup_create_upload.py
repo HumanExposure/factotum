@@ -1,6 +1,5 @@
 import os
 import io
-import shutil
 
 from django.test import RequestFactory, TestCase, Client
 from django.contrib.auth.models import User
@@ -9,25 +8,19 @@ from django.core.files.uploadedfile import InMemoryUploadedFile, TemporaryUpload
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 
-from factotum import settings
+from django.conf import settings
 from dashboard import views
 from dashboard.models import *
 from dashboard.tests.loader import fixtures_standard
+from dashboard.tests.mixins import TempFileMixin
 
 
-class RegisterRecordsTest(TestCase):
+class RegisterRecordsTest(TempFileMixin, TestCase):
     fixtures = fixtures_standard
 
     def setUp(self):
         self.factory = RequestFactory()
         self.client.login(username="Karyn", password="specialP@55word")
-        media_root = settings.MEDIA_ROOT
-        shutil.rmtree(media_root, ignore_errors=True)
-
-    def tearDown(self):
-        # clean up the file system by deleting the data group object
-        if DataGroup.objects.filter(name="Walmart MSDS Test Group").exists():
-            DataGroup.objects.get(name="Walmart MSDS Test Group").delete()
 
     def test_datagroup_create(self):
         long_fn = "a filename that is too long " * 10
@@ -180,7 +173,9 @@ class RegisterRecordsTest(TestCase):
         request.session.save()
         request.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=request, pk=dg.pk)
-        pdf_path = f"{settings.MEDIA_ROOT}{dg.fs_id}/pdf/{doc.get_abstract_filename()}"
+        pdf_path = os.path.join(
+            settings.MEDIA_ROOT, str(dg.fs_id), "pdf", doc.get_abstract_filename()
+        )
         self.assertTrue(
             os.path.exists(pdf_path), "the stored file should be in MEDIA_ROOT/dg.fs_id"
         )

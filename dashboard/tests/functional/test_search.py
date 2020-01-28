@@ -10,7 +10,7 @@ from django.contrib.messages import get_messages
 from dashboard.tests.loader import *
 import requests
 from django.test import TestCase, RequestFactory
-from factotum import settings
+from django.conf import settings
 
 import bs4
 

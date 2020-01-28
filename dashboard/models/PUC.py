@@ -73,26 +73,6 @@ class PUCQuerySet(models.QuerySet):
         return tree
 
 
-class PUCManager(models.Manager):
-    def get_queryset(self):
-        return PUCQuerySet(self.model, using=self._db)
-
-    def dtxsid_filter(self, sid):
-        return self.get_queryset().dtxsid_filter(sid)
-
-    def with_num_products(self):
-        return self.get_queryset().with_num_products()
-
-    def with_allowed_attributes(self):
-        return self.get_queryset().with_allowed_attributes()
-
-    def with_assumed_attributes(self):
-        return self.get_queryset().with_assumed_attributes()
-
-    def astree(self):
-        return self.get_queryset().astree()
-
-
 class PUC(CommonInfo):
     KIND_CHOICES = (
         ("UN", "unknown"),
@@ -129,7 +109,7 @@ class PUC(CommonInfo):
         blank=True,
         help_text="A set of PUC Attributes applicable to this PUC",
     )
-    objects = PUCManager()
+    objects = PUCQuerySet.as_manager()
 
     class Meta:
         ordering = ["gen_cat", "prod_fam", "prod_type"]
