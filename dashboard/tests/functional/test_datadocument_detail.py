@@ -584,3 +584,27 @@ class TestDynamicDetailFormsets(TestCase):
             f'//*[@id="component-{ rawchem.id }"]/text()'
         ).pop()
         self.assertEqual(component, component_text)
+
+    def test_chemical_ordering(self):
+        data_document = DataDocument.objects.get(pk=170415)
+        exchems = ExtractedChemical.objects.filter(extracted_text_id=170415).order_by(
+            "component", "ingredient_rank"
+        )
+        chem_ids = exchems.values_list("id", flat=True)
+        first_id = chem_ids[0]
+        second_id = chem_ids[1]
+        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        cards = response_html.find_class("card")
+        self.assertEqual(cards[0].get("id"), f"chem-{first_id}")
+
+        # changing the component of the first chemical should move it to the bottom
+        # of the page
+        ec = exchems.get(id=93)
+        ec.component = "Component C"
+        ec.save()
+        response = self.client.get("/datadocument/%i/" % data_document.pk)
+        response_html = html.fromstring(response.content)
+        cards = response_html.find_class("card")
+        # the new first card should match the second ID
+        self.assertEqual(cards[0].get("id"), f"chem-{second_id}")

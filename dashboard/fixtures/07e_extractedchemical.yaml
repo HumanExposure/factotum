@@ -1092,7 +1092,7 @@
     unit_type: 2
     report_funcuse: null
     weight_fraction_type: 1
-    ingredient_rank: null
+    ingredient_rank: 1
     raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 94
@@ -1632,7 +1632,7 @@
     unit_type: 2
     report_funcuse: null
     weight_fraction_type: 1
-    ingredient_rank: null
+    ingredient_rank: 2
     raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 139
@@ -6660,7 +6660,7 @@
     unit_type: 2
     report_funcuse: null
     weight_fraction_type: 1
-    ingredient_rank: null
+    ingredient_rank: 2
     raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 558
@@ -7068,7 +7068,7 @@
     unit_type: 2
     report_funcuse: null
     weight_fraction_type: 1
-    ingredient_rank: null
+    ingredient_rank: 1
     raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 592
@@ -7140,7 +7140,7 @@
     unit_type: 2
     report_funcuse: null
     weight_fraction_type: 1
-    ingredient_rank: null
+    ingredient_rank: 3
     raw_central_comp: null
 - model: dashboard.extractedchemical
   pk: 598

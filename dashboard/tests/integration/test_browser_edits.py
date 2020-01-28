@@ -207,13 +207,8 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]'
             )
-            # Find chemical card, not chem-card-None (i.e. "Add new chemical")
-            chem_cards = self.browser.find_elements_by_xpath(
-                "//*[starts-with(@id, 'chem-card-')]"
-            )
-            regex = re.compile("chem-card-\d+")
-            chem_card = next(c for c in chem_cards if regex.match(c.get_property("id")))
-            chem_card.click()
+            chem_id = RawChem.objects.filter(extracted_text__pk=doc_id).first().id
+            self.browser.find_element_by_id(f"chem-card-{chem_id}").click()
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable

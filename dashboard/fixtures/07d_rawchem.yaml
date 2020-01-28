@@ -918,6 +918,7 @@
     temp_obj_name: ExtractedChemical
     rid: null
     dsstox: null
+    component: Component A
 - model: dashboard.rawchem
   pk: 94
   fields:
@@ -1368,6 +1369,7 @@
     temp_obj_name: ExtractedChemical
     rid: DTXRID00138
     dsstox: 8
+    component: Component B
 - model: dashboard.rawchem
   pk: 139
   fields:
@@ -5569,6 +5571,7 @@
     temp_obj_name: ExtractedChemical
     rid: null
     dsstox: null
+    component: Component A
 - model: dashboard.rawchem
   pk: 558
   fields:
@@ -5909,6 +5912,7 @@
     temp_obj_name: ExtractedChemical
     rid: null
     dsstox: null
+    component: Component B
 - model: dashboard.rawchem
   pk: 592
   fields:
@@ -5969,6 +5973,7 @@
     temp_obj_name: ExtractedChemical
     rid: null
     dsstox: null
+    component: Component B
 - model: dashboard.rawchem
   pk: 598
   fields:
