@@ -12,7 +12,7 @@ def get_default_document_type():
 
 class DataDocument(CommonInfo):
     """
-    A DataDocument object is a single source of Factotum data. 
+    A DataDocument object is a single source of Factotum data.
     """
 
     filename = models.CharField(
@@ -94,10 +94,14 @@ class DataDocument(CommonInfo):
         return self.data_group.group_type.code in ["CP", "HH", "CO"]
 
     @property
+    def chemicals(self):
+        return self.extractedtext.rawchem if self.is_extracted else []
+
+    @property
     def is_extracted(self):
         """When the content of a data document has been extracted by manual data entry
         or by an extraction script, a new ExtractedText record is created
-        with the DataDocument's id as its primary key. 
+        with the DataDocument's id as its primary key.
         """
         return hasattr(self, "extractedtext")
 
