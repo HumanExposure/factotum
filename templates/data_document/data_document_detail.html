@@ -29,6 +29,11 @@
                     {{ doc.subtitle|truncatechars:90 }}
                 </h4>
             {% endif %}
+            {% if doc.detail_page_include_organization and doc.organization %}
+                <h4 class="text-secondary">
+                    {{ doc.organization|truncatechars:90 }}
+                </h4>
+            {% endif %}
         </div>
         <div class="col-lg-2 d-flex border-bottom">
             <div class="btn-group my-auto"

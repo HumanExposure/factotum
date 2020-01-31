@@ -56,7 +56,7 @@
     data_group: 8
     matched: true
     document_type: 12
-    organization: ''
+    organization: 'Test Organization'
     note: null
 - model: dashboard.datadocument
   pk: 54

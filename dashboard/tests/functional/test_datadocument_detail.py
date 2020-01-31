@@ -315,6 +315,14 @@ class DataDocumentDetailTest(TestCase):
         # Confirm that the displayed subtitle is truncated and ... is appended
         self.assertContains(response, "This subtitle is more than 90 c…")
 
+    def test_hp_group_type(self):
+        id = 53
+        response = self.client.get("/datadocument/%i/" % id)
+        # Should display organization for HP group type
+        self.assertContains(response, "Test Organization")
+        # Should not display Product name
+        self.assertNotContains(response, "Product name")
+
     def test_chemname_ellipsis(self):
         """Check that DataDocument chemical names get truncated"""
         trunc_length = 45

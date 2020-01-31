@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0142_audit_log_triggers'),
-    ]
+    dependencies = [("dashboard", "0142_audit_log_triggers")]
 
     operations = [
         migrations.AlterField(
-            model_name='datagroup',
-            name='zip_file',
+            model_name="datagroup",
+            name="zip_file",
             field=models.CharField(max_length=300),
-        ),
+        )
     ]

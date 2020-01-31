@@ -209,6 +209,12 @@ class ExtractedTextForm(forms.ModelForm):
         }
 
 
+class ExtractedTextHPForm(ExtractedTextForm):
+    class Meta:
+        model = ExtractedText
+        fields = ["doc_date", "rev_num"]
+
+
 class ExtractedCPCatForm(ExtractedTextForm):
     class Meta:
         model = ExtractedCPCat
@@ -365,7 +371,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
 
     def three():  # for habits_and_practices
         HnPFormSet = make_formset(parent, child)
-        return (ExtractedTextForm, HnPFormSet)
+        return (ExtractedTextHPForm, HnPFormSet)
 
     def four():  # for extracted_list_presence
         ListPresenceFormSet = make_formset(parent, child)
@@ -386,7 +392,15 @@ class DataDocumentForm(forms.ModelForm):
 
     class Meta:
         model = DataDocument
-        fields = ["title", "subtitle", "document_type", "note", "url", "raw_category"]
+        fields = [
+            "title",
+            "subtitle",
+            "document_type",
+            "note",
+            "url",
+            "raw_category",
+            "organization",
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -394,3 +408,6 @@ class DataDocumentForm(forms.ModelForm):
         self.fields["document_type"].queryset = DocumentType.objects.compatible(
             self.instance
         )
+        if self.instance and not self.instance.detail_page_include_organization:
+            # hide organization for all types other than HP
+            self.fields["organization"].widget = forms.HiddenInput()
