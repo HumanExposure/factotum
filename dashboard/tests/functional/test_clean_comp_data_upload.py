@@ -68,18 +68,13 @@ class UploadExtractedFileTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"cleancomp-script_id": 17, "cleancomp-submit": "Submit"}
-        req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/47/", data=req_data)
-        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=req, pk=47)
+        data = {
+            "cleancomp-script_id": 17,
+            "cleancomp-submit": "Submit",
+            "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(
             resp, "2 clean composition data records uploaded successfully."
         )
@@ -100,18 +95,13 @@ class UploadExtractedFileTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"cleancomp-script_id": 17, "cleancomp-submit": "Submit"}
-        req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/47/", data=req_data)
-        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=req, pk=47)
+        data = {
+            "cleancomp-script_id": 17,
+            "cleancomp-submit": "Submit",
+            "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(
             resp, "2 clean composition data records uploaded successfully."
         )
@@ -132,18 +122,13 @@ class UploadExtractedFileTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"cleancomp-script_id": 17, "cleancomp-submit": "Submit"}
-        req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/47/", data=req_data)
-        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=req, pk=47)
+        data = {
+            "cleancomp-script_id": 17,
+            "cleancomp-submit": "Submit",
+            "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(resp, "This field is required")
 
     def test_noscript(self):
@@ -157,18 +142,12 @@ class UploadExtractedFileTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"cleancomp-submit": "Submit"}
-        req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/47/", data=req_data)
-        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=req, pk=47)
+        data = {
+            "cleancomp-submit": "Submit",
+            "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(resp, "This field is required")
 
     def test_invalid_clean_comp_data_upload(self):
@@ -182,18 +161,13 @@ class UploadExtractedFileTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {"cleancomp-script_id": 12, "cleancomp-submit": "Submit"}
-        req_data.update(self.mng_data)
-        req = self.factory.post(path="/datagroup/47/", data=req_data)
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.FILES["cleancomp-bulkformsetfileupload"] = in_mem_sample_csv
-        req.user = User.objects.get(username="Karyn")
-        resp = views.data_group_detail(request=req, pk=47)
+        data = {
+            "cleancomp-script_id": 12,
+            "cleancomp-submit": "Submit",
+            "cleancomp-bulkformsetfileupload": in_mem_sample_csv,
+        }
+        data.update(self.mng_data)
+        resp = self.c.post(path="/datagroup/47/", data=data, follow=True)
         self.assertContains(
             resp, "lower_wf_analysis: Quantity 1.7777 must be between 0 and 1"
         )

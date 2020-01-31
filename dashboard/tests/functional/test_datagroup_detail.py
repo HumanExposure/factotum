@@ -132,7 +132,9 @@ class DataGroupDetailTest(TestCase):
         )
         new_stub_id = Product.objects.all().aggregate(Max("id"))["id__max"] + 1
         response = self.client.post(
-            f"/datagroup/{self.objects.dg.pk}/", {"bulkassignprod-submit": "Submit"}
+            f"/datagroup/{self.objects.dg.pk}/",
+            {"bulkassignprod-submit": "Submit"},
+            follow=True,
         )
         self.assertIsNone(
             response.context["bulkassignprod_form"],

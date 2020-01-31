@@ -31,7 +31,5 @@ services:
   logstash:
     environment:
       SQL_HOST: mysql
-      SQL_PASSWORD: ${SQL_PASSWORD:-}
-      SQL_USER: ${SQL_USER:-root}
     depends_on:
       - mysql

@@ -90,7 +90,7 @@ class TestProductLinkage(TestCase):
             "Not all DataDocuments linked to Product, bulkassignprod_form needed",
         )
         response = self.client.post(
-            "/datagroup/19/", {"bulkassignprod-submit": unlinked}
+            "/datagroup/19/", {"bulkassignprod-submit": unlinked}, follow=True
         )
         self.assertIsNone(
             response.context["bulkassignprod_form"],
@@ -135,7 +135,7 @@ class TestProductLinkage(TestCase):
             "Not all DataDocuments linked to Product, bulkassignprod_form needed",
         )
         response = self.client.post(
-            f"/datagroup/6/", {"bulkassignprod-submit": "Submit"}
+            f"/datagroup/6/", {"bulkassignprod-submit": "Submit"}, follow=True
         )
         self.assertIsNone(
             response.context["bulkassignprod_form"],

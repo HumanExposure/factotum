@@ -20,8 +20,8 @@ class UploadProductTest(TestCase):
         self.factory = RequestFactory()
         self.c.login(username="Karyn", password="specialP@55word")
 
-    def generate_csv_request(self, sample_csv):
-        """ 
+    def post_csv(self, sample_csv):
+        """
         For DRY purposes, this method takes a csv string
         generated above and returns a POST request that includes it
         """
@@ -34,22 +34,14 @@ class UploadProductTest(TestCase):
             size=len(sample_csv),
             charset="utf-8",
         )
-        req_data = {
+        data = {
             "products-submit": "Submit",
             "products-TOTAL_FORMS": 0,
             "products-INITIAL_FORMS": 0,
             "products-MAX_NUM_FORMS": "",
+            "products-bulkformsetfileupload": in_mem_sample_csv,
         }
-        req = self.factory.post(path="/datagroup/23/", data=req_data)
-        req.FILES["products-bulkformsetfileupload"] = in_mem_sample_csv
-        middleware = SessionMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        middleware = MessageMiddleware()
-        middleware.process_request(req)
-        req.session.save()
-        req.user = User.objects.get(username="Karyn")
-        return req
+        return self.c.post(path="/datagroup/23/", data=data, follow=True)
 
     def test_valid_product_data_upload(self):
         sample_csv = (
@@ -60,9 +52,8 @@ class UploadProductTest(TestCase):
             "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
             "159270,f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,'product title e'"
         )
-        req = self.generate_csv_request(sample_csv)
         pre_pdcount = ProductDocument.objects.count()
-        resp = views.data_group_detail(request=req, pk=23)
+        resp = self.post_csv(sample_csv)
         self.assertContains(resp, "5 records have been successfully uploaded.")
         # ProductDocument records should also have been added
         post_pdcount = ProductDocument.objects.count()
@@ -87,8 +78,7 @@ class UploadProductTest(TestCase):
             "161938,fc5f964c-91e2-42c5-9899-2ff38e37ba89.pdf,'product title c',852646877466\n"
             "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d',stub_11"
         )
-        req = self.generate_csv_request(sample_csv)
-        resp = views.data_group_detail(request=req, pk=23)
+        resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
             "The following records had existing or duplicated UPCs and were not added: 161698",
@@ -108,8 +98,7 @@ class UploadProductTest(TestCase):
             "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
             "159270,f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,'product title e',852646877466"
         )
-        req = self.generate_csv_request(sample_csv)
-        resp = views.data_group_detail(request=req, pk=23)
+        resp = self.post_csv(sample_csv)
         self.assertContains(
             resp,
             "The following records had existing or duplicated UPCs and were not added: 178496, 159270",
@@ -128,8 +117,7 @@ class UploadProductTest(TestCase):
             "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
             "159270,f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,'product title e'"
         )
-        req = self.generate_csv_request(sample_csv)
-        resp = views.data_group_detail(request=req, pk=23)
+        resp = self.post_csv(sample_csv)
         self.assertContains(resp, "data_document_filename: This field is required.")
         self.assertContains(resp, "CSV column titles should be ")
 
@@ -145,9 +133,8 @@ class UploadProductTest(TestCase):
             "161698,f040f93d-1cf3-4eff-85a9-da14d8d2e252.pdf,'product title d'\n"
             "159270,f040f93d-1cf3-4eff-85a9-da14d8d2e253.pdf,'product title e'"
         )
-        req = self.generate_csv_request(sample_csv)
         pre_pdcount = ProductDocument.objects.count()
-        resp = views.data_group_detail(request=req, pk=23)
+        resp = self.post_csv(sample_csv)
         self.assertContains(resp, "5 records have been successfully uploaded.")
         # ProductDocument records should also have been added
         post_pdcount = ProductDocument.objects.count()

@@ -446,10 +446,10 @@ function dismissTask(task_id, form) {
     var del_btn_el = task_el.getElementsByClassName("formtask-del-btn")[0];
     del_btn_el.classList.add("disabled");
     del_btn_el.disabled = true;
-    fetch(`/api/tasks/${task_id}`, {
+    fetch(`/api/tasks/${task_id}/`, {
         method: "DELETE",
         headers: { "X-CSRFToken": Cookies.get("csrftoken") }
-    }).then(setTaskState(true));
+    }).then(response => window.location.reload(false));
 }
 
 $(document).ready(function() {

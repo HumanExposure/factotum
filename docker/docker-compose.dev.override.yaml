@@ -4,6 +4,7 @@ volumes:
   kibanadata:
   kibanaoptdata:
 
+
 services:
   elasticsearch:
     build: https://github.com/HumanExposure/factotum_elastic.git#${FACTOTUM_ELASTIC_BRANCH:-dev}:elasticsearch
@@ -37,6 +38,8 @@ services:
       REINDEX_SCHEDULE: ${REINDEX_SCHEDULE:-*/30 * * * * America/New_York}
       SQL_DATABASE: ${SQL_DATABASE:-factotum}
       SQL_HOST: ${SQL_HOST:-host.docker.internal}
+      SQL_PASSWORD: ${SQL_PASSWORD:-}
+      SQL_USER: ${SQL_USER:-root}
     ports:
       - ${LOGSTASH_PORT:-5959}:${LOGSTASH_PORT:-5959}/udp
 
