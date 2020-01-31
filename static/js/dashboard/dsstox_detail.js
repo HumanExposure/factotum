@@ -1,71 +1,77 @@
-var truncate_chars = (words) => {
-    if (words.length >= 47) {
-        return words.slice(0, 44) + '...'
-    } else {
-        return words
-    }
-};
-
-var table = $('#keywords').DataTable({
-    "ajax": "",
-    "language": {
-        "emptyTable": "Click on Keyword sets for list of DataDocuments."
-    },
-    dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
-        "<'row'<'col-12'tr>>" +
-        "<'row'<'col-6 ml-auto'p>>" +
-        "<'row'<'col-6 ml-auto'i>>",
-    "columns": [{
-        data: "title",
-        "render": function (data, type, row) {
-            return ('<a href="/datadocument/' + row.id + '"' +
-                ' title="Link to document detail" target="_blank">' +
-                truncate_chars(data) + '</a>');
-        }
-    }, ],
-});
-
 $(document).ready(function () {
-    var sid = $('#documents').data('sid')
+    var url = '/d_json/?chem_detail=True&sid=' + $('#documents').data('sid');
     var documenttable = $('#documents').DataTable({
-        "serverSide": true,
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "ajax": "/d_json/?sid=" + sid,
-        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
-            "<'row'<'col-12'tr>>" +
-            "<'row'<'col-6'i><'col-6'p>>", // order the control divs
-        "columns": [{
-                name: "document",
-                // "width": "70%",
-                "render": function (data, type, row) {
-                    return '<a href="/datadocument/' + row[2] + '"' + ' title="Link to document">' + data + '</a>';
-                }
+        columns: [
+            {
+                data: 0,
+                orderable: true,
+                searchable: true
             },
             {
-                name: "data_group__group_type__title",
-                // "width": "30%"
-            },
+                data: 1,
+                orderable: true,
+                searchable: true,
+                className: "text-center",
+                width: "30%"
+            }
         ],
-        "initComplete": function (settings, json) {
-            $('#documents_filter input').unbind();
-            $('#documents_filter input').bind('keyup', function (e) {
-                if (e.keyCode == 13) {
-                    documenttable.search(this.value).draw();
-                }
-            });
+        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
+            "<'row'<'col-12 p-0'tr>>" +
+            "<'row'i>" +
+            "<'row'<'ml-auto'p>>",
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        ordering: true,
+        // stateSave: true,
+        drawCallback: () => {
+            $('.paginate_button').on('click', moveText);
+        },
+        ajax: url,
+        initComplete: function () {
+            $('#info_text').text($('#documents_info').text())
         }
     });
+
+    $('a[id^="filter-"]').on('click', e => {
+        var puc = $(e.currentTarget).data('pk');
+        documenttable.ajax.url(url + '&category=' + puc).load(moveText);
+        $('#reset').prop('disabled', false);
+    });
+    $('a[id^="keywords-"]').on('click', e => {
+        var pid = $(e.currentTarget).data('presence-id');
+        documenttable.ajax.url(url + '&pid=' + pid).load(moveText);
+        $('#reset').prop('disabled', false);
+    });
+
+    $('#group_type_dropdown').on('change', e => {
+        var group_type = $(e.currentTarget).children("option:selected").val()
+        documenttable.ajax.url(url + '&group_type=' + group_type).load(moveText);
+        $('#reset').prop('disabled', false);
+    });
+
+    $('#reset').on('click', function (e) {
+        documenttable.ajax.url(url).load(moveText);
+        console.log($(this).prop('disabled', true));
+    });
+
+    var moveText = () => {
+        $('#info_text').text($('#documents_info').text());
+    }
+    
+    documenttable.on('draw', moveText)
 });
 
 $('.handle').on('click', function (e) {
     $(this).find('svg').toggleClass('d-none');
 });
 
-
-
-$('div[id^="keywords-"]').on('click', e => {
-    var pid = $(e.currentTarget).data('presence-id');
-    table.ajax.url('/keywordset_documents/' + pid + '/').load();
+$('#flipbtn').on('click', function (e) {
+    if (this.innerHTML == "Show Table"){
+        this.innerHTML = "Show PUCs";
+    } else {
+        this.innerHTML = "Show Table";
+    }
+    $("#nestedcircles").toggleClass('trans-bubble');
+    $("#tbldiv").toggleClass('trans-table');
 });

@@ -1,0 +1,43 @@
+#documents_wrapper {
+    width: 100%;
+}
+#documents_info {
+    display: none;
+}
+.schticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 42px;
+}
+
+#nestedcircles {
+    transition: transform 1s;
+    top:47px;
+    width: 50vw;
+    height: 544px;
+}
+
+#nestedcircles.trans-bubble {
+    transform:  translate(0,-1500px);
+}
+
+#tbldiv {
+    width: 50vw;
+    position: fixed;
+    top: -900px;
+    transition: transform 1s;
+}
+
+.trans-table {
+    transform:  translate(0, 947px);
+}
+
+#flipbtn {
+    position: fixed;
+    top: 66px;
+    left: 13px;
+    height: 66px;
+    width: 66px;
+    border-radius: 50%;
+    color: black;
+}

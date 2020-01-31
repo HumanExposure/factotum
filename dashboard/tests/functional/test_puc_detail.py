@@ -44,7 +44,7 @@ class TestPUCDetail(TestCase):
 
         puc = PUC.objects.get(pk=20)
         puc_taxonomies = puc.get_linked_taxonomies()
-        response = self.client.get(puc.url).content.decode("utf8")
+        response = self.client.get(puc.get_absolute_url()).content.decode("utf8")
         response_html = html.fromstring(response)
         taxonomy_div = response_html.xpath('//*[@id="taxonomies"]/dl/dd/button/text()')
         for taxonomy in puc_taxonomies:

@@ -1,6 +1,8 @@
 from django.db import models
-from .common_info import CommonInfo
+from django.apps import apps
 from django.urls import reverse
+
+from .common_info import CommonInfo
 from .document_type import DocumentType
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
@@ -8,6 +10,16 @@ from django.core.validators import URLValidator
 
 def get_default_document_type():
     return DocumentType.objects.get(code="UN").pk
+
+
+class DataDocumentManager(models.Manager):
+    def from_chemical(self, dsstox):
+        """Retrieve a queryset of ProductDocuments where the 'document' is
+        linked to an instance of DSSToxLookup, i.e. chemical.
+        """
+        if not type(dsstox) == apps.get_model("dashboard.DSSToxLookup"):
+            raise TypeError("'dsstox' argument is not a DSSToxLookup instance.")
+        return self.filter(extractedtext__rawchem__in=dsstox.curated_chemical.all())
 
 
 class DataDocument(CommonInfo):
@@ -81,6 +93,8 @@ class DataDocument(CommonInfo):
         verbose_name="note",
         help_text="Long-form notes about the document",
     )
+
+    objects = DataDocumentManager()
 
     class Meta:
         ordering = ["-id"]

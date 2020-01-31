@@ -25,13 +25,23 @@
                         <span class="m-1"></span>
                     {% endif %}
                     <b>{{ leaf.name }}</b>
-                    <a href="{{ leaf.value.url }}"
+                    <a href="{{ leaf.value.get_absolute_url }}"
                        class="ml-2"
                        title="PUC detail"
                        data-toggle="tooltip"
                        data-placement="top">
                         <i class="fas fa-info-circle icon-secondary"></i>
                     </a>
+                    {% if show_filter and leaf.value.num_products %}
+                    <a id="filter-{{ leaf.value.pk }}"
+                       class="ml-2"
+                       title="Filter table by PUC"
+                       data-pk="{{ leaf.value.pk }}"
+                       data-toggle="tooltip"
+                       data-placement="top">
+                        <i class="fa fa-filter icon-secondary"></i>
+                    </a>
+                    {% endif %}
                     <div class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                          data-gen-cat="{{ leaf.name }}">
                         <b>{{ leaf.value.cumnum_products }}</b>
@@ -62,13 +72,23 @@
                                 <span class="m-1"></span>
                             {% endif %}
                             <b>{{ leaflet.name }}</b>
-                            <a href="{{ leaflet.value.url }}"
+                            <a href="{{ leaflet.value.get_absolute_url }}"
                             class="ml-2"
                             title="PUC detail"
                             data-toggle="tooltip"
                             data-placement="top">
                                 <i class="fas fa-info-circle icon-secondary"></i>
                             </a>
+                            {% if show_filter and leaflet.value.num_products %}
+                            <a id="filter-{{ leaflet.value.pk }}"
+                                class="ml-2"
+                                title="Filter table by PUC"
+                                data-pk="{{ leaflet.value.pk }}"
+                                data-toggle="tooltip"
+                                data-placement="top">
+                                <i class="fa fa-filter icon-secondary"></i>
+                            </a>
+                            {% endif %}
                             <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                   data-gen-cat="{{ leaf.name }}">
                                 <b>{{ leaflet.value.cumnum_products }}</b>
@@ -86,13 +106,23 @@
                                             <div class="text-left d-flex align-items-center">
                                                 <span class="m-4"></span>
                                                 <b>{{ needle.name }}</b>
-                                                <a href="{{ needle.value.url }}"
+                                                <a href="{{ needle.value.get_absolute_url }}"
                                                     class="ml-2"
                                                     title="PUC detail"
                                                     data-toggle="tooltip"
                                                     data-placement="top">
                                                     <i class="fas fa-info-circle icon-secondary"></i>
                                                 </a>
+                                                {% if show_filter and needle.value.num_products %}
+                                                <a id="filter-{{ needle.value.pk }}"
+                                                    class="ml-2"
+                                                    title="Filter table by PUC"
+                                                    data-pk="{{ needle.value.pk }}"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top">
+                                                    <i class="fa fa-filter icon-secondary"></i>
+                                                </a>
+                                                {% endif %}
                                                 <span class="badge badge-pill text-white m-2 ml-auto text-center puc-link text-nowrap"
                                                       data-gen-cat="{{ leaf.name }}">
                                                     <b>{{ needle.value.cumnum_products }}</b>

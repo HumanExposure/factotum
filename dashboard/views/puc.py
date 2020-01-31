@@ -14,11 +14,5 @@ def puc_list(request, template_name="puc/puc_list.html"):
 
 def puc_detail(request, pk, template_name="puc/puc_detail.html"):
     puc = get_object_or_404(PUC, pk=pk)
-    data = {}
-    data["puc"] = puc
-    data["linked_taxonomies"] = puc.get_linked_taxonomies()
-    data["products"] = {}
-    data["referer"] = (
-        request.META["HTTP_REFERER"] if "HTTP_REFERER" in request.META else None
-    )
+    data = {"puc": puc, "linked_taxonomies": puc.get_linked_taxonomies()}
     return render(request, template_name, data)

@@ -1,4 +1,4 @@
-nestedBubbleChart(500, 500, "dl_pucs_json/");
+nestedBubbleChart(500, 500, false, "dl_pucs_json/");
 collapsibleTree("dl_pucs_json/tree/");
 
 // Venn Diagram of SIDs per Group Type combination

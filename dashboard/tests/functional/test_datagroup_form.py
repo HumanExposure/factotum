@@ -41,6 +41,7 @@ class DataGroupFormTest(TestCase):
         )
         dg.refresh_from_db()
         dg = DataGroup.objects.get(pk=dg.pk)
+        # import ipdb; ipdb.set_trace()
         self.assertEqual(
             dg.url,
             "http://www.epa.gov",

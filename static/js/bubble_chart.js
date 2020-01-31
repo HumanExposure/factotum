@@ -48,7 +48,7 @@ function translateChild(node) {
     }
 }
 
-function nestedBubbleChart(width, height, dataurl) {
+function nestedBubbleChart(width, height, fixed, dataurl) {
     d3v5.json(dataurl)
         .then(function(data) {
             var size = Math.min(width, height)
@@ -119,11 +119,15 @@ function nestedBubbleChart(width, height, dataurl) {
                     `-${size / 2} -${size / 2} ${size} ${size}`
                 )
                 .style("display", "block")
+                // .style("position", "fixed")
                 .style("background", "#eae9e0")
                 .style("cursor", "pointer")
                 .on("click", () => zoom(root));
+            if (fixed === true){
+                svg.style("position", "fixed")
+            }
 
-            const node = svg
+           const node = svg
                 .append("g")
                 .selectAll("circle")
                 .data(root.descendants().slice(1))

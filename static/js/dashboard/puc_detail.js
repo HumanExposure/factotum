@@ -1,99 +1,87 @@
 $(document).ready(function () {
     var puc = $('#products').data('puc')
-    var producttable = $('#products').DataTable({
-        "serverSide": true,
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "ajax": "/p_json/?puc=" + puc,
-        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
-            "<'row'<'col-12'tr>>" +
-            "<'row'<'col-6'i><'col-6'p>>", // order the control divs
-        "columns": [{
-                name: "title",
-                // "width": "70%",
-                "render": function (data, type, row) {
-                    return '<a href="/product/' + row[2] + '"' + ' title="Link to product detail">' + data + '</a>';
-                }
-            },
-            {
-                name: "brand_name",
-                // "width": "30%"
-            },
-        ],
-        "initComplete": function (settings, json) {
-            $('#products_filter input').unbind();
-            $('#products_filter input').bind('keyup', function (e) {
-                if (e.keyCode == 13) {
-                    producttable.search(this.value).draw();
-                }
-            });
-        }
-    });
 
-    var documenttable = $('#documents').DataTable({
-        "serverSide": true,
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "ajax": "/d_json/?puc=" + puc,
-        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
-            "<'row'<'col-12'tr>>" +
-            "<'row'<'col-6'i><'col-6'p>>", // order the control divs
-        "columns": [{
-                name: "document",
-                // "width": "70%",
-                "render": function (data, type, row) {
-                    return '<a href="/datadocument/' + row[2] + '"' + ' title="Link to document">' + data + '</a>';
+    $("#productos").on("click", function(){
+        $("div[id$='table-div']").hide()
+        $("#prod-table-div").show()
+        var producttable = $('#products').DataTable({
+            columns: [
+                {
+                    data: 0,
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 1,
+                    orderable: true,
+                    searchable: true,
                 }
-            },
-            {
-                name: "data_group__group_type__title",
-                // "width": "30%"
-            },
-        ],
-        "initComplete": function (settings, json) {
-            $('#documents_filter input').unbind();
-            $('#documents_filter input').bind('keyup', function (e) {
-                if (e.keyCode == 13) {
-                    documenttable.search(this.value).draw();
-                }
-            });
-        }
-    });
+            ],
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/p_json/?puc=" + puc,
+        });
+    })
 
-    var chemicaltable = $('#chemicals').DataTable({
-        "serverSide": true,
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "ajax": "/c_json/?puc=" + puc,
-        dom: "<'row'<'col-6 form-inline'l><'col-6 form-inline'f>>" +
-            "<'row'<'col-12'tr>>" +
-            "<'row'<'col-6'i><'col-6'p>>", // order the control divs
-        "columns": [{
-                name: "chemical",
-                // "width": "70%",
-                "render": function (data, type, row) {
-                    return '<a href="/chemical/' + row[0] + '"' + ' title="Link to chemical" target="_blank">' + data + '</a>';
+    $("#documentos").on("click", function(){
+        $("div[id$='table-div']").hide()
+        $("#doc-table-div").show()
+        var documenttable = $('#documents').DataTable({
+            columns: [
+                {
+                    data: 0,
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 1,
+                    orderable: true,
+                    searchable: true,
+                    className: "text-center"
                 }
-            },
-            {
-                name: "sid",
-                // "width": "30%"
-            },
-            {
-                name: "true_chemname",
-                // "width": "30%"
-            },
-        ],
-        "initComplete": function (settings, json) {
-            $('#chemicals_filter input').unbind();
-            $('#chemicals_filter input').bind('keyup', function (e) {
-                if (e.keyCode == 13) {
-                    chemicaltable.search(this.value).draw();
-                }
-            });
-        }
-    });
+            ],
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/d_json/?puc=" + puc,
+        });
+    })
+
+    $("#quimicos").on("click", function(){
+        $("div[id$='table-div']").hide()
+        $("#chem-table-div").show()
+        var chemicaltable = $('#chemicals').DataTable({
+            columns: [
+                {
+                    data: 0,
+                    orderable: true,
+                    searchable: true
+                },
+                {
+                    data: 1,
+                    orderable: true,
+                    searchable: true,
+                    className: "text-center",
+                    width:"25%"
+                },
+                {
+                    data: 2,
+                    orderable: true,
+                    searchable: true
+                },
+            ],
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            ordering: true,
+            stateSave: true,
+            ajax: "/c_json/?puc=" + puc,
+        });
+    })
+    $("#productos").click()
 });

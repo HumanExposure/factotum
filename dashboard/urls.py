@@ -175,9 +175,9 @@ urlpatterns = [
         views.ListPresenceTagAutocomplete.as_view(),
         name="list_presence_tags_autocomplete",
     ),
-    path("d_json/", views.document_ajax, name="d_ajax_url"),
-    path("p_json/", views.product_ajax, name="p_ajax_url"),
-    path("c_json/", views.chemical_ajax, name="c_ajax_url"),
+    path("d_json/", views.DocumentListJson.as_view(), name="d_ajax_url"),
+    path("p_json/", views.ProductListJson.as_view(), name="p_ajax_url"),
+    path("c_json/", views.ChemicalListJson.as_view(), name="c_ajax_url"),
     path("sid_gt_json", views.sids_by_grouptype_ajax, name="sid_gt_json_url"),
     path("pucs/", views.puc_list, name="puc_list"),
     path("puc/<int:pk>/", views.puc_detail, name="puc_detail"),
@@ -269,11 +269,6 @@ urlpatterns = [
         name="list_presence_tag_delete",
     ),
     path("search/<str:model>/", views.search_model, name="search-model"),
-    path(
-        "keywordset_documents/<int:pk>/",
-        views.keywordset_documents,
-        name="keywordset_documents",
-    ),
 ]
 if settings.DEBUG is True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

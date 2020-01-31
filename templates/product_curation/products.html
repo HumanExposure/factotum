@@ -13,18 +13,7 @@
   <thead class="table-primary">
       <th>Title</th>
       <th>Brand Name</th>
-      <th>PUC</th>
   </thead>
-  <tbody>
-    {% for product in products %}
-    <tr>
-      <td><a href="{{ product.get_absolute_url }}" title="Link to product detail">{{ product.title }}</a></td>
-      <td>{{ product.brand_name }}</td>
-{#      <td>{{ product.uber_puc }}</td>#}
-      <td>---</td>
-    </tr>
-    {% endfor %}
-  </tbody>
 </table>
 {% endblock %}
 

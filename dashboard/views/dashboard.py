@@ -37,6 +37,7 @@ def index(request):
             p.num_products for p in pucs.objects[puc_name].values()
         )
     stats["pucs"] = pucs
+    stats["show_filter"] = False
     return render(request, "dashboard/index.html", stats)
 
 

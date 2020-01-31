@@ -7,6 +7,8 @@ from .common_info import CommonInfo
 from .product_document import ProductDocument
 from .PUC import PUC
 from .extracted_list_presence import ExtractedListPresence
+from .data_document import DataDocument
+from .group_type import GroupType
 
 
 def validate_prefix(value):
@@ -56,6 +58,11 @@ class DSSToxLookup(CommonInfo):
         for puc in pucs:
             titles += list(f for f in (puc.gen_cat, puc.prod_fam, puc.prod_type) if f)
         return len(set(titles))
+
+    def get_unique_datadocument_group_types_for_dropdown(self):
+        docs = DataDocument.objects.from_chemical(self)
+        gts = set(docs.values_list("data_group__group_type__title", flat=True))
+        return GroupType.objects.filter(title__in=gts)
 
     def get_tag_sets(self):
         qs = ExtractedListPresence.objects.filter(dsstox=self)

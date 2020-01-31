@@ -39,7 +39,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
         """
         puc = PUC.objects.get(pk=185)
         wait = WebDriverWait(self.browser, 10)
-        self.browser.get(self.live_server_url + puc.url)
+        self.browser.get(self.live_server_url + puc.get_absolute_url())
 
         # Products
         input_el = self.browser.find_element_by_xpath(
@@ -58,17 +58,20 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
         )
 
         # Data Documents
-        self.assertIn(
-            "body butter (PLP) Recertification",
-            self.browser.find_element_by_xpath(
-                "//*[@id='documents']/tbody/tr[1]/td[1]"
-            ).text,
+        doc_btn = self.browser.find_element_by_id("documentos")
+        doc_btn.click()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='documents']/tbody/tr[1]/td[1]/a"),
+                "body butter (PLP) Recertification",
+            )
         )
 
         # Chemicals
-        self.assertIn(
-            "DTXSID9022528",
-            self.browser.find_element_by_xpath(
-                "//*[@id='chemicals']/tbody/tr[1]/td[1]"
-            ).text,
+        chem_btn = self.browser.find_element_by_id("quimicos")
+        chem_btn.click()
+        wait.until(
+            ec.text_to_be_present_in_element(
+                (By.XPATH, "//*[@id='chemicals']/tbody/tr/td[1]/a"), "DTXSID9022528"
+            )
         )
