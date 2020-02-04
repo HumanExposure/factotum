@@ -137,6 +137,7 @@ class ModelsTest(TestCase):
             last_edited_by=self.objects.user,
         )
         self.assertEqual(ExtractedHabitsAndPractices.objects.count(), 1)
+        self.assertEqual(ExtractedHabitsAndPracticesDataType.objects.count(), 1)
         self.assertEqual(ExtractedHabitsAndPracticesToPUC.objects.count(), 0)
         e2p = ExtractedHabitsAndPracticesToPUC.objects.create(
             extracted_habits_and_practices=self.objects.ehp, PUC=self.objects.puc

@@ -1,30 +1,38 @@
+- model: dashboard.extractedhabitsandpracticesdatatype
+  pk: 1
+  fields: {created_at: ! '2018-08-14 22:21:57.270224', updated_at: ! '2018-08-14 22:21:57.270246',
+    title: Frequency, description: Description of the data type frequency}
+- model: dashboard.extractedhabitsandpracticesdatatype
+  pk: 2
+  fields: {created_at: ! '2018-08-14 22:21:57.270224', updated_at: ! '2018-08-14 22:21:57.270246',
+    title: Mass, description: Description of the data type mass}
 - model: dashboard.extractedhabitsandpractices
   pk: 1
   fields: {created_at: ! '2018-08-14 22:21:57.270224', updated_at: ! '2018-08-14 22:21:57.270246',
     extracted_text: 53, product_surveyed: ball bearings, mass: '47.00000', mass_unit: grams,
     frequency: '16.00000', frequency_unit: bpm, duration: '21.00000', duration_unit: seconds,
-    prevalence: heavy, notes: a bunch of filth - muck!}
+    prevalence: heavy, notes: a bunch of filth - muck!, data_type_id: 1}
 - model: dashboard.extractedhabitsandpractices
   pk: 2
   fields: {created_at: ! '2018-08-14 22:26:04.985042', updated_at: ! '2018-08-14 22:26:04.985068',
     extracted_text: 53, product_surveyed: motorcycle, mass: '470.00000', mass_unit: lbs,
     frequency: '12.00000', frequency_unit: RPM, duration: '56.00000', duration_unit: miles,
-    prevalence: fair-to-middlin', notes: monster trucks!}
+    prevalence: fair-to-middlin', notes: monster trucks!, data_type_id: 2}
 - model: dashboard.extractedhabitsandpractices
   pk: 3
   fields: {created_at: ! '2018-08-14 22:29:38.950672', updated_at: ! '2018-08-14 22:29:38.950695',
     extracted_text: 54, product_surveyed: vitamin a&d, mass: '63.00000', mass_unit: ounces,
     frequency: '14.00000', frequency_unit: cycles per second, duration: '15.00000',
-    duration_unit: hours, prevalence: nice, notes: fine thank you!}
+    duration_unit: hours, prevalence: nice, notes: fine thank you!, data_type_id: 2}
 - model: dashboard.extractedhabitsandpractices
   pk: 4
   fields: {created_at: ! '2018-08-14 22:31:16.078315', updated_at: ! '2018-08-14 22:31:16.078340',
     extracted_text: 54, product_surveyed: dish soap, mass: '33.00000', mass_unit: millgrams,
     frequency: '32.00000', frequency_unit: bubbles, duration: '88.00000', duration_unit: mounds,
-    prevalence: everywhere, notes: ''}
+    prevalence: everywhere, notes: '', data_type_id: 1}
 - model: dashboard.extractedhabitsandpractices
   pk: 5
   fields: {created_at: ! '2018-10-23 14:07:09.203430', updated_at: ! '2018-10-23 14:07:09.203456',
     extracted_text: 53, product_surveyed: trombone, mass: '0.00047', mass_unit: grams,
     frequency: '4.70000', frequency_unit: slides, duration: '22.00000', duration_unit: whole
-      notes, prevalence: out-n-about, notes: another HnP to link to PUCs}
+      notes, prevalence: out-n-about, notes: another HnP to link to PUCs, data_type_id: 2}

@@ -7,9 +7,20 @@ from .common_info import CommonInfo
 from .extracted_text import ExtractedText
 
 
+class ExtractedHabitsAndPracticesDataType(CommonInfo):
+    title = models.CharField(max_length=50, blank=False, null=False)
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
 class ExtractedHabitsAndPractices(CommonInfo):
     extracted_text = models.ForeignKey(
         ExtractedText, on_delete=models.CASCADE, related_name="practices"
+    )
+    data_type = models.ForeignKey(
+        ExtractedHabitsAndPracticesDataType, on_delete=models.PROTECT, null=True
     )
     product_surveyed = models.CharField("Product Surveyed", max_length=50)
     PUCs = models.ManyToManyField(

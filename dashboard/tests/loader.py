@@ -20,6 +20,7 @@ from dashboard.models import (
     ProductDocument,
     UnitType,
     WeightFractionType,
+    ExtractedHabitsAndPracticesDataType,
 )
 
 from selenium import webdriver
@@ -154,10 +155,14 @@ def load_model_objects():
         name="Test PUC Attribute", definition="I'd really like to be defined."
     )
     pd = ProductDocument.objects.create(product=p, document=doc)
+    ehp_dt = ExtractedHabitsAndPracticesDataType.objects.create(
+        title="Test Data Type", description="Test Description"
+    )
     ehp = ExtractedHabitsAndPractices.objects.create(
         extracted_text=extext,
         product_surveyed="Test Product Surveyed",
         prevalence="Continuous",
+        data_type=ehp_dt,
     )
 
     return dotdict(
@@ -180,6 +185,7 @@ def load_model_objects():
             "pd": pd,
             "dt": dt,
             "gt": gt,
+            "ehp_dt": ehp_dt,
             "ehp": ehp,
         }
     )
