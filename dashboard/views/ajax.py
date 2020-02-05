@@ -1,5 +1,4 @@
 from django_datatables_view.base_datatable_view import BaseDatatableView
-
 from django.http import JsonResponse
 from django.db.models import Q
 from django.utils.html import format_html

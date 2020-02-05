@@ -126,4 +126,3 @@ $('#grouptype_table').DataTable({
                      {"title": "Raw Chemical Records (%)"},
                      {"title": "Curated Chemical Records (%)"},]
 })
-

@@ -45,6 +45,15 @@ class ExtractedListPresence(CommonInfo, RawChem):
         """
         return ["report_funcuse"]
 
+    @classmethod
+    def auditlog_fields(cls):
+        """Lists the fields to be included in the audit log triggers
+
+        Returns:
+            list -- a list of field names
+        """
+        return ["report_funcuse"]
+
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model
 

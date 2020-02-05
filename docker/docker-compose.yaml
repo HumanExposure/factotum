@@ -6,7 +6,6 @@ volumes:
   lsdata:
   redisdata:
 
-
 services:
   elasticsearch:
     image: factotum-elasticsearch
