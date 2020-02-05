@@ -2,7 +2,7 @@ import csv
 import datetime
 
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count, DateField, DateTimeField, F
+from django.db.models import Count, DateField, DateTimeField, F, Q
 from django.db.models.functions import Trunc
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -143,19 +143,40 @@ def product_with_puc_count_by_month():
 def grouptype_stats(request):
     """Return a json representation of the stats for GroupType.
     Returns:
-    json: { "data" : [[ title, documentcount ], [...], ], }
+    json: { "data" : [[ title, documentcount (%), rawchemcount (%), curatedchemcount (%) ], [...], ], }
     """
     grouptype_rows = GroupType.objects.annotate(
         documentcount=Count("datagroup__datadocument", distinct=True),
         rawchemcount=Count(
             "datagroup__datadocument__extractedtext__rawchem", distinct=True
         ),
+        curatedchemcount=Count(
+            "datagroup__datadocument__extractedtext__rawchem",
+            distinct=True,
+            filter=Q(
+                datagroup__datadocument__extractedtext__rawchem__dsstox_id__isnull=False
+            ),
+        ),
     ).order_by("-documentcount")
+
+    datadocument_total = rawchem_total = curatedchem_total = 0
+    for row in grouptype_rows:
+        datadocument_total += row.documentcount
+        rawchem_total += row.rawchemcount
+        curatedchem_total += row.curatedchemcount
 
     return JsonResponse(
         {
             "data": [
-                [row.title, row.documentcount, row.rawchemcount]
+                [
+                    row.title,
+                    # Document count by grouptype with % total
+                    f"{row.documentcount} ({(row.documentcount / (datadocument_total or 1))*100:.0f}%)",
+                    # Raw chemical counts by grouptype with % total
+                    f"{row.rawchemcount} ({(row.rawchemcount / (rawchem_total or 1))*100:.0f}%)",
+                    # Curated chemical counts by grouptypes with % total
+                    f"{row.curatedchemcount} ({(row.curatedchemcount / (curatedchem_total or 1))*100:.0f}%)",
+                ]
                 for row in grouptype_rows
             ]
         }

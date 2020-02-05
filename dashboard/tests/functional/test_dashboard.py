@@ -14,6 +14,7 @@ from dashboard.models import (
     PUC,
     GroupType,
     DataDocument,
+    DSSToxLookup,
 )
 from dashboard.tests.loader import load_model_objects, fixtures_standard
 
@@ -108,13 +109,14 @@ class DashboardTest(TestCase):
 
     def test_grouptype_stats_table(self):
         grouptypescount = GroupType.objects.all().count()
+        dsstox = DSSToxLookup.objects.create()
 
         response = self.client.get(reverse("grouptype_stats"))
         json_response_content = json.loads(response.content)
 
         # Add a document and a rawchem to verify count increments.
         DataDocument.objects.create(data_group=self.objects.dg)
-        RawChem.objects.create(extracted_text=self.objects.extext)
+        RawChem.objects.create(extracted_text=self.objects.extext, dsstox=dsstox)
         response_after_create = self.client.get(reverse("grouptype_stats"))
         json_response_content_after_create = json.loads(response_after_create.content)
 
@@ -131,23 +133,33 @@ class DashboardTest(TestCase):
         )
         self.assertEqual(
             json_response_content["data"][0][1],
-            1,
+            "1 (100%)",
             "documentcount returned seems to be incorrect information",
         )
         self.assertEqual(
             json_response_content["data"][0][2],
-            1,
+            "1 (100%)",
             "rawchemcount returned seems to be incorrect information",
         )
         self.assertEqual(
+            json_response_content["data"][0][3],
+            "0 (0%)",
+            "curatedchemcount returned seems to be incorrect information",
+        )
+        self.assertEqual(
             json_response_content_after_create["data"][0][1],
-            2,
+            "2 (100%)",
             "Adding a data document should increase documentcount",
         )
         self.assertEqual(
             json_response_content_after_create["data"][0][2],
-            2,
+            "2 (100%)",
             "Adding a RawChem should increase rawchemcount",
+        )
+        self.assertEqual(
+            json_response_content_after_create["data"][0][3],
+            "1 (100%)",
+            "Adding a Curated Chem should increase curatedchemcount",
         )
 
     def test_PUCTag_download(self):
