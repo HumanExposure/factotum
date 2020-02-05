@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [("dashboard", "0144_auto_20200129_1604")]
+    dependencies = [("dashboard", "0143_zip_file_field")]
 
     operations = [
         migrations.CreateModel(
