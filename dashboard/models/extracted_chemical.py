@@ -106,11 +106,7 @@ class ExtractedChemical(CommonInfo, RawChem):
     )
 
     class Meta:
-        ordering = (
-            "-extracted_text_id",
-            "component",
-            F("ingredient_rank").asc(nulls_last=True),
-        )
+        ordering = (F("ingredient_rank").asc(nulls_last=True),)
 
     def clean(self):
         error_dict = {}

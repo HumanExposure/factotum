@@ -46,6 +46,8 @@ def data_document_detail(request, pk):
     chemicals = Child.objects.filter(
         extracted_text__data_document=doc
     ).prefetch_related("dsstox")
+    if Child == ExtractedChemical:
+        chemicals = chemicals.order_by("component", "ingredient_rank")
     if Child == ExtractedListPresence:
         chemicals = chemicals.prefetch_related("tags")
     lp = ExtractedListPresence.objects.filter(
