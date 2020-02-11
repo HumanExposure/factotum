@@ -215,6 +215,12 @@ class ExtractedTextHPForm(ExtractedTextForm):
         fields = ["doc_date", "rev_num"]
 
 
+class ExtractedTextFUForm(ExtractedTextForm):
+    class Meta:
+        model = ExtractedText
+        fields = ["doc_date", "rev_num"]
+
+
 class ExtractedCPCatForm(ExtractedTextForm):
     class Meta:
         model = ExtractedCPCat
@@ -367,7 +373,7 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
 
     def two():  # for functional_use
         FunctionalUseFormSet = make_formset(parent, child)
-        return (ExtractedTextForm, FunctionalUseFormSet)
+        return (ExtractedTextFUForm, FunctionalUseFormSet)
 
     def three():  # for habits_and_practices
         HnPFormSet = make_formset(parent, child)

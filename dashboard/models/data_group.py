@@ -83,7 +83,7 @@ class DataGroup(CommonInfo):
 
     @property
     def can_have_products(self):
-        return bool(self.type not in ["HH", "CP", "HP"])
+        return bool(self.type not in ["HH", "CP", "HP", "FU"])
 
     def get_extract_models(self):
         """Returns the parent model class and the associated child model"""

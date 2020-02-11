@@ -171,7 +171,7 @@ class DataDocumentDetailTest(TestCase):
 
     def test_no_product_create_link(self):
         # GroupTypes that should have no products associated.
-        product_restricted_codes = ["CP", "HH", "HP"]
+        product_restricted_codes = ["CP", "HH", "HP", "FU"]
 
         docs = DataDocument.objects.filter(
             data_group__group_type__code__in=product_restricted_codes
@@ -180,7 +180,11 @@ class DataDocumentDetailTest(TestCase):
         for doc in docs:
             if doc.data_group.type in product_restricted_codes:
                 response = self.client.get("/datadocument/" + str(doc.pk) + "/")
-                self.assertNotContains(response, "/link_product_form/")
+                self.assertNotContains(
+                    response,
+                    "/link_product_form/",
+                    msg_prefix=f"{doc.data_group.type} contains a link_product_form href",
+                )
 
                 product_restricted_codes.remove(doc.data_group.type)
 
