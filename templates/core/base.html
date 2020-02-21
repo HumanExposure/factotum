@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{% static "css/factotum.css" %}">
     <link rel="stylesheet" href="{% static "css/bootstrap_overrides.css" %}">
     <link rel="stylesheet" href="{% static "css/datatables_overrides.css" %}">
+    <link rel="stylesheet" href="{% static "css/ag_grid_overrides.css" %}">
 
     <title>{% block title %}factotum{% endblock %}</title>
 
@@ -123,6 +124,10 @@
                         <a class="dropdown-item"
                            href="{% url 'bulk_documents' %}">
                             Bulk Document Processing
+                        </a>
+                        <a class="dropdown-item"
+                           href="{% url 'rawcategory_to_puc' %}">
+                            Bulk Assign Raw Category to PUC
                         </a>
                         <a class="dropdown-item"
                            href="{% url 'extraction_script_delete_list' %}">
@@ -245,6 +250,7 @@
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'DataTables/datatables.min.js' %}"></script>
+<script src="{% static 'ag-grid/ag-grid-community.min.js' %}"></script>
 <script src="{% static 'fontawesome/js/all.js' %}"></script>
 <script src="{% static 'bootstrap-confirmation/bootstrap-confirmation.min.js' %}"></script>
 <script src="{% static 'js/dashboard/search.js' %}"></script>

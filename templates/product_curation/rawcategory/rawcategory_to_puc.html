@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+{% load staticfiles %}
+{% block title %}Bulk assign raw category to PUC{% endblock %}
+
+{% block content %}
+    <h1 class="mb-3">
+        Bulk assign raw category to PUC
+    </h1>
+
+    <div id="bulkPucGrid" class="ag-theme-balham"></div>
+{% endblock %}
+
+{% block js %}
+
+{{ rows|json_script:"tabledata" }}
+<script src="{% static 'js/dashboard/rawcategory_to_puc.js' %}"></script>
+
+{% endblock %}
+

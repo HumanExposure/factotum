@@ -8,6 +8,7 @@ from .extraction_script import *
 from .puc_autocomplete import *
 from .ajax import *
 from .bulk_documents import *
+from .rawcategory_to_puc import *
 from .chemical import *
 from .habits_n_practices import *
 from .get_data import *

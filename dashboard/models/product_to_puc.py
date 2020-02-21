@@ -12,6 +12,7 @@ class ProductToPUC(CommonInfo):
         ("AU", "Automatic"),
         ("RU", "Rule Based"),
         ("MB", "Manual Batch"),
+        ("BA", "Bulk Assignment"),
     )
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
