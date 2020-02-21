@@ -4,6 +4,7 @@ from urllib import parse
 
 from django.test import RequestFactory, Client
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files import File
 
 from celery.result import AsyncResult
 from celery_djangotest.integration import TransactionTestCase
@@ -134,8 +135,8 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         # so that uploading ExtractedText is an option
         DataDocument.objects.create(
             filename="fake.pdf",
+            file=File(io.BytesIO(), name="blank.pdf"),
             title="Another unextracted document",
-            matched=True,
             data_group_id="6",
             created_at="2019-11-18 11:00:00.000000",
             updated_at="2019-11-18 12:00:00.000000",
@@ -274,7 +275,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
         dd_id = 500
         dd = DataDocument.objects.get(pk=dd_id)
         # et = ExtractedText.objects.get(data_document=dd)
-        dd_pdf = dd.pdf_url()
+        dd_pdf = dd.file.name
 
         sample_csv = (
             "data_document_id,data_document_filename,prod_name,"
@@ -326,7 +327,7 @@ class UploadExtractedFileTest(TempFileMixin, TransactionTestCase):
     def test_chemicalpresencelist_upload(self):
         dd_id = 254782
         dd = DataDocument.objects.get(pk=dd_id)
-        dd_pdf = dd.pdf_url()
+        dd_pdf = dd.file.name
 
         sample_csv = (
             "data_document_id,data_document_filename,doc_date,raw_category,raw_cas,raw_chem_name,"

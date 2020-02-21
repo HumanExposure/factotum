@@ -112,7 +112,6 @@ def load_model_objects():
         downloaded_by=user,
         downloaded_at=timezone.now(),
         group_type=gt,
-        csv="register_records_matching.csv",
         url="https://www.epa.gov",
     )
     dt = DocumentType.objects.create(title="MSDS", code="MS")

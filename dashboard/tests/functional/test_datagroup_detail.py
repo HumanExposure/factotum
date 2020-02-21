@@ -1,9 +1,11 @@
 import json
+import io
 
 from lxml import html
 
 from django.test import TestCase, tag
 from dashboard.tests.loader import load_model_objects, fixtures_standard
+from django.core.files import File
 from django.contrib.auth.models import User
 from django.db.models import Count, Max
 
@@ -18,10 +20,11 @@ from dashboard.models import (
     GroupType,
     ExtractedChemical,
 )
+from dashboard.tests.mixins import TempFileMixin
 
 
 @tag("loader")
-class DataGroupDetailTest(TestCase):
+class DataGroupDetailTest(TempFileMixin, TestCase):
     def setUp(self):
         self.objects = load_model_objects()
         self.client.login(username="Karyn", password="specialP@55word")
@@ -40,7 +43,7 @@ class DataGroupDetailTest(TestCase):
             response.context["extfile_formset"],
             ("ExtractForm should not be included in the page!"),
         )
-        self.objects.doc.matched = True
+        self.objects.doc.file = File(io.BytesIO(), name="blank.pdf")
         self.objects.doc.save()
         self.objects.doc.extractedtext.delete()
         self.assertFalse(self.objects.dg.all_extracted())
@@ -66,7 +69,7 @@ class DataGroupDetailTest(TestCase):
 
     def test_unidentifed_group_type(self):
         pk = self.objects.dg.pk
-        self.objects.doc.matched = True
+        self.objects.doc.file = File(io.BytesIO(), name="blank.pdf")
         self.objects.doc.save()
         self.objects.extext.delete()
         response = self.client.get(f"/datagroup/{pk}/")
@@ -90,8 +93,8 @@ class DataGroupDetailTest(TestCase):
             "Product linked to all DataDocuments, no bulk_create needed.",
         )
         doc = DataDocument.objects.create(data_group=self.objects.dg)
-        doc.matched = True
-        self.objects.doc.matched = True
+        doc.file = File(io.BytesIO(), name="blank.pdf")
+        self.objects.doc.file = File(io.BytesIO(), name="blank.pdf")
         doc.save()
         self.objects.doc.save()
         response = self.client.get(f"/datagroup/{self.objects.dg.pk}/")
@@ -193,7 +196,7 @@ class DataGroupDetailTest(TestCase):
         response = self.client.get(url).content.decode("utf8")
         matched = '"matched": false'
         self.assertIn(matched, response, "Document should not have a match.")
-        self.objects.doc.matched = True
+        self.objects.doc.file = File(io.BytesIO(), name="blank.pdf")
         self.objects.doc.save()
         response = self.client.get(url).content.decode("utf8")
         matched = '"matched": true'

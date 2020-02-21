@@ -79,9 +79,10 @@
                 <tr>
                     <th>PDF</th>
                     <td>
-                        <a href="{{ doc.pdf_url }}"
-                           title="Link to {{ doc.get_abstract_filename }}"
-                           target="_blank">{{ doc.get_abstract_filename }}</a>
+                        <a href="{{ doc.file.url }}"
+                           title="Link to {{ doc.filename }}"
+                           download="{{ doc.filename }}"
+                           target="_blank">{{ doc.filename }}</a>
                         <small><i>click to open PDF in new window</i></small>
                     </td>
                 </tr>

@@ -39,7 +39,6 @@ class HHTest(TestCase):
             downloaded_by=self.objects.user,
             downloaded_at=timezone.now(),
             group_type=hhgt,
-            csv="register_records_matching.csv",
             url="https://www.epa.gov",
         )
         hhdt = DocumentType.objects.get(title="HHE Report", code="HH")

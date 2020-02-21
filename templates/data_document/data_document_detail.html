@@ -39,16 +39,17 @@
             <div class="btn-group my-auto"
                  role="group"
                  aria-label="Data Document Modification">
+                {% if doc.matched %}
                 <a class="btn btn-sm btn-outline-secondary hover-info"
                    role="button"
                    title="View data document"
                    data-toggle="tooltip"
-
                    target="_blank"
-
-                   href="{{ doc.pdf_url }}">
-                    <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
+                   download="{{ doc.filename }}"
+                   href="{{ doc.file.url }}">
+                    <span class="fa fa-fs {{ doc.file.url|fileicon }}"></span>
                 </a>
+                {% endif %}
                 {% if doc.url %}
                     <a class="btn btn-sm btn-outline-secondary hover-info"
                         title="View source document (external)"

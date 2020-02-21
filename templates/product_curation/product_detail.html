@@ -18,7 +18,7 @@
         <h2>
             <span name="upc" class="text-secondary">{{ product.upc }}</span>
         </h2>
-    </div> 
+    </div>
 
     <div class="col-lg-2 d-flex border-bottom">
                 {% if user.is_authenticated %}
@@ -110,7 +110,7 @@
         {% endif %}
         {% endif %}
     </div>
-    
+
     <div class="col-5">
         <div class="form-group ">
             <i>{{ product.long_description|default:"" }} </i>
@@ -174,9 +174,9 @@
                             </td>
                             <td align="center">
                                 <div class="btn-group">
-                                    <a href="{{ doc.pdf_url }}" title="Link to {{ doc.get_abstract_filename }}"
+                                    <a href="{{ doc.file.url }}" title="Link to {{ doc.filename }}" download="{{ doc.filename }}"
                                         target="_blank">
-                                        <span class="fa fa-fs {{ doc.pdf_url|fileicon }}"></span>
+                                        <span class="fa fa-fs {{ doc.file.url|fileicon }}"></span>
                                     </a>
                                 </div>
                             </td>

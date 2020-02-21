@@ -188,11 +188,6 @@ class DDTestUpload(TempFileMixin, TestCase):
         newdds = DataDocument.objects.filter(data_group=newdg)
         self.assertEqual(newdds.count(), 1, "There should be one new data document")
 
-        # Does the data document page include a link to the csv?
-        resp = self.client.get(f"/datadocument/%s/" % newdds[0].id)
-        # Does the response include a link to the data document's file?
-        self.assertContains(resp, f"pdf/document_%s.csv" % newdds[0].id)
-
     def test_upload_html_as_datadoc(self):
         csv_string = (
             "filename,title,document_type,url,organization\n"
@@ -235,8 +230,3 @@ class DDTestUpload(TempFileMixin, TestCase):
         newdg = DataGroup.objects.get(pk=newdg_pk)
         newdds = DataDocument.objects.filter(data_group=newdg)
         self.assertEqual(newdds.count(), 1, "There should be one new data document")
-
-        # Does the data document page include a link to the csv?
-        resp = self.client.get(f"/datadocument/%s/" % newdds[0].id)
-        # Does the response include a link to the data document's file?
-        self.assertContains(resp, f"pdf/document_%s.html" % newdds[0].id)

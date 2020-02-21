@@ -14,7 +14,7 @@ def data_source_list(request, template_name="data_source/datasource_list.html"):
         frm_list.append(PriorityForm(request.POST or None, instance=ds))
     registered = Count("datagroup__datadocument")
     uploaded = Count(
-        "datagroup__datadocument", filter=Q(datagroup__datadocument__matched=True)
+        "datagroup__datadocument", filter=~Q(datagroup__datadocument__file="")
     )
     extracted = Count("datagroup__datadocument__extractedtext")
     ds_list = DataSource.objects.annotate(registered=registered).annotate(
@@ -40,7 +40,7 @@ def data_source_detail(request, pk, template_name="data_source/datasource_detail
     )
     datasource.registered = (len(docs) / float(datasource.estimated_records)) * 100
     datasource.uploaded = (
-        len(docs.filter(matched=True)) / float(datasource.estimated_records)
+        len(docs.exclude(file="")) / float(datasource.estimated_records)
     ) * 100
 
     form = PriorityForm(request.POST or None, instance=datasource)

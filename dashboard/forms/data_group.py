@@ -1,14 +1,8 @@
-import os
 import uuid
-import zipfile
-from pathlib import Path
 from datetime import datetime
 from django.utils import timezone
 
 from django import forms
-from django.conf import settings
-from django.core.files import File
-from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.db.models import CharField, Value as V
 
@@ -37,8 +31,6 @@ from dashboard.models import (
 from dashboard.utils import (
     clean_dict,
     get_extracted_models,
-    get_form_for_models,
-    field_for_model,
     field_for_model,
     get_missing_ids,
     inheritance_bulk_create,
@@ -67,11 +59,11 @@ class UploadDocsForm(forms.Form):
     def clean(self):
         if len(self.files.getlist("%s-documents" % self.prefix)) > 600:
             raise forms.ValidationError("Please limit upload to 600 files.")
-        uploaded_filenames = set(
-            f.name for f in self.files.getlist("%s-documents" % self.prefix)
-        )
+        self.file_dict = {
+            f.name: f for f in self.files.getlist("%s-documents" % self.prefix)
+        }
         self.datadocuments = DataDocument.objects.filter(
-            data_group=self.dg, filename__in=uploaded_filenames
+            data_group=self.dg, filename__in=self.file_dict.keys()
         )
         if not self.datadocuments.exists():
             raise forms.ValidationError(
@@ -79,20 +71,11 @@ class UploadDocsForm(forms.Form):
             )
 
     def save(self):
-        store = os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
-        fs = FileSystemStorage(store + "/pdf")
-        upd_list = []
-        doc_dict = {d.name: d for d in self.files.getlist("%s-documents" % self.prefix)}
-        # TODO: we'll have dangling files if there is a failure in here
-        with zipfile.ZipFile(self.dg.zip_file, "a", zipfile.ZIP_DEFLATED) as zf:
-            for datadocument in self.datadocuments:
-                docfile = doc_dict[datadocument.filename]
-                afn = datadocument.get_abstract_filename()
-                fs.save(afn, docfile)
-                zf.write(store + "/pdf/" + afn, afn)
-                datadocument.matched = True
-                upd_list.append(datadocument)
-        DataDocument.objects.bulk_update(self.datadocuments, ["matched"])
+        with transaction.atomic():
+            for doc in self.datadocuments:
+                doc.file = self.file_dict[doc.filename]
+                doc.save()
+
         return self.datadocuments.count()
 
 
@@ -477,14 +460,6 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 created_objs = [o for o in objs if o._meta.created_fields]
                 if created_objs:
                     inheritance_bulk_create(created_objs)
-            # Store CSV
-            fs = FileSystemStorage(
-                os.path.join(settings.MEDIA_ROOT, str(self.dg.fs_id))
-            )
-            fs.save(
-                str(self.dg) + "_extracted.csv",
-                self.files["extfile-bulkformsetfileupload"],
-            )
         return len(self.forms)
 
 
@@ -549,7 +524,6 @@ class CleanCompFormSet(DGFormSet):
             raise forms.ValidationError(f"Invalid script selection.")
 
     def save(self):
-        now = datetime.now()
         with transaction.atomic():
             database_chemicals = ExtractedChemical.objects.select_for_update().in_bulk(
                 self.cleaned_ids
@@ -655,27 +629,6 @@ class RegisterRecordsFormSet(DGFormSet):
                 obj = DataDocument(**f.cleaned_data)
                 new_docs.append(obj)
             DataDocument.objects.bulk_create(new_docs)
-        made = DataDocument.objects.filter(created_at=now, data_group=self.dg)
-        text = "DataDocument_id,filename,title,document_type,url,organization\n"
-        for doc in made:
-            items = [
-                str(doc.pk),
-                doc.filename,
-                doc.title,
-                doc.document_type.code,
-                doc.url if doc.url else "",
-                doc.organization,
-            ]
-            text += ",".join(items) + "\n"
-        with open(self.dg.csv.path, "w") as f:
-            myfile = File(f)
-            myfile.write("".join(text))
-        uid = str(self.dg.fs_id)
-        new_zip_path = Path(settings.MEDIA_ROOT) / uid / (uid + ".zip")
-        zf = zipfile.ZipFile(str(new_zip_path), "w", zipfile.ZIP_DEFLATED)
-        zf.close()
-        self.dg.zip_file = new_zip_path
-        self.dg.save()
         return len(self.forms)
 
 

@@ -4,7 +4,7 @@ from bulkformsets import csvformset_factory
 
 
 class DocCSVForm(forms.Form):
-    id = forms.ModelChoiceField(DataDocument.objects.filter(matched=True))
+    id = forms.ModelChoiceField(DataDocument.objects.exclude(file=""))
 
 
 DocBulkFormSet = csvformset_factory(

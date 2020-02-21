@@ -33,6 +33,17 @@ class MetaEnv(type):
         return cls._get("MAX_UPLOAD_SIZE", default)
 
     @property
+    def MEDIA_ROOT(cls):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        default = os.path.join(base_dir, "media")
+        return cls._get("MEDIA_ROOT", default)
+
+    @property
+    def MEDIA_URL(cls):
+        default = "/media/"
+        return cls._get("MEDIA_URL", default)
+
+    @property
     def FACTOTUM_PORT(cls):
         deafult = "8000"
         return cls._get("FACTOTUM_PORT", deafult)

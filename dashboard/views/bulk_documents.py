@@ -1,13 +1,13 @@
-import zipstream
+import os
 
 from django.contrib import messages
-from django.http import StreamingHttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
 from dashboard.forms.bulk_document_forms import DocBulkFormSet
-from dashboard.utils import gather_errors
+from dashboard.utils import gather_errors, zip_stream
 
 
 class BulkDocuments(View):
@@ -37,17 +37,12 @@ class BulkDocuments(View):
             # that because if we got this far, we know the file SHOULD exist: we are
             # only working with Documents that have match=True. If this fails, we
             # have some kind of data integrity issue (or you're a dev without the files)
-            def zip_gen():
-                z = zipstream.ZipFile(mode="w")
-                for doc in valid_docs():
-                    z.write(doc.pdf_url())
-                if errors:
-                    z.writestr("errors.txt", str.encode("\n".join(errors)))
-                for chunk in z:
-                    yield chunk
-
-            response = StreamingHttpResponse(zip_gen(), content_type="application/zip")
-            response["Content-Disposition"] = 'attachment; filename="datadocuments.zip"'
+            files = {
+                f"datadocument_{doc.pk}{os.path.splitext(doc.file.name)[1]}": doc.file.path
+                for doc in valid_docs()
+            }
+            data = {"errors.txt": str.encode("\n".join(errors))} if errors else {}
+            response = zip_stream(files, data, filename="datadocuments.zip")
             if errors:
                 response.status_code = 206
             else:

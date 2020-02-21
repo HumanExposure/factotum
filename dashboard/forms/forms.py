@@ -30,6 +30,7 @@ from dashboard.utils import get_extracted_models
 
 class DataGroupForm(forms.ModelForm):
     required_css_class = "required"  # adds to label tag
+    csv = forms.FileField()
 
     class Meta:
         model = DataGroup
@@ -42,7 +43,6 @@ class DataGroupForm(forms.ModelForm):
             "downloaded_at",
             "download_script",
             "data_source",
-            "csv",
         ]
         widgets = {"downloaded_at": DatePickerInput()}
         labels = {"csv": _("Register Records CSV File"), "url": _("URL")}

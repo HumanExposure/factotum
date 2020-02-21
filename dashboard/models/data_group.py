@@ -1,9 +1,4 @@
-import os
-import uuid
-from pathlib import PurePath
-
 from django.apps import apps
-from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from model_utils import FieldTracker
@@ -15,6 +10,7 @@ from .group_type import GroupType
 from .raw_chem import RawChem
 
 
+# DEPRECATED: migration 0009_auto_20171212_1405.py expects its existence
 # could be used for dynamically creating filename on instantiation
 # in the 'upload_to' param on th FileField
 def update_filename(instance, filename):
@@ -24,6 +20,7 @@ def update_filename(instance, filename):
     return name
 
 
+# DEPRECATED: migration 0066_auto_20180927_0935.py expects its existence
 def csv_upload_path(instance, filename):
     # potential space errors in name
     name = "{0}/{1}".format(instance.fs_id, filename)
@@ -45,9 +42,6 @@ class DataGroup(CommonInfo):
         "Script", on_delete=models.SET_NULL, default=None, null=True, blank=True
     )
     data_source = models.ForeignKey("DataSource", on_delete=models.CASCADE)
-    fs_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    csv = models.FileField(upload_to=csv_upload_path, null=True)
-    zip_file = models.CharField(max_length=300)
     group_type = models.ForeignKey(GroupType, on_delete=models.SET_DEFAULT, default=1)
     url = models.CharField(max_length=150, blank=True, validators=[URLValidator()])
 
@@ -99,14 +93,11 @@ class DataGroup(CommonInfo):
             m = ("ExtractedHHDoc", "ExtractedHHRec")
         return (apps.get_model("dashboard", m[0]), apps.get_model("dashboard", m[1]))
 
-    def save(self, *args, **kwargs):
-        super(DataGroup, self).save(*args, **kwargs)
-
     def matched_docs(self):
-        return self.datadocument_set.filter(matched=True).count()
+        return self.datadocument_set.exclude(file="").count()
 
     def all_matched(self):
-        return not self.datadocument_set.filter(matched=False).exists()
+        return not self.datadocument_set.filter(file="").exists()
 
     def all_extracted(self):
         return not self.datadocument_set.filter(extractedtext__isnull=True).exists()
@@ -125,67 +116,6 @@ class DataGroup(CommonInfo):
 
     def get_name_as_slug(self):
         return self.name.replace(" ", "_")
-
-    def get_dg_folder(self):
-        uuid_dir = os.path.join(settings.MEDIA_ROOT, str(self.fs_id))
-
-        # this needs to handle missing csv files
-        if bool(self.csv.name):
-            # parse the media folder from the penultimate piece of csv file path
-            p = PurePath(self.csv.path)
-            csv_folder = p.parts[-2]
-            csv_fullfolderpath = os.path.join(settings.MEDIA_ROOT, csv_folder)
-
-        if os.path.isdir(uuid_dir):
-            return uuid_dir  # UUID-based folder
-        elif bool(self.csv.name) and os.path.isdir(csv_fullfolderpath):
-            return csv_fullfolderpath  # csv path-based folder
-        else:
-            return "no_folder_found"
-
-    @property
-    def dg_folder(self):
-        """This is a "falsy" property. If the folder cannot be found,
-        dg.dg_folder evaluates to boolean False """
-        if self.get_dg_folder() != "no_folder_found":
-            return self.get_dg_folder()
-        else:
-            return False
-
-    @property
-    def csv_url(self):
-        """This is a "falsy" property. If the csv file cannot be found,
-        dg.csv_url evaluates to boolean False """
-        try:
-            self.csv.size
-            csv_url = self.csv.url
-        except ValueError:
-            csv_url = False
-        except:
-            csv_url = False
-        return csv_url
-
-    @property
-    def zip_url(self):
-        """This is a "falsy" property. If the zip file cannot be found,
-        dg.zip_url evaluates to boolean False """
-        if self.get_zip_url() != "no_path_found":
-            return self.get_zip_url
-        else:
-            return False
-
-    def get_zip_url(self):
-        # the path if the data group's folder was built from a UUID:
-        uuid_path = f"{self.get_dg_folder()}/{str(self.fs_id)}.zip"
-        # path if the data group's folder was built from old name-based method
-        zip_file_path = f"{self.get_dg_folder()}/{self.get_name_as_slug()}.zip"
-        if os.path.isfile(uuid_path):  # it is a newly-added data group
-            zip_url = uuid_path
-        elif os.path.isfile(zip_file_path):  # it is a pre-UUID data group
-            zip_url = zip_file_path
-        else:
-            zip_url = "no_path_found"
-        return zip_url
 
     def get_extracted_template_fieldnames(self):
         extract_fields = [
@@ -273,12 +203,12 @@ class DataGroup(CommonInfo):
         return self.datadocument_set.filter(products=None).exists()
 
     def include_upload_docs_form(self):
-        return self.datadocument_set.filter(matched=False).exists()
+        return not self.all_matched()
 
     def csv_filename(self):
         """Used in the datagroup_form.html template to display only the filename
         """
-        return self.csv.name.split("/")[-1]
+        return f"{self.get_name_as_slug()}_registered_records.csv"
 
     def uncurated_count(self):
         return (

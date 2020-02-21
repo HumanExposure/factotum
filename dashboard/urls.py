@@ -222,16 +222,6 @@ urlpatterns = [
         name="get_product_csv_template",
     ),
     path(
-        "datagroup/diagnostics/<int:pk>/",
-        views.data_group_diagnostics,
-        name="data_group_diagnostics",
-    ),
-    path(
-        "datagroup/diagnostics/",
-        views.data_group_diagnostics,
-        name="data_group_diagnostics",
-    ),
-    path(
         "extractedtext/edit/<int:pk>/",
         views.extracted_text_edit,
         name="extracted_text_edit",

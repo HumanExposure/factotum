@@ -1,6 +1,6 @@
 from lxml import html
 from django.test import TestCase, override_settings
-from dashboard.models import Product, ProductToPUC
+from dashboard.models import DataDocument, Product, ProductToPUC
 from dashboard.tests.loader import fixtures_standard
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -159,29 +159,30 @@ class TestProductDetail(TestCase):
             count, 2, ("Both prod_fam and prod_type should" "not be specified.")
         )
 
-    def _get_icon_span(self, html, doc):
-        return html.xpath("//a[contains(@href, '%s')]/span" % doc)[0].values()[0]
+    def _get_icon_span(self, html, doc_id):
+        doc = DataDocument.objects.get(pk=doc_id)
+        return html.xpath(f"//a[contains(@href, '{doc.file.url}')]/span")[0].values()[0]
 
     def test_icons(self):
         response = self.client.get("/product/1872/")
         response_html = html.fromstring(response.content.decode("utf8"))
-        icon_span = self._get_icon_span(response_html, "173396.doc")
+        icon_span = self._get_icon_span(response_html, 173396)
         self.assertEqual("fa fa-fs fa-file-word", icon_span)
-        icon_span = self._get_icon_span(response_html, "173824.jpg")
+        icon_span = self._get_icon_span(response_html, 173824)
         self.assertEqual("fa fa-fs fa-file-image", icon_span)
-        icon_span = self._get_icon_span(response_html, "174238.docx")
+        icon_span = self._get_icon_span(response_html, 174238)
         self.assertEqual("fa fa-fs fa-file-word", icon_span)
-        icon_span = self._get_icon_span(response_html, "176163.misc")
+        icon_span = self._get_icon_span(response_html, 176163)
         self.assertEqual("fa fa-fs fa-file", icon_span)
-        icon_span = self._get_icon_span(response_html, "176257.tiff")
+        icon_span = self._get_icon_span(response_html, 176257)
         self.assertEqual("fa fa-fs fa-file-image", icon_span)
-        icon_span = self._get_icon_span(response_html, "177774.xlsx")
+        icon_span = self._get_icon_span(response_html, 177774)
         self.assertEqual("fa fa-fs fa-file-excel", icon_span)
-        icon_span = self._get_icon_span(response_html, "177852.csv")
+        icon_span = self._get_icon_span(response_html, 177852)
         self.assertEqual("fa fa-fs fa-file-csv", icon_span)
-        icon_span = self._get_icon_span(response_html, "178456.xls")
+        icon_span = self._get_icon_span(response_html, 178456)
         self.assertEqual("fa fa-fs fa-file-excel", icon_span)
-        icon_span = self._get_icon_span(response_html, "178496.txt")
+        icon_span = self._get_icon_span(response_html, 178496)
         self.assertEqual("fa fa-fs fa-file-alt", icon_span)
-        icon_span = self._get_icon_span(response_html, "172462.pdf")
+        icon_span = self._get_icon_span(response_html, 172462)
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)

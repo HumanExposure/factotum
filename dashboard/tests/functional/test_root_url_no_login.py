@@ -20,7 +20,6 @@ class RootUrlNoLoginTest(TestCase):
             name="Test",
             downloaded_at="2018-01-09 10:12:09",
             data_source=ds,
-            zip_file="some.zip",
             downloaded_by=self.user,
             group_type=gt,
         )

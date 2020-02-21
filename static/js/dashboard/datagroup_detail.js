@@ -10,14 +10,15 @@ var ICON_MAP = new Map([
     [".jpg", "fa-file-image"],
     [".tiff", "fa-file-image"],
 ]);
-function renderDataTable(boolComp, boolHab, boolSD, fsid) {
+function renderDataTable(boolComp, boolHab, boolSD) {
     function renderTitle(data, type, row, meta) {
         var icon = ICON_MAP.has(row.fileext.toLowerCase()) ? ICON_MAP.get(row.fileext.toLowerCase()) : "fa-file";
         if (row.matched) {
             return [
                 "<a ",
-                "href='/media/" + fsid + "/pdf/document_" + row.id + row.fileext + "' ",
-                "title='Link to document_" + row.id + row.fileext + "' ",
+                `href='${row.fileurl}' `,
+                `title='Link to ${row.filename}' `,
+                `download='${row.filename}' `,
                 "target='_blank'",
                 ">",
                 "<span class='fa " + icon + " mr-2'></span>",
@@ -38,8 +39,9 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
         if (row.matched) {
             return [
                 "<a ",
-                "href='/media/" + fsid + "/pdf/document_" + row.id + row.fileext + "' ",
-                "title='Link to document_" + row.id + row.fileext + "' ",
+                `href='${row.fileurl}' `,
+                `title='Link to ${row.filename}' `,
+                `download='${row.filename}' `,
                 "target='_blank'",
                 ">",
                 "<span class='fa " + icon + " mr-2'></span>",
@@ -133,11 +135,11 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
                     { targets: [4], visible: false },
                 ],
             initComplete: function () {
-                
+
                 var extracted = this.api().columns( 2 ).every( function () {
                     return this;
                 } );
-    
+
                 this.api().columns( 4 ).every( function () {
                     var column = this;
                     var select = $('<select class="custom-select"><option value="">All</option></select>')
@@ -151,8 +153,8 @@ function renderDataTable(boolComp, boolHab, boolSD, fsid) {
                                 .draw();
                         } );
                     column.data().unique().sort().each( function ( d, j ) {
-                        select.append( 
-                            '<option value="'+d+'" name="'+d.replace(/ /g, '_')+'">'+d+'</option>' 
+                        select.append(
+                            '<option value="'+d+'" name="'+d.replace(/ /g, '_')+'">'+d+'</option>'
                         )
                     } );
                 } );
@@ -462,7 +464,6 @@ $(document).ready(function() {
         tableData.boolComp,
         tableData.boolHab,
         tableData.boolSD,
-        tableData.fsid
     );
     renderDonut("matcheddonut", tableData.nummatched, tableData.numregistered);
     if (!tableData.boolSD) {

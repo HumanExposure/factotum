@@ -99,7 +99,7 @@ class DataDocumentDetailTest(TestCase):
 
     def test_curated_chemical(self):
         """
-        The correct values appear on the page for RawChem records 
+        The correct values appear on the page for RawChem records
         that have been matched to DSSToxLookup records, and
         the curated name and CAS appear in the sidebar navigation
         """
@@ -247,7 +247,7 @@ class DataDocumentDetailTest(TestCase):
 
     def test_add_extracted(self):
         """Check that the user has the ability to create an extracted record
-        when the document doesn't yet have an extracted record for data 
+        when the document doesn't yet have an extracted record for data
         group types 'CP' and 'HH'
         """
         doc = DataDocument.objects.get(pk=354784)
@@ -379,31 +379,32 @@ class DataDocumentDetailTest(TestCase):
         # Confirm that the raw category is truncated and ... is appended
         self.assertContains(response, "Purple haze all in my brain, lately…")
 
-    def _get_icon_span(self, doc):
-        response = self.client.get("/datadocument/" + doc.split(".")[0] + "/")
+    def _get_icon_span(self, doc_id):
+        doc = DataDocument.objects.get(pk=doc_id)
+        response = self.client.get(f"/datadocument/{doc.pk}/")
         h = html.fromstring(response.content.decode("utf8"))
-        return h.xpath("//a[contains(@href, '%s')]/span" % doc)[0].values()[0]
+        return h.xpath("//a[contains(@href, '%s')]/span" % doc.file.name)[0].values()[0]
 
     def test_icons(self):
-        icon_span = self._get_icon_span("173396.doc")
+        icon_span = self._get_icon_span(173396)
         self.assertEqual("fa fa-fs fa-file-word", icon_span)
-        icon_span = self._get_icon_span("173824.jpg")
+        icon_span = self._get_icon_span(173824)
         self.assertEqual("fa fa-fs fa-file-image", icon_span)
-        icon_span = self._get_icon_span("174238.docx")
+        icon_span = self._get_icon_span(174238)
         self.assertEqual("fa fa-fs fa-file-word", icon_span)
-        icon_span = self._get_icon_span("176163.misc")
+        icon_span = self._get_icon_span(176163)
         self.assertEqual("fa fa-fs fa-file", icon_span)
-        icon_span = self._get_icon_span("176257.tiff")
+        icon_span = self._get_icon_span(176257)
         self.assertEqual("fa fa-fs fa-file-image", icon_span)
-        icon_span = self._get_icon_span("177774.xlsx")
+        icon_span = self._get_icon_span(177774)
         self.assertEqual("fa fa-fs fa-file-excel", icon_span)
-        icon_span = self._get_icon_span("177852.csv")
+        icon_span = self._get_icon_span(177852)
         self.assertEqual("fa fa-fs fa-file-csv", icon_span)
-        icon_span = self._get_icon_span("178456.xls")
+        icon_span = self._get_icon_span(178456)
         self.assertEqual("fa fa-fs fa-file-excel", icon_span)
-        icon_span = self._get_icon_span("178496.txt")
+        icon_span = self._get_icon_span(178496)
         self.assertEqual("fa fa-fs fa-file-alt", icon_span)
-        icon_span = self._get_icon_span("172462.pdf")
+        icon_span = self._get_icon_span(172462)
         self.assertEqual("fa fa-fs fa-file-pdf", icon_span)
 
     def test_last_updated(self):
@@ -431,7 +432,7 @@ class TestDynamicDetailFormsets(TestCase):
 
     def test_extractedsubclasses(self):
         """ Confirm that the inheritance manager is returning appropriate
-            subclass objects and ExtractedText base class objects 
+            subclass objects and ExtractedText base class objects
          """
         for doc in DataDocument.objects.all():
             try:

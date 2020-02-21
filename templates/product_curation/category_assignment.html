@@ -27,8 +27,8 @@ Link Product To PUC</h1>
       title="Link to {{ product.title }}">{{ product.title }}</a></td>
       <td>
         {% if product.msds%}
-          <a class="btn btn-sm btn-info" role="button" href="/media/{{ product.msds.data_group.get_dg_folder }}/pdf/{{ product.msds.filename }}"
-          title="Link to {{ product.msds.filename }} detail"
+          <a class="btn btn-sm btn-info" role="button" href="{{ product.msds.file.url }}"
+          title="Link to {{ product.msds.filename }} detail" download="{{ product.msds.filename }}"
           target = "_blank"><span class="fa fa-file-pdf"></span> {{ product.msds.title }}</a>
         {% else %}
 

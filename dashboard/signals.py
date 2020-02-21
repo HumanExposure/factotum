@@ -1,10 +1,8 @@
-import os
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, pre_save, pre_delete
 from django.db.backends.signals import connection_created
 from crum import get_current_user
-import shutil
 
 from dashboard.models import (
     ProductToPUC,
@@ -64,17 +62,6 @@ def rm_invalid_doctypes(sender, **kwargs):
             document_type=doc_type, data_group__group_type=group_type
         ).update(document_type=doc_type._meta.model.objects.get(code="UN"))
     )
-
-
-@receiver(models.signals.post_delete, sender=DataGroup)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    """
-    Deletes datagroup directory from filesystem
-    when datagroup instance is deleted.
-    """
-    dg_folder = instance.get_dg_folder()
-    if os.path.isdir(dg_folder):
-        shutil.rmtree(dg_folder, ignore_errors=True)
 
 
 @receiver(models.signals.post_delete, sender=ProductDocument)

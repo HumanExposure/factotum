@@ -306,7 +306,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
     def test_audit_log_functionaluse_upload(self):
         dd_id = 500
         dd = DataDocument.objects.get(pk=dd_id)
-        dd_pdf = dd.pdf_url()
+        dd_pdf = dd.file.name
 
         sample_csv = (
             "data_document_id,data_document_filename,prod_name,"

@@ -1,4 +1,5 @@
 import csv
+import os
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -29,8 +30,7 @@ from dashboard.models import (
     AuditLog,
     DataGroup,
 )
-from dashboard.utils import gather_errors
-from django.conf import settings
+from dashboard.utils import gather_errors, zip_stream
 
 
 @login_required()
@@ -49,7 +49,6 @@ def data_group_detail(request, pk, template_name="data_group/datagroup_detail.ht
     AuditLog.get_trigger_sql()
     dg = get_object_or_404(DataGroup, pk=pk)
     tabledata = {
-        "fsid": dg.fs_id,
         "boolComp": dg.is_composition,
         "boolHab": dg.is_habits_and_practices,
         "boolSD": dg.is_supplemental_doc,
@@ -166,35 +165,32 @@ def data_group_documents_table(request, pk):
     docs = (
         DataDocument.objects.filter(data_group=dg)
         .annotate(extracted=Exists(ExtractedText.objects.filter(pk=OuterRef("pk"))))
-        .annotate(fileext=F("filename"))
         .annotate(product_title=F("products__title"))
         .annotate(product_id=F("products__id"))
     )
-    if dg.is_habits_and_practices:
-        doc_vals = docs.values("id", "title", "matched", "fileext")
-    elif dg.is_composition:
-        doc_vals = docs.values(
-            "id",
-            "title",
-            "matched",
-            "fileext",
-            "extracted",
-            "product_id",
-            "product_title",
-        )
-        for doc in doc_vals:
-            if doc["extracted"]:
-                doc["hidden"] = "Extracted"
-            else:
-                doc["hidden"] = "Not extracted"
-    elif dg.is_supplemental_doc:
-        doc_vals = docs.values("id", "title", "matched", "fileext")
-    else:
-        doc_vals = docs.values("id", "title", "matched", "fileext", "extracted")
-    # Reduce file name to file extention
-    for doc in doc_vals:
-        doc["fileext"] = "." + doc["fileext"].split(".")[-1]
-    return JsonResponse({"data": list(doc_vals)})
+    doc_list = []
+    for doc in docs:
+        doc_dict = {
+            "id": doc.id,
+            "title": doc.title,
+            "matched": doc.matched,
+            "fileext": os.path.splitext(doc.filename)[1],
+            "fileurl": doc.file.url if doc.matched else None,
+            "filename": doc.filename,
+        }
+        if dg.is_composition:
+            doc_dict.update(
+                {
+                    "extracted": doc.extracted,
+                    "product_id": doc.product_id,
+                    "product_title": doc.product_title,
+                    "hidden": "Extracted" if doc.extracted else "Not extracted",
+                }
+            )
+        else:
+            doc_dict["extracted"] = doc.extracted
+        doc_list.append(doc_dict)
+    return JsonResponse({"data": doc_list})
 
 
 @login_required()
@@ -265,14 +261,7 @@ def data_group_update(
     for group in groups:
         group.codes = DocumentType.objects.compatible(group)
     return render(
-        request,
-        template_name,
-        {
-            "datagroup": datagroup,
-            "form": form,
-            "media": settings.MEDIA_URL,
-            "groups": groups,
-        },
+        request, template_name, {"datagroup": datagroup, "form": form, "groups": groups}
     )
 
 
@@ -346,9 +335,11 @@ def download_raw_extracted_records(request, pk):
 @login_required()
 def download_unextracted_datadocuments(request, pk):
     datagroup = DataGroup.objects.get(pk=pk)
-    documents = DataDocument.objects.filter(
-        data_group=datagroup, matched=True, extractedtext__isnull=True
-    ).values("pk", "filename")
+    documents = (
+        DataDocument.objects.filter(data_group=datagroup, extractedtext__isnull=True)
+        .exclude(file="")
+        .values("pk", "filename")
+    )
     filename = datagroup.get_name_as_slug() + "_unextracted_documents.csv"
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = "attachment; filename=" + filename
@@ -370,11 +361,9 @@ def download_datadocuments(request, pk):
 @login_required
 def download_datadocument_zip_file(request, pk):
     datagroup = DataGroup.objects.get(pk=pk)
-    zip_file_name = f"{datagroup.fs_id}.zip"
-    zip_file = open(datagroup.get_zip_url(), "rb")
-    response = HttpResponse(zip_file, content_type="application/zip")
-    response["Content-Disposition"] = "attachment; filename=%s" % zip_file_name
-    return response
+    files = {doc.filename: doc.file.path for doc in datagroup.datadocument_set.all()}
+    filename = f"{datagroup.get_name_as_slug()}_documents.zip"
+    return zip_stream(files, filename=filename)
 
 
 @login_required
@@ -395,7 +384,7 @@ def download_registered_datadocuments(request, pk):
     else:
         qs = DataDocument.objects.filter(data_group_id=0).values(*columnlist)
         return render_to_csv_response(
-            qs, filename="registered_documents.csv", use_verbose_names=False
+            qs, filename=datagroup.csv_filename, use_verbose_names=False
         )
 
 

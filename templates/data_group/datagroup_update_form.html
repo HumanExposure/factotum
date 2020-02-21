@@ -22,7 +22,7 @@
                 <label class="required" for="id_csv">
                   Register Records CSV File:
                 </label>
-                <a href="/{{ media }}{{ form.instance.csv }}"
+                <a href="{%url 'download_registered_datadocuments' datagroup.pk %}"
                    target="_blank">
                    {{ form.instance.csv_filename }}
                    <i class="far fa-file" aria-hidden="true"></i>

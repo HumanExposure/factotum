@@ -111,6 +111,9 @@ class TestIntegration(StaticLiveServerTestCase):
         )
 
     def test_product(self):
+        doc = self.objects.doc
+        doc.file = doc.filename
+        doc.save()
         p = self.objects.p
         puc = self.objects.puc
         tag = self.objects.pt

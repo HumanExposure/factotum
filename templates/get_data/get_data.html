@@ -92,7 +92,7 @@
       {% if habit.pk == first %}
         active
       {% endif %}" id="habit-{{ habit.pk }}" role="tabpanel">
-      <label><b>Data Document:</b></label> <a href="/media/{{ habit.extracted_text.data_document.data_group.get_dg_folder }}/pdf/{{ habit.extracted_text.data_document.filename }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
+      <label><b>Data Document:</b></label> <a href="{{ habit.extracted_text.data_document.file.url }}" target="_blank" title="Link to {{ habit.extracted_text.data_document.filename }}" download="{{ habit.extracted_text.data_document.filename }}"><b>{{ habit.extracted_text.data_document }}</b></a> <br>
       <label><b>Product Surveyed:</b></label> {{ habit.product_surveyed }} <br>
       <label><b>Mass:</b></label> {{ habit.mass|floatformat:2|intcomma }} {{ habit.mass_unit }} <br>
       <label><b>Frequency:</b></label> {{ habit.frequency|floatformat:2|intcomma }} {{ habit.frequency_unit }} <br>

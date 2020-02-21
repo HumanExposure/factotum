@@ -26,7 +26,7 @@
       {% for dd in product.datadocument_set.all %}
         <p>
           <span class="fa fa-file" title="pdf" ></span>
-              <a href="{{ dd.pdf_url }}" title="Link to {{ dd.filename }}" target = "_blank">{{dd.filename}}
+              <a href="{{ dd.file.url }}" title="Link to {{ dd.filename }}" download="{{ dd.filename }}" target = "_blank">{{dd.filename}}
               </a>
         </p>
       {% endfor %}

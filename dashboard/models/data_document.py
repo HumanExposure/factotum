@@ -1,3 +1,6 @@
+import os
+import uuid
+
 from django.db import models
 from django.apps import apps
 from django.urls import reverse
@@ -6,6 +9,11 @@ from .common_info import CommonInfo
 from .document_type import DocumentType
 from django.core.exceptions import ValidationError
 from django.core.validators import URLValidator
+
+
+def uuid_file(instance, filename):
+    _, ext = os.path.splitext(filename)
+    return str(uuid.uuid4()) + ext
 
 
 def get_default_document_type():
@@ -27,6 +35,15 @@ class DataDocument(CommonInfo):
     A DataDocument object is a single source of Factotum data.
     """
 
+    file = models.FileField(
+        max_length=255,
+        verbose_name="file",
+        help_text="The document's source file",
+        upload_to=uuid_file,
+        blank=True,
+        null=False,
+        default="",
+    )
     filename = models.CharField(
         max_length=255,
         verbose_name="file name",
@@ -69,11 +86,6 @@ class DataDocument(CommonInfo):
         through="ProductDocument",
         help_text="Products are associated with the data document in a many-to-many relationship",
     )
-    matched = models.BooleanField(
-        default=False,
-        help_text="When a source file for the document has been uploaded to the file system, the document is considered matched to that source file. ",
-    )
-
     document_type = models.ForeignKey(
         "DocumentType",
         on_delete=models.SET(get_default_document_type),
@@ -126,14 +138,9 @@ class DataDocument(CommonInfo):
     def get_absolute_url(self):
         return reverse("data_document", kwargs={"pk": self.pk})
 
-    def get_abstract_filename(self):
-        ext = self.filename.split(".")[-1]  # maybe not all are PDF??
-        return f"document_{self.pk}.{ext}"
-
-    def pdf_url(self):
-        dg = self.data_group
-        fn = self.get_abstract_filename()
-        return f"/media/{dg.fs_id}/pdf/{fn}"
+    @property
+    def matched(self):
+        return bool(self.file)
 
     def clean(self, skip_type_check=False):
         # the document_type must be one of the children types

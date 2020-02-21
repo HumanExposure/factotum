@@ -330,7 +330,7 @@
               <span class="fa fa-file-csv mr-2"></span>Document records
             </button>
             {% endif %}
-            {% if datagroup.zip_url and datagroup.matched_docs %}
+            {% if datagroup.matched_docs %}
             <a href="{%url 'download_datadocument_zip_file' datagroup.pk %}" class="btn btn-light text-left" download>
               <span class="fa fa-archive mr-2"></span>Document files
             </a>

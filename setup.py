@@ -20,6 +20,7 @@ setup(
         "django-model-utils>=3.1",
         "django-taggit<1",
         "six>=1.12.0,<1.13.0",
+        "zipstream==1.1.4",
     ],
     include_package_data=True,
     package_data={"dashboard.models": ["../fixtures/dashboard.yaml"]},

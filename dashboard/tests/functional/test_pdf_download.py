@@ -1,22 +1,15 @@
-from django.urls import resolve
 from django.test import RequestFactory, TestCase, Client, override_settings
-from django.test.client import Client
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 
 from dashboard import views
 from dashboard.tests.loader import fixtures_standard
 from dashboard.tests.mixins import TempFileMixin
-from django.contrib import messages
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
 from dashboard.models import DataDocument
 
-import tempfile
-import csv
-import os
 import io
 from pathlib import Path
 
@@ -53,7 +46,7 @@ class TestZipPDFs(TempFileMixin, TestCase):
         }
         # mk fake files
         for d in DataDocument.objects.filter(pk__in=[122079, 121831, 121722, 121698]):
-            p = Path(f".{d.pdf_url()}")
+            p = Path(f"{d.file.path}")
             p.parent.mkdir(parents=True, exist_ok=True)
             p.touch()
 
@@ -84,7 +77,7 @@ class TestZipPDFs(TempFileMixin, TestCase):
         middleware.process_request(req)
         req.session.save()
         req.user = User.objects.get(username="Karyn")
-        DataDocument.objects.filter(pk__in=[121722, 121698]).update(matched=False)
+        DataDocument.objects.filter(pk__in=[121722, 121698]).update(file="")
         csv_string = "id" "\n" "122079" "\n" "121831" "\n" "121722" "\n" "121698"
         in_mem_csv = string_to_csv(csv_string)
         req.FILES["form-bulkformsetfileupload"] = in_mem_csv

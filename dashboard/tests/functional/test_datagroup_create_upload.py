@@ -102,12 +102,6 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
             f"/datagroup/{dg.pk}/", resp.url, "Should be redirecting to the proper URL"
         )
 
-        # test whether the file system folder was created
-        self.assertIn(
-            str(dg.fs_id),
-            os.listdir(settings.MEDIA_ROOT),
-            "The data group's UUID should be a folder in MEDIA_ROOT",
-        )
         # In the Data Group Detail Page
         resp = self.client.get(f"/datagroup/{dg.pk}/")
 
@@ -173,11 +167,10 @@ class RegisterRecordsTest(TempFileMixin, TestCase):
         request.session.save()
         request.user = User.objects.get(username="Karyn")
         resp = views.data_group_detail(request=request, pk=dg.pk)
-        pdf_path = os.path.join(
-            settings.MEDIA_ROOT, str(dg.fs_id), "pdf", doc.get_abstract_filename()
-        )
+        doc.refresh_from_db()
+        pdf_path = doc.file.path
         self.assertTrue(
-            os.path.exists(pdf_path), "the stored file should be in MEDIA_ROOT/dg.fs_id"
+            os.path.exists(pdf_path), "the stored file should be in MEDIA_ROOT"
         )
         pdf.close()
 
