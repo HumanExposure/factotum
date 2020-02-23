@@ -34,6 +34,9 @@ Dashboard Models
 .. automodule:: dashboard.models.extracted_list_presence
     :members:
 
+.. automodule:: dashboard.models.functional_use
+    :members:
+
 .. automodule:: dashboard.models.product
     :members:
 

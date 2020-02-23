@@ -1,0 +1,96 @@
+- model: dashboard.functionaluse
+  pk: 1
+  fields:
+    created_at: 2020-01-30 02:45:44.186832
+    updated_at: 2020-01-30 02:45:44.186862
+    chem: 4
+    report_funcuse: swell
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 2
+  fields:
+    created_at: 2020-01-30 02:45:44.187543
+    updated_at: 2020-01-30 02:45:44.187558
+    chem: 856
+    report_funcuse: kayaking
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 3
+  fields:
+    created_at: 2020-01-30 02:45:44.188103
+    updated_at: 2020-01-30 02:45:44.188119
+    chem: 2
+    report_funcuse: tubing
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 4
+  fields:
+    created_at: 2020-01-30 02:45:44.188650
+    updated_at: 2020-01-30 02:45:44.188665
+    chem: 3
+    report_funcuse: cleaning
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 5
+  fields:
+    created_at: 2020-01-30 02:45:44.189085
+    updated_at: 2020-01-30 02:45:44.189099
+    chem: 6
+    report_funcuse: swell
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 6
+  fields:
+    created_at: 2020-01-30 02:45:44.189747
+    updated_at: 2020-01-30 02:45:44.189783
+    chem: 5
+    report_funcuse: surfactant
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 7
+  fields:
+    created_at: 2020-01-30 02:45:44.190723
+    updated_at: 2020-01-30 02:45:44.190748
+    chem: 756
+    report_funcuse: surfactant
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 8
+  fields:
+    created_at: 2020-01-30 02:45:44.191430
+    updated_at: 2020-01-30 02:45:44.191449
+    chem: 757
+    report_funcuse: fragrance
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 9
+  fields:
+    created_at: 2020-01-30 02:45:44.192008
+    updated_at: 2020-01-30 02:45:44.192023
+    chem: 851
+    report_funcuse: tag testing
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 10
+  fields:
+    created_at: 2020-01-30 02:45:44.192534
+    updated_at: 2020-01-30 02:45:44.192551
+    chem: 852
+    report_funcuse: '#tagged4life'
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 11
+  fields:
+    created_at: 2020-01-30 02:45:44.193069
+    updated_at: 2020-01-30 02:45:44.193085
+    chem: 853
+    report_funcuse: spiritual enlightenment
+    clean_funcuse: ""
+- model: dashboard.functionaluse
+  pk: 12
+  fields:
+    created_at: 2020-01-30 02:45:44.193517
+    updated_at: 2020-01-30 02:45:44.193532
+    chem: 854
+    report_funcuse: surfactaint
+    clean_funcuse: ""

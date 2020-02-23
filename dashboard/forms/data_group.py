@@ -18,6 +18,7 @@ from dashboard.models import (
     Script,
     DocumentType,
     ExtractedChemical,
+    FunctionalUse,
     DataGroup,
     RawChem,
     ExtractedText,
@@ -193,6 +194,7 @@ class BaseExtractFileForm(forms.Form):
     raw_category = field_for_model(DataDocument, "raw_category")
     raw_cas = field_for_model(RawChem, "raw_cas")
     raw_chem_name = field_for_model(RawChem, "raw_chem_name")
+    report_funcuse = forms.CharField(required=False)
 
     def clean(self):
         super().clean()
@@ -208,7 +210,6 @@ class BaseExtractFileForm(forms.Form):
 class FunctionalUseExtractFileForm(BaseExtractFileForm):
     prod_name = field_for_model(ExtractedText, "prod_name")
     rev_num = field_for_model(ExtractedText, "rev_num")
-    report_funcuse = field_for_model(ExtractedFunctionalUse, "report_funcuse")
 
     def clean(self):
         super().clean()
@@ -228,7 +229,6 @@ class CompositionExtractFileForm(BaseExtractFileForm):
     ingredient_rank = field_for_model(ExtractedChemical, "ingredient_rank")
     raw_central_comp = field_for_model(ExtractedChemical, "raw_central_comp")
     component = field_for_model(ExtractedChemical, "component")
-    report_funcuse = field_for_model(ExtractedChemical, "report_funcuse")
 
     def clean(self):
         super().clean()
@@ -248,7 +248,6 @@ class ChemicalPresenceExtractFileForm(BaseExtractFileForm):
     description_cpcat = field_for_model(ExtractedCPCat, "description_cpcat")
     cpcat_code = field_for_model(ExtractedCPCat, "cpcat_code")
     cpcat_sourcetype = field_for_model(ExtractedCPCat, "cpcat_sourcetype")
-    report_funcuse = field_for_model(ExtractedListPresence, "report_funcuse")
     component = field_for_model(ExtractedListPresence, "component")
 
     def clean(self):
@@ -420,17 +419,42 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
                 datadocument = None
             # Child creates
             child_params = clean_dict(data, Child)
+            use_vals = [u.strip() for u in form["report_funcuse"].value().split(";")]
+            uses = None
             # Only include children if relevant data is attached
             if child_params.keys() - {"extracted_text_id", "weight_fraction_type_id"}:
                 child = Child(**child_params)
                 child._meta.created_fields = child_params
                 child._meta.updated_fields = {}
+                uses = []
+                for use in use_vals:
+                    if not use:  # filter out empty strings
+                        continue
+                    elif len(use) > 255:
+                        form.add_error(
+                            "report_funcuse",
+                            forms.ValidationError(
+                                "The reported functional use string is too long"
+                            ),
+                        )
+                    else:
+                        uses.append(FunctionalUse(report_funcuse=use))
+
             else:
                 child = None
+            if uses and self.dg.type not in ("FU",) and len(uses) > 1:
+                form.add_error(
+                    "report_funcuse",
+                    forms.ValidationError(
+                        "No more than one functional use is acceptable."
+                        f" Reported uses: { [str(u) for u in uses] }"
+                    ),
+                )
             # Store in dictionary
             data["datadocument"] = datadocument
             data["parent"] = parent
             data["child"] = child
+            data["uses"] = uses
 
     def save(self):
         datadocuments = [
@@ -443,6 +467,9 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
         ]
         children = [
             f.cleaned_data["child"] for f in self.forms if f.cleaned_data["child"]
+        ]
+        funcuses = [
+            f.cleaned_data["uses"] for f in self.forms if f.cleaned_data["child"]
         ]
         with transaction.atomic():
             # Update DataDocument and Parent
@@ -459,7 +486,14 @@ class ExtractFileFormSet(FormTaskMixin, DGFormSet):
             for objs in (parents, children):
                 created_objs = [o for o in objs if o._meta.created_fields]
                 if created_objs:
-                    inheritance_bulk_create(created_objs)
+                    chems = inheritance_bulk_create(created_objs)
+            reported_uses = []
+            for chem, uses in zip(chems, funcuses):
+                for use in uses:
+                    if use.report_funcuse:
+                        use.chem_id = chem.pk
+                        reported_uses.append(use)
+            FunctionalUse.objects.bulk_create(reported_uses)
         return len(self.forms)
 
 

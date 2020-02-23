@@ -1,0 +1,112 @@
+{% load widget_tweaks %}
+
+
+{% for hidden_field in form.hidden_fields %}
+  {{ hidden_field }}
+{% endfor %}
+
+{% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+{% endif %}
+<label for="" class="form-required"><b>* required</b></label>
+{% for field in form.visible_fields %}
+  <div class="form-group {{ colspan }}">
+    {{ field.label_tag }}
+
+    {% if form.is_bound %}
+      {% if field.errors %}
+        {% render_field field class="form-control is-invalid" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+    {% else %}
+      {% render_field field class="form-control" %}
+    {% endif %}
+
+    {% if field.help_text %}
+      <small class="form-text text-muted">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+{% endfor %}
+
+
+{{ fufs.management_form }}
+{% for form in fufs %}
+  {% for field in form.hidden_fields %}
+    {{ field.as_hidden }}
+  {% endfor %}
+{% endfor %}
+<div id="funcuses">
+{% for form in fufs %}
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% for field in form.visible_fields %}
+    {% if field.name == 'report_funcuse' %}
+      <div class="form-group mb-2 {% if not forloop.parentloop.first and not field.value and not field.errors %}
+                              mystical
+                              {% endif %}">
+      {% if forloop.parentloop.first %}
+      <span>
+        {{ field.label_tag }}
+        {% if doc.data_group.is_functional_use %}
+        <a class="btn btn-sm btn-outline-secondary hover-success float-right mb-2 mr-2"
+                id="funcuse-add"
+                title="Add Functional Use"
+                data-toggle="tooltip"
+                role="button">
+            <span class="fa fa-fs fa-plus"></span>
+        </a>
+        {% endif %}
+      </span>
+      <br>
+      {% endif %}
+      <br>
+      <div class="row">
+        {% if field.initial or field.errors %}
+          <div class="col-lg-1 px-1 pb-2" title='DELETE' data-toggle="tooltip">
+            {% render_field form.visible_fields.1 class="form-control ml-2" %}
+          </div>
+        {% else %}
+          <div class="col-lg-1"></div>
+        {% endif %}
+        {% if form.is_bound %}
+          {% if field.errors %}
+            <div class="col-lg-11">
+              {% render_field field class="form-control is-invalid" %}
+              {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="col-lg-11">
+              {% render_field field class="form-control is-valid" %}
+            </div>
+          {% endif %}
+        {% else %}
+            <div class="col-lg-11">
+              {% render_field field class="form-control" %}
+            </div>
+        {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+</div>

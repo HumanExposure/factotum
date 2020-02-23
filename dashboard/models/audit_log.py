@@ -1,5 +1,6 @@
 from django.apps import apps
 from django.conf import settings
+from django.db import connection
 from django.db import models
 
 
@@ -19,6 +20,26 @@ class AuditLog(models.Model):
         indexes = [models.Index(fields=["object_key", "model_name", "field_name"])]
 
     @classmethod
+    def remove_trigger_sql(cls):
+        default_db = settings.DATABASES["default"]["NAME"]
+        sql_stmnt = (
+            "SELECT Concat('DROP TRIGGER ', Trigger_Name, ';') "
+            "FROM  information_schema.TRIGGERS "
+            f"WHERE TRIGGER_SCHEMA = '{default_db}';"
+        )
+        with connection.cursor() as cursor:
+            cursor.execute(sql_stmnt)
+            drop_stmnts = [c[0] for c in cursor.fetchall()]
+            for s in drop_stmnts:
+                cursor.execute(s)
+
+    @classmethod
+    def add_trigger_sql(cls):
+        with connection.cursor() as cursor:
+            cursor.execute(cls.get_trigger_sql())
+            print("Audit Log triggers created")
+
+    @classmethod
     def get_trigger_sql(cls):
         """Scans all models for auditlog_fields() methods, and builds SQL string defining audit log triggers
 
@@ -32,22 +53,21 @@ class AuditLog(models.Model):
         # Build dictionary of auditable fields by model
         for model in apps.all_models[app_label]:
             try:
-                auditlog_fields[model] = apps.get_model(
-                    app_label, model_name=model
-                ).auditlog_fields()
+                fields = apps.get_model(app_label, model_name=model).auditlog_fields()
+                if fields is not None:
+                    auditlog_fields[model] = fields
             except AttributeError:
                 pass
 
         # Build SQL trigger string by model and auditable fields
         for model in auditlog_fields:
             table_name = app_label + "_" + model
-            id = "id" if model == "rawchem" else "rawchem_ptr_id"
+            id = apps.get_model(app_label, model_name=model)._meta.pk.attname
             trigger_sql += f"""
-                DROP TRIGGER IF EXISTS {table_name}_update_trigger;
-                CREATE TRIGGER  {table_name}_update_trigger
-                AFTER UPDATE ON {table_name}
-                FOR EACH ROW
-                BEGIN
+                    CREATE TRIGGER  {table_name}_update_trigger
+                    AFTER UPDATE ON {table_name}
+                    FOR EACH ROW
+                    BEGIN
             """
             for field in auditlog_fields[model]:
                 trigger_sql += f"""
@@ -63,7 +83,6 @@ class AuditLog(models.Model):
             trigger_sql += f"""
                 END;
 
-                DROP TRIGGER IF EXISTS {table_name}_insert_trigger;
                 CREATE TRIGGER  {table_name}_insert_trigger
                 AFTER INSERT ON {table_name}
                 FOR EACH ROW
@@ -81,7 +100,6 @@ class AuditLog(models.Model):
             trigger_sql += f"""
                 END;
 
-                DROP TRIGGER IF EXISTS {table_name}_delete_trigger;
                 CREATE TRIGGER  {table_name}_delete_trigger
                 AFTER DELETE ON {table_name}
                 FOR EACH ROW

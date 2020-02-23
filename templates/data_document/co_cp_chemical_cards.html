@@ -127,10 +127,10 @@
                     </div>
                     <div class="row">
                         <div class="col-6 text-left mt-auto">
-                            {% if chemical.report_funcuse %}
+                            {% if chemical.functional_uses.first %}
                                 <span id="report_funcuse">
-                                    {{ chemical.report_funcuse }}
-                                    </span>
+                                    {{ chemical.functional_uses.first }}
+                                </span>
                             {% endif %}
                         </div>
                         <div class="col-6 text-right">
@@ -143,9 +143,12 @@
                     </div>
                 {% else %}
                     <div class="row">
-                        <div class="col-md-9">
-                            <b>{{ chemical.report_funcuse_label }}</b>
-                            <p>{{ chemical.report_funcuse }}</p>
+                        <div class="col-6 text-left mt-auto">   
+                            {% if chemical.functional_uses.first %}
+                                <span id="report_funcuse">
+                                    {{ chemical.functional_uses.first }}
+                                </span>
+                            {% endif %}
                         </div>
                         {% if doc.data_group.is_chemical_presence %}
                             {% include 'data_document/lp_tag_buttons.html' %}
@@ -194,12 +197,12 @@
                                 Are you sure you want to delete "{{ chemical }}" ?
                             </div>
                             <div class="modal-footer">
-                                <button id="chemical-modal-cancel"
+                                <button id="chemical-modal-cancel-{{chemical.pk}}"
                                         type="button"
                                         class="btn btn-secondary"
                                         data-dismiss="modal"> Cancel
                                 </button>
-                                <button id="chemical-modal-save"
+                                <button id="chemical-modal-save-{{chemical.pk}}"
                                         type="submit"
                                         class="btn btn-primary">
                                     Delete

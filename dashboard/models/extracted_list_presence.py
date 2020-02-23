@@ -18,9 +18,6 @@ class ExtractedListPresence(CommonInfo, RawChem):
     """
 
     qa_flag = models.BooleanField(default=False)
-    report_funcuse = models.CharField(
-        "Reported functional use", max_length=255, null=True, blank=True
-    )
     tags = TaggableManager(
         through="dashboard.ExtractedListPresenceToTag",
         to="dashboard.ExtractedListPresenceTag",
@@ -34,25 +31,7 @@ class ExtractedListPresence(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["raw_cas", "raw_chem_name", "report_funcuse", "component"]
-
-    @classmethod
-    def auditlog_fields(cls):
-        """Lists the fields to be included in the audit log triggers
-
-        Returns:
-            list -- a list of field names
-        """
-        return ["report_funcuse"]
-
-    @classmethod
-    def auditlog_fields(cls):
-        """Lists the fields to be included in the audit log triggers
-
-        Returns:
-            list -- a list of field names
-        """
-        return ["report_funcuse"]
+        return ["raw_cas", "raw_chem_name", "component"]
 
     def get_datadocument_url(self):
         """Traverses the relationship to the DataDocument model
@@ -76,13 +55,10 @@ class ExtractedListPresence(CommonInfo, RawChem):
     def report_funcuse_label(self):
         return self.__get_label("report_funcuse")
 
-    @property
-    def auditlog_model_name(self):
-        """
-        Returns the string that is used in the AuditLog table in the
-        'model_name' field
-        """
-        return "extractedlistpresence"
+    @classmethod
+    def auditlog_fields(cls):
+        """Needed, else inherited method from RawChem will apply with wrong fields"""
+        return None
 
 
 class ExtractedListPresenceToTag(TaggedItemBase, CommonInfo):

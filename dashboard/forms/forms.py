@@ -14,6 +14,7 @@ from dashboard.models import (
     ExtractedCPCat,
     ExtractedHHDoc,
     ExtractedText,
+    FunctionalUse,
     Script,
     WeightFractionType,
     QANotes,
@@ -271,7 +272,6 @@ class ExtractedChemicalForm(forms.ModelForm):
         fields = [
             "raw_chem_name",
             "raw_cas",
-            "report_funcuse",
             "raw_min_comp",
             "raw_central_comp",
             "raw_max_comp",
@@ -285,13 +285,13 @@ class ExtractedChemicalForm(forms.ModelForm):
 class ExtractedFunctionalUseForm(forms.ModelForm):
     class Meta:
         model = ExtractedFunctionalUse
-        fields = ["raw_chem_name", "raw_cas", "report_funcuse"]
+        fields = ["raw_chem_name", "raw_cas"]
 
 
 class ExtractedListPresenceForm(forms.ModelForm):
     class Meta:
         model = ExtractedListPresence
-        fields = ["raw_chem_name", "raw_cas", "report_funcuse", "component"]
+        fields = ["raw_chem_name", "raw_cas", "component"]
 
 
 class ExtractedHHRecForm(forms.ModelForm):

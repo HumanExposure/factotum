@@ -1,4 +1,10 @@
 {% load i18n widget_tweaks %}
+{% load staticfiles %}
+<style>
+.mystical {
+    display: none;
+}
+</style>
 <div class="modal-dialog" role="document">
     <form action="{% url 'chemical_update' form.instance.pk %}" method="post" id="chem-update" class="form">
         {% csrf_token %}
@@ -11,7 +17,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {% include 'core/bs4_form.html' with form=form %}
+                {% include 'core/bs4_funcuse_form.html' with form=form %}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -20,6 +26,8 @@
         </div><!-- /.modal-content -->
     </form>
 </div><!-- /.modal-dialog -->
+<script type="text/javascript" src="{% static 'js/dashboard/tooltip.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/dashboard/chemical_form.js' %}"></script>
 <script>
     var form_options = {
         target: '#chemical-update-modal',

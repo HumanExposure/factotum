@@ -46,13 +46,6 @@ class ExtractedChemical(CommonInfo, RawChem):
         blank=True,
         verbose_name="Unit type",
     )
-    report_funcuse = models.CharField(
-        "Reported functional use",
-        max_length=255,
-        null=True,
-        blank=True,
-        help_text="functional use",
-    )
     weight_fraction_type = models.ForeignKey(
         WeightFractionType,
         on_delete=models.PROTECT,
@@ -163,7 +156,6 @@ class ExtractedChemical(CommonInfo, RawChem):
             "raw_central_comp",
             "raw_max_comp",
             "ingredient_rank",
-            "report_funcuse",
             "weight_fraction_type",
             "rawchem_ptr",
             "component",
@@ -181,7 +173,6 @@ class ExtractedChemical(CommonInfo, RawChem):
             "raw_max_comp",
             "raw_central_comp",
             "unit_type_id",
-            "report_funcuse",
             "ingredient_rank",
             "lower_wf_analysis",
             "central_wf_analysis",
@@ -225,10 +216,6 @@ class ExtractedChemical(CommonInfo, RawChem):
         return self.__get_label("unit_type")
 
     @property
-    def report_funcuse_label(self):
-        return self.__get_label("report_funcuse")
-
-    @property
     def weight_fraction_type_label(self):
         return self.__get_label("weight_fraction_type")
 
@@ -239,11 +226,3 @@ class ExtractedChemical(CommonInfo, RawChem):
     @property
     def component_label(self):
         return self.__get_label("component")
-
-    @property
-    def auditlog_model_name(self):
-        """
-        Returns the string that is used in the AuditLog table in the
-        'model_name' field
-        """
-        return "extractedchemical"

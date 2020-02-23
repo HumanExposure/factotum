@@ -17,6 +17,7 @@ from dashboard.models import (
     ExtractedListPresence,
     ExtractedFunctionalUse,
     AuditLog,
+    FunctionalUse,
 )
 from dashboard.tests.mixins import TempFileMixin
 
@@ -114,7 +115,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
 
         logs.delete()
 
-        # bulk update fields
+        # bulk update fields for 3 chemicals
         chems = ExtractedChemical.objects.filter(component="Test Component")
 
         for chemical in chems:
@@ -122,28 +123,16 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             chemical.raw_max_comp = "max comp"
             chemical.raw_central_comp = "central comp"
             chemical.unit_type_id = 1
-            chemical.report_funcuse = "report func use"
             chemical.ingredient_rank = 5
             chemical.lower_wf_analysis = 0.01
             chemical.central_wf_analysis = 0.44
             chemical.upper_wf_analysis = 0.88
-        ExtractedChemical.objects.bulk_update(
-            chems,
-            [
-                "raw_min_comp",
-                "raw_max_comp",
-                "raw_central_comp",
-                "unit_type_id",
-                "report_funcuse",
-                "ingredient_rank",
-                "upper_wf_analysis",
-                "central_wf_analysis",
-                "lower_wf_analysis",
-            ],
-        )
+            chemical.save()
+            rfu = FunctionalUse(chem=chemical, report_funcuse="report func use")
+            rfu.save()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(27, len(logs), "Should have log entries")
+        self.assertEquals(30, len(logs), "Should have 30 log entries")
         self.assertEquals(3, sum(log.field_name == "raw_min_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
@@ -157,13 +146,16 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(3, sum(log.field_name == "lower_wf_analysis" for log in logs))
 
         for log in logs:
-            self.assertEquals(log.model_name, "extractedchemical")
+            self.assertIn(log.model_name, ("functionaluse", "extractedchemical"))
             self.assertIsNotNone(log.object_key)
             self.assertIsNotNone(log.field_name)
             self.assertIsNotNone(log.new_value)
             self.assertIsNotNone(log.date_created)
             self.assertIsNotNone(log.user_id)
-            self.assertEquals("U", log.action, "Should be Update action")
+            if log.model_name == "functionaluse":
+                self.assertEquals("I", log.action, "Should be Insert action")
+            else:
+                self.assertEquals("U", log.action, "Should be Update action")
         logs.delete()
 
         # change rid
@@ -203,7 +195,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             chemical.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(39, len(logs), "Should have log entries")
+        self.assertEquals(42, len(logs), "Should have 42 log entries")
         self.assertEquals(3, sum(log.field_name == "raw_min_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_max_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
@@ -253,7 +245,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         AsyncResult(task_id).wait()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(8, len(logs), "Should have log entries")
+        self.assertEquals(10, len(logs), "Should have log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -274,7 +266,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             chem.save()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(9, len(logs), "Should have log entries")
+        self.assertEquals(6, len(logs), "Should have 6 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -289,7 +281,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         chems.delete()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(9, len(logs), "Should have log entries")
+        self.assertEquals(10, len(logs), "Should have 10 log entries")
 
         for log in logs:
             self.assertIsNotNone(log.model_name)
@@ -349,7 +341,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         )
 
         logs = AuditLog.objects.all()
-        self.assertEquals(3, len(logs), "Should have log entries")
+        self.assertEquals(4, len(logs), "Should have 4 log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)
@@ -360,29 +352,30 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             self.assertEquals("I", log.action, "Should be Insert action")
         logs.delete()
 
-        # update
+        # add a related FunctionalUse record
         efs = ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)
         for ef in efs:
-            ef.report_funcuse = "test func use"
-            ef.save()
+            efu = FunctionalUse(chem=ef, report_funcuse="test func use")
+            efu.save()
 
         logs = AuditLog.objects.all()
-        self.assertEquals(1, len(logs), "Should have log entries")
-        for log in logs:
-            self.assertEquals(log.model_name, "extractedfunctionaluse")
-            self.assertEquals(log.field_name, "report_funcuse")
+        self.assertEquals(
+            2, len(logs), "Should have log entries for new functional use"
+        )
+        for log in logs.filter(field_name="report_funcuse"):
+            self.assertEquals(log.model_name, "functionaluse")
             self.assertIsNotNone(log.new_value)
             self.assertEquals(log.new_value, "test func use")
             self.assertIsNotNone(log.date_created)
             self.assertIsNotNone(log.user_id)
-            self.assertEquals("U", log.action, "Should be Update action")
+            self.assertEquals("I", log.action, "Should be Insert action")
         logs.delete()
 
         # delete
         for ef in efs:
             ef.delete()
         logs = AuditLog.objects.all()
-        self.assertEquals(3, len(logs), "Should have log entries")
+        self.assertEquals(6, len(logs), "Should have log entries")
         for log in logs:
             self.assertIsNotNone(log.model_name)
             self.assertIsNotNone(log.field_name)

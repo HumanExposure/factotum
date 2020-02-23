@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.db.models import Q
 
 from dashboard.utils import get_extracted_models
 from dashboard.forms import (
@@ -22,6 +23,7 @@ from dashboard.models import (
     DataDocument,
     ExtractedListPresence,
     ExtractedText,
+    FunctionalUse,
     Script,
     ExtractedListPresenceToTag,
     ExtractedListPresenceTag,
@@ -29,6 +31,15 @@ from dashboard.models import (
     RawChem,
     AuditLog,
 )
+from django.forms import inlineformset_factory
+
+CHEMICAL_FORMS = {
+    "CO": ExtractedChemicalForm,
+    "FU": ExtractedFunctionalUseForm,
+    "CP": ExtractedListPresenceForm,
+    "HH": ExtractedHHRecForm,
+}
+CHEMICAL_TYPES = CHEMICAL_FORMS.keys()
 
 
 def data_document_detail(request, pk):
@@ -43,18 +54,30 @@ def data_document_detail(request, pk):
     ParentForm, _ = create_detail_formset(doc)
     Parent, Child = get_extracted_models(doc.data_group.group_type.code)
     ext = Parent.objects.filter(pk=doc.pk).first()
-    chemicals = Child.objects.filter(
-        extracted_text__data_document=doc
-    ).prefetch_related("dsstox")
-    if Child == ExtractedChemical:
-        chemicals = chemicals.order_by("component", "ingredient_rank")
-    if Child == ExtractedListPresence:
-        chemicals = chemicals.prefetch_related("tags")
-    lp = ExtractedListPresence.objects.filter(
-        extracted_text=ext if ext else None
-    ).first()
-    tag_form = ExtractedListPresenceTagForm()
+    fufs = []
+    chemicals = []
+    lp = None
+
+    if doc.data_group.group_type.code in CHEMICAL_TYPES:
+        chemicals = Child.objects.filter(
+            extracted_text__data_document=doc
+        ).prefetch_related("dsstox")
+        if Child == ExtractedListPresence:
+            chemicals = chemicals.prefetch_related("tags")
+        if Child == ExtractedChemical:
+            chemicals = chemicals.order_by("component", "ingredient_rank")
+        lp = ExtractedListPresence.objects.filter(
+            extracted_text=ext if ext else None
+        ).first()
+        tag_form = ExtractedListPresenceTagForm()
+        FuncUseFormSet = inlineformset_factory(
+            RawChem, FunctionalUse, fields=("report_funcuse",), extra=1
+        )
+        chem = chemicals.first()
+        fufs = FuncUseFormSet(instance=chem)
+    # import ipdb; ipdb.set_trace()
     context = {
+        "fufs": fufs,
         "doc": doc,
         "extracted_text": ext,
         "chemicals": chemicals,
@@ -73,29 +96,42 @@ class ChemCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["doc"] = DataDocument.objects.get(pk=self.kwargs.get("doc"))
+        doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
+        extra = 12 if doc.data_group.is_functional_use else 1
+        FuncUseFormSet = inlineformset_factory(
+            RawChem,
+            FunctionalUse,
+            fields=("report_funcuse",),
+            extra=extra,
+            can_delete=False,
+        )
+        context.update({"formset": FuncUseFormSet, "doc": doc})
+        if not "fufs" in context:
+            context["fufs"] = FuncUseFormSet()
         return context
 
     def get_form_class(self):
         doc = DataDocument.objects.get(pk=self.kwargs.get("doc"))
         code = doc.data_group.group_type.code
-        if code == "CO":
-            return ExtractedChemicalForm
-        if code == "FU":
-            return ExtractedFunctionalUseForm
-        if code == "CP":
-            return ExtractedListPresenceForm
-        if code == "HH":
-            return ExtractedHHRecForm
+        return CHEMICAL_FORMS[code]
+
+    def form_invalid(self, form, formset):
+        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
 
     def form_valid(self, form):
         form.instance.extracted_text_id = self.kwargs.get("doc")
         self.object = form.save()
-        return render(
-            self.request,
-            "chemicals/chemical_create_success.html",
-            {"chemical": self.object},
-        )
+        FuncUseFormSet = self.get_context_data()["formset"]
+        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            formset.save()
+            return render(
+                self.request,
+                "chemicals/chemical_create_success.html",
+                {"chemical": self.object},
+            )
+        else:
+            return self.form_invalid(form, formset)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -107,23 +143,42 @@ class ChemUpdateView(UpdateView):
         obj = super(ChemUpdateView, self).get_object(queryset=queryset)
         return RawChem.objects.get_subclass(pk=obj.pk)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        doc = self.object.extracted_text.data_document
+        extra = 12 if doc.data_group.is_functional_use else 1
+        FuncUseFormSet = inlineformset_factory(
+            RawChem,
+            FunctionalUse,
+            fields=("report_funcuse",),
+            extra=extra,
+            can_delete=True,
+        )
+        context.update({"formset": FuncUseFormSet, "doc": doc})
+        if not "fufs" in context:
+            context["fufs"] = FuncUseFormSet(instance=self.object)
+        return context
+
     def get_form_class(self):
         code = self.object.extracted_text.group_type
-        if code == "CO":
-            return ExtractedChemicalForm
-        if code == "CP":
-            return ExtractedListPresenceForm
-        if code == "HH":
-            return ExtractedHHRecForm
+        return CHEMICAL_FORMS[code]
+
+    def form_invalid(self, form, formset):
+        return self.render_to_response(self.get_context_data(form=form, fufs=formset))
 
     def form_valid(self, form):
         self.object = form.save()
-
-        return render(
-            self.request,
-            "chemicals/chemical_create_success.html",
-            {"chemical": self.object},
-        )
+        FuncUseFormSet = self.get_context_data()["formset"]
+        formset = FuncUseFormSet(self.request.POST, instance=self.object)
+        if formset.is_valid():
+            formset.save()
+            return render(
+                self.request,
+                "chemicals/chemical_create_success.html",
+                {"chemical": self.object},
+            )
+        else:
+            return self.form_invalid(form, formset)
 
 
 @login_required()
@@ -267,9 +322,13 @@ def list_presence_tag_delete(request, doc_pk, chem_pk, tag_pk):
 
 def chemical_audit_log(request, pk):
     chemical = RawChem.objects.filter(pk=pk).select_subclasses().first()
+    fu_keys = FunctionalUse.objects.filter(chem_id=pk).values_list("id", flat=True)
+
     auditlog = AuditLog.objects.filter(
-        object_key=pk, model_name__in=[chemical.auditlog_model_name, "rawchem"]
+        Q(object_key=pk, model_name__in=[chemical._meta.model_name, "rawchem"])
+        | Q(object_key__in=fu_keys, model_name__in=["functionaluse"])
     ).order_by("-date_created")
+
     return render(
         request,
         "chemicals/chemical_audit_log.html",

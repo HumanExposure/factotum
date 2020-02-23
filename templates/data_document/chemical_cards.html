@@ -112,9 +112,13 @@
                         </ul>
                     {% else %}
                         <div class="row">
-                            <div class="col-md-9">
-                                <b>{{ chemical.report_funcuse_label }}</b>
-                                <p>{{ chemical.report_funcuse }}</p>
+                            <div class="col-md-9" id="functional_uses_{{chemical.id}}">
+                                <b>Reported Functional Uses</b>
+                                {% for fuse in chemical.functional_uses.all %}
+                                    <p>{{ fuse }}</p>
+                                {% empty %}
+                                    <p class="text-muted">None reported</p>
+                                {% endfor %}
                             </div>
                             {% if doc.data_group.is_chemical_presence %}
                                 {% include 'data_document/lp_tag_buttons.html' %}
@@ -147,12 +151,12 @@
                                 Are you sure you want to delete "{{ chemical }}" ?
                             </div>
                             <div class="modal-footer">
-                                <button id="chemical-modal-cancel"
+                                <button id="chemical-modal-cancel-{{chemical.pk}}"
                                         type="button"
                                         class="btn btn-secondary"
                                         data-dismiss="modal"> Cancel
                                 </button>
-                                <button id="chemical-modal-save"
+                                <button id="chemical-modal-delete-{{chemical.pk}}"
                                         type="submit"
                                         class="btn btn-primary">
                                     Delete

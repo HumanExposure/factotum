@@ -4,382 +4,327 @@
     created_at: 2018-10-03 10:07:24.393352
     updated_at: 2019-07-25 11:07:20.965928
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 759
   fields:
     created_at: 2018-10-03 10:07:24.422541
     updated_at: 2019-07-25 10:29:07.056240
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 802
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: 2019-07-25 11:03:02.482856
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 803
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 804
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 805
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 806
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 807
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 808
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 809
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 810
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 811
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 812
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 813
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 814
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 815
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 816
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 817
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 818
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 819
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 820
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 821
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 822
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 823
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 824
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 825
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 826
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 827
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 828
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 829
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 830
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 831
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 832
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 833
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 834
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 835
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 836
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 837
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 838
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 839
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 840
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 841
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 842
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 843
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 844
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 845
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 846
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 847
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 848
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 849
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 850
   fields:
     created_at: 2019-03-10 10:07:24.422541
     updated_at: null
     qa_flag: false
-    report_funcuse: null
 - model: dashboard.extractedlistpresence
   pk: 851
   fields:
     created_at: 2019-07-25 10:32:19.633089
     updated_at: 2019-07-25 11:07:20.998825
     qa_flag: false
-    report_funcuse: tag testing
 - model: dashboard.extractedlistpresence
   pk: 852
   fields:
     created_at: 2019-07-25 11:01:08.083599
     updated_at: 2019-07-25 11:13:24.963798
     qa_flag: false
-    report_funcuse: '#tagged4life'
 - model: dashboard.extractedlistpresence
   pk: 853
   fields:
     created_at: 2019-07-25 11:13:20.190593
     updated_at: 2019-07-25 11:14:35.259648
     qa_flag: false
-    report_funcuse: spiritual enlightenment
 - model: dashboard.extractedlistpresence
   pk: 854
   fields:
     created_at: 2019-09-19 11:28:06.961653
     updated_at: 2019-09-19 11:28:06.961675
     qa_flag: false
-    report_funcuse: surfactaint

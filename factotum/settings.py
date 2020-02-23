@@ -211,3 +211,5 @@ LOGGING = {
         },
     },
 }
+
+DJANGO_EXTENSIONS_RESET_DB_MYSQL_ENGINES = ("factotum.db",)

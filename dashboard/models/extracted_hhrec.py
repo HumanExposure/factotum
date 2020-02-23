@@ -84,11 +84,3 @@ class ExtractedHHRec(CommonInfo, RawChem):
     @property
     def num_nondetect_label(self):
         return self.__get_label("num_nondetect")
-
-    @property
-    def auditlog_model_name(self):
-        """
-        Returns the string that is used in the AuditLog table in the
-        'model_name' field
-        """
-        return "extractedhhrec"

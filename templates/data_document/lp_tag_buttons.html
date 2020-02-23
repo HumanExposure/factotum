@@ -50,11 +50,11 @@
                             from "{{ chemical }}" ?
                         </div>
                         <div class="modal-footer">
-                            <button id="chemical-modal-cancel"
+                            <button id="chemical-modal-cancel-{{chemical.pk}}"
                                     type="button"
                                     class="btn btn-secondary"
                                     data-dismiss="modal"> Cancel </button>
-                            <button id="chemical-modal-save"
+                            <button id="chemical-modal-save-{{chemical.pk}}"
                                     type="submit"
                                     class="btn btn-primary">
                                 Delete

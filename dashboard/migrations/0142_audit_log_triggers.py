@@ -1,7 +1,5 @@
 from django.db import migrations
 
-from dashboard.models import AuditLog
-
 
 class Migration(migrations.Migration):
     dependencies = [("dashboard", "0141_refactor_component_into_rawchem")]
@@ -27,10 +25,5 @@ class Migration(migrations.Migration):
                 DROP TRIGGER IF EXISTS extracted_list_presence_delete_trigger;
             """,
             reverse_sql=migrations.RunPython.noop,
-        ),
-        migrations.RunSQL(
-            # Use dynamically generated SQL statement to generate up-to-date triggers
-            AuditLog.get_trigger_sql(),
-            reverse_sql=migrations.RunPython.noop,
-        ),
+        )
     ]

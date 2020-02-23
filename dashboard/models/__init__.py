@@ -38,3 +38,4 @@ from .taxonomy import Taxonomy
 from .taxonomy_source import TaxonomySource
 from .taxonomy_to_PUC import TaxonomyToPUC
 from .audit_log import AuditLog
+from .functional_use import FunctionalUse

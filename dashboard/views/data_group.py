@@ -27,7 +27,6 @@ from dashboard.models import (
     DocumentType,
     GroupType,
     DataDocument,
-    AuditLog,
     DataGroup,
 )
 from dashboard.utils import gather_errors, zip_stream
@@ -46,7 +45,6 @@ def data_group_list(request, code=None, template_name="data_group/datagroup_list
 
 @login_required()
 def data_group_detail(request, pk, template_name="data_group/datagroup_detail.html"):
-    AuditLog.get_trigger_sql()
     dg = get_object_or_404(DataGroup, pk=pk)
     tabledata = {
         "boolComp": dg.is_composition,

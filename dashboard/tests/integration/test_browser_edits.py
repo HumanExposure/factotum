@@ -207,6 +207,14 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button = self.browser.find_element_by_xpath(
                 '//*[@id="btn-toggle-edit"]'
             )
+            chem_id = RawChem.objects.filter(extracted_text__pk=doc_id).first().id
+            wait = WebDriverWait(self.browser, 10)
+            btn_accordion = wait.until(
+                ec.element_to_be_clickable(
+                    (By.XPATH, f"//*[@id='chem-card-{chem_id}']")
+                )
+            )
+            btn_accordion.click()
             # Find chemical card, not chem-card-None (i.e. "Add new chemical")
             chem_cards = self.browser.find_elements_by_xpath(
                 "//*[starts-with(@id, 'chem-card-')]"
@@ -217,7 +225,7 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             edit_button.send_keys("\n")
 
             # Wait for the field to be editable
-            wait = WebDriverWait(self.browser, 10)
+
             raw_chem_name_field = wait.until(
                 ec.element_to_be_clickable(
                     (By.XPATH, "//*[@id='id_rawchem-0-raw_chem_name']")

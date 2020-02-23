@@ -51,6 +51,7 @@ fixtures_standard = [
     "14_list_presence_tag",
     "15_list_presence_to_tag",
     "17_taxonomy",
+    "18_functional_use",
 ]
 
 datadocument_models = {

@@ -1,14 +1,13 @@
-from django.db import models
 from six import text_type
+
+from django.db import models
 
 from .common_info import CommonInfo
 from .raw_chem import RawChem
 
 
 class ExtractedFunctionalUse(CommonInfo, RawChem):
-    report_funcuse = models.CharField(
-        "Reported functional use", max_length=255, null=True, blank=True
-    )
+    pass
 
     @classmethod
     def detail_fields(cls):
@@ -17,16 +16,12 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
         Returns:
             list -- a list of field names
         """
-        return ["extracted_text", "raw_chem_name", "raw_cas", "report_funcuse"]
+        return ["extracted_text", "raw_chem_name", "raw_cas"]
 
     @classmethod
     def auditlog_fields(cls):
-        """Lists the fields to be included in the audit log triggers
-
-        Returns:
-            list -- a list of field names
-        """
-        return ["report_funcuse"]
+        """Needed, else inherited method from RawChem will apply with wrong fields"""
+        return None
 
     def get_extractedtext(self):
         return self.extracted_text
@@ -37,15 +32,3 @@ class ExtractedFunctionalUse(CommonInfo, RawChem):
 
     def __get_label(self, field):
         return text_type(self._meta.get_field(field).verbose_name)
-
-    @property
-    def report_funcuse_label(self):
-        return self.__get_label("report_funcuse")
-
-    @property
-    def auditlog_model_name(self):
-        """
-        Returns the string that is used in the AuditLog table in the
-        'model_name' field
-        """
-        return "extractedfunctionaluse"

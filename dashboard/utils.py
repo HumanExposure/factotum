@@ -443,7 +443,7 @@ def inheritance_bulk_create(models):
         with connection.cursor() as cursor:
             cursor.execute(sql_str, sql_values)
             last_id = cursor.lastrowid
-        if not pk_given_in_model:
+        if not pk_given_in_model and not parent_done:
             for i, m in enumerate(models):
                 m.pk = last_id + i
         if not parent_done:

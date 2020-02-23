@@ -3,6 +3,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from dashboard.models import DataSource, DataGroup, PUCToTag, ProductToPUC
 from django.test import tag
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 def log_karyn_in(object):
@@ -160,7 +161,9 @@ class TestIntegration(StaticLiveServerTestCase):
 
     def test_search_pagination(self):
         self.browser.get(self.live_server_url + "/search/datadocument/?q=d2F0ZXI=")
-        link = self.browser.find_elements_by_class_name("page-link").pop()
+        wait = WebDriverWait(self.browser, 10)
+        links = self.browser.find_elements_by_class_name(f"page-link")
+        link = links.pop()
         link.click()
         self.assertIn(
             "&page=", self.browser.current_url, "page parameter should be in URL"
