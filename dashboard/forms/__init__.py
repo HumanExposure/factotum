@@ -29,3 +29,4 @@ from dashboard.forms.product_tag_form import ProductTagForm
 from dashboard.forms.chemical_curation import DataGroupSelector, ChemicalCurationFormSet
 from dashboard.forms.puc_forms import ProductPUCForm, HabitsPUCForm, BulkPUCForm
 from dashboard.forms.bulk_document_forms import *
+from dashboard.forms.rawcategory_to_puc import *

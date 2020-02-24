@@ -3,16 +3,86 @@
 {% block title %}Bulk assign raw category to PUC{% endblock %}
 
 {% block content %}
-    <h1 class="mb-3">
-        Bulk assign raw category to PUC
-    </h1>
 
-    <div id="bulkPucGrid" class="ag-theme-balham"></div>
+{% if success_messages %}
+    {% for message in success_messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if form_errors %}
+    {% for error in form_errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading">{{ error.error_group}}</h4>
+            {{ error.error_list }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<h1 class="mb-3">
+    Bulk assign raw category to PUC
+</h1>
+
+<div class="container">
+    <div class="mb-2 mt-2 row align-items-center">
+        <div class="col-md-auto"><strong>Selected Data Groups:</strong></div>
+        <span id="selectedRows" class="col-md"></span>
+        <button id="pucModalBtn" class="col-1-md btn btn-primary btn-sm" data-toggle="modal" data-target="#pucModal" disabled="true">
+            Connect PUCs
+        </button>
+    </div>
+</div>
+<div id="bulkPucGrid" class="ag-theme-balham"></div>
+
+
+<!-- pucModal -->
+<div class="modal fade" id="pucModal" tabindex="-1" role="dialog" aria-labelledby="pucModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pucModalLabel">Connect PUCs</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{% url 'rawcategory_to_puc' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div>
+                        <div class="mb-2">Data Groups - Raw Category</div>
+                        <ul id="selectedRowsList" class="overflow-auto" style="max-height: 150px;"></ul>
+                    </div>
+                    <div class="mt-1">
+                        <div class="mb-2">PUC</div>
+                        <div class="pl-4">
+                            {{ form }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="datagroup_rawcategory_groups" name="datagroup_rawcategory_groups">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update PUCs</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
 
-{{ rows|json_script:"tabledata" }}
+{{ form.media }}
+{{ object_list|json_script:"tabledata" }}
 <script src="{% static 'js/dashboard/rawcategory_to_puc.js' %}"></script>
 
 {% endblock %}

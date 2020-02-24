@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils.timezone import now
 
 from dashboard.forms import create_detail_formset
 from dashboard.forms.forms import ExtractedTextFUForm
-from dashboard.models import DataDocument, GroupType, DataGroup
+from dashboard.models import DataDocument, GroupType, DataGroup, DataSource
 from dashboard.tests.loader import load_model_objects
 
 
@@ -17,7 +18,10 @@ class ExtractedTextFormsTest(TestCase):
         # Add functional use Grouptype, DataGroup and DataDoc for test_functional_use_forms (could be a test case)
         cls.group_type = GroupType.objects.create(code="FU", title="Functional Use")
         cls.data_group = DataGroup.objects.create(
-            group_type=cls.group_type, downloaded_at=now(), data_source_id=1
+            group_type=cls.group_type,
+            downloaded_at=now(),
+            downloaded_by=User.objects.first(),
+            data_source=DataSource.objects.first(),
         )
         cls.data_doc = DataDocument.objects.create(data_group=cls.data_group)
 

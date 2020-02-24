@@ -1,3 +1,8 @@
+// Bootstrap 4 fix for ProductPUCForm drop-down.
+//
+// https://github.com/sweetalert2/sweetalert2/issues/374#issuecomment-494174745
+$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
 var rows = JSON.parse(document.getElementById('tabledata').textContent);
 
 var columnDefs = [
@@ -32,8 +37,48 @@ var gridOptions = {
         params.api.sizeColumnsToFit();
       })
     })
-  }
+  },
+  rowSelection: 'multiple',
+  onSelectionChanged: onSelectionChanged,
 };
+
+function onSelectionChanged() {
+    var selectedRows = gridOptions.api.getSelectedRows();
+    var selectedRowsString = '';
+    var selectedRowsList = '';
+    var selectedRowsArray = [];
+    var maxToShow = 5;
+
+    selectedRows.forEach(function(selectedRow, index) {
+        if (index >= maxToShow) {
+            return;
+        }
+
+        if (index > 0) {
+            selectedRowsString += ', ';
+        }
+
+        selectedRowsString += selectedRow.data_group__name;
+        selectedRowsList += "<li>" + selectedRow.data_group__name + " - " + selectedRow.raw_category + "</li>"
+        selectedRowsArray.push({"datagroup": selectedRow.data_group__id, "raw_category": selectedRow.raw_category})
+    });
+
+    if (selectedRows.length > maxToShow) {
+        var othersCount = selectedRows.length - maxToShow;
+        selectedRowsString += ' and ' + othersCount + ' other' + (othersCount !== 1 ? 's' : '');
+    }
+
+    document.querySelector('#selectedRows').innerHTML = selectedRowsString;
+    document.querySelector('#selectedRowsList').innerHTML = selectedRowsList;
+    document.querySelector('#datagroup_rawcategory_groups').value = JSON.stringify(selectedRowsArray)
+
+    if (selectedRows) {
+        document.getElementById('pucModalBtn').disabled = false
+    }
+    else {
+        document.getElementById('pucModalBtn').disabled = true
+    }
+}
 
 // cell renderer class
 function GroupCellRenderer() {}
