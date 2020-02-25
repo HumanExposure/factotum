@@ -25,7 +25,8 @@ class AuditLog(models.Model):
         sql_stmnt = (
             "SELECT Concat('DROP TRIGGER ', Trigger_Name, ';') "
             "FROM  information_schema.TRIGGERS "
-            f"WHERE TRIGGER_SCHEMA = '{default_db}';"
+            f"WHERE TRIGGER_SCHEMA = '{default_db}' AND "
+            "TRIGGER_NAME LIKE '%auditlog_trigger';"
         )
         with connection.cursor() as cursor:
             cursor.execute(sql_stmnt)
@@ -64,7 +65,7 @@ class AuditLog(models.Model):
             table_name = app_label + "_" + model
             id = apps.get_model(app_label, model_name=model)._meta.pk.attname
             trigger_sql += f"""
-                    CREATE TRIGGER  {table_name}_update_trigger
+                    CREATE TRIGGER  {table_name}_update_auditlog_trigger
                     AFTER UPDATE ON {table_name}
                     FOR EACH ROW
                     BEGIN
@@ -83,7 +84,7 @@ class AuditLog(models.Model):
             trigger_sql += f"""
                 END;
 
-                CREATE TRIGGER  {table_name}_insert_trigger
+                CREATE TRIGGER  {table_name}_insert_auditlog_trigger
                 AFTER INSERT ON {table_name}
                 FOR EACH ROW
                 BEGIN
@@ -100,7 +101,7 @@ class AuditLog(models.Model):
             trigger_sql += f"""
                 END;
 
-                CREATE TRIGGER  {table_name}_delete_trigger
+                CREATE TRIGGER  {table_name}_delete_auditlog_trigger
                 AFTER DELETE ON {table_name}
                 FOR EACH ROW
                 BEGIN
