@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import OuterRef, Subquery
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -35,6 +35,7 @@ from django.forms import inlineformset_factory
 
 CHEMICAL_FORMS = {
     "CO": ExtractedChemicalForm,
+    "LM": ExtractedChemicalForm,
     "FU": ExtractedFunctionalUseForm,
     "CP": ExtractedListPresenceForm,
     "HH": ExtractedHHRecForm,
@@ -285,10 +286,8 @@ def extracted_text_edit(request, pk):
     if form.is_valid():
         form.save()
         doc.save()
-        return redirect("data_document", pk=doc.pk)
-    else:
-        extracted_text.delete()
-        return HttpResponse("Houston, we have a problem.")
+        return JsonResponse({"message": "success"})
+    return JsonResponse(form.errors, status=400)
 
 
 @login_required

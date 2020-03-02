@@ -376,6 +376,10 @@ class TestEditsWithSeedData(StaticLiveServerTestCase):
             prod_name_box.send_keys("Fake Product")
             save_button = self.browser.find_element_by_id("extracted-text-modal-save")
             save_button.click()
+            self.browser.refresh()
+            self.assertEqual(
+                self.browser.find_element_by_id("id_prod_name").text, "Fake Product"
+            )
             # Confirm the presence of the new ExtractedText record
             et = ExtractedText.objects.get(data_document_id=doc_id)
             self.assertEqual(

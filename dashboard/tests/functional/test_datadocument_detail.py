@@ -255,14 +255,12 @@ class DataDocumentDetailTest(TestCase):
             doc.is_extracted, ("This document is matched " "but not extracted")
         )
         data = {"hhe_report_number": ["47"]}
-        response = self.client.post(
-            "/extractedtext/edit/354784/", data=data, follow=True
-        )
+        self.client.post("/extractedtext/edit/354784/", data=data)
         doc.refresh_from_db()
         self.assertTrue(doc.is_extracted, "This document should be extracted ")
-        page = html.fromstring(response.content)
-
-        hhe_no = page.xpath('//*[@id="id_hhe_report_number"]')[0].text
+        response = self.client.get(reverse("data_document", args=[doc.pk]))
+        response_html = html.fromstring(response.content.decode("utf8"))
+        hhe_no = response_html.xpath('//*[@id="id_hhe_report_number"]')[0].text
         self.assertIn("47", hhe_no)
 
     def test_delete(self):

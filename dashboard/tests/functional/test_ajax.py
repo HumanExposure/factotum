@@ -55,7 +55,7 @@ class TestAjax(TestCase):
         response = self.client.get("/d_json/?" + params.format(search="shampoo"))
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.content)
-        self.assertEquals(data["recordsTotal"], 557)
+        self.assertEquals(data["recordsTotal"], 558)
         self.assertEquals(data["recordsFiltered"], 7)
         self.assertEquals(len(data["data"]), 7)
 

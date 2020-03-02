@@ -389,7 +389,8 @@
                                 </button>
                             </div>
                             <form action="{% url 'extracted_text_edit' doc.id %}"
-                                  method="post">
+                                  method="post"
+                                  id="extracted-text-form">
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -417,7 +418,7 @@
         <!-- chemical card panel -->
         {% if doc.data_group.is_habits_and_practices %}
             {% include 'data_document/hnp_cards.html' %}
-        {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition %}
+        {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition or doc.data_group.is_literature_monitoring %}
             {% include 'data_document/co_cp_chemical_cards.html' %}
         {% else %}
             {% include 'data_document/chemical_cards.html' %}
@@ -473,6 +474,7 @@
     <script src="{% static 'js/dashboard/toggle_text.js' %}"></script>
     <script src="{% static 'bootstrap-slider/bootstrap-slider.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail.js' %}"></script>
+    <script type="module" src="{% static 'js/dashboard/datadocument_detail_ajax.js' %}"></script>
     {% if doc.data_group.is_chemical_presence %}
         <script type="text/javascript" src="{% static 'js/dashboard/datadocument_detail_CP.js' %}"></script>
     {% endif %}

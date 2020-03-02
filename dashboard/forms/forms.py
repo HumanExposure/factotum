@@ -24,6 +24,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     ExtractedListPresence,
     ExtractedHHRec,
+    ExtractedLMDoc,
 )
 
 from dashboard.utils import get_extracted_models
@@ -244,6 +245,24 @@ class ExtractedHHDocForm(ExtractedTextForm):
         ]
 
 
+class ExtractedLMDocForm(ExtractedTextForm):
+    class Meta:
+        model = ExtractedLMDoc
+        fields = ExtractedTextForm.Meta.fields + ["study_type", "pmid", "media"]
+
+        widgets = {
+            "media": forms.Textarea(attrs={"rows": 4, "cols": 25}),
+            "pmid": forms.TextInput(
+                attrs={
+                    "type": "number",
+                    "min": "0",
+                    "step": "1",
+                    "style": "-moz-appearance: textfield",
+                }
+            ),
+        }
+
+
 class ExtractedHHDocEditForm(ExtractedHHDocForm):
     class Meta(ExtractedHHDocForm.Meta):
         fields = ExtractedHHDocForm.Meta.fields + ["doc_date"]
@@ -388,7 +407,19 @@ def create_detail_formset(document, extra=1, can_delete=False, exclude=[], hidde
         ParentForm = ExtractedHHDocForm if extracted else ExtractedHHDocEditForm
         return (ParentForm, HHFormSet)
 
-    dg_types = {"CO": one, "UN": one, "FU": two, "HP": three, "CP": four, "HH": five}
+    def six():  # for extracted_lm_doc
+        LMFormSet = make_formset(parent, child)
+        return (ExtractedLMDocForm, LMFormSet)
+
+    dg_types = {
+        "CO": one,
+        "UN": one,
+        "FU": two,
+        "HP": three,
+        "CP": four,
+        "HH": five,
+        "LM": six,
+    }
     func = dg_types.get(group_type, lambda: None)
     return func()
 

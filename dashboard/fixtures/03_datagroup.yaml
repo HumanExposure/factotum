@@ -300,3 +300,16 @@
     data_source: 25
     group_type: 5
     url: ''
+- model: dashboard.datagroup
+  pk: 54
+  fields:
+    created_at: '2019-10-07 22:49:26.938843'
+    updated_at: '2019-10-07 22:49:26.938843'
+    name: Literature Monitoring Data Group
+    description: ''
+    downloaded_by: 1
+    downloaded_at: '2020-02-26 00:00:00'
+    download_script: null
+    data_source: 31
+    group_type: 8
+    url: ''

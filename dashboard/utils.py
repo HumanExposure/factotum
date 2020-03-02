@@ -8,6 +8,7 @@ from dashboard.models import (
     ExtractedFunctionalUse,
     ExtractedHabitsAndPractices,
     ExtractedHHDoc,
+    ExtractedLMDoc,
     ExtractedHHRec,
     ExtractedListPresence,
     ExtractedText,
@@ -213,6 +214,8 @@ def get_extracted_models(t):
         return (ExtractedText, ExtractedHabitsAndPractices)
     elif t == "HH":
         return (ExtractedHHDoc, ExtractedHHRec)
+    elif t == "LM":
+        return (ExtractedLMDoc, ExtractedChemical)
     else:
         return (None, None)
 

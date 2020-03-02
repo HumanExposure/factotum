@@ -70,7 +70,8 @@ function save_qa_notes() {
     });
 };
 
-
+// Todo: This function now contained within csrf_ajax.
+// This code could be replaced with `import csrf_ajax from '../modules/csrf_ajax.js'`
 $(function () {
 
 
@@ -128,6 +129,7 @@ $(function () {
     });
 
 });
+// end csrf_ajax.js code
 
 $('#chemical-audit-log-modal').on('show.bs.modal', function (event) {
     $('[data-toggle]').tooltip('hide');

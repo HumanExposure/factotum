@@ -2,6 +2,7 @@ from django.db import migrations, models
 from django.conf import settings
 from django.db import connection
 
+
 def drop_old_triggers(apps, schema_editor):
     default_db = settings.DATABASES["default"]["NAME"]
     sql_stmnt = (
@@ -18,19 +19,24 @@ def drop_old_triggers(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('dashboard', '0146_functionaluse'),
-    ]
+    dependencies = [("dashboard", "0146_functionaluse")]
 
     operations = [
         migrations.AlterField(
-            model_name='producttopuc',
-            name='classification_method',
-            field=models.CharField(choices=[('MA', 'Manual'), ('AU', 'Automatic'), ('RU', 'Rule Based'), ('MB', 'Manual Batch'), ('BA', 'Bulk Assignment')], default='MA', max_length=2),
+            model_name="producttopuc",
+            name="classification_method",
+            field=models.CharField(
+                choices=[
+                    ("MA", "Manual"),
+                    ("AU", "Automatic"),
+                    ("RU", "Rule Based"),
+                    ("MB", "Manual Batch"),
+                    ("BA", "Bulk Assignment"),
+                ],
+                default="MA",
+                max_length=2,
+            ),
         ),
         # clean out all old triggers
-        migrations.RunPython(
-            drop_old_triggers,
-            reverse_code=migrations.RunPython.noop
-        ),
+        migrations.RunPython(drop_old_triggers, reverse_code=migrations.RunPython.noop),
     ]

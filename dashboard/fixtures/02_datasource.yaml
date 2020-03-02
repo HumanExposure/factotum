@@ -164,3 +164,8 @@
   fields: {created_at: ! '2019-02-21 13:58:08.340107', updated_at: ! '2019-02-21 13:58:08.340134',
     title: HHE Reports, url: '', estimated_records: 10, state: AT, description: '',
     priority: HI}
+- model: dashboard.datasource
+  pk: 31
+  fields: {created_at: ! '2019-02-21 13:58:08.340107', updated_at: ! '2019-02-21 13:58:08.340134',
+    title: Literature Monitoring, url: '', estimated_records: 1, state: AT, description: '',
+    priority: HI}

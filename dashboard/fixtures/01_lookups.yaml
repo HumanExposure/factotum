@@ -68,6 +68,16 @@
       description: null,
       code: HH,
     }
+- model: dashboard.grouptype
+  pk: 8
+  fields:
+    {
+      created_at: ! "2020-02-21 09:08:21.651124",
+      updated_at: ! "2020-02-21 09:08:21.651149",
+      title: Literature Monitoring,
+      description: null,
+      code: LM,
+    }
 - model: dashboard.dsstoxlookup
   pk: 8
   fields:
@@ -552,6 +562,13 @@
     updated_at: 2019-09-29 16:52:33.269608
     document_type: 29
     group_type: 1
+- model: dashboard.documenttypegrouptypecompatibilty
+  pk: 33
+  fields:
+    created_at: 2020-02-21 16:52:33.269583
+    updated_at: 2020-02-21 16:52:33.269608
+    document_type: 29
+    group_type: 8
 
 - model: dashboard.unittype
   pk: 1

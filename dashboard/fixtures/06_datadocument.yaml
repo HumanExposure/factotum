@@ -44,6 +44,21 @@
     note: null
     file: 9d387c75-2a4c-4f6e-976b-88a215b05e52.PDF
 - model: dashboard.datadocument
+  pk: 9
+  fields:
+    created_at: 2018-03-09 11:32:00.392831
+    updated_at: 2018-10-14 00:02:30.509335
+    filename: Sample.PDF
+    title: Literature Monitoring
+    subtitle: null
+    url: https://www.google.com.pdf
+    raw_category: ''
+    data_group: 54
+    document_type: 29
+    organization: ''
+    note: null
+    file: 9d387c75-2a4c-4f6e-976b-88a215b05e52.PDF
+- model: dashboard.datadocument
   pk: 53
   fields:
     created_at: 2018-03-12 09:10:17.429346

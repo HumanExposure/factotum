@@ -76,6 +76,10 @@ class DataGroup(CommonInfo):
         return self.type == "HH"
 
     @property
+    def is_literature_monitoring(self):
+        return self.type == "LM"
+
+    @property
     def can_have_products(self):
         return bool(self.type not in ["HH", "CP", "HP", "FU"])
 
