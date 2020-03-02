@@ -5,7 +5,7 @@
     updated_at: 2020-01-30 02:45:44.186862
     chem: 4
     report_funcuse: swell
-    clean_funcuse: ""
+    clean_funcuse: clean
 - model: dashboard.functionaluse
   pk: 2
   fields:
@@ -13,7 +13,7 @@
     updated_at: 2020-01-30 02:45:44.187558
     chem: 856
     report_funcuse: kayaking
-    clean_funcuse: ""
+    clean_funcuse: "test clean"
 - model: dashboard.functionaluse
   pk: 3
   fields:

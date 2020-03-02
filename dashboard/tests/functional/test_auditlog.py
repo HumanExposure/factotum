@@ -128,7 +128,11 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             chemical.central_wf_analysis = 0.44
             chemical.upper_wf_analysis = 0.88
             chemical.save()
-            rfu = FunctionalUse(chem=chemical, report_funcuse="report func use")
+            rfu = FunctionalUse(
+                chem=chemical,
+                report_funcuse="report func use",
+                clean_funcuse="clean func use",
+            )
             rfu.save()
 
         logs = AuditLog.objects.all()
@@ -138,6 +142,7 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         self.assertEquals(3, sum(log.field_name == "raw_central_comp" for log in logs))
         self.assertEquals(3, sum(log.field_name == "unit_type_id" for log in logs))
         self.assertEquals(3, sum(log.field_name == "report_funcuse" for log in logs))
+        self.assertEquals(3, sum(log.field_name == "clean_funcuse" for log in logs))
         self.assertEquals(3, sum(log.field_name == "ingredient_rank" for log in logs))
         self.assertEquals(3, sum(log.field_name == "upper_wf_analysis" for log in logs))
         self.assertEquals(
@@ -355,7 +360,11 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
         # add a related FunctionalUse record
         efs = ExtractedFunctionalUse.objects.filter(extracted_text_id=dd_id)
         for ef in efs:
-            efu = FunctionalUse(chem=ef, report_funcuse="test func use")
+            efu = FunctionalUse(
+                chem=ef,
+                report_funcuse="test func use",
+                clean_funcuse="test clean func use",
+            )
             efu.save()
 
         logs = AuditLog.objects.all()
@@ -366,6 +375,13 @@ class AuditLogTest(TempFileMixin, TransactionTestCase):
             self.assertEquals(log.model_name, "functionaluse")
             self.assertIsNotNone(log.new_value)
             self.assertEquals(log.new_value, "test func use")
+            self.assertIsNotNone(log.date_created)
+            self.assertIsNotNone(log.user_id)
+            self.assertEquals("I", log.action, "Should be Insert action")
+        for log in logs.filter(field_name="clean_funcuse"):
+            self.assertEquals(log.model_name, "functionaluse")
+            self.assertIsNotNone(log.new_value)
+            self.assertEquals(log.new_value, "test clean func use")
             self.assertIsNotNone(log.date_created)
             self.assertIsNotNone(log.user_id)
             self.assertEquals("I", log.action, "Should be Insert action")

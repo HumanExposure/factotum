@@ -3,6 +3,7 @@ import io
 import os
 from django.conf import settings
 from django.core.files import File
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.test import TestCase, tag
 from django.db.utils import IntegrityError
@@ -365,3 +366,33 @@ class DocumentTypeTest(TestCase):
             num_ex_doc_post_rm == num_ex_doc_pre_rm + num_doc_pre_rm,
             "Too many DataDocument.document_types nullified",
         )
+
+
+class FunctionalUseModelTest(TestCase):
+    fixtures = fixtures_standard
+
+    def test_funcuse_fields(self):
+        fields = ["chem", "report_funcuse", "clean_funcuse"]
+        model_fields = [f.name for f in FunctionalUse._meta.get_fields()]
+        for fld in fields:
+            self.assertIn(
+                fld, model_fields, f'"{fld}"" field should be in FunctionalUse model.'
+            )
+
+    def test_functionaluse(self):
+        # read
+        fc = FunctionalUse.objects.filter(pk=1).first()
+        self.assertEquals(fc.report_funcuse, "swell")
+        self.assertEquals(fc.clean_funcuse, "clean")
+
+        # update
+        fc.report_funcuse = "report use"
+        fc.clean_funcuse = "clean use"
+        fc.save()
+        fc = FunctionalUse.objects.filter(pk=1).first()
+        self.assertEquals(fc.report_funcuse, "report use")
+        self.assertEquals(fc.clean_funcuse, "clean use")
+
+    def test_functionaluse_validation(self):
+        funcuse = FunctionalUse(report_funcuse="", clean_funcuse="")
+        self.assertRaises(ValidationError, funcuse.clean_fields)
