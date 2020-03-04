@@ -68,15 +68,25 @@ class ChemicalCurationFormSet(DGFormSet):
         for form in self.forms:
             form.cleaned_data["true_chemname"] = form.cleaned_data["true_chemical_name"]
             dss_dict = clean_dict(form.cleaned_data, DSSToxLookup)
+            # Option 1: identical DSSToxLookup already exists; just get it
             if DSSToxLookup.objects.filter(**dss_dict).exists():
                 dss = DSSToxLookup.objects.get(**dss_dict)
             else:
+                # Option 2: matching DSSToxLookup exists in the db; get it and update its attributes
                 if DSSToxLookup.objects.filter(sid=dss_dict["sid"]).exists():
                     dss = DSSToxLookup.objects.get(sid=dss_dict["sid"])
                     dss.true_chemname = dss_dict["true_chemname"]
                     dss.true_cas = dss_dict["true_cas"]
                     dss.updated_at = timezone.now()
                     made_dsstox.append(dss)
+                # Option 3: matching DSSToxLookup exists in new_dsstox list but not yet in db; get it
+                elif any(
+                    dsstox for dsstox in new_dsstox if dsstox.sid == dss_dict["sid"]
+                ):
+                    dss = next(
+                        dsstox for dsstox in new_dsstox if dsstox.sid == dss_dict["sid"]
+                    )
+                # Option 4: no matching DSSToxLookup exists; create it
                 else:
                     dss = DSSToxLookup(**dss_dict)
                     new_dsstox.append(dss)
@@ -89,5 +99,9 @@ class ChemicalCurationFormSet(DGFormSet):
             DSSToxLookup.objects.bulk_update(
                 made_dsstox, ["true_chemname", "true_cas", "updated_at"]
             )
+            # This is a costly way to find newly created matching DSSToxLookups
+            for chem in update_chems:
+                if not chem.dsstox.pk:
+                    chem.dsstox = DSSToxLookup.objects.get(sid=chem.dsstox.sid)
             RawChem.objects.bulk_update(update_chems, ["dsstox", "rid"])
         return len(self.forms)

@@ -1,3 +1,5 @@
+import csv
+
 from django.test import TestCase
 from django.urls import resolve
 
@@ -57,21 +59,38 @@ class ChemicalCurationTests(TestCase):
         )
 
     def test_chemical_curation_upload(self):
-        true_chemname = "Terpenes and Terpenoids, mixed sour and sweet Orange-oil"
-        self.assertEqual(
-            0,
-            DSSToxLookup.objects.filter(true_chemname=true_chemname).count(),
-            "No matching true_chemname should exist",
-        )
+        # Load data from csv
         with open("./sample_files/chemical_curation_upload.csv") as csv_file:
-            response = self.client.post(
+            reader = csv.DictReader(csv_file)
+            rows = [row for row in reader]
+        self.assertIsNotNone(rows, "CSV failed to read")
+
+        with open("./sample_files/chemical_curation_upload.csv") as csv_file:
+            self.client.post(
                 "/chemical_curation/", {"curate-bulkformsetfileupload": csv_file}
             )
-        self.assertEqual(
-            1,
-            DSSToxLookup.objects.filter(true_chemname=true_chemname).count(),
-            "Now a matching true_chemname should exist",
-        )
+
+        for row in rows:
+            # All true chemicals in the CSV should exist
+            self.assertEqual(
+                1,
+                DSSToxLookup.objects.filter(sid=row["sid"]).count(),
+                "A matching sid should exist",
+            )
+            rawchem = RawChem.objects.select_related("dsstox").get(
+                pk=row["external_id"]
+            )
+            # All Raw Chemicals in the CSV should be associated
+            self.assertIsNotNone(
+                rawchem.dsstox,
+                f"RawChem {rawchem.pk} was not associated with any DSSTOX",
+            )
+            # All Raw Chemicals in the CSV should be associated with the correct sid
+            self.assertEqual(
+                rawchem.dsstox.sid,
+                row["sid"],
+                f"RawChem {rawchem.pk} was not associated with {row['sid']}",
+            )
 
     def test_chem_create_url_resolves_view(self):
         doc = DataDocument.objects.first()
