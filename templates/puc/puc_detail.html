@@ -105,31 +105,31 @@
             <li class="col-lg-4 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center active"
                    data-toggle="pill"
-                   href="#prod-table-div"
-                   id="productos">
+                   href="#product-table-div"
+                   id="product-tab-header">
                     <b>Products</b>
                 </a>
             </li>
             <li class="col-lg-4 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center" 
                    data-toggle="pill" 
-                   href="#doc-table-div"
-                   id="documentos">
+                   href="#document-table-div"
+                   id="document-tab-header">
                     <b>Documents</b>
                 </a>
             </li>
             <li class="col-lg-4 nav-item h-nav border rounded p-0">
                 <a class="nav-link text-center" 
                    data-toggle="pill" 
-                   href="#chem-table-div"
-                   id="quimicos">
+                   href="#chemical-table-div"
+                   id="chemical-tab-header">
                     <b>Chemicals</b>
                 </a>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane container p-0 active" id="prod-table-div">
+            <div class="tab-pane container p-0 active" id="product-table-div">
                 <h4>Products Assigned To "{{ puc }}"</h4>
                 <table class="table table-striped dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"
@@ -143,7 +143,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="tab-pane container p-0 fade" id="doc-table-div">
+            <div class="tab-pane container p-0 fade" id="document-table-div">
                 <h4>Documents Associated with "{{ puc }}"</h4>
                 <table class="table table-striped  dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"
@@ -157,7 +157,7 @@
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="tab-pane container p-0 fade" id="chem-table-div">
+            <div class="tab-pane container p-0 fade" id="chemical-table-div">
                 <h4>Chemicals Associated with "{{ puc }}"</h4>
                 <table class="table table-striped  dataTable no-footer table-sm" 
                     data-puc="{{ puc.id }}"

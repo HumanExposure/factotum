@@ -2,118 +2,118 @@
 {% load staticfiles %}
 {% load humanize %}
 
-{% block title %}Chemical Detail: {{chemical|title}}{% endblock %}
+{% block title %}Chemical Detail: {{ chemical|title }}{% endblock %}
 
 {% block content %}
-{% if pucs.children %}
-    <button id="flipbtn" class="btn btn-outline-secondary">Show Table</button>
-{% endif %}
-<div class="row">
-    <div class="col-5 p-0">
-        <h1>
+    <div class="row">
+        <div class="col-5 p-0">
+            <h1>
             <span class='pr-1' data-toggle="tooltip" data-placement="right" title="Chemical Name">{{ chemical|title }}
             </span>
-        </h1>
-        <h4>
+            </h1>
+            <h4>
             <span class='pr-1' data-toggle="tooltip" data-placement="right" title="View in COMPTOX">
                 <a target="_blank" href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.sid }}">
                     {{ chemical.sid }}
                 </a>
             </span>
-        </h4>
-        <h4>
+            </h4>
+            <h4>
             <span class='pr-1' data-toggle="tooltip" data-placement="right" title="CAS">{{ chemical.true_cas|title }}
             </span>
-        </h4>
-        <div>
+            </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 p-0">
             {% include "core/components/puc/bubble_puc_legend.html" %}
+        </div>
+        <div class="col-7">
+            {% if pucs.children %}
+                <svg id="nestedcircles" width="100%" height="500"></svg>
+            {% else %}
+                <h3>No PUCs associated with this chemical.</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="tab-content col-12">
             {% if keysets|length > 0 %}
-            <br>
-            <div class="card">
-                <div class="card-header text-center p-1">
-                    <h5 class="m-0">
-                        <b>Associated List Presence Keyword Sets</b>
-                    </h5>
-                </div>
-                <div class="accordion" id="keyAccordion">
-                    {% for keyset in keysets %}
-                    <div class="card">
-                        <div class="card-header-sm bg-light" id="keyCard">
+                <div class="card">
+                    <div class="card-header text-center p-1">
+                        <h5 class="m-0">
+                            <b>Associated List Presence Keyword Sets</b>
+                        </h5>
+                    </div>
+                    <div class="accordion" id="keyAccordion">
+                        {% for keyset in keysets %}
+                            <div class="card">
+                                <div class="card-header-sm bg-light" id="keyCard">
                             <span>
                                 <span class="dot dot-dg-chem text-center ml-2"
-                                        title="Number of related documents"
-                                        data-toggle="tooltip">
+                                      title="Number of related documents"
+                                      data-toggle="tooltip">
                                     <small><b>{{ keyset.count }}</b></small>
                                 </span>
                                 <button class="btn btn-light"
-                                        {% if keyset.keywords|join:' , '|length <= 45 %}
-                                            disabled    
-                                        {% endif %} 
-                                        type="button" 
-                                        data-toggle="collapse" 
-                                        data-target="#pid-{{keyset.presence_id}}" aria-expanded="true" 
+                                        {% if keyset.keywords|join:' , '|length <= 80 %}
+                                        disabled
+                                        {% endif %}
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#pid-{{ keyset.presence_id }}" aria-expanded="true"
                                         aria-controls="collapseOne">
-                                    <b>{ {{ keyset.keywords|join:" , "|truncatechars:45 }} }</b>
+                                    <b>{ {{ keyset.keywords|join:" , "|truncatechars:80 }} }</b>
                                 </button>
                                 <a id="keywords-{{ forloop.counter }}"
-                                    class="float-right rounded mr-2 my-1 p-1"
-                                    title="Filter table by Keyword Set"
-                                    data-presence-id={{ keyset.presence_id }}
-                                    data-toggle="tooltip"
-                                    data-placement="top">
+                                   class="float-right rounded mr-2 my-1 p-1"
+                                   title="Filter table by Keyword Set"
+                                   data-presence-id={{ keyset.presence_id }}
+                                           data-toggle="tooltip"
+                                   data-placement="top">
                                     <i class="fa fa-filter fa-lg icon-secondary"></i>
                                 </a>
                         </span>
 
-                        </div>
-                        {% if keyset.keywords|join:" , "|length > 45 %}
-                        <div id="pid-{{keyset.presence_id}}"
-                            class="collapse" 
-                            aria-labelledby="keyCard" 
-                            data-parent="#keyAccordion">
-                            <div class="card-body py-0">
-                                <b>{ {{ keyset.keywords|join:" , " }} }</b>
+                                </div>
+                                {% if keyset.keywords|join:" , "|length > 80 %}
+                                    <div id="pid-{{ keyset.presence_id }}"
+                                         class="collapse"
+                                         aria-labelledby="keyCard"
+                                         data-parent="#keyAccordion">
+                                        <div class="card-body py-0">
+                                            <b>{ {{ keyset.keywords|join:" , " }} }</b>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
-                        </div>
-                        {% endif %}
+                        {% endfor %}
                     </div>
-                    {% endfor %} 
                 </div>
-            </div>
             {% else %}
-            <div class="card text-center pt-2 mt-2">
-                <h5>
-                    <i class="fa fa-ban" aria-hidden="true"></i>
-                    <b>No Associated List Presence Keyword Sets</b>
-                </h5>
-            </div>
-        {% endif %}
+                <div class="card text-center pt-2 mt-2">
+                    <h5>
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                        <b>No Associated List Presence Keyword Sets</b>
+                    </h5>
+                </div>
+            {% endif %}
         </div>
     </div>
-    <div class="col-7 pl-4 pr-0">   
-        {% if pucs.children %}
-        <svg id="nestedcircles" width="100%" height="500" class=
-            {% if not pucs.children %}
-                "trans-bubble"
-            {% endif %}>
-        </svg>
-        {% endif %}
-        <div id="tbldiv" class= {% if not pucs.children %}
-                                "trans-table"
-                                {% endif %}>
-            {% if not pucs.children %}
-                <h3>No PUCs associated with this chemical.</h3>
-                <hr>
-            {% endif %}
+
+    <div class="row mt-4">
+        <div class="tab-content col-12">
             <h4 class="mt-2 mb-2">Documents Associated with "{{ chemical.true_chemname }}"
                 <span class="float-right">
-                    <button id="reset" class="btn btn-outline-secondary p-1" disabled>Show All Documents</button>
+                    <button id="reset-documents" class="btn btn-outline-secondary p-1"
+                            disabled>Show All Documents</button>
                 </span>
             </h4>
-            <table class="table table-striped  dataTable table-sm" 
-                data-sid="{{ chemical.sid }}"
-                id="documents">
-                <thead >
+            <table class="table table-striped  dataTable table-sm"
+                   data-sid="{{ chemical.sid }}"
+                   id="documents">
+                <thead>
                 <tr>
                     <th>Document</th>
                     <th>Data Type</th>
@@ -121,10 +121,10 @@
                 </thead>
                 <tbody></tbody>
                 <tfoot class="m-0">
-                    <tr>
-                        <th id="info_text" class="m-0"></th>
-                        <th class="m-0 p-0">
-                            {% if group_types.count > 1%}
+                <tr>
+                    <th id="documents_info_text" class="m-0"></th>
+                    <th class="m-0 p-0">
+                        {% if group_types.count > 1 %}
                             <div class="form-group m-0">
                                 <select class="form-control"
                                         id="group_type_dropdown"
@@ -134,34 +134,60 @@
                                         All
                                     </option>
                                     {% for gt in group_types %}
-                                    <option value="{{ gt.pk }}">
-                                        {{ gt }}
-                                    </option>
+                                        <option value="{{ gt.pk }}">
+                                            {{ gt }}
+                                        </option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            {% else %}
+                        {% else %}
                             All 1 GroupType
-                            {% endif %}
-                        </th>
-                    </tr>
+                        {% endif %}
+                    </th>
+                </tr>
                 </tfoot>
             </table>
         </div>
     </div>
-</div>
 
 
+    <div class="row mt-4">
+        <div class="tab-content col-12">
+            <h4 class="mt-2 mb-2">Products Containing "{{ chemical.true_chemname }}"
+                <span class="float-right">
+                    <button id="reset-products" class="btn btn-outline-secondary p-1"
+                            disabled>Show All Products</button>
+                </span>
+            </h4>
+            <table class="table table-striped  dataTable table-sm"
+                   data-sid="{{ chemical.sid }}"
+                   id="products">
+                    <th>Product</th>
+                    <th>Associated Document</th>
+                    <th>PUC</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot class="m-0">
+                <tr>
+                    <th id="products_info_text" class="m-0"></th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 {% endblock %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static "css/dashboard/chemical_detail.css" %}">
 {% endblock %}
+
 {% block js %}
-<script src="{% static 'js/d3.v5.min.js' %}"></script>
-<script src="{% static 'js/dashboard/dsstox_detail.js' %}"></script>
-<script src="{% static 'js/bubble_chart.js' %}"></script>
-<script src="{% static 'js/bubble_puc_legend.js' %}"></script>
-<script>
-    nestedBubbleChart(500, 500, true, "{% url 'bubble_PUCs' %}?dtxsid={{ chemical.sid }}")
-</script>
+    <script src="{% static 'js/d3.v5.min.js' %}"></script>
+    <script src="{% static 'js/dashboard/chemical_detail.js' %}"></script>
+    <script src="{% static 'js/bubble_chart.js' %}"></script>
+    <script src="{% static 'js/bubble_puc_legend.js' %}"></script>
+    <script>
+        nestedBubbleChart(500, 500, false, "{% url 'bubble_PUCs' %}?dtxsid={{ chemical.sid }}")
+    </script>
 {% endblock %}

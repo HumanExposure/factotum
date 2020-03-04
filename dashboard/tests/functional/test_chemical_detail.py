@@ -1,4 +1,5 @@
 import json
+from lxml import html
 
 from django.test import TestCase
 
@@ -105,3 +106,27 @@ class ChemicalDetail(TestCase):
         response = self.client.get("/chemical/DTXSID6026296/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Water")
+
+    def test_product_table(self):
+        dss = DSSToxLookup.objects.get(sid="DTXSID6026296")
+        response = self.client.get(dss.get_absolute_url())
+        self.assertContains(response, "Products Containing \"water\"")
+
+        response_html = html.fromstring(response.content)
+        datatable_sid = response_html.xpath('//*[@id="products"]/@data-sid')[0]
+        self.assertEqual(dss.sid, datatable_sid, "Product datatable sid incorrect")
+
+        response = self.client.get(f"/chemical_product_json/?sid={dss.sid}&search[value]=Creme")
+        data = json.loads(response.content)
+        self.assertEqual(
+            data["recordsTotal"],
+            6,
+            f"DSSTox pk={dss.pk} should have 6 total records in the JSON",
+        )
+        self.assertEqual(
+            data["recordsFiltered"],
+            2,
+            f"DSSTox pk={dss.pk} should have 2 records matching the search \"Creme\" in the JSON",
+        )
+
+

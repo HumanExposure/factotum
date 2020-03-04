@@ -133,7 +133,7 @@ class Product(CommonInfo):
         """A generator of all RawChem objects in this product
 
         It's recommended to first "prefetch_related" the RawChem objects:
-            Product.objecs.prefetch_related("datadocument_set__extractedtext__rawchem")
+            Product.objects.prefetch_related("datadocument_set__extractedtext__rawchem")
         """
         for doc in self.datadocument_set.all():
             try:

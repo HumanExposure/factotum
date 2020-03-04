@@ -58,7 +58,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
         )
 
         # Data Documents
-        doc_btn = self.browser.find_element_by_id("documentos")
+        doc_btn = self.browser.find_element_by_id("document-tab-header")
         doc_btn.click()
         wait.until(
             ec.text_to_be_present_in_element(
@@ -68,7 +68,7 @@ class TestPUCProductAndDocumentTables(StaticLiveServerTestCase):
         )
 
         # Chemicals
-        chem_btn = self.browser.find_element_by_id("quimicos")
+        chem_btn = self.browser.find_element_by_id("chemical-tab-header")
         chem_btn.click()
         wait.until(
             ec.text_to_be_present_in_element(

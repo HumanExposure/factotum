@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    var puc = $('#products').data('puc')
+    var puc = $('#products').data('puc');
 
-    $("#productos").on("click", function(){
-        $("div[id$='table-div']").hide()
-        $("#prod-table-div").show()
+    $("#product-tab-header").on("click", function(){
+        $("div[id$='table-div']").hide();
+        $("#product-table-div").show();
         var producttable = $('#products').DataTable({
             columns: [
                 {
@@ -24,11 +24,11 @@ $(document).ready(function () {
             stateSave: true,
             ajax: "/p_json/?puc=" + puc,
         });
-    })
+    });
 
-    $("#documentos").on("click", function(){
-        $("div[id$='table-div']").hide()
-        $("#doc-table-div").show()
+    $("#document-tab-header").on("click", function(){
+        $("div[id$='table-div']").hide();
+        $("#document-table-div").show();
         var documenttable = $('#documents').DataTable({
             columns: [
                 {
@@ -50,11 +50,11 @@ $(document).ready(function () {
             stateSave: true,
             ajax: "/d_json/?puc=" + puc,
         });
-    })
+    });
 
-    $("#quimicos").on("click", function(){
-        $("div[id$='table-div']").hide()
-        $("#chem-table-div").show()
+    $("#chemical-tab-header").on("click", function(){
+        $("div[id$='table-div']").hide();
+        $("#chemical-table-div").show();
         var chemicaltable = $('#chemicals').DataTable({
             columns: [
                 {
@@ -82,6 +82,6 @@ $(document).ready(function () {
             stateSave: true,
             ajax: "/c_json/?puc=" + puc,
         });
-    })
-    $("#productos").click()
+    });
+    $("#product-tab-header").click()
 });
