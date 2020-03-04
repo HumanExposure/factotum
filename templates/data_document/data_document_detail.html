@@ -420,6 +420,8 @@
             {% include 'data_document/hnp_cards.html' %}
         {% elif doc.data_group.is_chemical_presence or doc.data_group.is_composition or doc.data_group.is_literature_monitoring %}
             {% include 'data_document/co_cp_chemical_cards.html' %}
+        {% elif doc.data_group.is_functional_use %}
+            {% include 'data_document/functional_use_chemical_cards.html' %}
         {% else %}
             {% include 'data_document/chemical_cards.html' %}
         {% endif %}

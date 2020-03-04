@@ -17,9 +17,9 @@
 
             <div class="card-title border-bottom">
 
-                <div class="row mb-1">
-                    <!-- Raw Chem Row -->
-                    <div class="col col-md-5 col-xl-7 text-truncate align-self-center"
+                <!-- Raw Chem Row -->
+                <div class="row mb-1 align-items-center">
+                    <div class="col col-md-5 col-xl-7 text-truncate"
                          id="raw_chem_name-{{ chemical.pk }}"
                          title="{{ chemical.raw_chem_name }}"
                     >
@@ -27,7 +27,7 @@
                             {{ chemical.raw_chem_name }}
                         </small>
                     </div>
-                    <div class="col-12 col-md order-2 text-truncate align-self-center" id="raw_cas-{{ chemical.pk }}">
+                    <div class="col-12 col-md order-2 text-truncate" id="raw_cas-{{ chemical.pk }}">
                         <small class="text-muted" title="{{ chemical.raw_cas }}">
                             {{ chemical.raw_cas }}
                         </small>
@@ -57,8 +57,9 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="row mb-1">
-                    <!-- True Chem Row -->
+
+                <!-- True Chem Row -->
+                <div class="row mb-1 align-items-end">
                     <div class="col-12 col-md-5 col-xl-7 text-truncate">
                         <h3 class="d-inline"
                             id="chem_name-{{ chemical.pk }}"

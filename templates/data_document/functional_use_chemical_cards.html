@@ -1,0 +1,184 @@
+<div class="col-lg-7 scroll-div bg-light shadow rounded"
+     id="cards"
+     data-spy="scroll"
+     data-target="#chem-scrollspy"
+     data-offset="120">
+    {% if not chemicals %}
+        <div class="card mt-2 text-center">
+            There are no chemicals associated with this document.
+        </div>
+    {% endif %}
+    {% for chemical in chemicals %}
+        <div class="card mt-2 big-bottom"
+                 id="chem-{{ chemical.pk }}">
+            <div class="card-body shadow rounded"
+                 id="chem-click-{{ chemical.pk }}"
+                 data-chem-id="{{ chemical.pk }}">
+
+                <!-- card title -->
+                <div class="card-title border-bottom">
+                    <!-- Raw Chem Row -->
+                    <div class="row mb-1 align-items-center">
+                        <div class="col col-md-5 col-xl-7 text-truncate"
+                             id="raw_chem_name-{{ chemical.pk }}"
+                             title="{{ chemical.raw_chem_name }}"
+                        >
+                            <small class="text-muted">
+                                {{ chemical.raw_chem_name }}
+                            </small>
+                        </div>
+                        <div class="col-12 col-md order-2 text-truncate" id="raw_cas-{{ chemical.pk }}">
+                            <small class="text-muted" title="{{ chemical.raw_cas }}">
+                                {{ chemical.raw_cas }}
+                            </small>
+                        </div>
+                        <div class="col-auto order-1 order-md-3 text-right">
+                            {% if doc.detail_page_editable and request.user.is_authenticated %}
+                                <div class="btn-group btn-group-sm"
+                                     id="chemical_edit_buttons">
+                                    <button class="btn btn-outline-secondary hover-success"
+                                            id="chemical-update-{{ chemical.pk }}"
+                                            title="edit"
+                                            href="{% url 'chemical_update' chemical.pk %}"
+                                            data-toggle="modal"
+                                            data-target="#chemical-update-modal"
+                                            value="{{ chemical.pk }}"
+                                            style="z-index: 290;"> <!-- z-index workaround for selenium/webdriver bug -->
+                                        <span class="fa fa-fs fa-edit"></span>
+                                    </button>
+                                    <button class="btn btn-outline-secondary hover-danger"
+                                            title="delete"
+                                            role="button"
+                                            data-toggle="modal"
+                                            data-target="#chem-delete-{{ chemical.pk }}">
+                                        <span class="fa fa-fs fa-trash"></span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- True Chem Row -->
+                    <div class="row mb-1 align-items-end">
+                        <div class="col-12 col-md-5 col-xl-7 text-truncate">
+                            <h3 class="d-inline"
+                                id="chem_name-{{ chemical.pk }}"
+                                title="{{ chemical.dsstox.true_chemname }}"
+                                data-toggle="tooltip"
+                                data-placement="bottom">
+                                {% if chemical.dsstox.true_chemname %}
+                                    <a title="go to substance"
+                                       href="{% url 'chemical' chemical.dsstox.sid %}">
+                                        {{ chemical.dsstox.true_chemname }}
+                                    </a>
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="col-auto text-truncate">
+                            {% if chemical.dsstox.true_cas %}
+                                <h4 class="d-inline"
+                                    title="true cas: {{ chemical.dsstox.true_cas }}"
+                                >
+                                    {{ chemical.dsstox.true_cas }}
+                                </h4>
+                            {% endif %}
+                        </div>
+                        <div class="col text-right text-truncate">
+                            {% if chemical.dsstox %}
+                                <h4 class="d-inline">
+                                    <a href="https://comptox.epa.gov/dashboard/dsstoxdb/results?search={{ chemical.dsstox.sid }}"
+                                       target='_blank'
+                                       title="{{ chemical.dsstox.sid }}"
+                                    >
+                                        {{ chemical.dsstox.sid }}
+                                    </a>
+                                </h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- card text -->
+                <div class="card-text" id="functional_uses_{{chemical.id}}">
+                    {% for functional_use in chemical.functional_uses.all %}
+                        <div class="row
+                             {% if not forloop.last %}
+                                mb-3
+                             {% endif %}">
+                            <div class="col-auto">
+                                <small class="text-muted">Reported:</small>
+                                <br />
+                                <span class="font-weight-bold">Cleaned:</span>
+                            </div>
+                            <div class="col text-truncate">
+                                <small class="text-muted">{{ functional_use.report_funcuse }}</small>
+                                <br />
+                                <span class="font-weight-bold">{{ functional_use.clean_funcuse }}</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div>No Functional Uses Reported</div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        <div class="modal fade"
+             id="chem-delete-{{ chemical.pk }}"
+             tabindex="-1" role="dialog"
+             aria-labelledby="extextModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered"
+                 role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{% url 'chemical_delete' doc.pk chemical.pk %}"
+                          method="post">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            Are you sure you want to delete "{{ chemical }}" ?
+                        </div>
+                        <div class="modal-footer">
+                            <button id="chemical-modal-cancel-{{chemical.pk}}"
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-dismiss="modal"> Cancel
+                            </button>
+                            <button id="chemical-modal-delete-{{chemical.pk}}"
+                                    type="submit"
+                                    class="btn btn-primary">
+                                Delete
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if doc.is_extracted and doc.detail_page_editable and request.user.is_authenticated %}
+        <!-- add chemical -->
+        <div class="card m-4 p-0"
+             id="add_chemical">
+            <button class="btn m-0 p-0 btn-outline-secondary hover-success"
+                    data-toggle="modal"
+                    data-target="#chemical-add-modal">
+                <div class="card-body shadow rounded p-0 m-0 text-center"
+                     data-toggle="tooltip"
+                     title="Add chemical">
+                    <span class="fa fa-fs fa-plus"></span>
+                </div>
+            </button>
+        </div>
+        <div class="modal" id="chemical-add-modal" data-backdrop="static"
+             data-url="{% url 'chemical_create' doc.pk %}"></div>
+        <div class="modal" id="chemical-update-modal" data-backdrop="static"
+             data-url="{% url 'chemical_update' 47 %}"></div>
+        <div class="modal" id="chemical-audit-log-modal" data-backdrop="static"></div>
+    {% endif %}
+</div>

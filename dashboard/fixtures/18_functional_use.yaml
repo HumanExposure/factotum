@@ -53,7 +53,7 @@
     updated_at: 2020-01-30 02:45:44.190748
     chem: 756
     report_funcuse: surfactant
-    clean_funcuse: ""
+    clean_funcuse: "slick"
 - model: dashboard.functionaluse
   pk: 8
   fields:
@@ -61,7 +61,7 @@
     updated_at: 2020-01-30 02:45:44.191449
     chem: 757
     report_funcuse: fragrance
-    clean_funcuse: ""
+    clean_funcuse: "smell"
 - model: dashboard.functionaluse
   pk: 9
   fields:
